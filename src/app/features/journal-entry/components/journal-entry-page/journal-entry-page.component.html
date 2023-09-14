@@ -17,10 +17,7 @@
             <p-calendar class="datepicker" [(ngModel)]="dateValue" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy"></p-calendar>
         </div>
     </div>
-        
-
 </div>
-
 <div class="col-12 xl:col-12 px-8 py-3">
     <app-transaction-table (transactionDetailsEmmited)="retrieveTransactionDetails($event)"></app-transaction-table>
     <!-- Buttons - save, save and register a new journay entry -->
@@ -28,4 +25,17 @@
         <p-button label="Guardar" class="m-2" (click)="save()"></p-button>
         <p-button label="Guardar y Nuevo" class="m-2" (click)="saveAndNew()"></p-button>
     </div>
+    <br>
+    <hr>
+    <div class="flex flex-column">
+        <div class="col-6">
+            <p class="text-xl font-semibold">Notas</p>
+            <textarea rows="5" cols="50" pInputTextarea [(ngModel)]="description"></textarea>
+        </div>
+        <div class="col-6">
+            <p class="text-xl font-semibold">Archivos adjuntos</p>
+            <div class="col-10"><app-attachments-section (attachmentsEmmited)="retrieveAttachments($event)"></app-attachments-section></div>
+        </div>
+    </div>
+    <div style="height: 100px;"></div>
 </div>

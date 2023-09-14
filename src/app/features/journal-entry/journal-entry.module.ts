@@ -4,8 +4,9 @@ import { TableModule } from 'primeng/table';
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {CalendarModule} from 'primeng/calendar';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { FileUploadModule } from 'primeng/fileupload';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JournalEntryRoutingModule } from './journal-entry-routing.module';
 import { JournalEntryPageComponent } from './components/journal-entry-page/journal-entry-page.component';
@@ -27,7 +28,9 @@ import { AttachmentsSectionComponent } from './components/attachments-section/at
     InputTextModule,
     ButtonModule,
     CalendarModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FileUploadModule,
+    InputTextareaModule
   ]
 })
 export class JournalEntryModule { }

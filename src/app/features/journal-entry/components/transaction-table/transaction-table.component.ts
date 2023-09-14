@@ -32,12 +32,24 @@ export class TransactionTableComponent {
       this.transactionDetailsEmmited.emit(this.transactionDetails);
     }
     //Table events
-    onEditInit(event: any) { console.log("onEditInit", event); }
-    onEditCancel(event: any) { console.log("onEditCancel", event); }
+    onEditInit(event: any) { 
+      // console.log("onEditInit", event); 
+    }
+    onEditCancel(event: any) {
+      //  console.log("onEditCancel", event); 
+    }
+
     onEditComplete(event: any) { 
-      console.log("onEditComplete", event); 
+      console.log("onEditComplete", event);
+      // En el caso de que se haya modificado la columna 'descripcion' se debe repetir el contenido en toda la columna
+      if(event.field == 'descripcion') {
+        for(let transaction of this.transactionDetails) {
+          transaction.descripcion = this.transactionDetails[event.index].descripcion;
+        }
+      }
       this.calculateTotalDebitAmount();
       this.calculateTotalCreditAmount();
+      
     }
       
     //Add a new row

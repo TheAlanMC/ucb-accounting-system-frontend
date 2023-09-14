@@ -18,7 +18,7 @@
                     <span style="font-size: 0.8rem" class="pi pi-bars" pReorderableRowHandle></span>
                 </td>
                 <td>{{index+1}}</td>
-                <td [pEditableColumn]="transaction.cuenta" pEditableColumnField="code">
+                <td [pEditableColumn]="transaction.cuenta" pEditableColumnField="cuenta" [pEditableColumnRowIndex]="index">
                     <p-cellEditor>
                         <ng-template pTemplate="input">
                             <input class="input-table" pInputText type="text" [(ngModel)]="transaction.cuenta" />
@@ -28,7 +28,7 @@
                         </ng-template>
                     </p-cellEditor>
                 </td>
-                <td [pEditableColumn]="transaction.debe" pEditableColumnField="name">
+                <td [pEditableColumn]="transaction.debe" pEditableColumnField="debe" [pEditableColumnRowIndex]="index">
                     <p-cellEditor>
                         <ng-template pTemplate="input">
                             <input class="input-table" pInputText type="text" [(ngModel)]="transaction.debe" required />
@@ -38,7 +38,7 @@
                         </ng-template>
                     </p-cellEditor>
                 </td>
-                <td [pEditableColumn]="transaction.haber" pEditableColumnField="inventoryStatus">
+                <td [pEditableColumn]="transaction.haber" pEditableColumnField="haber" [pEditableColumnRowIndex]="index">
                     <p-cellEditor>
                         <ng-template pTemplate="input">
                             <input class="input-table" pInputText [(ngModel)]="transaction.haber" />
@@ -48,7 +48,7 @@
                         </ng-template>
                     </p-cellEditor>
                 </td>
-                <td [pEditableColumn]="transaction.descripcion" pEditableColumnField="price">
+                <td [pEditableColumn]="transaction.descripcion" pEditableColumnField="descripcion" [pEditableColumnRowIndex]="index">
                     <p-cellEditor>
                         <ng-template pTemplate="input">
                             <input class="input-table" pInputText type="text" [(ngModel)]="transaction.descripcion" />
@@ -58,7 +58,7 @@
                         </ng-template>
                     </p-cellEditor>
                 </td>
-                <td [pEditableColumn]="transaction.nombre" pEditableColumnField="price">
+                <td [pEditableColumn]="transaction.nombre" pEditableColumnField="nombre" [pEditableColumnRowIndex]="index">
                     <p-cellEditor>
                         <ng-template pTemplate="input">
                             <input class="input-table" pInputText type="text" [(ngModel)]="transaction.nombre" />
