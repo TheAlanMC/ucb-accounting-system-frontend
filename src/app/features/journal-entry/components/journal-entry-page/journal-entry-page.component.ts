@@ -1,4 +1,9 @@
-import { Component} from '@angular/core';
+import { Component, ViewChild} from '@angular/core';
+import { TransactionTableComponent } from '../transaction-table/transaction-table.component';
+import { TransactionDto } from '../../models/transaction.dto';
+import { AttachmentDto } from '../../models/attachment.dto';
+import { JournalEntryDto } from '../../models/journal-entry.dto';
+import { JournalEntryService } from 'src/app/core/services/journal-entry.service';
 
 @Component({
   selector: 'app-journal-entry-page',
@@ -6,156 +11,65 @@ import { Component} from '@angular/core';
   styleUrls: ['./journal-entry-page.component.css']
 })
 export class JournalEntryPageComponent{  
-
-  ngOnInit(): void {
-    this.calculateLastYearTotal();
-    this.calculateThisYearTotal();
-  }
+  @ViewChild(TransactionTableComponent) transactionTableComponent!: TransactionTableComponent; // Obtén una referencia al componente hijo
   dateValue!: Date;
-  lastYearTotal: number = 0;
-  thisYearTotal: number = 0;
+  journalEntryNumber: number = 1;
+  transactionDetails: any[] = [];
+  transactions: TransactionDto[] = [];
+  attachments!: AttachmentDto[];
+  journalEntry!: JournalEntryDto;
 
-  products = [
-    {
-      id: '1011',
-      code: '4920nnc2d',
-      name: 'Green Earbuds',
-      description: 'Product Description',
-      image: 'green-earbuds.jpg',
-      price: 89,
-      category: 'Electronics',
-      quantity: 23,
-      inventoryStatus: 'INSTOCK',
-      rating: 4
-    },
-    {
-      id: '1012',
-      code: '4810nnc2d',
-      name: 'Yellow Earbuds',
-      description: 'Product Description',
-      image: 'yellow-earbuds.jpg',
-      price: 89,
-      category: 'Electronics',
-      quantity: 23,
-      inventoryStatus: 'INSTOCK',
-      rating: 3
-    },
-    {
-      id: '1013',
-      code: '4810nnc2d',
-      name: 'Red Earbuds',
-      description: 'Product Description',
-      image: 'red-earbuds.jpg',
-      price: 89,
-      category: 'Electronics',
-      quantity: 23,
-      inventoryStatus: 'INSTOCK',
-      rating: 5
-    },
-    {
-      id: '1014',
-      code: '4810nnc2d',
-      name: 'White Earbuds',
-      description: 'Product Description',
-      image: 'white-earbuds.jpg',
-      price: 89,
-      category: 'Electronics',
-      quantity: 23,
-      inventoryStatus: 'INSTOCK',
-      rating: 4
-    },
-    {
-      id: '1015',
-      code: '4810nnc2d',
-      name: 'Black Earbuds',
-      description: 'Product Description',
-      image: 'black-earbuds.jpg',
-      price: 89,
-      category: 'Electronics',
-      quantity: 23,
-      inventoryStatus: 'INSTOCK',
-      rating: 3
-    },
-    {
-      id: '1016',
-      code: '4810nnc2d',
-      name: 'Blue Earbuds',
-      description: 'Product Description',
-      image: 'blue-earbuds.jpg',
-      price: 89,
-      category: 'Electronics',
-      quantity: 23,
-      inventoryStatus: 'INSTOCK',
-      rating: 5
-    },
-    {
-      id: '1017',
-      code: '4810nnc2d',
-      name: 'Purple Earbuds',
-      description: 'Product Description',
-      image: 'purple-earbuds.jpg',
-      price: 89,
-      category: 'Electronics',
-      quantity: 23,
-      inventoryStatus: 'INSTOCK',
-      rating: 4
-    },
-  ]
-    
-    
-  onEditInit(event: any) { console.log("onEditInit", event); }
-  onEditCancel(event: any) { console.log("onEditCancel", event); }
-  onEditComplete(event: any) { 
-    console.log("onEditComplete", event); 
-    this.calculateLastYearTotal();
-    this.calculateThisYearTotal();
+  constructor(private journalEntryService: JournalEntryService) { }
+
+  //Retrieve the data from the child component
+  retrieveTransactionDetails(transactionDetails: any[]){
+    console.log(transactionDetails)
+    this.transactionDetails = transactionDetails;
   }
-
+  
   // Save the journal entry - service
   save(){
-    console.log(this.products)
-  }
+    this.transactionTableComponent.sendTransactionDetails();
+    console.log(this.transactionDetails)
+    //Pass the data to the transaction dto, loop
+    this.transactions = [];
+    for (let i = 0; i < this.transactionDetails.length; i++) {
+      this.transactions.push({
+        subaccountId: this.transactionDetails[i].cuenta,
+        debitAmountBs: this.transactionDetails[i].debe,
+        creditAmountBs: this.transactionDetails[i].haber
+      })
+      console.log(this.transactions)
+    }
+    //Journal entry dto
+    this.journalEntry = {
+      documentTypeId: 1,
+      journalEntryNumber: this.journalEntryNumber,
+      gloss: 'string',
+      description: 'string',
+      transactionDate: this.dateValue,
+      attachments: this.attachments,
+      transactionDetails: this.transactions
+    }
+    console.log(this.journalEntry)
 
-  // Save the journal entry and add another - service
-  saveAndNew(){
-    this.save()
-    console.log(this.products)
-  }
-
-  //Add a new row
-  addRow(){
-    this.products.push({
-      id: '',
-      code: '',
-      name: '',
-      description: '',
-      image: '',
-      price: 0,
-      category: '',
-      quantity: 0,
-      inventoryStatus: '',
-      rating: 0
-    })
-  }
-  deleteRow(index: number){
-    this.products.splice(index, 1)
-  }
-  calculateLastYearTotal() {
-      let total = 0;
-      for(let product of this.products){
-          total += product.price;
+    //Calling service
+    this.journalEntryService.createJournalEntry(1, this.journalEntry).subscribe({
+      next: (data) => {
+        console.log(data);
+        console.log("Se creoo");
+      },
+      error: (error) => {
+        console.log(error);
       }
-
-      this.lastYearTotal = total;
+    });
   }
+    // Save the journal entry and add another - service
+    saveAndNew(){
+      this.save()
+      // console.log(this.products)
+    }
 
-  calculateThisYearTotal() {
-      let total = 0;
-      for(let product of this.products) {
-          total += product.quantity;
-      }
-
-      this.thisYearTotal = total;
-  }
+  
 }
 

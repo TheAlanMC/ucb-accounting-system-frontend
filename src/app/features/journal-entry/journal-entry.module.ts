@@ -9,10 +9,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JournalEntryRoutingModule } from './journal-entry-routing.module';
 import { JournalEntryPageComponent } from './components/journal-entry-page/journal-entry-page.component';
+import { TransactionTableComponent } from './components/transaction-table/transaction-table.component';
+import { AttachmentsSectionComponent } from './components/attachments-section/attachments-section.component';
 
 @NgModule({
   declarations: [
-    JournalEntryPageComponent
+    JournalEntryPageComponent,
+    TransactionTableComponent,
+    AttachmentsSectionComponent
   ],
   imports: [
     CommonModule,
