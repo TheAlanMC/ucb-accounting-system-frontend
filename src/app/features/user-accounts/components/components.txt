@@ -1,1 +1,1 @@
-Aqui van los componentes relacionados con la cuenta del usuario
+Aqui van los componentes relacionados con la cuenta del usuario.
