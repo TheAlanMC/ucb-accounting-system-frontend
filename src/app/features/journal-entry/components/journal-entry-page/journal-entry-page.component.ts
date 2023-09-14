@@ -1,11 +1,20 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 
 @Component({
   selector: 'app-journal-entry-page',
   templateUrl: './journal-entry-page.component.html',
   styleUrls: ['./journal-entry-page.component.css']
 })
-export class JournalEntryPageComponent {
+export class JournalEntryPageComponent{  
+
+  ngOnInit(): void {
+    this.calculateLastYearTotal();
+    this.calculateThisYearTotal();
+  }
+  dateValue!: Date;
+  lastYearTotal: number = 0;
+  thisYearTotal: number = 0;
+
   products = [
     {
       id: '1011',
@@ -91,10 +100,62 @@ export class JournalEntryPageComponent {
       inventoryStatus: 'INSTOCK',
       rating: 4
     },
-    {
-      id: '1018',
-    }
-
-
   ]
+    
+    
+  onEditInit(event: any) { console.log("onEditInit", event); }
+  onEditCancel(event: any) { console.log("onEditCancel", event); }
+  onEditComplete(event: any) { 
+    console.log("onEditComplete", event); 
+    this.calculateLastYearTotal();
+    this.calculateThisYearTotal();
+  }
+
+  // Save the journal entry - service
+  save(){
+    console.log(this.products)
+  }
+
+  // Save the journal entry and add another - service
+  saveAndNew(){
+    this.save()
+    console.log(this.products)
+  }
+
+  //Add a new row
+  addRow(){
+    this.products.push({
+      id: '',
+      code: '',
+      name: '',
+      description: '',
+      image: '',
+      price: 0,
+      category: '',
+      quantity: 0,
+      inventoryStatus: '',
+      rating: 0
+    })
+  }
+  deleteRow(index: number){
+    this.products.splice(index, 1)
+  }
+  calculateLastYearTotal() {
+      let total = 0;
+      for(let product of this.products){
+          total += product.price;
+      }
+
+      this.lastYearTotal = total;
+  }
+
+  calculateThisYearTotal() {
+      let total = 0;
+      for(let product of this.products) {
+          total += product.quantity;
+      }
+
+      this.thisYearTotal = total;
+  }
 }
+
