@@ -10,6 +10,7 @@ import { BarsIcon } from 'primeng/icons/bars';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { ImageModule } from 'primeng/image';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ImageModule } from 'primeng/image';
     BarsIcon,
     AvatarModule,
     AvatarGroupModule,
-    ImageModule
+    ImageModule,
+    FormsModule
   ]
 })
 export class UserAccountsModule { }

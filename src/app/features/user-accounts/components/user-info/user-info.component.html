@@ -13,7 +13,7 @@
 
 <div class="w-11rem h-11rem pl-4">
     <img width="150px" height="150px" class="shadow-4"
-        src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" style="border-radius:100%;"
+    [src]="userData?.profilePicture" style="border-radius:100%;"
         alt="Gaming Set">
 </div>
 
@@ -22,13 +22,13 @@
     <div class="col-12 md:col-6">
         <div class="card p-fluid pr-8 pl-4">
             <h3 style="color: #B1B1B1;">Actualiza tu información personal</h3>
-            <div class="field pr-8"><label htmlfor="name1">Nombre:</label><input pinputtext="" id="name" type="text"
+            <div class="field pr-8"><label htmlfor="name1">Nombre:</label><input  [(ngModel)]="userData.firstName" pinputtext="" id="name" type="text"
                     class="p-inputtext p-component p-element h-2rem"></div>
-            <div class="field pr-8"><label htmlfor="name1">Apellido:</label><input pinputtext="" id="lastName" type="text"
+            <div class="field pr-8"><label htmlfor="name1">Apellido:</label><input [(ngModel)]="userData.lastName" pinputtext="" id="lastName" type="text"
                     class="p-inputtext p-component p-element h-2rem"></div>
-            <div class="field pr-8"><label htmlfor="name1">Correo Electrónico:</label><input pinputtext="" id="email"
+            <div class="field pr-8"><label htmlfor="name1">Correo Electrónico:</label><input [(ngModel)]="userData.email" pinputtext="" id="email"
                     type="email" class="p-inputtext p-component p-element h-2rem"></div>
-            <div class="field pr-8"><label htmlfor="name1">Teléfono:</label><input pinputtext="" id="phone" type="text"
+            <div class="field pr-8"><label htmlfor="name1">Teléfono:</label><input [(ngModel)]="userData.email" pinputtext="" id="phone" type="text"
                     class="p-inputtext p-component p-element h-2rem"></div>
 
             <div class="card-container">
@@ -42,15 +42,15 @@
 
                 </div>
             </div>
-            <div class="col-6 mt-8" id="save-buttons">
-                <p-button icon="pi pi-save" label="Guardar cambios" styleClass="p-button-success"></p-button>
+            <div  class="col-6 mt-8" id="save-buttons">
+                <p-button (click)="saveUserData()" icon="pi pi-save" label="Guardar cambios" styleClass="p-button-success"></p-button>
             </div>
 
         </div>
 
     </div>
     <div class="col-12 md:col-6">
-        
+
     </div>
 
 </div>
