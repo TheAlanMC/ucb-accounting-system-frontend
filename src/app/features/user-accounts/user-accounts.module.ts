@@ -11,6 +11,9 @@ import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { ImageModule } from 'primeng/image';
 import { FormsModule } from '@angular/forms';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +29,11 @@ import { FormsModule } from '@angular/forms';
     AvatarModule,
     AvatarGroupModule,
     ImageModule,
-    FormsModule
+    FormsModule,
+    ConfirmDialogModule,
+    ToastModule
+
+    
   ]
 })
 export class UserAccountsModule { }

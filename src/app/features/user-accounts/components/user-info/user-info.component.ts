@@ -4,15 +4,19 @@ import { inject } from '@angular/core/testing';
 import { UserInfoService } from 'src/app/core/services/user-info.service';
 import { UserData } from '../../models/user-infoDTO';
 import { Observable } from 'rxjs';
+import { ConfirmationService } from 'primeng/api'
+import { MessageService } from 'primeng/api';
+import { ConfirmEventType } from 'primeng/api';
 
 @Component({
   selector: 'app-user-info',
   templateUrl: './user-info.component.html',
-  styleUrls: ['./user-info.component.css']
+  styleUrls: ['./user-info.component.css'],
+  providers: [ConfirmationService, MessageService]
 })
 export class UserInfoComponent implements OnInit{
 
-  constructor(private userinfoService: UserInfoService){}
+  constructor(private userinfoService: UserInfoService, private confirmationService: ConfirmationService, private messageService: MessageService){}
   
   
   userData: any = {
@@ -33,7 +37,7 @@ export class UserInfoComponent implements OnInit{
   }
   
   saveUserData(): void {
-    
+    this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Tus datos se guardaron correctamente' });
     this.userinfoService.updateUserData(this.userData, "123").subscribe((data) => {
       console.log(data);
     }, (error) => {
@@ -41,8 +45,6 @@ export class UserInfoComponent implements OnInit{
     });
   }
 
-  
 
-  
 
 }
