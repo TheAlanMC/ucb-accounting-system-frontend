@@ -13,6 +13,7 @@ import { JournalEntryRoutingModule } from './journal-entry-routing.module';
 import { JournalEntryPageComponent } from './components/journal-entry-page/journal-entry-page.component';
 import { TransactionTableComponent } from './components/transaction-table/transaction-table.component';
 import { AttachmentsSectionComponent } from './components/attachments-section/attachments-section.component';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AttachmentsSectionComponent } from './components/attachments-section/at
     BrowserAnimationsModule,
     FileUploadModule,
     InputTextareaModule,
-    ToastModule
+    ToastModule,
+    DropdownModule
   ]
 })
 export class JournalEntryModule { }

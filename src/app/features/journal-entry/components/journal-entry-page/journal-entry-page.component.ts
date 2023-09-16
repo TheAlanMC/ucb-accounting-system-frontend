@@ -10,6 +10,7 @@ import { format } from 'date-fns';
 import { forkJoin } from 'rxjs';
 import { MessageService } from 'primeng/api';
 
+
 @Component({
   selector: 'app-journal-entry-page',
   templateUrl: './journal-entry-page.component.html',
@@ -21,6 +22,8 @@ export class JournalEntryPageComponent {
   @ViewChild(AttachmentsSectionComponent) attachmentsComponent!: AttachmentsSectionComponent; // Obtén una referencia al componente hijo
 
   dateValue!: Date;
+  selectedDocumentType: any;
+  documentTypes: any = []; //Document types from service
   //TODO: Get the journal entry number from the service
   journalEntryNumber: number = 24;
   transactionDetails: TransactionDto[] = []; //Transactions from component - transaction table, ready to send to the service
@@ -33,6 +36,10 @@ export class JournalEntryPageComponent {
   totalCreditAmount: number = 0;
 
   constructor(private journalEntryService: JournalEntryService, private filesService: FilesService, private messageService: MessageService) { }
+  ngOnInit(): void {
+    //Get the document types
+    this.getDocumentTypes();
+  }
 
   //Retrieve the data from the child component - transaction table
   retrieveTransactionDetails(transactionDetails: TransactionDto[]) {
@@ -48,7 +55,7 @@ export class JournalEntryPageComponent {
 
   //Retrieve the data from the child component - attachments section
   retrieveAttachments(attachments: any[]) {
-    console.log(attachments)
+    // console.log(attachments)
     this.filesDetails = attachments;
   }
 
@@ -60,7 +67,7 @@ export class JournalEntryPageComponent {
     if (this.validateTotalAmount()) {
       //Date field is required
       if (this.dateValue == undefined) {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: '💡 No olvide ingresar la fecha del asiento' });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: '💡 No olvide ingresar la fecha del asiento.' });
         return;
       }
       //Getting the transaction details from the child component - transaction table
@@ -80,7 +87,6 @@ export class JournalEntryPageComponent {
         return;
       }
 
-
       //Getting the attachments from the child component - attachments section
       this.attachmentsComponent.sendAttachments();
 
@@ -94,8 +100,8 @@ export class JournalEntryPageComponent {
 
       forkJoin(uploadObservables).subscribe({
         next: (responses) => {
-          console.log("Todos los archivos se han subido correctamente");
-          console.log(responses);
+          // console.log("Todos los archivos se han subido correctamente");
+          // console.log(responses);
 
           // Se asigna los datos de los archivos subidos a 'this.attachments'.
           this.attachments = responses.map((data: any) => ({
@@ -108,7 +114,7 @@ export class JournalEntryPageComponent {
           //Upload journal entry
           //Journal entry dto
           this.journalEntry = {
-            documentTypeId: 1, //TODO: Get the document type (?)
+            documentTypeId: this.selectedDocumentType.code,
             journalEntryNumber: this.journalEntryNumber,
             gloss: this.gloss,
             description: this.description,
@@ -117,29 +123,29 @@ export class JournalEntryPageComponent {
             attachments: this.attachments,
             transactionDetails: this.transactionDetails
           }
-          console.log(this.journalEntry)
+          // console.log(this.journalEntry)
           //Calling service
           this.journalEntryService.createJournalEntry(1, this.journalEntry).subscribe({
             next: (data) => {
-              console.log(data);
-              console.log("Se creoo");
+              // console.log(data);
+              // console.log("Se creoo");
               this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Asiento creado correctamente' });
             },
             error: (error) => {
-              console.log(error);
-              console.log("Hubo un error al crear el asiento");
+              // console.log(error);
+              // console.log("Hubo un error al crear el asiento");
               this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Hubo un error al crear el asiento, intente nuevamente' });
             }
           });
 
         },
         error: (error) => {
-          console.log("Hubo un error al subir los archivos");
-          console.log(error);
+          // console.log("Hubo un error al subir los archivos");
+          // console.log(error);
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Hubo un error al crear el asiento, intente nuevamente' });
         }
       });
-    }else{
+    } else {
       //En caso de que el monto total del debe y el haber no sea igual
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'El monto total del debe y el haber debe ser igual' });
     }
@@ -149,6 +155,7 @@ export class JournalEntryPageComponent {
   saveAndNew() {
     this.save()
     // console.log(this.products)
+    //TODO: Reset the form
   }
 
   //Validate the total amount of the debit and credit columns
@@ -157,6 +164,24 @@ export class JournalEntryPageComponent {
       return false;
     }
     return true;
+  }
+
+  //Get the document types
+  getDocumentTypes() {
+    this.journalEntryService.getDocumentTypes().subscribe({
+      next: (data) => {
+        if (data.data != null) {
+          // Parsing the data
+          this.documentTypes = data.data.map((documentType) => ({
+            name: documentType.documentTypeName,
+            code: documentType.documentTypeId
+          }));
+        }
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
   }
 }
 

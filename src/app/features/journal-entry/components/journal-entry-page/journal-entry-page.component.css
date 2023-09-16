@@ -79,3 +79,14 @@
     height: 33px !important;
     font-size: small;
 }
+
+/* Dropdown */
+::ng-deep #document-type .p-dropdown {
+    height: 30px !important;
+}
+
+::ng-deep #document-type .p-dropdown span {
+    font-size: small;
+    padding:0.25rem 0.5rem 0.25rem 0.5rem;
+}
+
