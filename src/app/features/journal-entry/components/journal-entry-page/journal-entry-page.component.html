@@ -20,7 +20,7 @@
     </div>
 </div>
 <div class="col-12 xl:col-12 px-8 py-3">
-    <app-transaction-table (transactionDetailsEmmited)="retrieveTransactionDetails($event)" (glossEmmited)="retrieveGloss($event)"></app-transaction-table>
+    <app-transaction-table (transactionDetailsEmmited)="retrieveTransactionDetails($event)" (glossAndTotalEmmited)="retrieveGlossAndTotal($event)"></app-transaction-table>
     <!-- Buttons - save, save and register a new journay entry -->
     <div class="flex justify-content-end flex-wrap" id="save-buttons">
         <p-button label="Guardar" class="m-2" (click)="save()"></p-button>
