@@ -1,4 +1,5 @@
 <div class="card">
+    <p-toast></p-toast>
     <div class="flex card-container overflow-hidden">
         <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0">
             <i class="pi pi-book" style="color: var(--color-green); font-size: 2.5rem;"></i>
@@ -19,7 +20,7 @@
     </div>
 </div>
 <div class="col-12 xl:col-12 px-8 py-3">
-    <app-transaction-table (transactionDetailsEmmited)="retrieveTransactionDetails($event)"></app-transaction-table>
+    <app-transaction-table (transactionDetailsEmmited)="retrieveTransactionDetails($event)" (glossEmmited)="retrieveGloss($event)"></app-transaction-table>
     <!-- Buttons - save, save and register a new journay entry -->
     <div class="flex justify-content-end flex-wrap" id="save-buttons">
         <p-button label="Guardar" class="m-2" (click)="save()"></p-button>

@@ -1,11 +1,9 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-attachments-section',
   templateUrl: './attachments-section.component.html',
   styleUrls: ['./attachments-section.component.css'],
-  providers: [MessageService]
 })
 export class AttachmentsSectionComponent {
     //Object emmited to the parent component
@@ -13,23 +11,38 @@ export class AttachmentsSectionComponent {
 
     //Variables
     uploadedFiles: any[] = [];
+    isDragging: boolean = false;
 
     //Send data to the parent component
     sendAttachments(){
       this.attachmentsEmmited.emit(this.uploadedFiles);
     }
 
-    constructor(private messageService: MessageService) {}
     // Manejar la selección de archivos
-    onFileSelect(event: any) {
-      for (let file of event.files) {
-        this.uploadedFiles.push(file);
-      }
+    onFileToUpload(event: any) {
+      this.uploadedFiles = event.files;
     }
     
     onFileRemoved(event: any) {
       this.uploadedFiles = this.uploadedFiles.filter(file => file.name !== event.file.name);
     }
+
+    // Drag and drop
+    onDragOver(event: any) {
+      event.preventDefault();
+      this.isDragging = true;
+    }
+
+    onDragLeave(event: any) {
+      event.preventDefault();
+      this.isDragging = false;
+    }
+
+    onDrop(event: any) {
+      event.preventDefault();
+      this.isDragging = false;
+    }
+
 }
 
 

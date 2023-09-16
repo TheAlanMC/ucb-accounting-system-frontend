@@ -1,0 +1,28 @@
+:host ::ng-deep .p-fileupload .p-fileupload-content {
+    font-size: small;
+    /* font-weight: 600; */
+}
+:host ::ng-deep .p-fileupload .p-fileupload-buttonbar .p-button, :host ::ng-deep .p-fileupload .p-fileupload-content .p-button{
+    background-color: var(--color-green);
+    border-color: var(--color-green);
+    font-size: small;
+}
+/* :host ::ng-deep .p-fileupload-content 
+    .p-fileupload-row.ng-star-inserted img {
+    width: 120px;
+    height: 75px;
+} */
+#drag-and-drop-container{
+    border: 1px dashed var(--color-green);
+    border-radius: 5px;
+    padding: 10px;
+    /* margin-bottom: 10px; */
+}
+/* Al colocar un archivo encima, cambia de fondo */
+#drag-and-drop-container.dragover{
+    background-color: #8bd48054;
+    transition: ease-in-out 0.2s;
+    /* border: 2px dashed var(--color-green); */
+
+    /* color: white; */
+}
