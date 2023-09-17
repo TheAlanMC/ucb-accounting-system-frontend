@@ -1,0 +1,50 @@
+<div class="card">
+    <p-toast></p-toast>
+    <div class="flex card-container overflow-hidden">
+        <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0">
+            <i class="pi pi-book" style="color: var(--color-green); font-size: 2.5rem;"></i>
+            <p class="text-2xl md:text-3xl">&nbsp;&nbsp;&nbsp;Asiento Diario</p>
+        </div>
+        <div class="flex-none flex align-items-center justify-content-center font-bold m-2 px-5 py-3">
+            <p-button  class="help-icon" icon="pi pi-question-circle" styleClass="p-button-success"></p-button>
+        </div>
+    </div>
+    <div class="flex flex-column card-container mx-8">
+        <div class="page-title flex-grow-1  flex align-items-center justify-content-start">
+            <p class="text-xl font-semibold my-2">Asiento n.º{{journalEntryNumber}}</p>
+        </div>
+        <div class="flex flex-row flex-wrap">
+            <div class="flex flex-column justify-content-start mr-2">
+                <p>Tipo de documento</p>
+                <p-dropdown id="document-type" [options]="documentTypes" [(ngModel)]="selectedDocumentType" optionLabel="name" placeholder="Seleccione un tipo de documento" [style]="{'width':'250px'}" [required]="true"></p-dropdown>
+            </div>
+            <div class="flex flex-column justify-content-start mx-2">
+                <p>Fecha del diario</p>
+                <p-calendar class="datepicker" [(ngModel)]="dateValue" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy"></p-calendar>
+            </div>
+        </div>
+        
+
+    </div>
+</div>
+<div class="col-12 xl:col-12 px-8 py-3">
+    <app-transaction-table (transactionDetailsEmmited)="retrieveTransactionDetails($event)" (glossAndTotalEmmited)="retrieveGlossAndTotal($event)"></app-transaction-table>
+    <!-- Buttons - save, save and register a new journay entry -->
+    <div class="flex justify-content-end flex-wrap" id="save-buttons">
+        <p-button label="Guardar" class="m-2" (click)="save()"></p-button>
+        <p-button label="Guardar y Nuevo" class="m-2" (click)="saveAndNew()"></p-button>
+    </div>
+    <br>
+    <hr>
+    <div class="flex flex-column">
+        <div class="col-6">
+            <p class="text-xl font-semibold">Notas</p>
+            <textarea rows="5" cols="50" pInputTextarea [(ngModel)]="description"></textarea>
+        </div>
+        <div class="col-6">
+            <p class="text-xl font-semibold">Archivos adjuntos</p>
+            <div class="col-10"><app-attachments-section (attachmentsEmmited)="retrieveAttachments($event)"></app-attachments-section></div>
+        </div>
+    </div>
+    <div style="height: 100px;"></div>
+</div>
