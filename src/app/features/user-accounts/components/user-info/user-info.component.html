@@ -1,0 +1,63 @@
+<link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css">
+
+<div class="card-container">
+    <div class="inline-block font-bold text-center p-4">
+        <span class="pi pi-user" style="font-size: 2rem; color: #8BD480;"></span>
+    </div>
+    <div class="inline-block font-bold text-center p-2" style="color: #797979;">
+        <h2>Perfil de usuario</h2>
+    </div>
+
+</div>
+<hr style="margin-top: -15px;">
+
+<div class="w-11rem h-11rem pl-4">
+    <img width="150px" height="150px" class="shadow-4"
+    [src]="userData?.profilePicture" style="border-radius:100%;"
+        alt="Gaming Set">
+</div>
+
+
+<div class="grid h-24rem">
+    <div class="col-12 md:col-6">
+        <div class="card p-fluid pr-8 pl-4">
+            <h3 style="color: #B1B1B1;">Actualiza tu información personal</h3>
+            <div class="field pr-8"><label htmlfor="name1">Nombre:</label><input  [(ngModel)]="userData.firstName" pinputtext="" id="name" type="text"
+                    class="p-inputtext p-component p-element h-2rem"></div>
+            <div class="field pr-8"><label htmlfor="name1">Apellido:</label><input [(ngModel)]="userData.lastName" pinputtext="" id="lastName" type="text"
+                    class="p-inputtext p-component p-element h-2rem"></div>
+            <div class="field pr-8"><label htmlfor="name1">Correo Electrónico:</label><input [(ngModel)]="userData.email" pinputtext="" id="email"
+                    type="email" class="p-inputtext p-component p-element h-2rem"></div>
+            <div class="field pr-8"><label htmlfor="name1">Teléfono:</label><input  pinputtext="" id="phone" type="text"
+                    class="p-inputtext p-component p-element h-2rem"></div>
+
+            <div class="card-container">
+
+                <div class="inline-block font-bold text-center p-2 " style="color: #29ABAC;">
+                    <button pbutton="" pripple="" label="Save" icon="pi pi-lock"
+                        class="p-element p-ripple p-button-link p-button-lg p-button p-component"><span
+                            class="p-button-icon p-button-icon-left pi pi-lock" style="color: #29ABAC;"
+                            aria-hidden="true"></span><span class="p-button-label" style="color: #29ABAC;">Cambiar
+                            contraseña</span><span class="p-ink"></span></button>
+
+                </div>
+            </div>
+            <div  class="col-6 mt-8" id="save-buttons">
+                <p-button (click)="saveUserData()" icon="pi pi-save" label="Guardar cambios" styleClass="p-button-success"></p-button>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-12 md:col-6">
+
+    </div>
+
+</div>
+<div class="card flex justify-content-center gap-2">
+    <p-toast></p-toast>
+    
+    
+</div>
+
+<router-outlet></router-outlet>
