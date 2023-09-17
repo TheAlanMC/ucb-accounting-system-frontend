@@ -18,7 +18,7 @@ import { PasswordModule } from 'primeng/password';
 
 @NgModule({
   declarations: [
-    UserPasswordComponent
+    UserPasswordComponent,
     UserInfoComponent
   ],
   imports: [
@@ -35,7 +35,6 @@ import { PasswordModule } from 'primeng/password';
     ConfirmDialogModule,
     ToastModule,
     PasswordModule
-    ToastModule
   ]
 })
 export class UserAccountsModule { }

@@ -12,7 +12,7 @@ export class UserInfoService {
   constructor(private http: HttpClient) { }
   private baseUrl = `${environment.API_URL}/api/v1/users`;
 
-  getUserData(userId: number): Observable<UserData> {
+  getUserData(userId: string): Observable<UserData> {
     const apiUrl = `${this.baseUrl}/${userId}`; // Reemplaza con la URL de tu API
     return this.http.get(apiUrl).pipe(
       map((response: any) => {
