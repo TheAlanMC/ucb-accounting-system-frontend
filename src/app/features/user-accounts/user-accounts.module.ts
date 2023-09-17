@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { UserAccountsRoutingModule } from './user-accounts-routing.module';
+import { UserPasswordComponent } from './components/user-password/user-password.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { ButtonModule } from 'primeng/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,10 +14,11 @@ import { ImageModule } from 'primeng/image';
 import { FormsModule } from '@angular/forms';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
-
+import { PasswordModule } from 'primeng/password';
 
 @NgModule({
   declarations: [
+    UserPasswordComponent
     UserInfoComponent
   ],
   imports: [
@@ -31,9 +33,9 @@ import { ToastModule } from 'primeng/toast';
     ImageModule,
     FormsModule,
     ConfirmDialogModule,
+    ToastModule,
+    PasswordModule
     ToastModule
-
-    
   ]
 })
 export class UserAccountsModule { }

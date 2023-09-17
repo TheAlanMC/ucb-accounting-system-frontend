@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { UserPasswordComponent } from './components/user-password/user-password.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 
 const routes: Routes = [
-  {path: 'user/profile', component: UserInfoComponent},
+  {path: 'user/pass', component: UserPasswordComponent},
+  {path: 'user/profile', component: UserInfoComponent}
 ];
 
 @NgModule({
