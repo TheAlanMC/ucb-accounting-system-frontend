@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 import { ResponseDto } from '../models/reponse.dto';
 import { JournalEntryDto } from 'src/app/features/journal-entry/models/journal-entry.dto';
 import { DocumentTypeDto } from 'src/app/features/journal-entry/models/documentType.dto';

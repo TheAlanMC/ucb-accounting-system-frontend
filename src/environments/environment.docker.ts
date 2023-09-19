@@ -5,5 +5,5 @@ export const environment = {
   
     API_URL: 'http://68.183.126.58/backend',
     ANGULAR_URL: 'http://68.183.126.58'
-  };
+};
   
