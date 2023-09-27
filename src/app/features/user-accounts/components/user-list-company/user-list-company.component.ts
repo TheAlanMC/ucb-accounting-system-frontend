@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { user } from '../../models/UserListCompany.dto';
+import { UserListCompanyService } from 'src/app/core/services/user-list-company.service';
 
 
 
@@ -8,7 +9,10 @@ import { user } from '../../models/UserListCompany.dto';
   templateUrl: './user-list-company.component.html',
   styleUrls: ['./user-list-company.component.css']
 })
-export class UserListCompanyComponent {
+export class UserListCompanyComponent implements OnInit{
+
+    userlistcompanyservice = inject(UserListCompanyService);
+    
   
     //crea una variable de tipo user con datos de tipo user
     users: user[] = [
@@ -20,6 +24,13 @@ export class UserListCompanyComponent {
         creationDate: 'asdsa'
       },
     ];
+
+    ngOnInit(): void {
+      this.userlistcompanyservice.getUserListCompany(1).subscribe((users) => {
+        this.users = users;
+        console.log(users);
+      });
+    }
 
    
 }

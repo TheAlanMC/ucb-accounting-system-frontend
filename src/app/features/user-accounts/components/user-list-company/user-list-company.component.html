@@ -10,15 +10,10 @@
 
 </div>
 <div class="card">
-    <p-table
-        [value]="users"
-        [paginator]="true"
-        [rows]="5"
-        [showCurrentPageReport]="true"
+    <p-table [value]="users" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
         [tableStyle]="{ 'min-width': '50rem' }"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-        [rowsPerPageOptions]="[10, 25, 50]"
-    >
+        [rowsPerPageOptions]="[10, 25, 50]">
         <ng-template pTemplate="header">
             <tr>
                 <th style="width:20%">Nombre</th>
@@ -28,22 +23,17 @@
                 <th style="width:20%">Fecha de creacion</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-customer>
+        <ng-template pTemplate="body" let-user>
             <tr>
-                <td>{{ customer.name }}</td>
-                <td>{{ customer.country.name }}</td>
-                <td>{{ customer.company }}</td>
-                <td>{{ customer.representative.name }}</td>
-                <td>{{ customer.representative.name }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.kcGroupName }}</td>
+                <td>{{ user.creationDate }}</td>
             </tr>
         </ng-template>
-        <ng-template pTemplate="paginatorleft">
-            <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
-        </ng-template>
-        <ng-template pTemplate="paginatorright">
-            <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
-        </ng-template>
+        
+        
     </p-table>
 </div>
 <hr style="margin-top: -15px;">
-
