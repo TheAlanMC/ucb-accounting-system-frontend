@@ -1,0 +1,49 @@
+<link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css">
+
+<div class="card-container">
+    <div class="inline-block font-bold text-center p-4">
+        <span class="pi pi-users" style="font-size: 2rem; color: #8BD480;"></span>
+    </div>
+    <div class="inline-block font-bold text-center p-2" style="color: #797979;">
+        <h2>Lista de usuarios</h2>
+    </div>
+
+</div>
+<div class="card">
+    <p-table
+        [value]="users"
+        [paginator]="true"
+        [rows]="5"
+        [showCurrentPageReport]="true"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="[10, 25, 50]"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:20%">Nombre</th>
+                <th style="width:20%">Apellido</th>
+                <th style="width:20%">Correo</th>
+                <th style="width:20%">Grupo</th>
+                <th style="width:20%">Fecha de creacion</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-customer>
+            <tr>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.country.name }}</td>
+                <td>{{ customer.company }}</td>
+                <td>{{ customer.representative.name }}</td>
+                <td>{{ customer.representative.name }}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="paginatorleft">
+            <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+        </ng-template>
+        <ng-template pTemplate="paginatorright">
+            <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+        </ng-template>
+    </p-table>
+</div>
+<hr style="margin-top: -15px;">
+
