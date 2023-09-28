@@ -24,22 +24,22 @@
             </div>
             <br><br>
 
-            <div class="field pr-8"><label htmlfor="name1">Nombres:</label><input pinputtext="" id="name" type="text"
+            <div class="field pr-8"><label htmlfor="name1">Nombres:</label><input [(ngModel)]="dataAccount.firstName" pinputtext="" id="name" type="text"
                     class="p-inputtext p-component p-element h-2rem"></div>
-            <div class="field pr-8"><label htmlfor="name1">Apellidos:</label><input pinputtext="" id="lastname"
+            <div class="field pr-8"><label htmlfor="name1">Apellidos:</label><input [(ngModel)]="dataAccount.lastName" pinputtext="" id="lastname"
                     type="text" class="p-inputtext p-component p-element h-2rem"></div>
-            <div class="field pr-8"><label htmlfor="name1">Correo Electronico:</label><input pinputtext="" id="email"
+            <div class="field pr-8"><label htmlfor="name1">Correo Electronico:</label><input [(ngModel)]="dataAccount.email" pinputtext="" id="email"
                     type="email" class="p-inputtext p-component p-element h-2rem"></div>
-            <div class="field pr-8"><label htmlfor="name1">Contraseña:</label><p-password id="newPassword"
+            <div class="field pr-8"><label htmlfor="name1">Contraseña:</label><p-password [(ngModel)]="dataAccount.password" id="newPassword"
                     id="currentPassword" [toggleMask]="true" class="w-full"></p-password></div>
             
             <div class="field pr-8">
             </div>
-            <div class="field pr-8"><label htmlfor="name1">Confirmar contraseña:</label><p-password id="newPassword"
+            <div class="field pr-8"><label htmlfor="name1">Confirmar contraseña:</label><p-password id="newPassword" [(ngModel)]="dataAccount.confirmPassword"
                     id="currentPassword" [toggleMask]="true" class="w-full" [feedback]="false"></p-password></div>
 
             <div class="col-6 mt-8" id="save-buttons">
-                <p-button icon="pi pi-save" label="Guardar cambios" styleClass="p-button-success"></p-button>
+                <p-button (click)="createAccount()" icon="pi pi-save" label="Guardar cambios" styleClass="p-button-success"></p-button>
             </div>
 
         </div>
