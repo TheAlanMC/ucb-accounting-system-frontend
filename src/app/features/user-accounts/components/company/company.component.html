@@ -1,4 +1,3 @@
-
 <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css">
 
 <div class="card-container">
@@ -13,33 +12,46 @@
 <hr style="margin-top: -15px;">
 
 <div class="w-11rem h-11rem pl-4">
-    <img width="150px" height="150px" class="shadow-4"
-     style="border-radius:100%;"
-     [src]="companyData.companyLogo"
+    <img width="150px" height="150px" class="shadow-4" style="border-radius:100%;" [src]="companyData.companyLogo"
         alt="Gaming Set">
+    <div class="custom-file-upload">
+        <input type="file" id="fileInput" (change)="onFileSelected2($event)" accept="image/*" />
+        <label for="fileInput">
+            <span class="custom-button">
+                <i class="pi pi-pencil"></i>
+            </span>
+        </label>
+    </div>
 </div>
+
 
 
 <div class="grid h-24rem">
     <div class="col-12 md:col-6">
         <div class="card p-fluid pr-8 pl-4">
             <h3 style="color: #B1B1B1;">Actualiza la información de la empresa</h3>
-            <div class="field pr-8"><label htmlfor="name1">Nombre:</label><input [(ngModel)]="companyData.companyName"  pinputtext="" id="name" type="text"
+            <div class="field pr-8"><label htmlfor="name1">Nombre:</label><input [(ngModel)]="companyData.companyName"
+                    pinputtext="" id="name" type="text" class="p-inputtext p-component p-element h-2rem"></div>
+            <div class="field pr-8"><label htmlfor="name1">Denominación social:</label><input
+                    [(ngModel)]="companyData.businessEntity.businessEntityName" pinputtext="" id="socialdenomination"
+                    type="text" class="p-inputtext p-component p-element h-2rem"></div>
+            <div class="field pr-8"><label htmlfor="name1">No de identificacion fiscal:</label><input
+                    [(ngModel)]="companyData.companyNit" pinputtext="" id="nofiscal" type="text"
                     class="p-inputtext p-component p-element h-2rem"></div>
-            <div class="field pr-8"><label htmlfor="name1">Denominación social:</label><input [(ngModel)]="companyData.businessEntity.businessEntityName" pinputtext="" id="socialdenomination" type="text"
+            <div class="field pr-8"><label htmlfor="name1">Dirección:</label><input
+                    [(ngModel)]="companyData.companyAddress" pinputtext="" id="direccion" type="text"
                     class="p-inputtext p-component p-element h-2rem"></div>
-            <div class="field pr-8"><label htmlfor="name1">No de identificacion fiscal:</label><input [(ngModel)]="companyData.companyNit" pinputtext="" id="nofiscal" type="text"
-                     class="p-inputtext p-component p-element h-2rem"></div>
-            <div class="field pr-8"><label htmlfor="name1">Dirección:</label><input [(ngModel)]="companyData.companyAddress" pinputtext="" id="direccion" type="text"
+            <div class="field pr-8"><label htmlfor="name1">Numero de telefono:</label><input
+                    [(ngModel)]="companyData.phoneNumber" pinputtext="" id="fiscal" type="text"
                     class="p-inputtext p-component p-element h-2rem"></div>
-            <div class="field pr-8"><label htmlfor="name1">Numero de telefono:</label><input [(ngModel)]="companyData.phoneNumber" pinputtext="" id="fiscal" type="text"
-                    class="p-inputtext p-component p-element h-2rem"></div>
-            <div class="field pr-8"><label htmlfor="name1">Sector:</label><input [(ngModel)]="companyData.industry.industryName" pinputtext="" id="sector" type="text"
+            <div class="field pr-8"><label htmlfor="name1">Sector:</label><input
+                    [(ngModel)]="companyData.industry.industryName" pinputtext="" id="sector" type="text"
                     class="p-inputtext p-component p-element h-2rem"></div>
 
-            
-            <div  class="col-6 mt-8" id="save-buttons">
-                <p-button (click)="saveCompanyData()" icon="pi pi-save" label="Guardar cambios" styleClass="p-button-success"></p-button>
+
+            <div class="col-6 mt-8" id="save-buttons">
+                <p-button (click)="saveCompanyData()" icon="pi pi-save" label="Guardar cambios"
+                    styleClass="p-button-success"></p-button>
             </div>
 
         </div>
@@ -51,7 +63,7 @@
 
 </div>
 <div class="card flex justify-content-center gap-2">
-    
+
 </div>
 <div class="card flex justify-content-center gap-2">
     <p-toast></p-toast>

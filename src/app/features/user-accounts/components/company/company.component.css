@@ -2,3 +2,47 @@
     background: var(--color-green) !important;
     border-color: var(--color-green) !important;
 }
+::ng-deep .p-fileupload{
+  
+  }
+
+  ::ng-deep .round-button {
+    border-radius: 50%;
+    width: 40px; 
+    height: 40px; 
+    background-color: var(--color-green) !important; 
+    color: #fcfcfc; 
+    cursor: pointer;
+    font-size: 16px; 
+    margin-top: -40px;
+    margin-left: 50px;
+    position: relative;
+  }
+
+.custom-file-upload input[type="file"] {
+  display: none;
+}
+
+.custom-button {
+  border-radius: 50%;
+  width: 40px; 
+  height: 40px;
+  text-align: center;
+  background-color: var(--color-green) !important; 
+  color: #fcfcfc; 
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  margin-top: -40px;
+  margin-left: 100px;
+  position: relative;
+}
+
+.custom-button i {
+  margin-right: 2px;
+  margin-left: 2px; 
+}

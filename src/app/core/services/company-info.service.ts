@@ -24,4 +24,13 @@ export class CompanyInfoService {
     const params = new HttpParams().set('companyId', companyId.toString());
     return this.http.put<CompanyData>(`${this.baseUrl}/companies/:companyId`, companyData, { observe: 'response' });
   }
+
+  // Subir imagen de compañia
+  public uploadCompanyLogo(file: File): Observable<HttpResponse<any>> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<any>(`${this.baseUrl}/files/pictures`, formData, { observe: 'response' });
+  }
+
+
 }

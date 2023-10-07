@@ -13,7 +13,7 @@ import { ImageModule } from 'primeng/image';
 import { FormsModule } from '@angular/forms';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
-
+import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,8 @@ import { ToastModule } from 'primeng/toast';
     ImageModule,
     FormsModule,
     ConfirmDialogModule,
-    ToastModule
+    ToastModule,
+    FileUploadModule
   ]
 })
 export class UserAccountsModule { }
