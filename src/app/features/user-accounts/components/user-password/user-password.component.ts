@@ -28,16 +28,33 @@ export class UserPasswordComponent {
   
 
   updatePassword(): void {
-    this.messageService.add({ severity: 'success', summary: 'EXITO', detail: 'La contraseña se actualizo correctamente' });
-    this.UserPasswordService.updatePassword("asd", this.passwordData).subscribe(
-      (response) => {
-        
-        console.log('Contraseña actualizada:', response);
-      },
-      (error) => {
-        
-        console.error('Error al actualizar la contraseña:', error);
-      }
-    );
+    if (this.checkPassword() == false) {
+      this.messageService.add({ severity: 'error', summary: 'ERROR', detail: 'Verifica tus datos' });
+    } else {
+      this.UserPasswordService.updatePassword("asd", this.passwordData).subscribe(
+        (response) => {
+          if (response.code.startsWith('200')) {
+            this.messageService.add({ severity: 'success', summary: 'EXITO', detail: 'La contraseña se actualizó correctamente' });
+          } else {
+            this.messageService.add({ severity: 'error', summary: 'ERROR', detail: 'Hubo un error. La contraseña no se actualizó' });
+          }
+          console.log('Respuesta:', response);
+        },
+        (error) => {
+          
+          console.error('Error al actualizar la contraseña:', error);
+        }
+      );
+    }
+  }
+
+  checkPassword(): boolean {
+    if (this.passwordData.newPassword != this.passwordData.confirmNewPassword) {
+      return false;
+    } else if(this.passwordData.newPassword == "" || this.passwordData.confirmNewPassword == "" || this.passwordData.currentPassword == "") {
+      return false;
+    }else{
+      return true;
+    }
   }
 }

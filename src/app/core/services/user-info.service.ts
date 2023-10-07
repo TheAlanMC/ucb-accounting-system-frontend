@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { UserData } from 'src/app/features/user-accounts/models/user-infoDTO';
@@ -10,14 +10,17 @@ import { environment } from 'src/environments/environment';
 export class UserInfoService {
 
   constructor(private http: HttpClient) { }
-  private baseUrl = `${environment.API_URL}/api/v1/users`;
+  private baseUrl = `${environment.API_URL}/api/v1`;
 
   getUserData(userId: string): Observable<UserData> {
-    const apiUrl = `${this.baseUrl}/${userId}`; // Reemplaza con la URL de tu API
+    const params = new HttpParams().set('kcUuid', userId);
+    
+    const apiUrl = `${this.baseUrl}/users/:kcUuid}`; // Reemplaza con la URL de tu API
     return this.http.get(apiUrl).pipe(
       map((response: any) => {
         // Mapea los datos del JSON a UserData
         return {
+          
           companyId: response.data.companyId,
           firstName: response.data.firstName,
           lastName: response.data.lastName,
@@ -28,8 +31,14 @@ export class UserInfoService {
     );
   }
   updateUserData(user: UserData, id:String): Observable<any> {
-    const url = `${this.baseUrl}/${id}`;
+    const url = `${this.baseUrl}/users/${id}`;
     return this.http.put(url, user);
+  }
+
+  public uploadCompanyLogo(file: File): Observable<HttpResponse<any>> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<any>(`${this.baseUrl}/files/pictures`, formData, { observe: 'response' });
   }
   
 }

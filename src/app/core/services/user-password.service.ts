@@ -13,7 +13,7 @@ export class UserPasswordService {
   private baseUrl = `${environment.API_URL}/api/v1/users/:KcUuid/passwords`;
 
   updatePassword(KcUuid: string, passwordChangeRequest: Password): Observable<any> {
-    const url = `${this.baseUrl}/passwords`;
+    const url = `${this.baseUrl}`;
 
     // Define los encabezados de la solicitud si es necesario
     const headers = new HttpHeaders({
