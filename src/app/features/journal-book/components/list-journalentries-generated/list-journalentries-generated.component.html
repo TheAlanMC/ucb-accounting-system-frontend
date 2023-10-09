@@ -1,0 +1,59 @@
+<link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css">
+
+<div class="card-container">
+    <div class="inline-block font-bold text-center p-4">
+        <span class="pi pi-book" style="font-size: 2rem; color: #8BD480;"></span>
+    </div>
+    <div class="inline-block font-bold text-center p-2" style="color: #797979;">
+        <h2>Lista de Asientos Diarios</h2>
+    </div>
+</div>
+<hr style="margin-top: -15px;">
+
+<div>
+    <p-table #dt1 [value]="listTempDto" [tableStyle]="{'min-width': '60rem'}"
+        [globalFilterFields]="['client', 'Estado', 'status', 'status', 'documentType']" dataKey="id" [rows]="10"
+        [showCurrentPageReport]="true" [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+
+        <ng-template pTemplate="caption">
+            <div class="flex">
+
+                <span class="p-input-icon-left ml-auto">
+                    <span class="p-input-icon-left ml-auto"><i class="pi pi-search"></i><input pinputtext="" type="text" (input)="dt1.filterGlobal(getEventValue($event), 'contains')"
+                        placeholder="Search keyword" class="p-inputtext p-component p-element"></span>
+                </span>
+            </div>
+        </ng-template>
+        
+        <ng-template pTemplate="header">
+            <tr>
+
+                <th>Cliente/Proveedor</th>
+                <th>Estado</th>
+                <th>Tipo de Documento</th>
+                <th>Importe Total</th>
+                <th>Fecha de Creacion</th>
+                <th>Nota</th>
+                <th>Acciones</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-listTempDto>
+            <tr>
+                <td>{{listTempDto.client}}</td>
+                <td><p-tag [value]="listTempDto.status" [severity]="getSeverity(listTempDto.status)"></p-tag></td>
+                <td>{{listTempDto.documentType}}</td>
+                <td>{{listTempDto.totalimport | currency:'Bs. '}}</td>
+                <td>{{listTempDto.date}}</td>
+                <td>{{listTempDto.note}}</td>
+                <td id="but-hover">
+                    <button type="button" class="p-button-rounded" id="button-custom-rounded">
+                        <i class="pi pi-eye"></i>
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+</div>

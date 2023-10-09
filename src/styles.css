@@ -1,6 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
-@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/themes/saga-green/theme.css";
 @import "primeng/resources/primeng.css";
+@import "../node_modules/primeicons/primeicons.css";
+
 body {
   font-family: var(--font-family);
+}
+
+:root {
+  --color-blue: #2469A0;
+  --color-cyan: #10bce3;
+  --color-cyan-green: #3dd6af;
+  --color-green: #8BD480;
 }
