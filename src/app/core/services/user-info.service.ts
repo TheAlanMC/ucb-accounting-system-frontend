@@ -13,9 +13,9 @@ export class UserInfoService {
   private baseUrl = `${environment.API_URL}/api/v1`;
 
   getUserData(userId: string): Observable<UserData> {
-    const params = new HttpParams().set('kcUuid', userId);
+    // const params = new HttpParams().set('kcUuid', userId);
     
-    const apiUrl = `${this.baseUrl}/users/:kcUuid}`; // Reemplaza con la URL de tu API
+    const apiUrl = `${this.baseUrl}/users`; // Reemplaza con la URL de tu API
     return this.http.get(apiUrl).pipe(
       map((response: any) => {
         // Mapea los datos del JSON a UserData
