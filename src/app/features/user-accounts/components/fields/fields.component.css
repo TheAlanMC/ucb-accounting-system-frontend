@@ -1,0 +1,16 @@
+.p-fieldset-legend {
+    font-size: 20px;
+}
+  
+.p-fieldset-content {
+    color: green;
+    border: 2px green solid;
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 8px;
+    padding: 5%;
+}

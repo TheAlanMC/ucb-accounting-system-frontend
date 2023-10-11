@@ -1,0 +1,17 @@
+<p-carousel [value]="carousel" [numVisible]="1" [numScroll]="1" [circular]="true">
+        <ng-template let-carousel pTemplate="item">
+            <div class="carousel">
+
+            <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
+                <div class="mb-3" style="display: flex; flex-direction: row; justify-content: center;">
+                    <img src="{{carousel.imagen}}" class="images">
+                </div>
+            </div>
+            <div class="text">
+                <h1 class="text-center">{{carousel.titulo}}</h1>
+                <p class="text-center">{{carousel.descripcion}}</p>
+            </div>
+        </div>
+
+        </ng-template>
+</p-carousel>

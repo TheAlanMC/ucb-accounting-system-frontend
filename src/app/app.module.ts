@@ -33,11 +33,11 @@ import { UserAccountsModule } from './features/user-accounts/user-accounts.modul
     LedgerBookModule,
     SupportModule,
     UserAccountsModule,
-    KeycloakAngularModule,
-    HttpClientModule
+    KeycloakAngularModule
   ],
   providers: [
     {
+      
       provide: APP_INITIALIZER,
       useFactory: initializeKeycloak,
       multi: true,
