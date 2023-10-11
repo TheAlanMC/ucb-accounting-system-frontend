@@ -26,16 +26,18 @@ export class UserInfoComponent implements OnInit {
 
   userData: any = {
     companyId: 1,
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'example@ucb.edu.bo',
+    firstName: '',
+    lastName: '',
+    email: '',
     profilePicture: 'https://aidajerusalem.org/wp-content/uploads/2021/09/blank-profile-picture-973460_1280.png'
   };
   ngOnInit(): void {
-    this.userinfoService.getUserData("70b6afe6-5a1a-43a0-9267-012eb710ff0").subscribe((data) => {
-      this.userData = data;
+    
+    this.userinfoService.getUserData().subscribe((data) => {
+      this.userData = data.data;
       console.log(this.userData);
-    });
+    }
+    );
   }
 
   saveUserData(): void {
@@ -49,7 +51,7 @@ export class UserInfoComponent implements OnInit {
 
     } else {
       this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Tus datos se guardaron correctamente' });
-      this.userinfoService.updateUserData(this.userData, "70b6afe6-5a1a-43a0-9267-012eb710ff0a").subscribe((data) => {
+      this.userinfoService.updateUserData(this.userData).subscribe((data) => {
         console.log(data);
       }, (error) => {
         console.error(error);
@@ -67,22 +69,17 @@ export class UserInfoComponent implements OnInit {
   }
 
   saveImage(): void {
-    
-    if (this.file) {
-      this.userinfoService.uploadCompanyLogo(this.file).subscribe(
-        (response) => {
-          console.log(response);
-          console.log("URL: "+response.body.data.fileUrl);
-          this.userData.companyLogo = response.body.data.fileUrl;
-          
-        },
-        (error) => {
-          // Maneja errores aquí si es necesario
-          console.error(error);
-        }
-      );
+    if (this.file){
+      console.log(this.file);
+      console.log("SAdasdassa");
+      this.userinfoService.updateCompanyLogo(this.file).subscribe((data) => {
+        console.log(data);
+        //this.userData.profilePicture = data.data?.s3ObjectId;
+        this.userData.profilePicture = data.data?.fileUrl;
+      }, (error) => {
+        console.error(error);
+      });
     }
-    console.log(this.userData);
   }
 
 

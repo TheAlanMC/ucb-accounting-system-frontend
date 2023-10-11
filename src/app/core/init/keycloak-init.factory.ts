@@ -10,7 +10,7 @@ export function initializeKeycloak(keycloak: KeycloakService) {
         clientId: environment.KEYCLOAK_CLIENT_ID,
       },
       initOptions: {
-        onLoad: 'check-sso',
+        onLoad: "login-required",
         checkLoginIframe: false,
         }
     });
