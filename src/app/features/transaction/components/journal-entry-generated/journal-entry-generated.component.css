@@ -1,12 +1,3 @@
-/* Dropdown */
-::ng-deep #document-type .p-dropdown {
-    height: 30px !important;
-}
-
-::ng-deep #document-type .p-dropdown span {
-    font-size: small;
-    padding:0.25rem 0.5rem 0.25rem 0.5rem;
-}
 * {
     color: #666666;
     font-size: small;
@@ -25,6 +16,13 @@
     font-size: 1.3rem;
 }
 
+::ng-deep .edit-table table {
+    font-size: small;
+}
+
+::ng-deep .input-table {
+    font-size: small;
+}
 
 /* datepicker */
 ::ng-deep .datepicker span input {
@@ -69,36 +67,50 @@
     color: #797979;
 }
 
+::ng-deep .cyan-button button {
+    background: var(--color-cyan-green) !important;
+    border-color: var(--color-cyan-green) !important;
+}
 
-/* Input */
-::ng-deep .p-inputtext{
-    width: 100%;
-    height: 30px;
+::ng-deep .blue-button button {
+    background: var(--color-blue) !important;
+    border-color: var(--color-blue) !important;
+}
+
+::ng-deep .cyan-button button,
+::ng-deep .blue-button button {
+    height: 33px;
     font-size: small;
-    padding: 0.25rem 0.5rem 0.25rem 0.5rem;
 }
 
 /* Dropdown */
-::ng-deep .dropdown .p-dropdown {
+::ng-deep #document-type .p-dropdown {
     height: 30px !important;
 }
 
-::ng-deep .dropdown .p-dropdown span {
+::ng-deep #document-type .p-dropdown span {
     font-size: small;
     padding:0.25rem 0.5rem 0.25rem 0.5rem;
 }
 
-::ng-deep .p-inputtextarea{
-    width: 30vw !important;
-    height: 100%;
-}
-
 /* Botones */
+
 ::ng-deep .cyan-button button {
     background: var(--color-cyan-green) !important;
     border-color: var(--color-cyan-green) !important;
-    font-size: medium;
 }
+
+::ng-deep .blue-button button {
+    background: var(--color-blue) !important;
+    border-color: var(--color-blue) !important;
+}
+
+::ng-deep .cyan-button button,
+::ng-deep .blue-button button {
+    height: 33px;
+    font-size: small;
+}
+
 /* Rojo */
 ::ng-deep .red-button button {
     background: #F77 !important;

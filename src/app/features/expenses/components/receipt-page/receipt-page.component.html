@@ -1,1 +1,97 @@
-<p>receipt-page works!</p>
+<div class="card">
+    <p-toast></p-toast>
+    <div class="flex card-container overflow-hidden">
+        <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0">
+            <i class="pi pi-file-edit" style="color: var(--color-green); font-size: 2.5rem;"></i>
+            <p class="text-2xl md:text-3xl">&nbsp;&nbsp;&nbsp;Realizar pago nº{{paymentNumber}}</p>
+        </div>
+        <div class="flex-none flex align-items-center justify-content-center font-bold m-2 px-5 py-3">
+            <p-button class="help-icon" icon="pi pi-question-circle"></p-button>
+        </div>
+    </div>
+    <div class="flex justify-content-between">
+        <div class="flex flex-column card-container mx-8">
+            <div class="flex flex-row flex-wrap">
+            </div>
+            <div class="flex flex-wrap-reverse md:flex-wrap card-container purple-container" style="max-width: 40vw">
+                <div  class="flex align-items-center justify-content-start" style="min-width: 250px;">
+                    <div class="flex flex-column justify-content-start mr-5">
+                        <p>Proveedor</p>
+                        <p-dropdown id="document-type" [options]="suppliers" [(ngModel)]="selectedSupplier" optionLabel="name"
+                                    placeholder="Seleccione un proveedor" [style]="{'width':'250px'}" [required]="true" [editable]="true"></p-dropdown>
+                    </div>
+                </div>
+                <div class="flex align-items-center justify-content-start" style="min-width: 250px;">
+                    <div class="flex flex-column justify-content-start">
+                        <p>Nº de referencia</p>
+                        <input id="reference-number" type="text" pInputText [(ngModel)]="referenceNumber" class="input" [style]="{'width':'250px'}">
+                    </div>
+                </div>
+                <div  class="flex align-items-center justify-content-start" style="min-width: 250px;">
+                    <div class="flex flex-column justify-content-start mr-5">
+                        <p>Fecha de pago</p>
+                        <p-calendar class="datepicker" [(ngModel)]="dateValue" [showIcon]="true" inputId="icon" [style]="{'width':'250px'}"
+                                    dateFormat="dd/mm/yy"></p-calendar>
+                    </div>
+                </div>
+                <div class="flex align-items-center justify-content-start" style="min-width: 250px;">
+                    <div class="flex flex-column justify-content-start mr-5">
+                        <p>Método de pago</p>
+                        <p-dropdown id="document-type" [options]="paymentTypes" [(ngModel)]="selectedPaymentType" optionLabel="name"
+                                    placeholder="Seleccione un método de pago" [style]="{'width':'250px'}" [required]="true" [editable]="true"></p-dropdown>
+                    </div>
+                </div>
+                <div class="flex align-items-center justify-content-start" style="min-width: 250px;">
+                    <div class="flex flex-column justify-content-start mr-5">
+                        <p>Importe pagado</p>
+                        <p-inputNumber [(ngModel)]="importeRecibido" inputId="locale-user" [minFractionDigits]="2" [style]="{'width':'250px'}"></p-inputNumber>
+                    </div>
+                </div>
+                <div class="flex align-items-center justify-content-start" style="min-width: 250px;">
+                    <div class="flex flex-column justify-content-start mr-5">
+                        <p>Cuenta de pago</p>
+                        <p-dropdown id="document-type" [options]="paymentSubaccounts" [(ngModel)]="selectedPaymentSubaccount" optionLabel="name"
+                                    placeholder="Seleccione una cuenta" [style]="{'width':'250px'}" [required]="true" [editable]="true"></p-dropdown>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-column card-container mx-8">
+            <div class="flex flex-row flex-wrap align-items-center mt-4">
+                <div
+                        style="border: 1px solid #B1B1B1; border-radius: 50%; height: 20px; width: 20px; display:flex; justify-content: center; align-items: center;">
+                    <i class="pi pi-dollar" style="font-size: 0.8rem; text-align: center; color: #B1B1B1;"></i>
+                </div>
+
+                <p class="ml-2" style="color: #666666 ;"> IMPORTE RECIBIDO</p>
+            </div>
+            <p class="text-right font-semibold text-base my-2">Bs. {{importeRecibido}}</p>
+            <div>
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-12 xl:col-12 px-8 py-3">
+    <!-- Buttons - save, save and register a new journay entry -->
+    <div class="flex justify-content-between flex-wrap" id="save-buttons">
+        <div class="flex justify-content-between flex-wrap card-container purple-container mx-3">
+            <p-button label="Cancelar" class="cyan-button m-2 ml-5" routerLink="/expenses" [style]="{'font-size': 'medium','height':'100%'}"></p-button>
+            <p-button label="Borrar" class="red-button m-2" [style]="{'font-size': 'medium','height':'100%'}"></p-button>
+        </div>
+        <div class="flex"><p-button label="Guardar" (click)="createReceipt()" class="m-2 mr-5"></p-button></div>
+    </div>
+    <br>
+    <hr>
+    <div class="flex flex-column">
+        <div class="col-6">
+            <p class="text-xl font-semibold">Notas</p>
+            <textarea rows="5" cols="50" pInputTextarea [(ngModel)]="description"></textarea>
+        </div>
+        <div class="col-6">
+            <p class="text-xl font-semibold">Archivos adjuntos</p>
+            <div class="col-10 p-0"><app-attachments-section (attachmentsEmmited)="retrieveAttachments($event)"></app-attachments-section></div>
+        </div>
+    </div>
+    <div style="height: 100px;"></div>
+</div>

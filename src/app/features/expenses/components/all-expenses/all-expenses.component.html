@@ -1,1 +1,69 @@
-<p>all-expenses works!</p>
+
+<div class="flex justify-content-between">
+  <div class="flex flex-row flex-wrap mb-3">
+    <div class="flex flex-column justify-content-start mr-2">
+      <p>Fecha</p>
+      <!-- <p-calendar  [(ngModel)]="dateValue" [showIcon]="true" inputId="icon"
+          dateFormat="dd/mm/yy"></p-calendar> -->
+      <p-calendar class="datepicker" (onSelect)="onDateSelect($event)" (onClearClick)="dt2.filter('', 'expenseTransactionDate', 'equals')" [showButtonBar]="true" [showIcon]="true" dateFormat="dd/mm/yy" inputId="icon" placeholder="Seleccione una fecha" [readonlyInput]="true" dateFormat="yy-mm-dd"></p-calendar>
+
+    </div>
+    <div class="flex flex-column justify-content-start mx-2">
+      <p>Tipo</p>
+      <p-dropdown id="document-type" optionLabel="name" optionValue="name" [options]="types"
+                  placeholder="Seleccione un tipo de documento" appendTo="body" [style]="{'width':'250px'}"
+                  [required]="true">
+      </p-dropdown>
+    </div>
+    <div class="flex flex-column justify-content-start mr-2">
+      <p>Proveedor</p>
+      <p-multiSelect id="supplier" placeholder="Seleccione un proveedor" [style]="{'width':'250px'}" [options]="suppliers" (onChange)="dt2.filter($event.value,'supplier.displayName', 'in')" optionLabel="name" optionValue="name">
+        <ng-template let-option pTemplate="item">
+          <div class="p-multiselect-representative-option">
+            <span class="ml-1">{{option.name}}</span>
+          </div>
+        </ng-template>
+      </p-multiSelect>
+    </div>
+  </div>
+  <div class="flex flex-column justify-content-start">
+    <div class="flex justify-content-between flex-wrap card-container purple-container my-4">
+<!--      <p-button label="Eliminar venta" class="mx-2 red-button" icon="pi pi-trash"></p-button>-->
+      <!-- <p-button label="Nueva venta" class="ml-2 green-button" icon="pi pi-plus-circle"
+          routerLink="/invoice"></p-button> -->
+      <p-splitButton #ua label="Nueva transacción" icon="pi pi-plus-circle" class="green-button"  [model]="items" (onClick)="ua.onDropdownButtonClick()"></p-splitButton>
+
+    </div>
+  </div>
+</div>
+<br>
+<p-table #dt2 [value]="expenses" [(selection)]="selectedExpenses" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 4rem">
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+      </th>
+      <th pSortableColumn="expenseTransactionDate">Fecha <p-sortIcon field="expenseTransactionDate"></p-sortIcon></th>
+      <th>Tipo</th>
+      <th pSortableColumn="expenseTransactionNumber">Nº <p-sortIcon field="expenseTransactionNumber"></p-sortIcon></th>
+      <th pSortableColumn="supplier.displayName">Proveedor <p-sortIcon field="supplier.displayName"></p-sortIcon></th>
+      <th pSortableColumn="gloss">Descripción <p-sortIcon field="gloss" style="font-size: 1rem;"></p-sortIcon></th>
+      <th pSortableColumn="totalAmountBs">Importe <p-sortIcon field="totalAmountBs"></p-sortIcon></th>
+      <th style="width:10%" pSortableColumn="expenseTransactionAccepted">Estado <p-sortIcon field="expenseTransactionAccepted"></p-sortIcon></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-expense>
+    <tr>
+      <td>
+        <p-tableCheckbox [value]="expense"></p-tableCheckbox>
+      </td>
+      <td>{{expense.expenseTransactionDate | date:'dd-MM-yyyy'}}</td>
+      <td>{{expense.transactionType.transactionTypeName}}</td>
+      <td>{{expense.expenseTransactionNumber}}</td>
+      <td>{{expense.supplier.displayName}}</td>
+      <td>{{expense.gloss}}</td>
+      <td>{{expense.totalAmountBs | currency: 'Bs. '}}</td>
+      <td><p-tag [style]="expense.expenseTransactionAccepted ? { 'background': '#55d0bd85' , 'color':'#1f7f7c'}: { 'background': '#eee55885' , 'color':'#938d3c'}" [value]="expense.expenseTransactionAccepted ? 'ACEPTADO' : 'EN REVISIÓN'"></p-tag></td>
+    </tr>
+  </ng-template>
+</p-table>

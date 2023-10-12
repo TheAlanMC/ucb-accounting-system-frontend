@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { ResponseDto } from '../models/reponse.dto';
 import { JournalEntryDto } from 'src/app/features/journal-entry/models/journal-entry.dto';
 import { DocumentTypeDto } from 'src/app/features/journal-entry/models/documentType.dto';
+import {TransactionJournalEntryDto} from "../../features/journal-entry/models/transaction-journal-entry.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -22,4 +23,9 @@ export class JournalEntryService {
   public getDocumentTypes(): Observable<ResponseDto<DocumentTypeDto[]>>{
     return this.http.get<ResponseDto<DocumentTypeDto[]>>(`${this.baseUrl}/document-types`);
   }
+
+  // Get journal entry by id
+    public getJournalEntryById(companyId: number, journalEntryId: number): Observable<ResponseDto<TransactionJournalEntryDto>>{
+    return this.http.get<ResponseDto<TransactionJournalEntryDto>>(`${this.baseUrl}/journal-entries/${journalEntryId}/companies/${companyId}`);
+    }
 }
