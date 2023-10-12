@@ -14,6 +14,7 @@ import { JournalEntryPageComponent } from './components/journal-entry-page/journ
 import { TransactionTableComponent } from './components/transaction-table/transaction-table.component';
 import { AttachmentsSectionComponent } from './components/attachments-section/attachments-section.component';
 import { DropdownModule } from 'primeng/dropdown';
+import { SidebarModule } from 'primeng/sidebar';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { DropdownModule } from 'primeng/dropdown';
     FileUploadModule,
     InputTextareaModule,
     ToastModule,
-    DropdownModule
+    DropdownModule,
+    SidebarModule
   ]
 })
 export class JournalEntryModule { }

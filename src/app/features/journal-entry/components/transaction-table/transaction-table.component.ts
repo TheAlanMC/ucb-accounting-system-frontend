@@ -2,11 +2,20 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { JournalEntryDto } from '../../models/journal-entry.dto';
 import { TransactionDto } from '../../models/transaction.dto';
 
+interface Cuenta {
+  codigo?: string;
+  nombre?: string;
+  nivel?: string;
+  moneda?: string;
+  cliente_proveedor?: string;
+}
+
 @Component({
   selector: 'app-transaction-table',
   templateUrl: './transaction-table.component.html',
   styleUrls: ['./transaction-table.component.css']
 })
+
 export class TransactionTableComponent {
   //Object emmited to the parent component
   @Output() transactionDetailsEmmited = new EventEmitter<TransactionDto[]>();
@@ -18,10 +27,165 @@ export class TransactionTableComponent {
   totalCreditAmount: number = 0;
   transactions: TransactionDto[] = [];
 
+  cuentas: Cuenta[] = [];
+    cols: any[] = [];
+    constructor() { }
+  
   ngOnInit(): void {
     this.calculateTotalDebitAmount();
     this.calculateTotalCreditAmount();
+    this.cuentas = [
+      {
+        codigo: '1101010001',
+        nombre: "Caja Moneda Nacional - MLL",
+        nivel: "S",
+        moneda: "Bs.",
+        cliente_proveedor: ""
+      },
+      {
+        codigo: '1101010002',
+        nombre: "Caja Moneda Nacional - CBBA",
+        nivel: "S",
+        moneda: "Bs.",
+        cliente_proveedor: ""
+      },
+      {
+        codigo: '1101010003',
+        nombre: "Caja Moneda Nacional - SCZ",
+        nivel: "S",
+        moneda: "Bs.",
+        cliente_proveedor: ""
+      },
+      {
+        codigo: '1101010004',
+        nombre: "Caja Moneda Nacional - PTI",
+        nivel: "S",
+        moneda: "Bs.",
+        cliente_proveedor: ""
+      },
+      {
+        codigo: '1101010005',
+        nombre: "Caja Moneda Nacional - SAC",
+        nivel: "S",
+        moneda: "Bs.",
+        cliente_proveedor: ""
+      },
+      {
+        codigo: '1101020001',
+        nombre: "Caja Moneda Extranjera - Mll",
+        nivel: "S",
+        moneda: "Bs.",
+        cliente_proveedor: ""
+      },
+      {
+        codigo: '1101030001',
+        nombre: "Caja Chica Moneda Nacional - Mll",
+        nivel: "S",
+        moneda: "Bs.",
+        cliente_proveedor: ""
+      },
+
+      {
+        codigo: '1101040001',
+        nombre: "Cta Cte Banco Bisa - 56950036 (MN)",
+        nivel: "S",
+        moneda: "Bs.",
+        cliente_proveedor: ""
+      },
+
+      {
+        codigo: '1101040002',
+        nombre: "Cta Cte Banco De Credito - 2015014846341 (MN)",
+        nivel: "S",
+        moneda: "Bs.",
+        cliente_proveedor: ""
+      },
+      
+      {
+        codigo: '1101040003',
+        nombre: "Cta Cte Banco Union - 10000006791524 (MN)",
+        nivel: "S",
+        moneda: "Bs.",
+        cliente_proveedor: ""
+      },
+
+      {
+        codigo: '1101040004',
+        nombre: "Cta Cte Banco Fortaleza - 2041005229 (MN)",
+        nivel: "S",
+        moneda: "Bs.",
+        cliente_proveedor: ""
+      },
+
+      {
+        codigo: '1101040005',
+        nombre: "Cta Cte Banco Nacional De Bolivia - 1000294221 (MN)",
+        nivel: "S",
+        moneda: "Bs.",
+        cliente_proveedor: ""
+      },
+
+      {
+        codigo: '1101040006',
+        nombre: "Cta Cte Banco De Credito - 2015095294347 (MN)",
+        nivel: "S",
+        moneda: "Bs.",
+        cliente_proveedor: ""
+      },
+      {
+        codigo: '1101040007',
+        nombre: "Cta Cte Banco Fortaleza - 2042005238 (MN)",
+        nivel: "S",
+        moneda: "Bs.",
+        cliente_proveedor: ""
+      },
+
+      {
+        codigo: '1101050001',
+        nombre: "Cta Cte Banco Bisa - 56952012 (ME)",
+        nivel: "S",
+        moneda: "Bs.",
+        cliente_proveedor: ""
+      },
+
+      {
+        codigo: '1101050002',
+        nombre: "Cta Cte Banco De Credito - 2010718992267 (ME)",
+        nivel: "S",
+        moneda: "Bs.",
+        cliente_proveedor: ""
+      },
+      {
+        codigo: '1101050002',
+        nombre: "Cta Cte Banco De Credito - 2010718992267 (ME)",
+        nivel: "S",
+        moneda: "Bs.",
+        cliente_proveedor: ""
+      },
+      {
+        codigo: '1101050002',
+        nombre: "Cta Cte Banco De Credito - 2010718992267 (ME)",
+        nivel: "S",
+        moneda: "Bs.",
+        cliente_proveedor: ""
+      },
+      {
+        codigo: '1101050002',
+        nombre: "Cta Cte Banco De Credito - 2010718992267 (ME)",
+        nivel: "S",
+        moneda: "Bs.",
+        cliente_proveedor: ""
+      },
+    ]
   }
+
+/*   onRowSelect(event: any) {
+    this.messageService.add({ severity: 'info', summary: 'Product Selected', detail: event.data.name });
+  }
+
+  onRowUnselect(event: any) {
+      this.messageService.add({ severity: 'info', summary: 'Product Unselected', detail: event.data.name });
+  } */
 
   //Initial data - 4 rows  
   transactionDetails = Array.from({ length: 4 }, () => ({
@@ -140,6 +304,17 @@ export class TransactionTableComponent {
     }
   }
 
+  seleccionarCuenta(index: number) {
+    let cuentas = document.getElementById("accountModal");
+    if (cuentas != null) {
+      cuentas.style.display = "block";
+      
+    }
+    console.log("selectAccount")
+  }
+
+  sidebarVisible2: boolean = false;
+  
 }
 function elseif(arg0: boolean) {
   throw new Error('Function not implemented.');

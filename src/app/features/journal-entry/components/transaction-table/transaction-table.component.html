@@ -1,5 +1,7 @@
 <div class="card">
-    <p-table class="edit-table" [value]="transactionDetails" styleClass="p-datatable-gridlines p-datatable-sm"  dataKey="id" [tableStyle]="{ 'min-width': '50rem' }" (onEditInit)="onEditInit($event)" (onEditCancel)="onEditCancel($event)" (onEditComplete)="onEditComplete($event)">
+    <p-table class="edit-table" [value]="transactionDetails" styleClass="p-datatable-gridlines p-datatable-sm"
+        dataKey="id" [tableStyle]="{ 'min-width': '50rem' }" (onEditInit)="onEditInit($event)"
+        (onEditCancel)="onEditCancel($event)" (onEditComplete)="onEditComplete($event)">
         <ng-template pTemplate="header">
             <tr>
                 <th style="width:1%"></th>
@@ -18,10 +20,12 @@
                     <span style="font-size: 0.8rem" class="pi pi-bars" pReorderableRowHandle></span>
                 </td>
                 <td>{{index+1}}</td>
-                <td [pEditableColumn]="transaction.cuenta" pEditableColumnField="cuenta" [pEditableColumnRowIndex]="index">
+                <td [pEditableColumn]="transaction.cuenta" pEditableColumnField="cuenta"
+                    [pEditableColumnRowIndex]="index">
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input class="input-table" pInputText type="text" [(ngModel)]="transaction.cuenta" required />
+                            <input class="input-table" type="button" class="mr-2" (click)="sidebarVisible2 = true"
+                                pInputText type="text" [(ngModel)]="transaction.cuenta" required />
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{ transaction.cuenta }}
@@ -31,34 +35,39 @@
                 <td [pEditableColumn]="transaction.debe" pEditableColumnField="debe" [pEditableColumnRowIndex]="index">
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input class="input-table" pInputText [(ngModel)]="transaction.debe" type="number" min="0" value="0" (input)="updateDefaultValue(index, transaction.debe, 0)"/>
+                            <input class="input-table" pInputText [(ngModel)]="transaction.debe" type="number" min="0"
+                                value="0" (input)="updateDefaultValue(index, transaction.debe, 0)" />
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{ transaction.debe | currency: 'Bs. ' }}
                         </ng-template>
                     </p-cellEditor>
                 </td>
-                <td [pEditableColumn]="transaction.haber" pEditableColumnField="haber" [pEditableColumnRowIndex]="index">
+                <td [pEditableColumn]="transaction.haber" pEditableColumnField="haber"
+                    [pEditableColumnRowIndex]="index">
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input class="input-table" pInputText [(ngModel)]="transaction.haber" type="number" min="0" value="0" (input)="updateDefaultValue(index, transaction.haber,  1)"/>
+                            <input class="input-table" pInputText [(ngModel)]="transaction.haber" type="number" min="0"
+                                value="0" (input)="updateDefaultValue(index, transaction.haber,  1)" />
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{ transaction.haber | currency: 'Bs. ' }}
                         </ng-template>
                     </p-cellEditor>
                 </td>
-                <td [pEditableColumn]="transaction.descripcion" pEditableColumnField="descripcion" [pEditableColumnRowIndex]="index">
+                <td [pEditableColumn]="transaction.descripcion" pEditableColumnField="descripcion"
+                    [pEditableColumnRowIndex]="index">
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input class="input-table" pInputText type="text" [(ngModel)]="transaction.descripcion"  />
+                            <input class="input-table" pInputText type="text" [(ngModel)]="transaction.descripcion" />
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{ transaction.descripcion }}
                         </ng-template>
                     </p-cellEditor>
                 </td>
-                <td [pEditableColumn]="transaction.nombre" pEditableColumnField="nombre" [pEditableColumnRowIndex]="index">
+                <td [pEditableColumn]="transaction.nombre" pEditableColumnField="nombre"
+                    [pEditableColumnRowIndex]="index">
                     <p-cellEditor>
                         <ng-template pTemplate="input">
                             <input class="input-table" pInputText type="text" [(ngModel)]="transaction.nombre" />
@@ -70,7 +79,8 @@
                 </td>
                 <!-- Columna boton con icono de eliminar -->
                 <td>
-                    <p-button icon="pi pi-trash" styleClass="p-button-rounded p-button-secondary p-button-text" (click)="deleteRow(index)"></p-button>
+                    <p-button icon="pi pi-trash" styleClass="p-button-rounded p-button-secondary p-button-text"
+                        (click)="deleteRow(index)"></p-button>
                     <span icon="pi pi-trash"></span>
                 </td>
             </tr>
@@ -86,7 +96,54 @@
     </p-table>
     <br>
     <div class="flex flex-row flex-wrap">
-        <p-button class="cyan-button m-2" label="Agregar línea" icon="pi pi-plus" iconPos="left" (click)="addRow()"></p-button>
-        <p-button class="blue-button m-2" label="Borrar todo" icon="pi pi-trash" iconPos="left" (click)="deleteAllRows()"></p-button>  
+        <p-button class="cyan-button m-2" label="Agregar línea" icon="pi pi-plus" iconPos="left"
+            (click)="addRow()"></p-button>
+        <p-button class="blue-button m-2" label="Borrar todo" icon="pi pi-trash" iconPos="left"
+            (click)="deleteAllRows()"></p-button>
     </div>
+    <<<<<<< HEAD=======<p-sidebar [(visible)]="sidebarVisible2" position="right" styleClass="w-5">
+
+        <ng-template pTemplate="header">
+            <h1>Selector de cuentas</h1>
+        </ng-template>
+
+        <ng-template pTemplate="content">
+            <p-table [value]="cuentas" [scrollable]="true" scrollHeight="10000px" selectionMode="single" dataKey="code">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width:10%">Código</th>
+                        <th style="width:30%">Nombre de la cuenta</th>
+                        <th style="width:2%">Nivel</th>
+                        <th style="width:5%">Moneda</th>
+                        <th style="width:5%">Clie. Prov.</th>
+                        <th style="width:5%">Edit</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-cuenta>
+                    <tr>
+                        <td>
+                            {{ cuenta.codigo }}
+                        </td>
+                        <td>
+                            {{ cuenta.nombre }}
+                        </td>
+                        <td>
+                            {{ cuenta.nivel }}
+                        </td>
+                        <td>
+                            {{ cuenta.moneda }}
+                        </td>
+                        <td>
+                            {{ cuenta.cliente_proveedor }}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <p-button>Asignar</p-button>
+        </ng-template>
+        </p-sidebar>
+        >>>>>>> UAS-100
 </div>
