@@ -1,0 +1,16 @@
+<form [formGroup]="nuevaCuentaForm" (ngSubmit)="onSubmit()">
+    <div class="field">
+        <label for="nivel">Nivel de la cuenta</label>
+        <p-dropdown id="nivel" formControlName="nivel" [options]="niveles"></p-dropdown>
+    </div>
+    <div class="field">
+        <label for="codigo">Código de la cuenta</label>
+        <input type="text" id="codigo" formControlName="codigo">
+    </div>
+    <div class="field">
+        <label for="nombre">Nombre de cuenta</label>
+        <input type="text" id="nombre" formControlName="nombre">
+    </div>
+    <p-button type="button" label="Descartar" class="boton-descartar boton-rojo" (click)="descartar()"></p-button>
+    <p-button type="submit" label="Guardar" class="boton-guardar"></p-button>
+</form>

@@ -1,0 +1,19 @@
+.sidebar {
+    width: 30rem;
+    padding: 1rem;
+}
+
+.field {
+    margin-bottom: 1rem;
+}
+
+.boton-descartar {
+    margin-right: 1rem;
+}
+::ng-deep .boton-rojo .p-button {
+    background-color: rgb(234, 85, 85) !important;
+    border-color: rgb(233, 70, 70) !important;
+}
+::ng-deep .boton-celeste .p-button {
+    background-color: rgb(70, 130, 180) !important; /* Este es un color celeste aproximado */
+}

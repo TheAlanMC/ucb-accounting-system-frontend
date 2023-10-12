@@ -1,0 +1,24 @@
+<div class="sidebar">
+    <form [formGroup]="nuevoImpuestoForm" (ngSubmit)="onSubmit()">
+      <div class="field">
+        <label>Fecha de Creación</label>
+        <input type="date" formControlName="Fecha_de_Creacion">
+      </div>
+      <div class="field">
+        <label>Nombre de Impuesto</label>
+        <input type="text" formControlName="Nombre_de_Impuesto">
+      </div>
+      <div class="field">
+        <label>N°</label>
+        <input type="number" formControlName="No">
+      </div>
+      <div class="field">
+        <label>Tasa Actual del Impuesto</label>
+        <input type="number" formControlName="Tasa_Actual_del_Impuesto" [readonly]="!editing">
+      </div>
+      <button *ngIf="!editing" type="button" pButton label="Modificar" (click)="editar()"></button>
+      <button *ngIf="editing" type="button" pButton label="Guardar" (click)="guardar()"></button>
+      <button type="submit" pButton label="Guardar"></button>
+      <button type="button" pButton label="Descartar" (click)="descartar()"></button>
+    </form>
+  </div>

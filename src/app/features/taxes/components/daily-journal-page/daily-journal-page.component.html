@@ -1,0 +1,49 @@
+<div class="header">
+    <i class="pi pi-chart-bar icono-verde"></i>
+    <h1 class="titulo">Libro Diario</h1>
+    <i class="pi pi-question icono-verde" style="position: absolute; right: 0;"></i>
+</div>
+<div class="contenedor-boton">
+    <td><p-button type="button" class="mr-2 boton-sidebar" (click)="sidebarVisible2 = true; isEditing = false" icon="pi pi-plus" label="Agregar nuevo asiento"></p-button>
+</div>
+<div class="search-bar">
+    <span class="pi pi-search"></span>
+    <input pInputText type="text" placeholder="Buscar..." (input)="onSearch($event)" />
+</div>
+<p-table [value]="asientos" [tableStyle]="{ 'min-width': '50rem' }" class="tabla">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Cliente/Proveedor</th>
+            <th>Estado</th>
+            <th>Tipo de Documento</th>
+            <th>Importe Total</th>
+            <th>Fecha de creación</th>
+            <th>Nota</th>
+            <th>Editar</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-asiento>
+        <tr>
+            <td>{{ asiento.ClienteProveedor }}</td>
+            <td>{{ asiento.Estado }}</td>
+            <td>{{ asiento.Tipo_de_documento }}</td>
+            <td>{{ asiento.Importe_total }}</td>
+            <td>{{ asiento.Fecha_de_Creacion }}</td>
+            <td>{{ asiento.Nota }}</td>
+            <td><p-button type="button" class="mr-2 boton-editar" (click)="sidebarVisible2 = true; isEditing = true" icon="pi pi-pencil" label="Editar"></p-button></td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-sidebar [(visible)]="sidebarVisible2" position="right" class="sidebar">
+    <h3 *ngIf="!isEditing">Agregar nuevo asiento</h3>
+    <!-- Asegúrate de reemplazar 'app-daily-journal-addentry' con el nombre real de tu componente de adición -->
+    <!-- <app-daily-journal-addentry *ngIf="!isEditing"></app-daily-journal-addentry> -->
+
+    <h3 *ngIf="isEditing">Editar Asiento</h3>
+    
+    <!-- Asegúrate de reemplazar 'app-daily-journal-editentry' con el nombre real de tu componente de edición -->
+    <!-- <app-daily-journal-editentry *ngIf="isEditing"></app-daily-journal-editentry>  -->
+</p-sidebar>
+
+<p-button (click)="obtenerAsientos()" label="Submit" class="boton-submit"></p-button>

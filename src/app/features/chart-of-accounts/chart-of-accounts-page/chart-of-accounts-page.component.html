@@ -1,0 +1,41 @@
+<div class="header">
+    <i class="pi pi-chart-bar icono-verde"></i>
+    <h1 class="titulo">Plan de Cuentas</h1>
+    <i class="pi pi-question icono-verde" style="position: absolute; right: 0;"></i>
+</div>
+<div class="contenedor-boton">
+    <td><p-button type="button" class="mr-2 boton-sidebar" (click)="sidebarVisible2 = true; isEditing = false" icon="pi pi-plus" label="Agregar nueva cuenta"></p-button>
+</div>
+<div class="search-bar">
+    <span class="pi pi-search"></span>
+    <input pInputText type="text" placeholder="Buscar..." (input)="onSearch($event)" />
+</div>
+<p-table [value]="cuentas" [tableStyle]="{ 'min-width': '50rem' }" class="tabla">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Nivel</th>
+            <th>Código</th>
+            <th>Nombre de la cuenta</th>
+            <th>Editar</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-cuenta>
+        <tr>
+            <td>{{ cuenta.nivel }}</td>
+            <td>{{ cuenta.codigo }}</td>
+            <td>{{ cuenta.nombre }}</td>
+            <td><p-button type="button" class="mr-2 boton-editar" (click)="sidebarVisible2 = true; isEditing = true" icon="pi pi-pencil" label="Editar"></p-button></td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-sidebar [(visible)]="sidebarVisible2" position="right" class="sidebar">
+    <h3 *ngIf="!isEditing">Agregar nueva cuenta</h3>
+    <app-chart-of-accounts-addaccount *ngIf="!isEditing"></app-chart-of-accounts-addaccount>
+
+    <h3 *ngIf="isEditing">Editar Cuenta</h3>
+    <!-- Asegúrate de reemplazar 'app-chart-of-accounts-editcount' con el nombre real de tu componente de edición -->
+    <app-chart-of-accounts-editaccount *ngIf="isEditing"></app-chart-of-accounts-editaccount> 
+</p-sidebar>
+
+<p-button (click)="obtenercuentas()" label="Submit" class="boton-submit"></p-button>
