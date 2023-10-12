@@ -17,10 +17,12 @@ import { JournalEntryModule } from './features/journal-entry/journal-entry.modul
 import { LedgerBookModule } from './features/ledger-book/ledger-book.module';
 import { SupportModule } from './features/support/support.module';
 import { UserAccountsModule } from './features/user-accounts/user-accounts.module';
+import { RegistrationFormComponent } from './features/company-registration/components/registration-form/registration-form.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RegistrationFormComponent
   ],
   imports: [
     BrowserModule,
