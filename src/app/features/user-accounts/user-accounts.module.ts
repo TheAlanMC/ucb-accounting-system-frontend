@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { UserAccountsRoutingModule } from './user-accounts-routing.module';
 import { UserPasswordComponent } from './components/user-password/user-password.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { CreateAccountComponent } from './components/create-account/create-account.component';
+import { CompanyComponent } from './components/company/company.component';
 import { ButtonModule } from 'primeng/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenubarModule} from 'primeng/menubar';
@@ -27,6 +27,7 @@ import { TableModule } from 'primeng/table';
     UserInfoComponent,
     CreateAccountComponent,
     UserListCompanyComponent,
+    CompanyComponent
   ],
   imports: [
     CommonModule,
