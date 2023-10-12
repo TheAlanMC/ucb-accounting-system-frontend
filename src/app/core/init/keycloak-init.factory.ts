@@ -12,6 +12,7 @@ export function initializeKeycloak(keycloak: KeycloakService) {
       initOptions: {
         onLoad: "login-required",
         checkLoginIframe: false,
-        }
+        },
+        // bearerExcludedUrls: ['invoice']
     });
 }

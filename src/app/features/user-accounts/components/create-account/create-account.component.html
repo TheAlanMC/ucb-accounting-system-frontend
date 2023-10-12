@@ -1,0 +1,55 @@
+<link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css">
+
+<div class="card-container">
+    <div class="inline-block font-bold text-center p-4">
+        <span class="pi pi-user-plus" style="font-size: 2rem; color: #8BD480;"></span>
+    </div>
+    <div class="inline-block font-bold text-center p-2" style="color: #797979;">
+        <h2>Crear nueva cuenta</h2>
+    </div>
+
+</div>
+<hr style="margin-top: -15px;">
+
+
+
+
+<div class="grid h-24rem">
+    <div class="col-12 md:col-6">
+        <div class="card p-fluid pr-8 pl-4">
+            <h3 style="color: #B1B1B1;">Crea una nueva cuenta</h3>
+
+            <div style="width: 90%;"><label class="field pr-8" htmlfor="listbox">Seleccione el tipo de cuenta:</label>
+                <p-dropdown [options]="accountstype" [(ngModel)]="selectedAccount" optionLabel="type"></p-dropdown>
+            </div>
+            <br><br>
+
+            <div class="field pr-8"><label htmlfor="name1">Nombres:</label><input [(ngModel)]="dataAccount.firstName" pinputtext="" id="name" type="text"
+                    class="p-inputtext p-component p-element h-2rem"></div>
+            <div class="field pr-8"><label htmlfor="name1">Apellidos:</label><input [(ngModel)]="dataAccount.lastName" pinputtext="" id="lastname"
+                    type="text" class="p-inputtext p-component p-element h-2rem"></div>
+            <div class="field pr-8"><label htmlfor="name1">Correo Electronico:</label><input [(ngModel)]="dataAccount.email" pinputtext="" id="email"
+                    type="email" class="p-inputtext p-component p-element h-2rem"></div>
+            <div class="field pr-8"><label htmlfor="name1">Contraseña:</label><p-password [(ngModel)]="dataAccount.password" id="newPassword"
+                    id="currentPassword" [toggleMask]="true" class="w-full"></p-password></div>
+            
+            <div class="field pr-8">
+            </div>
+            <div class="field pr-8"><label htmlfor="name1">Confirmar contraseña:</label><p-password id="newPassword" [(ngModel)]="dataAccount.confirmPassword"
+                    id="currentPassword" [toggleMask]="true" class="w-full" [feedback]="false"></p-password></div>
+
+            <div class="col-6 mt-8" id="save-buttons">
+                <p-button (click)="createAccount()" icon="pi pi-save" label="Guardar cambios" styleClass="p-button-success"></p-button>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-12 md:col-6">
+
+    </div>
+
+</div>
+<div class="card flex justify-content-center gap-2">
+    <p-toast></p-toast>
+</div>

@@ -12,6 +12,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { UserAccountsRoutingModule } from './user-accounts-routing.module';
 import { UserPasswordComponent } from './components/user-password/user-password.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
+import { CreateAccountComponent } from './components/create-account/create-account.component';
+import { CompanyComponent } from './components/company/company.component';
 import { MenubarModule} from 'primeng/menubar';
 import { BarsIcon } from 'primeng/icons/bars';
 import { AvatarModule } from 'primeng/avatar';
@@ -28,6 +30,10 @@ import { CarouselService } from 'src/app/core/services/carousel/carousel.service
 import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from './components/footer/footer.component';
 import { InfoCardComponent } from './components/info-card/info-card.component';
+import { FileUploadModule } from 'primeng/fileupload';
+import { DropdownModule } from 'primeng/dropdown';
+import { UserListCompanyComponent } from './components/user-list-company/user-list-company.component';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -38,7 +44,10 @@ import { InfoCardComponent } from './components/info-card/info-card.component';
     FieldsComponent,
     CarouselComponent,
     FooterComponent,
-    InfoCardComponent
+    InfoCardComponent,
+    CreateAccountComponent,
+    UserListCompanyComponent,
+    CompanyComponent
   ],
   imports: [
     CommonModule,
@@ -64,7 +73,12 @@ import { InfoCardComponent } from './components/info-card/info-card.component';
     FormsModule,
     ImageModule,
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    FileUploadModule,
+    PasswordModule,
+    DropdownModule,
+    TableModule,
+    ButtonModule,
   ],
   exports: [HomePageComponent],
   providers: [CarouselService],

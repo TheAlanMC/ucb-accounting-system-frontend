@@ -15,6 +15,7 @@ import { TransactionTableComponent } from './components/transaction-table/transa
 import { AttachmentsSectionComponent } from './components/attachments-section/attachments-section.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { SidebarModule } from 'primeng/sidebar';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { SidebarModule } from 'primeng/sidebar';
     InputTextareaModule,
     ToastModule,
     DropdownModule,
-    SidebarModule
+    SidebarModule,
+    SharedModule
   ]
 })
 export class JournalEntryModule { }

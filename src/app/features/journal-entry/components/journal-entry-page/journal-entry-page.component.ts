@@ -130,6 +130,11 @@ export class JournalEntryPageComponent {
               // console.log(data);
               // console.log("Se creoo");
               this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Asiento creado correctamente' });
+              //Esperar  segundos antes de redireccionar
+              setTimeout(() => {
+                window.location.href = '/sales'; //TODO: Change the route
+              }, 2000);
+
             },
             error: (error) => {
               // console.log(error);

@@ -12,13 +12,15 @@ import { ErrorInterceptor } from "./core/interceptors/error-interceptor";
 import { ChartOfAccountsModule } from './features/chart-of-accounts/chart-of-accounts.module';
 import { DashboardModule } from './features/dashboard/dashboard.module';
 import { FinancialStatementsModule } from './features/financial-statements/financial-statements.module';
-import { JournalBookModule } from './features/journal-book/journal-book.module';
+import { TransactionModule } from './features/transaction/transaction.module';
 import { JournalEntryModule } from './features/journal-entry/journal-entry.module';
 import { LedgerBookModule } from './features/ledger-book/ledger-book.module';
 import { SupportModule } from './features/support/support.module';
 import { UserAccountsModule } from './features/user-accounts/user-accounts.module';
 import {CompanyRegistrationModule} from "./features/company-registration/company-registration.module";
 import {TaxesModule} from "./features/taxes/taxes.module";
+import { SalesModule } from './features/sales/sales.module';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -30,14 +32,16 @@ import {TaxesModule} from "./features/taxes/taxes.module";
     ChartOfAccountsModule,
     DashboardModule,
     FinancialStatementsModule,
-    JournalBookModule,
+    TransactionModule,
     JournalEntryModule,
     LedgerBookModule,
     SupportModule,
     UserAccountsModule,
     KeycloakAngularModule,
     CompanyRegistrationModule,
-    TaxesModule
+    TaxesModule,
+    HttpClientModule,
+    SalesModule
   ],
   providers: [
     {
@@ -51,6 +55,10 @@ import {TaxesModule} from "./features/taxes/taxes.module";
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
       multi: true,
+    },
+    {
+      provide: MessageService,
+      useClass: MessageService
     },
   ],
   bootstrap: [AppComponent]
