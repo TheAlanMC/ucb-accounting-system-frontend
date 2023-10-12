@@ -5,9 +5,8 @@ import { ChartOfAccountsAddaccountComponent } from './components/chart-of-accoun
 import { ChartOfAccountsEditaccountComponent } from './components/chart-of-accounts-editaccount/chart-of-accounts-editaccount.component';
 
 const routes: Routes = [
-  { path: 'chart-of-accounts-page', component: ChartOfAccountsPageComponent },
-  { path: 'chart-of-accounts-addaccount', component: ChartOfAccountsAddaccountComponent },
-  { path: 'chart-of-accounts-editaccount', component: ChartOfAccountsEditaccountComponent}
+  { path: 'chartofaccounts',component: ChartOfAccountsPageComponent }
+  
 ];
 
 @NgModule({

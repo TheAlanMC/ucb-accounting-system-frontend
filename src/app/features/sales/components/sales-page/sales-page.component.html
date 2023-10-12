@@ -1,4 +1,4 @@
-<app-navbar (navbarToggle)="onNavbarToggle($event)" ></app-navbar>
+<app-sidebar (navbarToggle)="onNavbarToggle($event)" ></app-sidebar>
 <div class="home-section" [class.navbar-opened]="isNavbarOpen">
 <div class="card" >
     <p-toast></p-toast>
@@ -11,7 +11,6 @@
             <p-button class="help-icon" icon="pi pi-question-circle" styleClass="p-button-success"></p-button>
         </div>
     </div>
-
 </div>
 <div class="col-12 xl:col-12 px-8 py-3">
     <p-tabView [activeIndex]="activeTabIndex">

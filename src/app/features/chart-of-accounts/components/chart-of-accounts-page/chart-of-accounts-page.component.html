@@ -1,3 +1,5 @@
+<app-sidebar (navbarToggle)="onNavbarToggle($event)" ></app-sidebar>
+<div class="home-section" [class.navbar-opened]="isNavbarOpen">
 <div class="header">
     <i class="pi pi-chart-bar icono-verde"></i>
     <h1 class="titulo">Plan de Cuentas</h1>
@@ -39,3 +41,5 @@
 </p-sidebar>
 
 <p-button (click)="obtenercuentas()" label="Submit" class="boton-submit"></p-button>
+
+</div>

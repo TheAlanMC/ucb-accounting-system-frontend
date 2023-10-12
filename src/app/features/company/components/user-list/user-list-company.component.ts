@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { user } from '../../models/UserListCompany.dto';
+import { user } from '../../../user-accounts/models/UserListCompany.dto';
 import { UserListCompanyService } from 'src/app/core/services/user-list-company.service';
 
 

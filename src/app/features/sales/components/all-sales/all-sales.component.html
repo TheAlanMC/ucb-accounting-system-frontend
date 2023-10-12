@@ -3,10 +3,7 @@
     <div class="flex flex-row flex-wrap mb-3">
         <div class="flex flex-column justify-content-start mr-2">
             <p>Fecha</p>
-            <!-- <p-calendar  [(ngModel)]="dateValue" [showIcon]="true" inputId="icon"
-                dateFormat="dd/mm/yy"></p-calendar> -->
-                <p-calendar class="datepicker" (onSelect)="onDateSelect($event)" (onClearClick)="dt2.filter('', 'saleTransactionDate', 'equals')" [showButtonBar]="true" [showIcon]="true" dateFormat="dd/mm/yy" inputId="icon" placeholder="Seleccione una fecha" [readonlyInput]="true" dateFormat="yy-mm-dd"></p-calendar>
-
+            <p-calendar class="datepicker" (onSelect)="onDateSelect($event)" (onClearClick)="dt2.filter('', 'saleTransactionDate', 'equals')" [showButtonBar]="true" [showIcon]="true" dateFormat="dd/mm/yy" inputId="icon" placeholder="Seleccione una fecha" [readonlyInput]="true" dateFormat="yy-mm-dd"></p-calendar>
         </div>
         <div class="flex flex-column justify-content-start mx-2">
             <p>Tipo</p>

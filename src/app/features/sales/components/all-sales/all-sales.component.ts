@@ -20,12 +20,12 @@ export class AllSalesComponent {
             {
                 label: 'Factura',
                 icon: 'pi pi-book',
-                routerLink: ['/invoice']
+                routerLink: ['/sales/invoice']
             },
             {
                 label: 'Recibo',
                 icon: 'pi pi-file-edit',
-                routerLink: ['/receipt']
+                routerLink: ['/sales/receipt']
             },
         ];
     }

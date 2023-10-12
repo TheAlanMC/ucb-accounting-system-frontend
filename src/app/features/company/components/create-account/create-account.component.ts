@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { CreateAccountsService } from 'src/app/core/services/create-accounts.service';
-import { User } from '../../models/NewAccount.dto';
+import { User } from '../../../user-accounts/models/NewAccount.dto';
 
 interface accountType {
   id: number;

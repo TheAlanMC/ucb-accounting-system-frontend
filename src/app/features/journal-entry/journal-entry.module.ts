@@ -6,7 +6,6 @@ import { ButtonModule} from 'primeng/button';
 import { CalendarModule} from 'primeng/calendar';
 import { ToastModule } from 'primeng/toast';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FileUploadModule } from 'primeng/fileupload';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JournalEntryRoutingModule } from './journal-entry-routing.module';
@@ -32,7 +31,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
     InputTextModule,
     ButtonModule,
     CalendarModule,
-    BrowserAnimationsModule,
     FileUploadModule,
     InputTextareaModule,
     ToastModule,

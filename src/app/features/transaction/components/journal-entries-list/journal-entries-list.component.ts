@@ -4,12 +4,12 @@ import { Table } from 'primeng/table'
 
 @Component({
   selector: 'app-list-journalentries-generated',
-  templateUrl: './list-journalentries-generated.component.html',
-  styleUrls: ['./list-journalentries-generated.component.css']
+  templateUrl: './journal-entries-list.component.html',
+  styleUrls: ['./journal-entries-list.component.css']
 })
 
 
-export class ListJournalentriesGeneratedComponent implements OnInit {
+export class JournalEntriesListComponent implements OnInit {
   
 
   listTempDto!: ListTempDto[];

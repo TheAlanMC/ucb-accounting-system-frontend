@@ -1,27 +1,36 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from './components/navbar/navbar.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { TieredMenuModule } from 'primeng/tieredmenu';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { ToolbarModule } from 'primeng/toolbar';
+import { AvatarModule } from 'primeng/avatar';
+import { ButtonModule } from 'primeng/button';
 
 
 
 @NgModule({
   declarations: [
-    NavbarComponent,
+    SidebarComponent,
     ForbiddenComponent,
     NotFoundComponent,
+    NavbarComponent,
 
   ],
   imports: [
     CommonModule,
-    TieredMenuModule
+    TieredMenuModule,
+    ToolbarModule,
+    AvatarModule,
+    ButtonModule,
   ],
   exports: [
-    NavbarComponent,
+    SidebarComponent,
     ForbiddenComponent,
     NotFoundComponent,
+    NavbarComponent,
   ]
 })
 export class SharedModule { }

@@ -1,9 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListJournalentriesGeneratedComponent } from './components/list-journalentries-generated/list-journalentries-generated.component';
+import { JournalEntriesListComponent } from './components/journal-entries-list/journal-entries-list.component';
 
 const routes: Routes = [
-  { path: 'list/journal/g', component: ListJournalentriesGeneratedComponent }
+  { path: 'transactions',
+    children: [
+      { path: '', component: JournalEntriesListComponent },
+      // { path: ':id', component: JournalEntriesListComponent },
+    ]
+  }
 ];
 
 @NgModule({

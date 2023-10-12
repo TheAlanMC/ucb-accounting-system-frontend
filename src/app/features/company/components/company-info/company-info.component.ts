@@ -1,16 +1,16 @@
 import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { CompanyInfoService } from 'src/app/core/services/company-info.service';
-import { CompanyData } from '../../models/CompanyData.dto';
+import { CompanyData } from '../../../user-accounts/models/CompanyData.dto';
 import { MessageService } from 'primeng/api';
 import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-company',
-  templateUrl: './company.component.html',
-  styleUrls: ['./company.component.css']
+  templateUrl: './company-info.component.html',
+  styleUrls: ['./company-info.component.css']
 })
 
-export class CompanyComponent implements OnInit {
+export class CompanyInfoComponent implements OnInit {
 
   companyinfoservice = inject(CompanyInfoService);
   messageService = inject(MessageService);

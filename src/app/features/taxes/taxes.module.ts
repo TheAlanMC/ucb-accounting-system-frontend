@@ -10,13 +10,15 @@ import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TaxPageComponent } from './components/tax-page/tax-page.component';
 
 @NgModule({
   declarations: [
     TaxModificationPageComponent,
     DailyJournalPageComponent,
     PurchaseFormComponent,
-    SalesFormComponent
+    SalesFormComponent,
+    TaxPageComponent
   ],
   imports: [
     CommonModule,
