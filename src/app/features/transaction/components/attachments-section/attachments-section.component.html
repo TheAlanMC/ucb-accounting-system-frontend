@@ -1,0 +1,10 @@
+<p-fileUpload id="attachment-box">
+    <ng-template pTemplate="content">
+        <div id="drag-and-drop-container" [class.dragover]="isDragging"
+        (dragover)="onDragOver($event)"
+        (dragleave)="onDragLeave($event)"
+        (drop)="onDrop($event)">
+            <p class="p-m-0">Arrastra y suelta archivos aquí para subirlos 😊</p>
+        </div>
+    </ng-template>
+</p-fileUpload>

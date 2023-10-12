@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {TransactionTableComponent} from "../../../journal-entry/components/transaction-table/transaction-table.component";
 
@@ -12,6 +12,7 @@ import {MessageService} from "primeng/api";
 import {forkJoin} from "rxjs";
 import {format} from "date-fns";
 import {TransactionJournalEntryDto} from "../../../journal-entry/models/transaction-journal-entry.dto";
+import {DocumentTypeDto} from "../../../journal-entry/models/documentType.dto";
 
 @Component({
   selector: 'app-journal-entry-generated',
@@ -20,21 +21,31 @@ import {TransactionJournalEntryDto} from "../../../journal-entry/models/transact
 })
 export class JournalEntryGeneratedComponent {
 
-  journalEntryId!: number;
-  transactionJournalEntry!: TransactionJournalEntryDto
-  totalDebitAmount: number = 0;
-  totalCreditAmount: number = 0;
+  journalEntryId: number = 0;
+  transactionJournalEntry: TransactionJournalEntryDto | undefined;
+  documentTypes: any = []; //Document types from service
+  description: string = '';
+  selectedDocumentType: any;
+  dateValue: Date = new Date();
+
+
 
   constructor(private journalEntryService: JournalEntryService, private filesService: FilesService, private messageService: MessageService , private activatedRoute: ActivatedRoute, private router: Router,) { }
   ngOnInit(): void {
+      //Get the document types
+      this.getDocumentTypes();
       //Get the journal entry id
       this.journalEntryId = this.activatedRoute.snapshot.params['id'];
       this.journalEntryService.getJournalEntryById(1, this.journalEntryId).subscribe(
           {
               next: (response) => {
                   this.transactionJournalEntry = response.data!;
-                  this.totalDebitAmount = this.transactionJournalEntry.transactionDetails!.reduce((a, b) => a + (b.debitAmountBs || 0), 0);
-                  this.totalCreditAmount = this.transactionJournalEntry.transactionDetails!.reduce((a, b) => a + (b.creditAmountBs || 0), 0);
+                  this.description = this.transactionJournalEntry.description!;
+                  this.selectedDocumentType= {
+                            name: this.transactionJournalEntry.documentType!.documentTypeName,
+                            code: this.transactionJournalEntry.documentType!.documentTypeId
+                        }
+                  this.dateValue = new Date(this.transactionJournalEntry.transactionDate!);
               },
               error: (error) => {
                   console.log(error);
@@ -42,6 +53,30 @@ export class JournalEntryGeneratedComponent {
           }
       );
   }
+
+
+
+
+    getDocumentTypes() {
+        this.journalEntryService.getDocumentTypes().subscribe({
+            next: (data) => {
+                if (data.data != null) {
+                    // Parsing the data
+                    this.documentTypes = data.data.map((documentType) => ({
+                        name: documentType.documentTypeName,
+                        code: documentType.documentTypeId
+                    }));
+                }
+            },
+            error: (error) => {
+                console.log(error);
+            }
+        });
+    }
+    accept() {
+
+    }
+
 
 }
 
