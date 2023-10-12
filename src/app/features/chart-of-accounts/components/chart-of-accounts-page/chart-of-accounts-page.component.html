@@ -1,45 +1,110 @@
-<app-sidebar (navbarToggle)="onNavbarToggle($event)" ></app-sidebar>
+<app-sidebar (navbarToggle)="onNavbarToggle($event)"></app-sidebar>
 <div class="home-section" [class.navbar-opened]="isNavbarOpen">
-<div class="header">
-    <i class="pi pi-chart-bar icono-verde"></i>
-    <h1 class="titulo">Plan de Cuentas</h1>
-    <i class="pi pi-question icono-verde" style="position: absolute; right: 0;"></i>
-</div>
-<div class="contenedor-boton">
-    <td><p-button type="button" class="mr-2 boton-sidebar" (click)="sidebarVisible2 = true; isEditing = false" icon="pi pi-plus" label="Agregar nueva cuenta"></p-button>
-</div>
-<div class="search-bar">
-    <span class="pi pi-search"></span>
-    <input pInputText type="text" placeholder="Buscar..." (input)="onSearch($event)" />
-</div>
-<p-table [value]="cuentas" [tableStyle]="{ 'min-width': '50rem' }" class="tabla">
-    <ng-template pTemplate="header">
-        <tr>
-            <th>Nivel</th>
-            <th>Código</th>
-            <th>Nombre de la cuenta</th>
-            <th>Editar</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-cuenta>
-        <tr>
-            <td>{{ cuenta.nivel }}</td>
-            <td>{{ cuenta.codigo }}</td>
-            <td>{{ cuenta.nombre }}</td>
-            <td><p-button type="button" class="mr-2 boton-editar" (click)="sidebarVisible2 = true; isEditing = true" icon="pi pi-pencil" label="Editar"></p-button></td>
-        </tr>
-    </ng-template>
-</p-table>
+    <div class="card">
+        <p-toast></p-toast>
+        <div class="flex card-container overflow-hidden">
+            <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0">
+                <i class="pi pi-th-large"
+                    style="color: var(--color-green); font-size: 2.5rem; z-index: 2 !important;"></i>
+                <p class="text-2xl md:text-3xl" style="z-index:2;">&nbsp;&nbsp;&nbsp;Plan de cuentas</p>
+            </div>
+            <div class="flex-none flex align-items-center justify-content-center font-bold m-2 px-5 py-3">
+                <p-button class="help-icon" icon="pi pi-question-circle" styleClass="p-button-success"></p-button>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 xl:col-12 px-8 py-3">
+        <div class="flex justify-content-between my-4">
 
-<p-sidebar [(visible)]="sidebarVisible2" position="right" class="sidebar">
-    <h3 *ngIf="!isEditing">Agregar nueva cuenta</h3>
-    <app-chart-of-accounts-addaccount *ngIf="!isEditing"></app-chart-of-accounts-addaccount>
+            <div class="flex flex-column justify-content-start">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input type="text" (input)="applyFilterGlobal($event, 'contains')" pInputText [(ngModel)]="searchValue"/>
+                </span>
+            </div>
+            <div class="flex flex-column justify-content-start">
+                <div class="flex justify-content-between flex-wrap card-container purple-container">
+                    <p-button label="Añadir cuenta" class="ml-2 green-button" icon="pi pi-plus"
+                    (click)="sidebarVisible2 = true; isEditing = false"></p-button>
+                </div>
+            </div>
+        </div>
+        <br>
+        
+        <p-table #dt [value]="cuentas" [tableStyle]="{ 'min-width': '50rem' }" class="tabla">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Nivel</th>
+                    <th>Código</th>
+                    <th>Nombre de la cuenta</th>
+                    <th>Editar</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-cuenta>
+                <tr>
+                    <td>{{ cuenta.nivel }}</td>
+                    <td>{{ cuenta.codigo }}</td>
+                    <td>{{ cuenta.nombre }}</td>
+                    <td><p-button type="button" class="mr-2 boton-editar"
+                            (click)="sidebarVisible2 = true; isEditing = true" icon="pi pi-pencil"
+                            label="Editar"></p-button></td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 
-    <h3 *ngIf="isEditing">Editar Cuenta</h3>
-    <!-- Asegúrate de reemplazar 'app-chart-of-accounts-editcount' con el nombre real de tu componente de edición -->
-    <app-chart-of-accounts-editaccount *ngIf="isEditing"></app-chart-of-accounts-editaccount> 
-</p-sidebar>
+    <p-sidebar [(visible)]="sidebarVisible2" position="right" class="sidebar" styleClass="w-4" [modal]="false">
+        <!-- <h3 *ngIf="!isEditing">Agregar nueva cuenta</h3> -->
+        <!-- <app-chart-of-accounts-addaccount *ngIf="!isEditing"></app-chart-of-accounts-addaccount> -->
 
-<p-button (click)="obtenercuentas()" label="Submit" class="boton-submit"></p-button>
+        <!-- <h3 *ngIf="isEditing">Editar Cuenta</h3> -->
+        <!-- Asegúrate de reemplazar 'app-chart-of-accounts-editcount' con el nombre real de tu componente de edición -->
+        <!-- <app-chart-of-accounts-editaccount *ngIf="isEditing"></app-chart-of-accounts-editaccount> -->
+        <div class="page-title flex-grow-1 flex align-items-center justify-content-start font-bold mb-2" >
+            <i class='pi pi-th-large'
+                style="color: var(--color-green); font-size: 2rem;"></i>
+            <p class="text-1xl md:text-2xl">&nbsp;&nbsp;&nbsp;{{ isEditing ? 'Editar cuenta' : 'Añadir cuenta' }}</p>
+        </div>
+        <!-- Nombre -->
+        <p-fieldset>
+            <ng-template pTemplate="header">
+                <div class="flex align-items-center text-primary">
+                    <span class="pi pi-box mr-2"></span>
+                    <span class="font-bold text-lg">Cuenta</span>
+                </div>
+            </ng-template>
+            <div class="card">
+                <div class="field col-12 md:col-6 p-0">
+                    <label for="account-number">Nivel de la cuenta</label>
+                    <p-dropdown id="account-number"
+                    class="dropdown text-base text-color surface-overlay border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary"
+                    optionLabel="name" placeholder="Seleccione un tipo de documento" [required]="true"
+                    [style]="{'width':'100%'}"></p-dropdown>
+
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col-12 md:col-6">
+                        <label for="name">Nombre de la cuenta</label>
+                        <input id="name" pInputText type="text" [(ngModel)]="accountName" class="input w-full" required>
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <label for="lastname">Código de la cuenta</label>
+                        <input id="lastname" type="text" pInputText [(ngModel)]="accountCode" class="input w-full" required>
+                    </div>
+    
+                </div>
+            </div>
+    
+        </p-fieldset>
+        <br>
+        
+        <div class="flex justify-content-between flex-wrap card-container purple-container mt-4">
+            <p-button label="Cancelar" class="mx-2 red-button" icon="pi pi-times-circle" (click)="sidebarVisible2 = false;" ></p-button>
+            <p-button label="Guardar" class="ml-2 green-button" icon="pi pi-save" 
+                (click)="isEditing ? saveAccountChanges() : createAccount()"></p-button>
+        </div>
+    </p-sidebar>
+
+    <!-- <p-button (click)="obtenercuentas()" label="Submit" class="boton-submit"></p-button> -->
 
 </div>

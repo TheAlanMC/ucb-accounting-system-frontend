@@ -1,39 +1,62 @@
-<link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css">
+<app-sidebar (navbarToggle)="onNavbarToggle($event)"></app-sidebar>
+<div class="home-section" [class.navbar-opened]="isNavbarOpen">
 
-<div class="card-container">
-    <div class="inline-block font-bold text-center p-4">
-        <span class="pi pi-users" style="font-size: 2rem; color: #8BD480;"></span>
+    <p-toast></p-toast>
+    <div class="card" >
+        <p-toast></p-toast>
+        <div class="flex card-container overflow-hidden">
+            <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0">
+                <i class="pi pi-users" style="color: var(--color-green); font-size: 2.5rem; z-index: 2 !important;"></i>
+                <p class="text-2xl md:text-3xl" style="z-index:2;" >&nbsp;&nbsp;&nbsp;Lista de usuarios</p>
+            </div>
+            <div class="flex-none flex align-items-center justify-content-center font-bold m-2 px-5 py-3">
+               <app-navbar></app-navbar>
+            </div>
+        </div>
     </div>
-    <div class="inline-block font-bold text-center p-2" style="color: #797979;">
-        <h2>Lista de usuarios</h2>
+    <div class="col-12 xl:col-12 px-8 py-3">
+    <div class="flex justify-content-between my-4">
+    
+        <div class="flex flex-column justify-content-start">
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input type="text" pInputText [(ngModel)]="searchValue" />
+            </span>
+        </div>
+        <div class="flex flex-column justify-content-start">
+            <div class="flex justify-content-between flex-wrap card-container purple-container">
+                <!-- <p-button label="Eliminar cliente" class="mx-2 red-button" icon="pi pi-user-minus"></p-button> -->
+                <p-button label="Añadir usuario" class="ml-2 green-button" icon="pi pi-user-plus"
+                    routerLink="/company/users/new"></p-button>
+            </div>
+        </div>
     </div>
+    <br>
+        <p-table [value]="users" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[10, 25, 50]">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width:20%">Nombre</th>
+                    <th style="width:20%">Apellido</th>
+                    <th style="width:20%">Correo</th>
+                    <th style="width:20%">Grupo</th>
+                    <th style="width:20%">Fecha de creacion</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-user>
+                <tr>
+                    <td>{{ user.firstName }}</td>
+                    <td>{{ user.lastName }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.kcGroupName }}</td>
+                    <td>{{ user.creationDate }}</td>
+                </tr>
+            </ng-template>
 
-</div>
-<div class="card">
-    <p-table [value]="users" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
-        [tableStyle]="{ 'min-width': '50rem' }"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-        [rowsPerPageOptions]="[10, 25, 50]">
-        <ng-template pTemplate="header">
-            <tr>
-                <th style="width:20%">Nombre</th>
-                <th style="width:20%">Apellido</th>
-                <th style="width:20%">Correo</th>
-                <th style="width:20%">Grupo</th>
-                <th style="width:20%">Fecha de creacion</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-user>
-            <tr>
-                <td>{{ user.firstName }}</td>
-                <td>{{ user.lastName }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.kcGroupName }}</td>
-                <td>{{ user.creationDate }}</td>
-            </tr>
-        </ng-template>
-        
-        
-    </p-table>
+
+        </p-table>
+    </div>
 </div>
 <hr style="margin-top: -15px;">

@@ -10,9 +10,14 @@ import { UserListCompanyService } from 'src/app/core/services/user-list-company.
   styleUrls: ['./user-list-company.component.css']
 })
 export class UserListCompanyComponent implements OnInit{
-
+    isNavbarOpen : boolean = false;
+    searchValue: string = '';
     userlistcompanyservice = inject(UserListCompanyService);
     
+    onNavbarToggle(isOpen: boolean) {
+      this.isNavbarOpen = isOpen;
+      console.log(this.isNavbarOpen);
+    }
   
     //crea una variable de tipo user con datos de tipo user
     users: user[] = [

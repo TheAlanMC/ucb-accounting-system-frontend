@@ -1,6 +1,4 @@
-import { Component } from '@angular/core';
-import { CommunicationService } from 'src/app/core/services/communication.service';
-// import { ChartOfAccountsService } from 'src/app/core/services/chart-of-accounts.service';
+import { Component, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-chart-of-accounts-page',
@@ -8,21 +6,19 @@ import { CommunicationService } from 'src/app/core/services/communication.servic
   styleUrls: ['./chart-of-accounts-page.component.css']
 })
 export class ChartOfAccountsPageComponent {
+  @ViewChild('dt', { static: false }) dt: any;
+  searchValue: string = '';
   isNavbarOpen : boolean = false;
   isEditing = false;
   activeTabIndex = 0;
+  accountName = '';
+  accountCode = '';
 
   onNavbarToggle(isOpen: boolean) {
     this.isNavbarOpen = isOpen;
     console.log(this.isNavbarOpen);
   }
-  constructor(private communicationService: CommunicationService) {}
-
-  ngOnInit(): void {
-    this.communicationService.getActiveTabIndex().subscribe((index) => {
-      this.activeTabIndex = index;
-    });
-  }
+ 
   
   cuentas = [
     // Aquí puedes agregar las cuentas que quieras
@@ -59,6 +55,19 @@ export class ChartOfAccountsPageComponent {
   onSearch(event: any) {
     const query = event.target.value;
     // Aquí puedes implementar la lógica para buscar en tus cuentas basándote en la consulta
+  }
+
+  createAccount() {
+  }
+
+  saveAccountChanges(){
+
+  }
+
+  //Filter the table
+  applyFilterGlobal(event: Event, stringVal: string) {
+    const inputValue = (event.target as HTMLInputElement).value;
+    this.dt.filterGlobal(inputValue, stringVal);
   }
 
 }

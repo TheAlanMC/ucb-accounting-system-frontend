@@ -8,7 +8,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ToolbarModule } from 'primeng/toolbar';
 import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
-
+import { MenuModule } from 'primeng/menu';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
 
 
 @NgModule({
@@ -25,6 +27,9 @@ import { ButtonModule } from 'primeng/button';
     ToolbarModule,
     AvatarModule,
     ButtonModule,
+    MenuModule,
+    ToastModule,
+    ConfirmPopupModule
   ],
   exports: [
     SidebarComponent,

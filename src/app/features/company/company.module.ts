@@ -9,6 +9,8 @@ import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { InputTextModule } from 'primeng/inputtext';
 
 
 
@@ -26,7 +28,9 @@ import { TableModule } from 'primeng/table';
     ButtonModule,
     ToastModule, 
     DropdownModule, 
-    TableModule
+    TableModule,
+    SharedModule,
+    InputTextModule
   ]
 })
 export class CompanyModule { }

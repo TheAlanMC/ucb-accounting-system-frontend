@@ -33,6 +33,7 @@
         <li><a routerLink="/sales/receipt">Nuevo recibo de venta</a></li>
         <li><a routerLink="/sales" (click)="changeTab(1)">Clientes</a></li>
       </ul>
+      <span class="tooltip">Ventas</span>
     </li>
     <li>
       <a routerLink="/expenses">
@@ -48,6 +49,7 @@
         <li><a routerLink="/expenses/receipt">Nuevo recibo de abono</a></li>
         <li><a routerLink="/expenses" (click)="changeTab(1)">Proveedores</a></li>
       </ul>
+      <span class="tooltip">Gastos</span>
     </li>
 
     <li>
@@ -82,7 +84,7 @@
       </a>
       <span class="tooltip">Reportes</span>
     </li>
-    <li class="profile">
+    <li class="profile"  (click)="confirm($event)" style="cursor: pointer;">
       <div class="profile-details">
         <div class="name_job">
           <i class='pi pi-sign-out' id="log_out"></i>
@@ -90,5 +92,7 @@
         </div>
       </div>
     </li>
+    <p-toast></p-toast>
+    <p-confirmPopup></p-confirmPopup>
   </ul>
 </div>
