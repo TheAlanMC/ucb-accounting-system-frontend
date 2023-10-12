@@ -5,6 +5,7 @@ import { UserInfoComponent } from './components/user-info/user-info.component';
 import { CreateAccountComponent } from './components/create-account/create-account.component';
 import { UserListCompanyComponent } from './components/user-list-company/user-list-company.component';
 import { CompanyComponent } from './components/company/company.component';
+import {HomePageComponent} from "./components/home-page/home-page.component";
 
 
 const routes: Routes = [
@@ -12,7 +13,8 @@ const routes: Routes = [
   {path: 'user/profile', component: UserInfoComponent},
   {path: 'accounts/create', component: CreateAccountComponent},
   {path: 'list/users/company', component: UserListCompanyComponent},
-  {path: 'company/information', component: CompanyComponent }
+  {path: 'company/information', component: CompanyComponent},
+  {path: 'home', component: HomePageComponent},
 ];
 
 @NgModule({

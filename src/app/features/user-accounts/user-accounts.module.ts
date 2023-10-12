@@ -5,10 +5,8 @@ import { ButtonModule } from 'primeng/button';
 import { FieldsetModule } from 'primeng/fieldset';
 import { PanelModule } from 'primeng/panel';
 import { DividerModule } from 'primeng/divider';
-import { BrowserAnimationsModule }from '@angular/platform-browser/animations';
 import { CarouselModule } from 'primeng/carousel';
 import { ImageModule } from 'primeng/image';
-import { BrowserModule } from '@angular/platform-browser';
 import { UserAccountsRoutingModule } from './user-accounts-routing.module';
 import { UserPasswordComponent } from './components/user-password/user-password.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
@@ -27,7 +25,6 @@ import { HeaderComponent } from './components/header/header.component';
 import { FieldsComponent } from './components/fields/fields.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { CarouselService } from 'src/app/core/services/carousel/carousel.service';
-import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from './components/footer/footer.component';
 import { InfoCardComponent } from './components/info-card/info-card.component';
 import { FileUploadModule } from 'primeng/fileupload';
@@ -52,7 +49,6 @@ import { TableModule } from 'primeng/table';
   imports: [
     CommonModule,
     UserAccountsRoutingModule,
-    BrowserAnimationsModule,
     ButtonModule,
     MenubarModule,
     BarsIcon,
@@ -68,12 +64,9 @@ import { TableModule } from 'primeng/table';
     FieldsetModule,
     PanelModule,
     DividerModule,
-    BrowserAnimationsModule,
     CarouselModule,
     FormsModule,
     ImageModule,
-    BrowserModule,
-    HttpClientModule,
     FileUploadModule,
     PasswordModule,
     DropdownModule,

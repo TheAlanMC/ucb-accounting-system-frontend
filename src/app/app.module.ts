@@ -21,7 +21,7 @@ import {CompanyRegistrationModule} from "./features/company-registration/company
 import {TaxesModule} from "./features/taxes/taxes.module";
 import { SalesModule } from './features/sales/sales.module';
 import { MessageService } from 'primeng/api';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent
@@ -41,7 +41,8 @@ import { MessageService } from 'primeng/api';
     CompanyRegistrationModule,
     TaxesModule,
     HttpClientModule,
-    SalesModule
+    SalesModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {

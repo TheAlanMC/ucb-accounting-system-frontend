@@ -7,16 +7,16 @@ import { CustomersComponent } from './components/customers/customers.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'sales',
     children: [
-      {path: 'sales', component: SalesPageComponent},
+      {path: '', component: SalesPageComponent},
       {path: 'invoice', component: InvoicePageComponent},
       {path: 'receipt', component: ReceiptPageComponent},
       // {path: 'customers', component: CustomersComponent},
       {path: '**', redirectTo: 'sales'}
     ]
   }
-  
+
 
 ];
 
