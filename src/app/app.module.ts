@@ -17,12 +17,12 @@ import { JournalEntryModule } from './features/journal-entry/journal-entry.modul
 import { LedgerBookModule } from './features/ledger-book/ledger-book.module';
 import { SupportModule } from './features/support/support.module';
 import { UserAccountsModule } from './features/user-accounts/user-accounts.module';
-import { RegistrationFormComponent } from './features/company-registration/components/registration-form/registration-form.component';
+import {CompanyRegistrationModule} from "./features/company-registration/company-registration.module";
+import {TaxesModule} from "./features/taxes/taxes.module";
 
 @NgModule({
   declarations: [
-    AppComponent,
-    RegistrationFormComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -35,11 +35,13 @@ import { RegistrationFormComponent } from './features/company-registration/compo
     LedgerBookModule,
     SupportModule,
     UserAccountsModule,
-    KeycloakAngularModule
+    KeycloakAngularModule,
+    CompanyRegistrationModule,
+    TaxesModule
   ],
   providers: [
     {
-      
+
       provide: APP_INITIALIZER,
       useFactory: initializeKeycloak,
       multi: true,

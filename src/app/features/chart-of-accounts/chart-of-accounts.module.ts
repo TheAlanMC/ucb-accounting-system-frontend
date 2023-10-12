@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ChartOfAccountsRoutingModule } from './chart-of-accounts-routing.module';
-import { ChartOfAccountsPageComponent } from './chart-of-accounts-page/chart-of-accounts-page.component';
-import { ChartOfAccountsAddaccountComponent } from './chart-of-accounts-addaccount/chart-of-accounts-addaccount.component';
-import { ChartOfAccountsEditaccountComponent } from './chart-of-accounts-editaccount/chart-of-accounts-editaccount.component';
+import { ChartOfAccountsPageComponent } from './components/chart-of-accounts-page/chart-of-accounts-page.component';
+import { ChartOfAccountsAddaccountComponent } from './components/chart-of-accounts-addaccount/chart-of-accounts-addaccount.component';
+import { ChartOfAccountsEditaccountComponent } from './components/chart-of-accounts-editaccount/chart-of-accounts-editaccount.component';
 import  { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
 import {ButtonModule} from 'primeng/button';
