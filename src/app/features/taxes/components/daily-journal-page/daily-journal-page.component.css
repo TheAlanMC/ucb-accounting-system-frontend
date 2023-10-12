@@ -1,0 +1,27 @@
+.contenedor-boton {
+    display: flex;
+    justify-content: flex-end;
+}
+.header {
+    display: flex;
+    align-items: center;
+}
+.icono-verde {
+    color: #008000; /* Reemplaza este código de color por el código de color verde exacto que estás utilizando */
+}
+.icono-verde {
+    margin-left: 5px; /* Ajusta la separación del icono de la barra de gráficos del borde izquierdo */
+}
+
+.icono-verde:last-of-type {
+    margin-right: 5px; /* Ajusta la separación del icono de interrogación del borde derecho */
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+}
+/* Aumenta la especificidad utilizando un selector más específico */
+:host ::ng-deep .boton-editar .p-button {
+    background-color: #808080 !important;
+}
