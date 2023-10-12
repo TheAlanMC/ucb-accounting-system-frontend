@@ -30,9 +30,16 @@
 <div class="col-12 xl:col-12 px-8 py-3">
     <app-transaction-table (transactionDetailsEmmited)="retrieveTransactionDetails($event)" (glossAndTotalEmmited)="retrieveGlossAndTotal($event)"></app-transaction-table>
     <!-- Buttons - save, save and register a new journay entry -->
-    <div class="flex justify-content-end flex-wrap" id="save-buttons">
-        <p-button label="Guardar" class="m-2" (click)="save()"></p-button>
-        <p-button label="Guardar y Nuevo" class="m-2" (click)="saveAndNew()"></p-button>
+    <div class="flex justify-content-between flex-wrap" id="save-buttons">
+        <div class="flex justify-content-between flex-wrap card-container purple-container mx-3">
+            <p-button label="Cancelar" class="red-button m-2 ml-5" routerLink="/sales" [style]="{'font-size': 'medium','height':'100%'}"></p-button>
+            <p-button label="Borrar" class="cyan-button m-2" [style]="{'font-size': 'medium','height':'100%'}"></p-button>
+        </div>
+        <div class="flex">
+            <div class="flex"><p-button label="Guardar" (click)="save()" class="m-2 mr-5"></p-button></div>
+            <div class="flex"><p-button label="Guardar y registrar nuevo" (click)="saveAndNew()" class="m-2 mr-5"></p-button></div>
+        </div>
+        
     </div>
     <br>
     <hr>
@@ -41,7 +48,7 @@
             <p class="text-xl font-semibold">Notas</p>
             <textarea rows="5" cols="50" pInputTextarea [(ngModel)]="description"></textarea>
         </div>
-        <div class="col-6">
+        <div class="col-6 p-0">
             <p class="text-xl font-semibold">Archivos adjuntos</p>
             <div class="col-10"><app-attachments-section (attachmentsEmmited)="retrieveAttachments($event)"></app-attachments-section></div>
         </div>

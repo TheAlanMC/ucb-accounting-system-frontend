@@ -108,6 +108,8 @@ export class TransactionTableComponent {
       descripcion: '',
       nombre: ''
     })
+    this.totalCreditAmount = 0;
+    this.totalDebitAmount = 0;
   }
 
   //Calculate the total amount of the debit and credit columns
@@ -140,8 +142,5 @@ export class TransactionTableComponent {
     }
   }
 
-}
-function elseif(arg0: boolean) {
-  throw new Error('Function not implemented.');
 }
 
