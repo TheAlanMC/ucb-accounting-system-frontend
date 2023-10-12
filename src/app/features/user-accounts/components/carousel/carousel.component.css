@@ -1,0 +1,31 @@
+.text{
+    color: aliceblue;
+}
+
+.text p{
+    font-size: 20px;
+}
+
+img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+::ng-deep .p-carousel .p-carousel-content .p-carousel-prev {
+    background-color: #10BCE2;
+    color: aliceblue;
+}
+
+::ng-deep .p-carousel .p-carousel-content .p-carousel-next {
+    background-color: #10BCE2;
+    color: aliceblue;
+}
+
+.images{
+    width: 100%; 
+    height: auto; margin: 3%; 
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 
+                0 3px 6px rgba(0, 0, 0, 0.23);
+}
+

@@ -15,3 +15,7 @@ body {
   --color-green: #8BD480;
 
 }
+*{
+  margin: 0;
+  padding: 0;
+}

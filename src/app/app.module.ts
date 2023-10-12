@@ -35,11 +35,11 @@ import { RegistrationFormComponent } from './features/company-registration/compo
     LedgerBookModule,
     SupportModule,
     UserAccountsModule,
-    KeycloakAngularModule,
-    HttpClientModule
+    KeycloakAngularModule
   ],
   providers: [
     {
+      
       provide: APP_INITIALIZER,
       useFactory: initializeKeycloak,
       multi: true,
