@@ -1,0 +1,86 @@
+<div class="card">
+    <p-table class="edit-table" [value]="transactionDetails" styleClass="p-datatable-gridlines p-datatable-sm" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }" (onEditInit)="onEditInit($event)" (onEditCancel)="onEditCancel($event)" (onEditComplete)="onEditComplete($event)">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:1%"></th>
+                <th style="width:2%">#</th>
+                <th style="width:15%">Producto/Servicio</th>
+                <th style="width:20%">Descripción</th>
+                <th style="width:20%">Cantidad</th>
+                <th style="width:25%">Precio unitario</th>
+                <th style="width:15%">Importe</th>
+                <th style="width:5%"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-transaction let-editing="editing" let-index="rowIndex">
+            <tr [pReorderableRow]="index">
+                <td>
+                    <span style="font-size: 0.8rem" class="pi pi-bars" pReorderableRowHandle></span>
+                </td>
+                <td>{{index+1}}</td>
+                <td [pEditableColumn]="transaction.subaccountId" pEditableColumnField="subaccountId" [pEditableColumnRowIndex]="index" style="position: relative;">
+                    <p-dropdown id="subaccount-dropdown" appendTo="body" [options]="subaccounts" optionLabel="name" (onChange)="onSelectSubaccount($event, index)" placeholder="Seleccione una cuenta" [style]="{'width':'100%'}"></p-dropdown>
+                </td>
+                <td [pEditableColumn]="transaction.descripcion" pEditableColumnField="descripcion" [pEditableColumnRowIndex]="index">
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input class="input-table" pInputText type="text" [(ngModel)]="transaction.descripcion"/>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{ transaction.descripcion}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td [pEditableColumn]="transaction.cantidad" pEditableColumnField="cantidad" [pEditableColumnRowIndex]="index">
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input class="input-table" pInputText type="number" min="0" value="0" [(ngModel)]="transaction.cantidad" />
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{ transaction.cantidad }}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td [pEditableColumn]="transaction.precioUnitario" pEditableColumnField="precioUnitario" [pEditableColumnRowIndex]="index">
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input class="input-table" pInputText [(ngModel)]="transaction.precioUnitario" type="number" min="0" value="0" (input)="updateDefaultValue(index, transaction.precioUnitario,1)"/>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{ transaction.precioUnitario | currency: 'Bs. ' }}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    {{ transaction.importe | currency: 'Bs. '}}
+                </td>
+                <!-- Columna boton con icono de eliminar -->
+                <td>
+                    <p-button icon="pi pi-trash" styleClass="p-button-rounded p-button-secondary p-button-text" (click)="deleteRow(index)"></p-button>
+                    <span icon="pi pi-trash"></span>
+                </td>
+            </tr>
+        </ng-template>
+        
+    </p-table>
+    <br>
+    <div class="flex flex-row flex-wrap justify-content-between">
+    
+        <div class="flex flex-row flex-wrap">
+            <p-button class="cyan-button m-2" label="Agregar línea" icon="pi pi-plus" iconPos="left" (click)="addRow()"></p-button>
+            <p-button class="blue-button m-2" label="Borrar todo" icon="pi pi-trash" iconPos="left" (click)="deleteAllRows()"></p-button>  
+        </div>
+        <div class="flex flex-row flex-wrap">
+            <!-- Columna 1 -->
+            <div class="flex flex-column flex-wrap mx-2">
+                <p class="font-semibold text-right">Total</p>
+                <p class="font-semibold text-right">Saldo pendiente</p>
+            </div>
+            <!-- Columna 2 -->
+            <div class="flex flex-column flex-wrap mx-2">
+                <p>Bs. {{totalAmount}}</p>
+                <p>Bs. {{saldoAmount}}</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<app-navbar (navbarToggle)="onNavbarToggle($event)" ></app-navbar>
+<div class="home-section" [class.navbar-opened]="isNavbarOpen">
+<div class="card" >
+    <p-toast></p-toast>
+    <div class="flex card-container overflow-hidden">
+        <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0">
+            <i class="pi pi-money-bill" style="color: var(--color-green); font-size: 2.5rem; z-index: 2 !important;"></i>
+            <p class="text-2xl md:text-3xl" style="z-index:2;" >&nbsp;&nbsp;&nbsp;Ventas</p>
+        </div>
+        <div class="flex-none flex align-items-center justify-content-center font-bold m-2 px-5 py-3">
+            <p-button class="help-icon" icon="pi pi-question-circle" styleClass="p-button-success"></p-button>
+        </div>
+    </div>
+
+</div>
+<div class="col-12 xl:col-12 px-8 py-3">
+    <p-tabView [activeIndex]="activeTabIndex">
+        <p-tabPanel header="Todas las ventas">
+            <app-all-sales></app-all-sales>
+        </p-tabPanel>
+        <p-tabPanel header="Clientes">
+            <app-customers style="position: static;"></app-customers>
+        </p-tabPanel>
+    </p-tabView>
+
+    <br>
+</div>
+</div>

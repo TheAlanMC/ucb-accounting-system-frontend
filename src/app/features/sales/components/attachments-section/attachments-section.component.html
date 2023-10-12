@@ -1,0 +1,10 @@
+<p-fileUpload id="attachment-box" [customUpload]="true" (uploadHandler)="onFileToUpload($event)" [auto]="true" (onRemove)="onFileRemoved($event)" [multiple]="true" accept="" [maxFileSize]="1000000" chooseLabel="Añadir" [showUploadButton]="false" [showCancelButton]="false" invalidFileSizeMessageSummary="{0}: Tamaño de archivo inválido 😔" invalidFileSizeMessageDetail="El tamaño máximo es de {0}." invalidFileTypeMessageSummary="{0}. Tipo de archivo inválido." invalidFileTypeMessageDetail="Los tipos de archivos que se aceptan son: {0}." invalidFileLimitMessageDetail="El límite de archivos a subir es de {0}." invalidFileLimitMessageSummary="Se llegó al límite de archivos permitidos.">
+    <ng-template pTemplate="content">
+        <div id="drag-and-drop-container" [class.dragover]="isDragging"
+        (dragover)="onDragOver($event)"
+        (dragleave)="onDragLeave($event)"
+        (drop)="onDrop($event)">
+            <p class="p-m-0">Arrastra y suelta archivos aquí para subirlos 😊</p>
+        </div>
+    </ng-template>
+</p-fileUpload>
