@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 import { ResponseDto } from '../models/reponse.dto';
 import { CustomerDto } from 'src/app/features/sales/models/customer.dto';
 import { Observable } from 'rxjs';

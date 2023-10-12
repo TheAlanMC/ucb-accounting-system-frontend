@@ -13,7 +13,7 @@ export class UserListCompanyService {
 
   public getUserListCompany(companyId: number): Observable<user[]> {
     const params = new HttpParams().set('companyId', companyId.toString());
-    return this.http.get<any>(`${this.baseUrl}/users/companies/:companyId`, {params}).pipe(
+    return this.http.get<any>(`${this.baseUrl}/users/companies/${companyId}`, {params}).pipe(
       map((response: any) => response.data as user[])
     );
   }

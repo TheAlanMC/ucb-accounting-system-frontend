@@ -15,14 +15,14 @@ export class CompanyInfoService {
   //Recuperar informacion de compañia
   public getCompanyInfo(companyId: number): Observable<CompanyData> {
     const params = new HttpParams().set('companyId', companyId.toString());
-    return this.http.get<any>(`${this.baseUrl}/companies/:companyId`).pipe(
+    return this.http.get<any>(`${this.baseUrl}/companies/${companyId}`).pipe(
       map((response: any) => response.data as CompanyData)
     );
   }
 
   public updateCompanyInfo(companyData: CompanyData, companyId: number): Observable<HttpResponse<CompanyData>> {
     const params = new HttpParams().set('companyId', companyId.toString());
-    return this.http.put<CompanyData>(`${this.baseUrl}/companies/:companyId`, companyData, { observe: 'response' });
+    return this.http.put<CompanyData>(`${this.baseUrl}/companies/${companyId}`, companyData, { observe: 'response' });
   }
 
   // Subir imagen de compañia

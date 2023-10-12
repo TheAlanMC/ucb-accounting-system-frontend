@@ -19,13 +19,13 @@ export class CreateAccountsService {
 
   createAccountingAssistant(user: User, companyId: number): Observable<any> {
     const params = new HttpParams().set('companyId', companyId.toString());
-    const url = `${this.baseUrl}/users/accounting-assistants/companies/:companyId`;
+    const url = `${this.baseUrl}/users/accounting-assistants/companies/${companyId}`;
     return this.http.post(url, user, {params});
   }
 
   createClient(user: User, companyId: number): Observable<any> {
     const params = new HttpParams().set('companyId', companyId.toString());
-    const url = `${this.baseUrl}/users/accounting-assistants/companies/:companyId`;
+    const url = `${this.baseUrl}/users/accounting-assistants/companies/${companyId}`;
     return this.http.post(url, user, {params});
   }
 }
