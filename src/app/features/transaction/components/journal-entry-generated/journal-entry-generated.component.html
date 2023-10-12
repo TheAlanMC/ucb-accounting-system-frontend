@@ -1,9 +1,9 @@
-<div class="card">
+<div class="card" *ngIf="transactionJournalEntry">
     <p-toast></p-toast>
     <div class="flex card-container overflow-hidden">
         <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0">
             <i class="pi pi-book" style="color: var(--color-green); font-size: 2.5rem;"></i>
-            <p class="text-2xl md:text-3xl">&nbsp;&nbsp;&nbsp;Asiento Diario Generado</p>
+            <p class="text-2xl md:text-3xl">&nbsp;&nbsp;&nbsp;Asiento Diario</p>
         </div>
         <div class="flex-none flex align-items-center justify-content-center font-bold m-2 px-5 py-3">
             <p-button  class="help-icon" icon="pi pi-question-circle" styleClass="p-button-success"></p-button>
@@ -16,43 +16,40 @@
         <div class="flex flex-row flex-wrap">
             <div class="flex flex-column justify-content-start mr-2">
                 <p>Tipo de documento</p>
-<!--                TODO: MAKE PRETTY-->
-                <p>{{transactionJournalEntry.documentType.documentTypeName}}</p>
+                <p-dropdown id="document-type" [options]="documentTypes" [(ngModel)]="selectedDocumentType" optionLabel="name" [style]="{'width':'250px'}" [disabled]="true"></p-dropdown>
             </div>
             <div class="flex flex-column justify-content-start mx-2">
                 <p>Fecha del diario</p>
-                <p-calendar class="datepicker" [(ngModel)]="transactionJournalEntry.transactionDate" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy"></p-calendar>
+                <p-calendar class="datepicker" [(ngModel)]="dateValue" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy" [readonlyInput]="true" [disabled]="true"></p-calendar>
             </div>
         </div>
 
 
     </div>
 </div>
-<div class="col-12 xl:col-12 px-8 py-3">
-<!--    <app-transaction-table (transactionDetailsEmmited)="retrieveTransactionDetails($event)" (glossAndTotalEmmited)="retrieveGlossAndTotal($event)"></app-transaction-table>-->
+<div class="col-12 xl:col-12 px-8 py-3" *ngIf="transactionJournalEntry">
+    <app-transaction-table [transactionDetailsList]="transactionJournalEntry.transactionDetails" [description]="transactionJournalEntry.gloss" ></app-transaction-table>
     <!-- Buttons - save, save and register a new journay entry -->
     <div class="flex justify-content-between flex-wrap" id="save-buttons">
         <div class="flex justify-content-between flex-wrap card-container purple-container mx-3">
-            <p-button label="Cancelar" class="red-button m-2 ml-5" routerLink="/sales" [style]="{'font-size': 'medium','height':'100%'}"></p-button>
-            <p-button label="Borrar" class="cyan-button m-2" [style]="{'font-size': 'medium','height':'100%'}"></p-button>
+            <p-button label="Cancelar" class="red-button m-2 ml-5" routerLink="/transactions" [style]="{'font-size': 'medium','height':'100%'}"></p-button>
+<!--            <p-button label="Borrar" class="cyan-button m-2" [style]="{'font-size': 'medium','height':'100%'}"></p-button>-->
         </div>
         <div class="flex">
-<!--            <div class="flex"><p-button label="Guardar" (click)="save()" class="m-2 mr-5"></p-button></div>-->
-<!--            <div class="flex"><p-button label="Guardar y registrar nuevo" (click)="saveAndNew()" class="m-2 mr-5"></p-button></div>-->
+            <div class="flex"><p-button label="Aceptar" (click)="accept()" class="m-2 mr-5"></p-button></div>
         </div>
-
     </div>
     <br>
     <hr>
     <div class="flex flex-column">
         <div class="col-6">
             <p class="text-xl font-semibold">Notas</p>
-            <textarea rows="5" cols="50" pInputTextarea [(ngModel)]=transactionJournalEntry.description></textarea>
+            <textarea rows="5" cols="50" pInputTextarea [(ngModel)]="description" [disabled]="true"></textarea>
         </div>
-        <div class="col-6 p-0">
-            <p class="text-xl font-semibold">Archivos adjuntos</p>
-<!--            <div class="col-10"><app-attachments-section (attachmentsEmmited)="retrieveAttachments($event)"></app-attachments-section></div>-->
-        </div>
+<!--        <div class="col-6 p-0">-->
+<!--            <p class="text-xl font-semibold">Archivos adjuntos</p>-->
+<!--            <div class="col-10"><app-attachments-section [attachments]="transactionJournalEntry.attachments"></app-attachments-section></div>-->
+<!--        </div>-->
     </div>
     <div style="height: 100px;"></div>
 </div>

@@ -14,6 +14,9 @@ import {InputTextareaModule} from "primeng/inputtextarea";
 import {ToastModule} from "primeng/toast";
 import {TransactionTableComponent} from "./components/transaction-table/transaction-table.component";
 import {SidebarModule} from "primeng/sidebar";
+import {InputTextModule} from "primeng/inputtext";
+import {AttachmentsSectionComponent} from "./components/attachments-section/attachments-section.component";
+import {FileUploadModule} from "primeng/fileupload";
 
 
 @NgModule({
@@ -21,6 +24,7 @@ import {SidebarModule} from "primeng/sidebar";
     JournalEntriesListComponent,
     JournalEntryGeneratedComponent,
     TransactionTableComponent,
+    AttachmentsSectionComponent
   ],
     imports: [
         CommonModule,
@@ -33,7 +37,9 @@ import {SidebarModule} from "primeng/sidebar";
         FormsModule,
         InputTextareaModule,
         ToastModule,
-        SidebarModule
+        SidebarModule,
+        InputTextModule,
+        FileUploadModule
 
     ]
 })
