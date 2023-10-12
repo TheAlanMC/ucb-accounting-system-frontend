@@ -17,11 +17,8 @@ import { JournalEntryModule } from './features/journal-entry/journal-entry.modul
 import { LedgerBookModule } from './features/ledger-book/ledger-book.module';
 import { SupportModule } from './features/support/support.module';
 import { UserAccountsModule } from './features/user-accounts/user-accounts.module';
-<<<<<<< HEAD
 import { SalesModule } from './features/sales/sales.module';
-=======
 import { MessageService } from 'primeng/api';
->>>>>>> Uas-96
 
 @NgModule({
   declarations: [
