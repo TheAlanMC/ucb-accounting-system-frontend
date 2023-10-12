@@ -2,12 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { UserAccountsRoutingModule } from './user-accounts-routing.module';
-<<<<<<< HEAD
 import { UserPasswordComponent } from './components/user-password/user-password.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
-=======
 import { CreateAccountComponent } from './components/create-account/create-account.component';
->>>>>>> Uas-96
 import { ButtonModule } from 'primeng/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenubarModule} from 'primeng/menubar';
@@ -18,25 +15,18 @@ import { ImageModule } from 'primeng/image';
 import { FormsModule } from '@angular/forms';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
-<<<<<<< HEAD
 import { PasswordModule } from 'primeng/password';
+import { FileUploadModule } from 'primeng/fileupload';
+import { DropdownModule } from 'primeng/dropdown';
+import { UserListCompanyComponent } from './components/user-list-company/user-list-company.component';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
     UserPasswordComponent,
-    UserInfoComponent
-=======
-import { FileUploadModule } from 'primeng/fileupload';
-import { PasswordModule } from 'primeng/password';
-import { DropdownModule } from 'primeng/dropdown';
-
-
-
-
-@NgModule({
-  declarations: [
-    CreateAccountComponent
->>>>>>> Uas-96
+    UserInfoComponent,
+    CreateAccountComponent,
+    UserListCompanyComponent,
   ],
   imports: [
     CommonModule,
@@ -51,13 +41,12 @@ import { DropdownModule } from 'primeng/dropdown';
     FormsModule,
     ConfirmDialogModule,
     ToastModule,
-<<<<<<< HEAD
-    PasswordModule
-=======
+    PasswordModule,
     FileUploadModule,
     PasswordModule,
-    DropdownModule
->>>>>>> Uas-96
+    DropdownModule,
+    TableModule,
+    ButtonModule
   ]
 })
 export class UserAccountsModule { }
