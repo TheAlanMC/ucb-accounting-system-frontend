@@ -1,0 +1,43 @@
+.form{
+    border-radius: 11px;
+    border: 1px solid rgba(187, 187, 187, 0.73);
+    background: #FFF;
+    box-shadow: 2px 2px 12px -1px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin: 50px;
+}
+.form_title{
+    font-size: 3rem;
+    font-weight: 600;
+    color: #797979;
+}
+.form_header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.bar{
+    width: 100%;
+    background: #8BD480;
+    margin-bottom: 20px;
+    border-radius: 11px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.bar_text{
+    font-size: 2rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+.logo{
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+    border-radius: 50%;
+}
