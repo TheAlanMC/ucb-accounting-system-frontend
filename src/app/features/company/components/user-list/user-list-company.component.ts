@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { user } from '../../../user-accounts/models/UserListCompany.dto';
-import { UserListCompanyService } from 'src/app/core/services/user-list-company.service';
+import { UserAbstractDto } from '../../../user-accounts/models/user-abstract.dto';
+import { UserService } from 'src/app/core/services/user.service';
 
 
 
@@ -10,9 +10,10 @@ import { UserListCompanyService } from 'src/app/core/services/user-list-company.
   styleUrls: ['./user-list-company.component.css']
 })
 export class UserListCompanyComponent implements OnInit{
+
+    constructor(private userService: UserService) { }
     isNavbarOpen : boolean = false;
     searchValue: string = '';
-    userlistcompanyservice = inject(UserListCompanyService);
     
     onNavbarToggle(isOpen: boolean) {
       this.isNavbarOpen = isOpen;
@@ -20,7 +21,7 @@ export class UserListCompanyComponent implements OnInit{
     }
   
     //crea una variable de tipo user con datos de tipo user
-    users: user[] = [
+    users: UserAbstractDto[] = [
       {
         kcGroupName: 'Admin',
         firstName: 'Juan',
@@ -31,8 +32,8 @@ export class UserListCompanyComponent implements OnInit{
     ];
 
     ngOnInit(): void {
-      this.userlistcompanyservice.getUserListCompany(1).subscribe((users) => {
-        this.users = users;
+      this.userService.findAllUsersByCompanyId(1).subscribe((users) => {
+        this.users = users.data!;
         console.log(users);
       });
     }

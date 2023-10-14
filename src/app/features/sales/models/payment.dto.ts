@@ -1,4 +1,4 @@
-import { AttachmentDto } from "../../journal-entry/models/attachment.dto";
+import { AttachmentDto } from "../../../core/models/attachment.dto";
 import { PaymentDetailDto } from "./payment-detail.dto";
 
 export interface PaymentDto {

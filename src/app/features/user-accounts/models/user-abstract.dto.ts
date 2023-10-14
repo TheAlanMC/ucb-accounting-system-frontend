@@ -1,4 +1,4 @@
-export interface user {
+export interface UserAbstractDto {
     kcGroupName: string;
     firstName: string;
     lastName: string;

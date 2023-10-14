@@ -1,4 +1,4 @@
-export interface Password {
+export interface PasswordUpdateDto {
     currentPassword: string;
     newPassword: string;
     confirmNewPassword: string;

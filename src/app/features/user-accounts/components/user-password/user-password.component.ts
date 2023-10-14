@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { ConfirmationService } from 'primeng/api'
 import { MessageService } from 'primeng/api';
 import { ConfirmEventType } from 'primeng/api';
-import { UserPasswordService } from 'src/app/core/services/user-password.service';
-import { Password } from 'src/app/features/user-accounts/models/PasswordDTO';
+import { UserService } from 'src/app/core/services/user.service';
+import { PasswordUpdateDto } from 'src/app/features/user-accounts/models/password-update.dto';
 
 @Component({
   selector: 'app-user-password',
@@ -13,7 +13,7 @@ import { Password } from 'src/app/features/user-accounts/models/PasswordDTO';
 })
 export class UserPasswordComponent {
 
-  constructor(private UserPasswordService: UserPasswordService, private messageService: MessageService){}
+  constructor(private userService: UserService, private messageService: MessageService){}
 
   value!: string;
   value2!: string;
@@ -31,7 +31,7 @@ export class UserPasswordComponent {
     if (this.checkPassword() == false) {
       this.messageService.add({ severity: 'error', summary: 'ERROR', detail: 'Verifica tus datos' });
     } else {
-      this.UserPasswordService.updatePassword("asd", this.passwordData).subscribe(
+      this.userService.updateUserPassword(this.passwordData).subscribe(
         (response) => {
           if (response.code.startsWith('200')) {
             this.messageService.add({ severity: 'success', summary: 'EXITO', detail: 'La contraseña se actualizó correctamente' });

@@ -1,8 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
-import { CompanyInfoService } from 'src/app/core/services/company-info.service';
-import { CompanyData } from '../../../user-accounts/models/CompanyData.dto';
+import { CompanyService } from 'src/app/core/services/company.service';
+import { CompanyDto} from '../../models/company.dto';
 import { MessageService } from 'primeng/api';
 import { KeycloakService } from 'keycloak-angular';
+import { CompanyAbstractDto } from 'src/app/features/company-registration/models/company-abstract.dto';
+import { FilesService } from 'src/app/core/services/files.service';
 
 @Component({
   selector: 'app-company',
@@ -11,19 +13,13 @@ import { KeycloakService } from 'keycloak-angular';
 })
 
 export class CompanyInfoComponent implements OnInit {
+  constructor(private companyService: CompanyService, private messageService: MessageService, private keycloakService: KeycloakService, private filesService: FilesService) { }
 
-  companyinfoservice = inject(CompanyInfoService);
-  messageService = inject(MessageService);
-  keycloakService = inject(KeycloakService);
-  
   imageChanged: boolean = false;
-
   previewImage: string | ArrayBuffer | null = null;
   file: File | null = null;
 
-  constructor() { }
-
-  companyData: CompanyData = {
+  companyData: CompanyDto = {
     industry: {
       industryId: 1,
       industryName: "Tecnologia"
@@ -39,11 +35,13 @@ export class CompanyInfoComponent implements OnInit {
     companyLogo: "https://aidajerusalem.org/wp-content/uploads/2021/09/blank-profile-picture-973460_1280.png"
   };
 
+  companyUpdated: CompanyAbstractDto | undefined;
+
   ngOnInit(): void {
-    this.companyinfoservice.getCompanyInfo(1).subscribe((data) => {
+    this.companyService.getCompanyInfo(1).subscribe((data) => {
       console.log(data);
-      console.log(data.businessEntity);
-      this.companyData = data;
+      console.log(data.data);
+      this.companyData = data.data!;
     });
 
     this.keycloakService.loadUserProfile().then((user) => {
@@ -57,15 +55,22 @@ export class CompanyInfoComponent implements OnInit {
       this.saveImage();
     }
 
-    this.companyinfoservice.updateCompanyInfo(this.companyData, 1).subscribe(
+    //Fill the company data updated
+    this.companyUpdated = {
+      companyName: this.companyData.companyName,
+      companyNit: this.companyData.companyNit,
+      companyAddress: this.companyData.companyAddress,
+      phoneNumber: this.companyData.phoneNumber,
+      s3CompanyLogoId: 1, //TODO: Cambiar por el id del logo
+      industryId: this.companyData.industry?.industryId,
+      businessEntityId: this.companyData.businessEntity?.businessEntityId
+    }
+
+    this.companyService.updateCompany(this.companyUpdated, 1).subscribe(
       (response) => {
         console.log(response);
-
-        // Verifica si la respuesta tiene un código 200 (OK)
-        if (response.status === 200) {
-          // Muestra el mensaje de éxito
-          this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Tus datos se guardaron correctamente' });
-        }
+        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Tus datos se guardaron correctamente' });
+        
       },
       (error) => {
         // Maneja errores aquí si es necesario
@@ -78,20 +83,20 @@ export class CompanyInfoComponent implements OnInit {
   
   saveImage(): void {
     
-    if (this.file) {
-      this.companyinfoservice.uploadCompanyLogo(this.file).subscribe(
-        (response) => {
-          console.log(response);
-          console.log("URL: "+response.body.data.fileUrl);
-          this.companyData.companyLogo = response.body.data.fileUrl;
+    // if (this.file) {
+    //   this.filesService.uploadPicture(this.file).subscribe(
+    //     (response) => {
+    //       console.log(response);
+    //       console.log("URL: "+response.body.data.fileUrl);
+    //       this.companyData.companyLogo = response.body.data.fileUrl;
           
-        },
-        (error) => {
-          // Maneja errores aquí si es necesario
-          console.error(error);
-        }
-      );
-    }
+    //     },
+    //     (error) => {
+    //       // Maneja errores aquí si es necesario
+    //       console.error(error);
+    //     }
+    //   );
+    // }
     console.log(this.companyData);
   }
   

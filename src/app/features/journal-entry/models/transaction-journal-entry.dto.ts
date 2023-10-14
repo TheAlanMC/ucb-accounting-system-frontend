@@ -1,6 +1,6 @@
-import {AttachmentDto} from "./attachment.dto";
-import {TransactionDto} from "./transaction.dto";
-import {DocumentTypeDto} from "./documentType.dto";
+import {AttachmentDto} from "../../../core/models/attachment.dto";
+import {TransactionDetailDto} from "./transaction-detail.dto";
+import {DocumentTypeDto} from "./document-type.dto";
 
 export interface TransactionJournalEntryDto {
     documentType: DocumentTypeDto;
@@ -9,5 +9,5 @@ export interface TransactionJournalEntryDto {
     description: string;
     transactionDate: Date;
     attachments: AttachmentDto[]
-    transactionDetails: TransactionDto[];
+    transactionDetails: TransactionDetailDto[];
 }

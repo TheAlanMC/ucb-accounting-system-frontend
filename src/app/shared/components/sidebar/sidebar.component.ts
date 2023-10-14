@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { MenuItem } from 'primeng/api/menuitem';
 import { KeycloakService } from 'keycloak-angular';
-import { CommunicationService } from 'src/app/core/services/communication.service';
+import { CommunicationService } from 'src/app/core/services/tabview/communication.service';
 import { environment } from 'src/environments/environment';
 
 @Component({

@@ -1,7 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {TransactionTableComponent} from "../transaction-table/transaction-table.component";
 import {AttachmentsSectionComponent} from "../attachments-section/attachments-section.component";
-import {AttachmentDto} from "../../../journal-entry/models/attachment.dto";
+import {AttachmentDto} from "../../../../core/models/attachment.dto";
 import {InvoiceDetailDto} from "../../models/invoice-detail.dto";
 import {InvoiceDto} from "../../models/invoice.dto";
 import {MessageService} from "primeng/api";

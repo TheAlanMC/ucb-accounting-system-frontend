@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { CommunicationService } from 'src/app/core/services/communication.service';
+import { CommunicationService } from 'src/app/core/services/tabview/communication.service';
 
 @Component({
   selector: 'app-sales-page',

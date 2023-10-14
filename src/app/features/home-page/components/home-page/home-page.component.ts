@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommunicationService } from 'src/app/core/services/communication.service';
+import { CommunicationService } from 'src/app/core/services/tabview/communication.service';
 
 @Component({
   selector: 'app-home-page',

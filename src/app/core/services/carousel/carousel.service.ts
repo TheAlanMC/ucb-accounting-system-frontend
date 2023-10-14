@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Carousel } from '../../../features/user-accounts/models/carousel/carousel';
+import { Carousel } from '../../../features/home-page/models/carousel/carousel';
 
 @Injectable({
   providedIn: 'root'

@@ -5,19 +5,21 @@ import {TransactionTableComponent} from "../../../journal-entry/components/trans
 import {
   AttachmentsSectionComponent
 } from "../../../journal-entry/components/attachments-section/attachments-section.component";
-import {TransactionDto} from "../../../journal-entry/models/transaction.dto";
+import {TransactionDetailDto} from "../../../journal-entry/models/transaction-detail.dto";
 import {JournalEntryService} from "../../../../core/services/journal-entry.service";
 import {FilesService} from "../../../../core/services/files.service";
 import {MessageService} from "primeng/api";
 import {forkJoin} from "rxjs";
 import {format} from "date-fns";
 import {TransactionJournalEntryDto} from "../../../journal-entry/models/transaction-journal-entry.dto";
-import {DocumentTypeDto} from "../../../journal-entry/models/documentType.dto";
+import {DocumentTypeDto} from "../../../journal-entry/models/document-type.dto";
+import { DocumentTypeService } from 'src/app/core/services/document-type.service';
 
 @Component({
   selector: 'app-journal-entry-generated',
   templateUrl: './journal-entry-generated.component.html',
-  styleUrls: ['./journal-entry-generated.component.css']
+  styleUrls: ['./journal-entry-generated.component.css'],
+  providers: [MessageService]
 })
 export class JournalEntryGeneratedComponent {
 
@@ -30,7 +32,7 @@ export class JournalEntryGeneratedComponent {
 
 
 
-  constructor(private journalEntryService: JournalEntryService, private filesService: FilesService, private messageService: MessageService , private activatedRoute: ActivatedRoute, private router: Router,) { }
+  constructor(private journalEntryService: JournalEntryService, private filesService: FilesService, private messageService: MessageService , private activatedRoute: ActivatedRoute, private router: Router, private documentTypeService: DocumentTypeService ) { }
   ngOnInit(): void {
       //Get the document types
       this.getDocumentTypes();
@@ -58,7 +60,7 @@ export class JournalEntryGeneratedComponent {
 
 
     getDocumentTypes() {
-        this.journalEntryService.getDocumentTypes().subscribe({
+        this.documentTypeService.getDocumentTypes().subscribe({
             next: (data) => {
                 if (data.data != null) {
                     // Parsing the data

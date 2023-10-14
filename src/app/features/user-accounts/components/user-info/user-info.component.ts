@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { inject } from '@angular/core/testing';
 
-import { UserInfoService } from 'src/app/core/services/user-info.service';
-import { UserData } from '../../models/user-infoDTO';
+import { UserService } from 'src/app/core/services/user.service';
+import { UserDto } from '../../models/user.dto';
 import { Observable } from 'rxjs';
 import { ConfirmationService } from 'primeng/api'
 import { MessageService } from 'primeng/api';
 import { ConfirmEventType } from 'primeng/api';
-import { KeycloakService } from 'keycloak-angular';
+import { FilesService } from 'src/app/core/services/files.service';
+import { UserAbstractDto } from '../../models/user-abstract.dto';
 
 @Component({
   selector: 'app-user-info',
@@ -22,19 +22,12 @@ export class UserInfoComponent implements OnInit {
   previewImage: string | ArrayBuffer | null = null;
   file: File | null = null;
 
-  constructor(private userinfoService: UserInfoService, private confirmationService: ConfirmationService, private messageService: MessageService, private keycloakService: KeycloakService) { }
+  constructor(private userService: UserService, private filesService: FilesService ,private confirmationService: ConfirmationService, private messageService: MessageService) { }
 
-  userData: any = {
-    companyId: 1,
-    firstName: '',
-    lastName: '',
-    email: '',
-    profilePicture: 'https://aidajerusalem.org/wp-content/uploads/2021/09/blank-profile-picture-973460_1280.png'
-  };
+  userData!: UserDto;
   ngOnInit(): void {
-    
-    this.userinfoService.getUserData().subscribe((data) => {
-      this.userData = data.data;
+    this.userService.getUserById().subscribe((data) => {
+      this.userData = data.data!;
       console.log(this.userData);
     }
     );
@@ -46,17 +39,17 @@ export class UserInfoComponent implements OnInit {
       this.saveImage();
     }
 
-    if (this.verifyData() == false) {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Verifica tus datos' });
+    // if (this.verifyData() == false) {
+    //   this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Verifica tus datos' });
 
-    } else {
-      this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Tus datos se guardaron correctamente' });
-      this.userinfoService.updateUserData(this.userData).subscribe((data) => {
-        console.log(data);
-      }, (error) => {
-        console.error(error);
-      });
-    }
+    // } else {
+    //   this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Tus datos se guardaron correctamente' });
+    //   this.userService.updateUser(this.userData).subscribe((data) => {
+    //     console.log(data);
+    //   }, (error) => {
+    //     console.error(error);
+    //   });
+    // }
   }
 
   verifyData(): boolean {
@@ -71,15 +64,15 @@ export class UserInfoComponent implements OnInit {
   saveImage(): void {
     if (this.file){
       console.log(this.file);
-      console.log("SAdasdassa");
-      this.userinfoService.updateCompanyLogo(this.file).subscribe((data) => {
+      const formData = new FormData();
+      formData.append('picture', this.file);
+      this.filesService.uploadPicture(formData).subscribe((data) => {
         console.log(data);
-        //this.userData.profilePicture = data.data?.s3ObjectId;
-        this.userData.profilePicture = data.data?.fileUrl;
+        //this.userData.profilePicture = data.data?.fileUrl;
       }, (error) => {
         console.error(error);
       });
-    }
+     }
   }
 
 
@@ -88,7 +81,6 @@ export class UserInfoComponent implements OnInit {
     this.imageChanged = true;
     if (this.file) {
       const reader = new FileReader();
-  
       reader.onload = (e: any) => {
         this.previewImage = e.target.result;
         this.userData.profilePicture = e.target.result;

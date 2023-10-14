@@ -5,7 +5,7 @@ import {SupplierService} from "../../../../core/services/supplier.service";
 import {PaymentTypeService} from "../../../../core/services/payment-type.service";
 import {ExpensesService} from "../../../../core/services/expenses.service";
 import {FilesService} from "../../../../core/services/files.service";
-import {AttachmentDto} from "../../../journal-entry/models/attachment.dto";
+import {AttachmentDto} from "../../../../core/models/attachment.dto";
 import {PaymentDto} from "../../models/payment.dto";
 import {forkJoin} from "rxjs";
 import {PaymentDetailDto} from "../../models/payment-detail.dto";

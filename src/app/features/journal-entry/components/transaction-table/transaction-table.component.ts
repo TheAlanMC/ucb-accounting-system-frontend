@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { JournalEntryDto } from '../../models/journal-entry.dto';
-import { TransactionDto } from '../../models/transaction.dto';
+import { TransactionDetailDto } from '../../models/transaction-detail.dto';
 
 interface Cuenta {
   codigo?: string;
@@ -18,14 +18,14 @@ interface Cuenta {
 
 export class TransactionTableComponent {
   //Object emmited to the parent component
-  @Output() transactionDetailsEmmited = new EventEmitter<TransactionDto[]>();
+  @Output() transactionDetailsEmmited = new EventEmitter<TransactionDetailDto[]>();
   @Output() glossAndTotalEmmited = new EventEmitter<string[]>();
 
   //Variables
   journalEntry!: JournalEntryDto;
   totalDebitAmount: number = 0;
   totalCreditAmount: number = 0;
-  transactions: TransactionDto[] = [];
+  transactions: TransactionDetailDto[] = [];
 
   cuentas: Cuenta[] = [];
     cols: any[] = [];

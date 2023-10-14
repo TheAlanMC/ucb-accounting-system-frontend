@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {CommunicationService} from "../../../../core/services/communication.service";
+import {CommunicationService} from "../../../../core/services/tabview/communication.service";
 import {MessageService} from "primeng/api";
 
 @Component({

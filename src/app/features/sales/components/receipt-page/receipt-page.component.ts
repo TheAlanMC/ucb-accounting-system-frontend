@@ -6,7 +6,7 @@ import { PaymentTypeService } from 'src/app/core/services/payment-type.service';
 import { SalesService } from 'src/app/core/services/sales.service';
 import { FilesService } from 'src/app/core/services/files.service';
 import { forkJoin } from 'rxjs';
-import { AttachmentDto } from 'src/app/features/journal-entry/models/attachment.dto';
+import { AttachmentDto } from 'src/app/core/models/attachment.dto';
 import { PaymentDto } from '../../models/payment.dto';
 import { format } from 'date-fns';
 import { PaymentDetailDto } from '../../models/payment-detail.dto';

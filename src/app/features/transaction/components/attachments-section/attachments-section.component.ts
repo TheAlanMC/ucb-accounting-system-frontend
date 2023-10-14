@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {AttachmentDto} from "../../../journal-entry/models/attachment.dto";
+import {AttachmentDto} from "../../../../core/models/attachment.dto";
 
 @Component({
   selector: 'app-attachments-section',

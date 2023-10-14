@@ -1,14 +1,15 @@
 import { Component, ViewChild } from '@angular/core';
 import { TransactionTableComponent } from '../transaction-table/transaction-table.component';
 import { AttachmentsSectionComponent } from '../attachments-section/attachments-section.component';
-import { TransactionDto } from '../../models/transaction.dto';
-import { AttachmentDto } from '../../models/attachment.dto';
+import { TransactionDetailDto } from '../../models/transaction-detail.dto';
+import { AttachmentDto } from '../../../../core/models/attachment.dto';
 import { JournalEntryDto } from '../../models/journal-entry.dto';
 import { JournalEntryService } from 'src/app/core/services/journal-entry.service';
 import { FilesService } from 'src/app/core/services/files.service';
 import { format } from 'date-fns';
 import { forkJoin } from 'rxjs';
 import { MessageService } from 'primeng/api';
+import { DocumentTypeService } from 'src/app/core/services/document-type.service';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class JournalEntryPageComponent {
   documentTypes: any = []; //Document types from service
   //TODO: Get the journal entry number from the service
   journalEntryNumber: number = 24;
-  transactionDetails: TransactionDto[] = []; //Transactions from component - transaction table, ready to send to the service
+  transactionDetails: TransactionDetailDto[] = []; //Transactions from component - transaction table, ready to send to the service
   filesDetails: any[] = []; //Files from component - attachments section
   attachments: AttachmentDto[] = []; //Files to send to the service
   journalEntry!: JournalEntryDto;
@@ -35,14 +36,14 @@ export class JournalEntryPageComponent {
   totalDebitAmount: number = 0;
   totalCreditAmount: number = 0;
 
-  constructor(private journalEntryService: JournalEntryService, private filesService: FilesService, private messageService: MessageService) { }
+  constructor(private journalEntryService: JournalEntryService, private filesService: FilesService, private messageService: MessageService, private documentTypeService: DocumentTypeService) { }
   ngOnInit(): void {
     //Get the document types
     this.getDocumentTypes();
   }
 
   //Retrieve the data from the child component - transaction table
-  retrieveTransactionDetails(transactionDetails: TransactionDto[]) {
+  retrieveTransactionDetails(transactionDetails: TransactionDetailDto[]) {
     console.log(transactionDetails)
     this.transactionDetails = transactionDetails;
   }
@@ -173,7 +174,7 @@ export class JournalEntryPageComponent {
 
   //Get the document types
   getDocumentTypes() {
-    this.journalEntryService.getDocumentTypes().subscribe({
+    this.documentTypeService.getDocumentTypes().subscribe({
       next: (data) => {
         if (data.data != null) {
           // Parsing the data

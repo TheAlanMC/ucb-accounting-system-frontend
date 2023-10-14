@@ -4,4 +4,4 @@ export interface ImageDto {
     fileUrl: string;
     filename: string;
     s3ObjectId: number;
-  }
+}
