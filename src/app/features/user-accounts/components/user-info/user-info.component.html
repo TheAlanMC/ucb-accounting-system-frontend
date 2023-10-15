@@ -5,8 +5,7 @@
         <p class="text-2xl md:text-3xl" style="z-index:2;">&nbsp;&nbsp;&nbsp;Perfil de usuario</p>
     </div>
     <div class="flex-none flex align-items-center justify-content-center font-bold m-2 px-5 py-3">
-        <!-- <p-button class="help-icon" icon="pi pi-question-circle" styleClass="p-button-success"></p-button> -->
-        <!-- <app-navbar></app-navbar> -->
+        <p-button icon="pi pi-times" styleClass="p-button-rounded p-button-secondary p-button-text" (click)="goBack()"></p-button>
     </div>
 </div>
 
@@ -14,13 +13,13 @@
 <div id="main-container">
     <div class="mx-8 my-5 tarjeta-info">
         <div class="w-11rem h-11rem">
-            <img width="150px" height="150px" class="shadow-4" [src]="userData?.profilePicture"
+            <img width="150px" height="150px" class="shadow-4" [src]="userData.profilePicture"
                 style="border-radius:100%;" alt="Profile picture">
             <div class="custom-file-upload">
                 <input type="file" id="fileInput" (change)="onFileSelected2($event)" accept="image/*" />
                 <label for="fileInput">
                     <span class="custom-button">
-                        <i class="pi pi-pencil"></i>
+                        <i class="pi pi-pencil" style="color: white;"></i>
                     </span>
                 </label>
             </div>
@@ -44,40 +43,25 @@
                         <div class="inline-block font-bold text-center" style="color: #29ABAC;">
                             <i class="p-button-icon p-button-icon-left pi pi-lock" style="color: #29ABAC;"
                                 aria-hidden="true"></i>
-                            <a class="p-button-label ml-2 mt-2" style="color: #29ABAC; cursor: pointer;" (click)="confirm1()" >Cambiar contraseña</a>
+                            <a class="p-button-label ml-2 mt-2" style="color: #29ABAC; cursor: pointer;"
+                                (click)="showDialog()">Cambiar contraseña</a>
                             <span class="p-ink"></span>
                         </div>
                     </div>
-                    <div class="col-6 mt-3" id="save-buttons">
-                        <p-button (click)="saveUserData()" icon="pi pi-save" label="Guardar cambios"
+                    <div class="col-6 mt-3" id="save-buttons" style="padding: 0;">
+                        <p-button (click)="save()" icon="pi pi-save" label="Guardar cambios"
                             styleClass="p-button-success"></p-button>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 
-<div class="card flex justify-content-center gap-2">
-    <p-toast></p-toast>
-</div>
+
 
 <div class="card flex justify-content-center">
-    <p-toast></p-toast>
-    <p-confirmDialog #cd [style]="{ width: '50vw' }">
-        <ng-template pTemplate="header">
-            <h3>Cambia tu contraseña</h3>
-        </ng-template>
-        <ng-template pTemplate="icon">
-            <i class="pi pi-lock"></i>
-        </ng-template>
-        <ng-template pTemplate="message">
-            <p>Message Template</p>
-        </ng-template>
-        <ng-template pTemplate="footer">
-            <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
-            <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
-        </ng-template>
-    </p-confirmDialog>
+    <p-dialog header="Cambiar contraseña" [(visible)]="visible" [modal]="true" [style]="{ width: '25vw' }" [draggable]="false" [resizable]="false">
+       <app-user-password></app-user-password>
+    </p-dialog>
 </div>

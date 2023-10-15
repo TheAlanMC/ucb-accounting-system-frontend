@@ -2,9 +2,10 @@
     background: var(--color-green) !important;
     border-color: var(--color-green) !important;
 }
-::ng-deep .p-fileupload{
-  
-  }
+* {
+  color: #666666;
+  font-size: small;
+}
 
   ::ng-deep .round-button {
     border-radius: 50%;

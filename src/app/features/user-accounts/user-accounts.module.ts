@@ -15,6 +15,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { PasswordModule } from 'primeng/password';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CardModule,
     FormsModule,
     ImageModule,
-    SharedModule
+    SharedModule,
+    DialogModule
   ],
   
 })

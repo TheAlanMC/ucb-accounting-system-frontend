@@ -4,5 +4,5 @@ export interface UserDto{
     firstName: string;
     lastName: string;
     profilePicture: string;
-    s3ProfilePicture: number;
+    s3ProfilePictureId: number;
 }

@@ -31,6 +31,7 @@ import { InputTextModule } from 'primeng/inputtext';
     TableModule,
     SharedModule,
     InputTextModule
-  ]
+  ],
+  
 })
 export class CompanyModule { }

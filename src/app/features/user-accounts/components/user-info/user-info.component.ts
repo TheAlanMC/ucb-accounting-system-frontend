@@ -2,12 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 import { UserService } from 'src/app/core/services/user.service';
 import { UserDto } from '../../models/user.dto';
-import { Observable } from 'rxjs';
 import { ConfirmationService } from 'primeng/api'
 import { MessageService } from 'primeng/api';
-import { ConfirmEventType } from 'primeng/api';
 import { FilesService } from 'src/app/core/services/files.service';
-import { UserAbstractDto } from '../../models/user-abstract.dto';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-user-info',
@@ -16,13 +14,18 @@ import { UserAbstractDto } from '../../models/user-abstract.dto';
   providers: [ConfirmationService, MessageService]
 })
 export class UserInfoComponent implements OnInit {
-
+  //variables
   imageChanged: boolean = false;
-
   previewImage: string | ArrayBuffer | null = null;
   file: File | null = null;
 
-  constructor(private userService: UserService, private filesService: FilesService ,private confirmationService: ConfirmationService, private messageService: MessageService) { }
+  constructor(private userService: UserService, private filesService: FilesService, private confirmationService: ConfirmationService, private messageService: MessageService, private location: Location) { }
+
+  visible: boolean = false;
+
+  showDialog() {
+      this.visible = true;
+  }
 
   userData!: UserDto;
   ngOnInit(): void {
@@ -33,23 +36,41 @@ export class UserInfoComponent implements OnInit {
     );
   }
 
-  saveUserData(): void {
-
-    if(this.imageChanged){
-      this.saveImage();
+  save(): void {
+    if (this.imageChanged) {
+      if (this.file) {
+        console.log(this.file);
+        const formData = new FormData();
+        formData.append('picture', this.file);
+        this.filesService.uploadPicture(formData).subscribe({
+          next: (data) => {
+            console.log(data);
+            this.userData.profilePicture = data.data?.fileUrl || ''; // add null check here
+            this.userData.s3ProfilePictureId = data.data?.s3ObjectId || 0; // add null check here
+            this.saveUserData();
+          }, error: (error) => {
+            console.error(error);
+          }
+        });
+      }
+    }else{
+      this.saveUserData();
     }
+  }
 
-    // if (this.verifyData() == false) {
-    //   this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Verifica tus datos' });
-
-    // } else {
-    //   this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Tus datos se guardaron correctamente' });
-    //   this.userService.updateUser(this.userData).subscribe((data) => {
-    //     console.log(data);
-    //   }, (error) => {
-    //     console.error(error);
-    //   });
-    // }
+  saveUserData(){
+    if (this.verifyData() == false) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Verifica tus datos' });
+    } else {
+      console.log(this.userData);
+      this.userService.updateUser(this.userData).subscribe({
+        next: (data) => {
+        console.log(data);
+        this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Tus datos se guardaron correctamente' });
+      },error: (error) => {
+        console.error(error);
+      }});
+    }
   }
 
   verifyData(): boolean {
@@ -61,19 +82,7 @@ export class UserInfoComponent implements OnInit {
     return true;
   }
 
-  saveImage(): void {
-    if (this.file){
-      console.log(this.file);
-      const formData = new FormData();
-      formData.append('picture', this.file);
-      this.filesService.uploadPicture(formData).subscribe((data) => {
-        console.log(data);
-        //this.userData.profilePicture = data.data?.fileUrl;
-      }, (error) => {
-        console.error(error);
-      });
-     }
-  }
+  
 
 
   onFileSelected2(event: any) {
@@ -85,29 +94,14 @@ export class UserInfoComponent implements OnInit {
         this.previewImage = e.target.result;
         this.userData.profilePicture = e.target.result;
       };
-  
+
       reader.readAsDataURL(this.file);
     }
   }
 
-
-  confirm1() {
-    this.confirmationService.confirm({
-        accept: () => {
-            this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
-        },
-        reject: (type: ConfirmEventType) => {
-            switch (type) {
-                case ConfirmEventType.REJECT:
-                    this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
-                    break;
-                case ConfirmEventType.CANCEL:
-                    this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'You have cancelled' });
-                    break;
-            }
-        }
-    });
-}
+  goBack(): void {
+    this.location.back();
+  }
 
 
 }

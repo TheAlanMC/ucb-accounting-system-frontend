@@ -5,5 +5,5 @@ export interface CompanyAbstractDto {
     companyNit: string;
     industryId: number;
     phoneNumber: string;
-    s3CompanyLogoId: number;
+    s3CompanyLogoId: number | null;
 }
