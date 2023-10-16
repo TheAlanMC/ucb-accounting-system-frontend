@@ -12,6 +12,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ToastModule } from 'primeng/toast';
 import { InputTextModule } from 'primeng/inputtext';
 import { FieldsetModule } from 'primeng/fieldset';
+import { TreeTableModule } from 'primeng/treetable';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { FieldsetModule } from 'primeng/fieldset';
     SharedModule,
     ToastModule,
     InputTextModule,
-    FieldsetModule
+    FieldsetModule,
+    TreeTableModule,
+    RadioButtonModule
   ]
 })
 export class ChartOfAccountsModule { }

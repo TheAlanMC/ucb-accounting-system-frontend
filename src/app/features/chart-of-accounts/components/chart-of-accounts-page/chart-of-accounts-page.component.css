@@ -76,4 +76,14 @@
     width: calc(100% - 250px);
 }
 
+/* Dropdown */
+::ng-deep #account-number .p-dropdown {
+    height: 30px !important;
+}
+
+::ng-deep #account-number .p-dropdown span {
+    font-size: small;
+    padding:0.25rem 0.5rem 0.25rem 0.5rem;
+}
+
 
