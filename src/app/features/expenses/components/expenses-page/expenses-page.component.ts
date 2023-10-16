@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {CommunicationService} from "../../../../core/services/tabview/communication.service";
 import {MessageService} from "primeng/api";
+import { SidebarService } from 'src/app/core/services/sidebar/sidebar.service';
 
 @Component({
   selector: 'app-expenses-page',
@@ -14,13 +15,16 @@ export class ExpensesPageComponent {
 
   onNavbarToggle(isOpen: boolean) {
     this.isNavbarOpen = isOpen;
-    console.log(this.isNavbarOpen);
+    this.sidebarService.setIsOpen(this.isNavbarOpen);
   }
-  constructor(private communicationService: CommunicationService) {}
+  constructor(private communicationService: CommunicationService, private sidebarService: SidebarService) {}
 
   ngOnInit(): void {
     this.communicationService.getActiveTabIndex().subscribe((index) => {
       this.activeTabIndex = index;
+    });
+    this.sidebarService.getIsOpen().subscribe((isOpen) => {
+      this.isNavbarOpen = isOpen;
     });
   }
 

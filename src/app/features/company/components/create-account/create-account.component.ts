@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { UserService } from 'src/app/core/services/user.service';
 import { NewUserDto } from '../../../user-accounts/models/new-user.dto';
+import { Location } from '@angular/common';
 
 interface accountType {
   id: number;
@@ -18,7 +19,7 @@ interface accountType {
 export class CreateAccountComponent implements OnInit{
   value!: string;
   
-  constructor(private userService: UserService, private messageService: MessageService) { }
+  constructor(private userService: UserService, private messageService: MessageService, private location: Location) { }
   companyId = Number(localStorage.getItem('companyId'));
   accountstype: accountType[] | undefined;
   dataAccount: NewUserDto = {
@@ -103,6 +104,10 @@ export class CreateAccountComponent implements OnInit{
       }else{
         return true;  
       }
+    }
+
+    goBack(): void {
+      this.location.back();
     }
 
 }

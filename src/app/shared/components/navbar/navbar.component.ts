@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { KeycloakService } from 'keycloak-angular';
 import { MenuItem } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { UserService } from 'src/app/core/services/user.service';
@@ -13,7 +14,7 @@ export class NavbarComponent {
     items: MenuItem[] | undefined;
     pfpUrl: string = '';
 
-    constructor(private messageService: MessageService, private valuesService: ValuesService) { }
+    constructor(private messageService: MessageService, private valuesService: ValuesService, private keycloakService: KeycloakService) { }
 
     ngOnInit() {
         this.items = [
@@ -34,6 +35,8 @@ export class NavbarComponent {
             },
         ];
 
+        this.getToken();
+
 
 
         this.valuesService.getUserInfo().subscribe((data) => {
@@ -47,6 +50,15 @@ export class NavbarComponent {
 
     delete() {
         this.messageService.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted' });
+    }
+
+    getToken(){
+        //Get token from keycloak
+        this.keycloakService.getToken().then((token) => {
+            console.log(token);
+            //
+        });
+
     }
 
 }

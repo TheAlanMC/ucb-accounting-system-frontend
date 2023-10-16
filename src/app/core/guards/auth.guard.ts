@@ -34,7 +34,7 @@ export class AuthGuard extends KeycloakAuthGuard {
     }
 
     const authorized = requiredRoles.every((role) => this.roles.includes(role));
-    if (!authorized) this.router.navigate(['error'])
+    if (!authorized) this.router.navigate(['403'])
 
     // Comprobar si el usuario tiene todos los roles requeridos.
     return requiredRoles.every((role) => this.roles.includes(role));

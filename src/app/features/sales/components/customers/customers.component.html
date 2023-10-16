@@ -9,7 +9,7 @@
     </div>
     <div class="flex flex-column justify-content-start">
         <div class="flex justify-content-between flex-wrap card-container purple-container">
-            <p-button label="Eliminar cliente" class="mx-2 red-button" icon="pi pi-user-minus"></p-button>
+            <!-- <p-button label="Eliminar cliente" class="mx-2 red-button" icon="pi pi-user-minus"></p-button> -->
             <p-button label="Añadir cliente" class="ml-2 green-button" icon="pi pi-user-plus"
                 (click)="addCustomer()"></p-button>
         </div>
@@ -140,7 +140,7 @@
 
     </p-fieldset>
     <div class="flex justify-content-between flex-wrap card-container purple-container mt-4">
-        <p-button label="Cancelar" class="mx-2 red-button" icon="pi pi-times-circle"></p-button>
+        <p-button label="Cancelar" class="mx-2 red-button" icon="pi pi-times-circle" (click)="addCustomerVisible = false"></p-button>
         <p-button label="Guardar" class="ml-2 green-button" icon="pi pi-save"
             (click)="editMode ? saveCustomerChanges() : createCustomer()"></p-button>
     </div>

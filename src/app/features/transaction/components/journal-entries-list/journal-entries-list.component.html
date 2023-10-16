@@ -1,16 +1,17 @@
-
-
-<div class="card-container">
-    <div class="inline-block font-bold text-center p-4">
-        <span class="pi pi-book" style="font-size: 2rem; color: #8BD480;"></span>
+<app-sidebar (navbarToggle)="onNavbarToggle($event)" ></app-sidebar>
+<div class="home-section" [class.navbar-opened]="isNavbarOpen">
+<p-toast></p-toast>
+<div class="flex card-container overflow-hidden">
+    <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0">
+        <i class="pi pi-book" style="color: var(--color-green); font-size: 2.5rem; z-index: 2 !important;"></i>
+        <p class="text-2xl md:text-3xl" style="z-index:2;">&nbsp;&nbsp;&nbsp;Lista de transacciones</p>
     </div>
-    <div class="inline-block font-bold text-center p-2" style="color: #797979;">
-        <h2>Lista de Asientos Diarios</h2>
+    <div class="flex-none flex align-items-center justify-content-center font-bold m-2 px-5 py-3">
+        <app-navbar></app-navbar>
     </div>
 </div>
-<hr style="margin-top: -15px;">
 
-<div>
+<div class="col-12 xl:col-12 px-8 py-3">
     <p-table #dt1 [value]="listTempDto" [tableStyle]="{'min-width': '60rem'}"
         [globalFilterFields]="['client', 'Estado', 'status', 'status', 'documentType']" dataKey="id" [rows]="10"
         [showCurrentPageReport]="true" [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true"
@@ -18,10 +19,9 @@
 
         <ng-template pTemplate="caption">
             <div class="flex">
-
                 <span class="p-input-icon-left ml-auto">
                     <span class="p-input-icon-left ml-auto"><i class="pi pi-search"></i><input pinputtext="" type="text" (input)="dt1.filterGlobal(getEventValue($event), 'contains')"
-                        placeholder="Search keyword" class="p-inputtext p-component p-element"></span>
+                        placeholder="Buscar..." class="p-inputtext p-component p-element"></span>
                 </span>
             </div>
         </ng-template>
@@ -56,4 +56,5 @@
         </ng-template>
     </p-table>
 
+</div>
 </div>

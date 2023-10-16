@@ -7,6 +7,7 @@ import { AccountSubgroupPartialDto } from '../../models/account-subgroup-partial
 import { AccountPartialDto } from '../../models/account-partial.dto';
 import { SubaccountPartialDto } from '../../models/subaccount-partial.dto';
 import { MessageService } from 'primeng/api';
+import { SidebarService } from 'src/app/core/services/sidebar/sidebar.service';
 
 @Component({
   selector: 'app-chart-of-accounts-page',
@@ -48,12 +49,16 @@ export class ChartOfAccountsPageComponent {
   selectedSubgroup: any = null;
   selectedAccount: any = null;
 
-  constructor(private accountPlanService: AccountPlanService, private messageService: MessageService) { }
+  constructor(private accountPlanService: AccountPlanService, private messageService: MessageService, private sidebarService:SidebarService) { }
   ngOnInit(): void {
+    this.sidebarService.getIsOpen().subscribe((isOpen) => {
+      this.isNavbarOpen = isOpen;
+    });
     this.obtenercuentas();
     this.getGroups();
     this.getSubgroups();
     this.getAccounts();
+    
   }
 
   agregarNuevaCuenta() {
@@ -413,6 +418,7 @@ export class ChartOfAccountsPageComponent {
   onNavbarToggle(isOpen: boolean) {
     this.isNavbarOpen = isOpen;
     console.log(this.isNavbarOpen);
+    this.sidebarService.setIsOpen(this.isNavbarOpen);
   }
 
   editAccount(accountId: number, level: number) {

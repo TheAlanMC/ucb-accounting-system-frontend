@@ -1,14 +1,20 @@
 
 
-<div class="card-container">
-    <div class="inline-block font-bold text-center p-4">
-        <span class="pi pi-user-plus" style="font-size: 2rem; color: #8BD480;"></span>
-    </div>
-    <div class="inline-block font-bold text-center p-2" style="color: #797979;">
-        <h2>Crear nueva cuenta</h2>
-    </div>
 
+
+<p-toast></p-toast>
+<div class="flex card-container overflow-hidden">
+    <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0">
+        <i class="pi pi-user-plus" style="color: var(--color-green); font-size: 2.5rem; z-index: 2 !important;"></i>
+        <p class="text-2xl md:text-3xl" style="z-index:2;">&nbsp;&nbsp;&nbsp;Crear nueva cuenta</p>
+    </div>
+    <div class="flex-none flex align-items-center justify-content-center font-bold m-2 px-5 py-3">
+        <p-button icon="pi pi-times" styleClass="p-button-rounded p-button-secondary p-button-text" (click)="goBack()"></p-button>
+        <!-- <i class="pi pi-times" ></i> -->
+    </div>
 </div>
+
+
 <hr style="margin-top: -15px;">
 
 
@@ -28,28 +34,11 @@
                     class="p-inputtext p-component p-element h-2rem"></div>
             <div class="field pr-8"><label htmlfor="name1">Apellidos:</label><input [(ngModel)]="dataAccount.lastName" pinputtext="" id="lastname"
                     type="text" class="p-inputtext p-component p-element h-2rem"></div>
-            <div class="field pr-8"><label htmlfor="name1">Correo Electronico:</label><input [(ngModel)]="dataAccount.email" pinputtext="" id="email"
+            <div class="field pr-8"><label htmlfor="name1">Correo electrónico:</label><input [(ngModel)]="dataAccount.email" pinputtext="" id="email"
                     type="email" class="p-inputtext p-component p-element h-2rem"></div>
-            <!-- <div class="field pr-8"><label htmlfor="name1">Contraseña:</label><p-password [(ngModel)]="dataAccount.password" id="newPassword"
-                    id="currentPassword" [toggleMask]="true" class="w-full"></p-password></div>
-            
-            <div class="field pr-8">
-            </div>
-            <div class="field pr-8"><label htmlfor="name1">Confirmar contraseña:</label><p-password id="newPassword" [(ngModel)]="dataAccount.confirmPassword"
-                    id="currentPassword" [toggleMask]="true" class="w-full" [feedback]="false"></p-password></div> -->
-
             <div class="col-6 mt-8" id="save-buttons">
                 <p-button (click)="createAccount()" icon="pi pi-save" label="Guardar cambios" styleClass="p-button-success"></p-button>
             </div>
-
         </div>
-
     </div>
-    <div class="col-12 md:col-6">
-
-    </div>
-
-</div>
-<div class="card flex justify-content-center gap-2">
-    <p-toast></p-toast>
 </div>

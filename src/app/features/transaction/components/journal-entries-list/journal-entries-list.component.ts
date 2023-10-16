@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ListTempDto } from '../../models/listTemp.dto';
 import { Table } from 'primeng/table'
+import { SidebarService } from 'src/app/core/services/sidebar/sidebar.service';
+import { is } from 'date-fns/locale';
 
 @Component({
   selector: 'app-list-journalentries-generated',
@@ -13,17 +15,26 @@ export class JournalEntriesListComponent implements OnInit {
   
 
   listTempDto!: ListTempDto[];
-  
-  
-
   statuses!: any[];
-
   loading: boolean = true;
-
   activityValues: number[] = [0, 100];
-  
+  isNavbarOpen : boolean = false;
+
+  onNavbarToggle(isOpen: boolean) {
+    this.isNavbarOpen = isOpen;
+    this.sidebarService.setIsOpen(this.isNavbarOpen);
+    console.log(this.isNavbarOpen);
+    
+  }
+  constructor(private sidebarService: SidebarService) { 
+    this.sidebarService.getIsOpen().subscribe((isOpen) => {
+      this.isNavbarOpen = isOpen;
+      console.log(this.isNavbarOpen);
+    });
+  }
 
   ngOnInit(): void {
+    
     this.listTempDto = [
       {
         client: 'Cliente 1',

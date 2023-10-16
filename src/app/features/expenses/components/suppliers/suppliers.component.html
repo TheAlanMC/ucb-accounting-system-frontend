@@ -140,7 +140,7 @@
 
     </p-fieldset>
     <div class="flex justify-content-between flex-wrap card-container purple-container mt-4">
-        <p-button label="Cancelar" class="mx-2 red-button" icon="pi pi-times-circle"></p-button>
+        <p-button label="Cancelar" class="mx-2 red-button" icon="pi pi-times-circle" (click)="addSupplierVisible = false"></p-button>
         <p-button label="Guardar" class="ml-2 green-button" icon="pi pi-save"
                   (click)="editMode ? saveSupplierChanges() : createSupplier()"></p-button>
     </div>

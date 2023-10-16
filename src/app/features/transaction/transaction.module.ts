@@ -17,6 +17,7 @@ import {SidebarModule} from "primeng/sidebar";
 import {InputTextModule} from "primeng/inputtext";
 import {AttachmentsSectionComponent} from "./components/attachments-section/attachments-section.component";
 import {FileUploadModule} from "primeng/fileupload";
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -39,8 +40,8 @@ import {FileUploadModule} from "primeng/fileupload";
         ToastModule,
         SidebarModule,
         InputTextModule,
-        FileUploadModule
-
+        FileUploadModule,
+        SharedModule
     ]
 })
 export class TransactionModule { }
