@@ -19,7 +19,7 @@ export class UserListCompanyComponent implements OnInit{
     
     onNavbarToggle(isOpen: boolean) {
       this.isNavbarOpen = isOpen;
-      console.log(this.isNavbarOpen);
+      // console.log(this.isNavbarOpen);
       this.sidebarService.setIsOpen(this.isNavbarOpen);
     }
 
@@ -42,7 +42,6 @@ export class UserListCompanyComponent implements OnInit{
       });
       this.userService.findAllUsersByCompanyId(this.companyId).subscribe((users) => {
         this.users = users.data!;
-        console.log(users);
       });
     }
 

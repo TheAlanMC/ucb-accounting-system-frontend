@@ -35,30 +35,9 @@ export class NavbarComponent {
             },
         ];
 
-        this.getToken();
-
-
-
         this.valuesService.getUserInfo().subscribe((data) => {
             this.pfpUrl = data.profilePicture;
         })
-    }
-
-    update() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Updated' });
-    }
-
-    delete() {
-        this.messageService.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted' });
-    }
-
-    getToken(){
-        //Get token from keycloak
-        this.keycloakService.getToken().then((token) => {
-            console.log(token);
-            //
-        });
-
     }
 
 }

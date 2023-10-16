@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { FileUpload } from 'primeng/fileupload';
 
 @Component({
   selector: 'app-attachments-section',
@@ -6,6 +7,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./attachments-section.component.css'],
 })
 export class AttachmentsSectionComponent {
+    @ViewChild('fileUpload', { static: false }) fileUpload!: FileUpload;
+
     //Object emmited to the parent component
     @Output() attachmentsEmmited = new EventEmitter<any[]>();
 
@@ -41,6 +44,11 @@ export class AttachmentsSectionComponent {
     onDrop(event: any) {
       event.preventDefault();
       this.isDragging = false;
+    }
+
+    deleteAllFiles(){
+      this.uploadedFiles = [];
+      this.fileUpload.clear();
     }
 
 }

@@ -57,11 +57,11 @@ export class AllExpensesComponent {
     this.expensesService.getAllExpenses(this.companyId).subscribe({
       next: (data) => {
         this.expenses = data.data!;
-        console.log(data);
         this.getSupplierFromData();
       },
       error: (error) => {
         console.log(error);
+        
       }
     })
   }

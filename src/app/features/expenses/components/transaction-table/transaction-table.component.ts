@@ -141,7 +141,7 @@ export class TransactionTableComponent {
   calculateSaldoAmount() {
     let total = 0;
     for (let transaction of this.transactionDetails) {
-      total += parseFloat(transaction.importe.toString()); //TODO: Corregir
+      total += parseFloat(transaction.importe.toString());
     }
     this.saldoAmount = total;
   }

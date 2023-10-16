@@ -16,7 +16,7 @@
         <div class="flex flex-row flex-wrap">
             <div class="flex flex-column justify-content-start mr-2">
                 <p>Tipo de documento</p>
-                <p-dropdown id="document-type" [options]="documentTypes" [(ngModel)]="selectedDocumentType" optionLabel="name" placeholder="Seleccione un tipo de documento" [style]="{'width':'250px'}" [required]="true"></p-dropdown>
+                <p-dropdown id="document-type" [options]="documentTypes" [(ngModel)]="selectedDocumentType" optionLabel="name" placeholder="Seleccione un tipo de documento" [style]="{'width':'250px'}"></p-dropdown>
             </div>
             <div class="flex flex-column justify-content-start mx-2">
                 <p>Fecha del diario</p>
@@ -32,11 +32,11 @@
     <!-- Buttons - save, save and register a new journay entry -->
     <div class="flex justify-content-between flex-wrap" id="save-buttons">
         <div class="flex justify-content-between flex-wrap card-container purple-container mx-3">
-            <p-button label="Cancelar" class="red-button m-2 ml-5" routerLink="/sales" [style]="{'font-size': 'medium','height':'100%'}"></p-button>
+            <p-button label="Cancelar" class="red-button m-2 ml-5" (click)="goBack()" [style]="{'font-size': 'medium','height':'100%'}"></p-button>
             <p-button label="Borrar" class="cyan-button m-2" [style]="{'font-size': 'medium','height':'100%'}"></p-button>
         </div>
         <div class="flex">
-            <div class="flex"><p-button label="Guardar" (click)="save()" class="m-2 mr-5"></p-button></div>
+            <div class="flex"><p-button label="Guardar" (click)="save(); selectedSaveAndNew = false" class="m-2 mr-5"></p-button></div>
             <div class="flex"><p-button label="Guardar y registrar nuevo" (click)="saveAndNew()" class="m-2 mr-5"></p-button></div>
         </div>
         

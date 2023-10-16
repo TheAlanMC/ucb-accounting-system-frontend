@@ -24,7 +24,7 @@ export class InvoicePageComponent {
   //Variables
   companyId = Number(localStorage.getItem('companyId'));
   invoiceNumber: number = 0;
-  customers:any = [];
+  customers: any = [];
   dateValue!: Date;
   description: string = ' ';
   filesDetails: any[] = []; //Files from component - attachments section
@@ -35,8 +35,8 @@ export class InvoicePageComponent {
   sale!: InvoiceDto;
   selectedCustomer: any;
 
-   //Retrieve the data from the child component - transaction table
-   retrieveTransactionDetails(transactionDetails: InvoiceDetailDto[]) {
+  //Retrieve the data from the child component - transaction table
+  retrieveTransactionDetails(transactionDetails: InvoiceDetailDto[]) {
     console.log(transactionDetails)
     this.transactionDetails = transactionDetails;
   }
@@ -52,17 +52,17 @@ export class InvoicePageComponent {
   }
 
 
-  constructor( private messageService: MessageService,private customerService: CustomerService, private filesService: FilesService, private salesService: SalesService){}
-  ngOnInit(): void{
+  constructor(private messageService: MessageService, private customerService: CustomerService, private filesService: FilesService, private salesService: SalesService) { }
+  ngOnInit(): void {
     this.getAllCustomers()
     this.getNextInvoiceNumber()
   }
-  
 
-  getAllCustomers(){
+
+  getAllCustomers() {
     this.customerService.getAllCustomers(this.companyId).subscribe({
       next: (data) => {
-        if(data.data != null){
+        if (data.data != null) {
           //Parsing the data
           this.customers = data.data.map((customer) => ({
             name: customer.displayName,
@@ -76,10 +76,10 @@ export class InvoicePageComponent {
     })
   }
 
-  getNextInvoiceNumber(){
+  getNextInvoiceNumber() {
     this.salesService.getLastInvoiceNumber(this.companyId).subscribe({
       next: (data) => {
-        if(data.data != null){
+        if (data.data != null) {
           this.invoiceNumber = data.data;
         }
       },
@@ -89,50 +89,63 @@ export class InvoicePageComponent {
     })
   }
 
-  createInvoice(){
+  createInvoice() {
     //Getting the gloss from the child component - transaction table
     this.transactionTableComponent.sendGlossAndTotal();
-    //Getting the transactions from the child component - transaction table
-    this.transactionTableComponent.sendTransactionDetails();
-    //TODO: Validar campos vacios
+    if (this.validateFields()) {
+      //Getting the transactions from the child component - transaction table
+      this.transactionTableComponent.sendTransactionDetails();
 
-    //Getting the attachments from the child component - attachments section
-    this.attachmentsComponent.sendAttachments();
-
-    
-    if(this.attachmentsComponent.uploadedFiles.length == 0){
-      this.uploadSale()
-    }else{
-      //Upload files
-      //Calling service - each file
-      const uploadObservables = this.attachmentsComponent.uploadedFiles.map((file) => {
-        const formData = new FormData();
-        formData.append('attachment', file);
-        return this.filesService.uploadFile(this.companyId, formData);
-      });
-      forkJoin(uploadObservables).subscribe({
-        next: (responses) => {
-          // console.log("Todos los archivos se han subido correctamente");
-          // console.log(responses);
-          // Se asigna los datos de los archivos subidos a 'this.attachments'.
-          this.attachments = responses.map((data: any) => ({
-            attachmentId: data.data.attachmentId,
-            contentType: data.data.contentType,
-            filename: data.data.filename
-          }));
-          console.log(this.attachments);
-          this.uploadSale()
-        },
-        error: (error) => {
-          // console.log("Hubo un error al subir los archivos");
-          // console.log(error);
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Hubo un error al crear la factura, intente nuevamente' });
+      //If there si empty transactions, return
+      let emptyTransactions = false;
+      for (let i = 0; i < this.transactionDetails.length; i++) {
+        if (this.transactionDetails[i].subaccountId == 0 || this.transactionDetails[i].quantity == 0 || this.transactionDetails[i].unitPriceBs == 0 ) {
+          emptyTransactions = true;
         }
-      });
+      }
+      if (emptyTransactions) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: '💡 No se puede crear la factura si hay filas vacias, elimínelas e intente nuevamente.' });        
+        return;
+      }
+
+      //Getting the attachments from the child component - attachments section
+      this.attachmentsComponent.sendAttachments();
+
+
+      if (this.attachmentsComponent.uploadedFiles.length == 0) {
+        this.uploadSale()
+      } else {
+        //Upload files
+        //Calling service - each file
+        const uploadObservables = this.attachmentsComponent.uploadedFiles.map((file) => {
+          const formData = new FormData();
+          formData.append('attachment', file);
+          return this.filesService.uploadFile(this.companyId, formData);
+        });
+        forkJoin(uploadObservables).subscribe({
+          next: (responses) => {
+            // console.log("Todos los archivos se han subido correctamente");
+            // console.log(responses);
+            // Se asigna los datos de los archivos subidos a 'this.attachments'.
+            this.attachments = responses.map((data: any) => ({
+              attachmentId: data.data.attachmentId,
+              contentType: data.data.contentType,
+              filename: data.data.filename
+            }));
+            console.log(this.attachments);
+            this.uploadSale()
+          },
+          error: (error) => {
+            // console.log("Hubo un error al subir los archivos");
+            // console.log(error);
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Hubo un error al crear la factura, intente nuevamente' });
+          }
+        });
+      }
     }
   }
 
-  uploadSale(){
+  uploadSale() {
     //Upload sale
     //Sale dto
     this.sale = {
@@ -159,5 +172,17 @@ export class InvoicePageComponent {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Hubo un error al crear la factura, intente nuevamente' });
       }
     });
+  }
+
+  validateFields() {
+    if (this.selectedCustomer == null || this.selectedCustomer == undefined) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor seleccione un cliente' });
+      return false;
+    }
+    if (this.dateValue == null || this.dateValue == undefined) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor seleccione una fecha' });
+      return false;
+    }
+    return true;
   }
 }

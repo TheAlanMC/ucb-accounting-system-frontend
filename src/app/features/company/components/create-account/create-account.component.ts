@@ -43,45 +43,36 @@ export class CreateAccountComponent implements OnInit{
 
     createAccount(): void{
       if(this.verifydata()){
-        console.log(this.dataAccount);
-        console.log(this.selectedAccount?.id);
         if(this.selectedAccount?.id==1){
           this.userService.createAccountant(this.dataAccount).subscribe(
             response => {
-              console.log(response);
               this.messageService.add({severity:'success', summary: 'Success', detail: 'Cuenta creada con exito'});
             },
             error => {
-              console.log(error);
               this.messageService.add({severity:'error', summary: 'Error', detail: 'Error al crear la cuenta'});
             }
           );
         }else if(this.selectedAccount?.id==2){
           this.userService.createAccountingAssistant(this.dataAccount, this.companyId).subscribe(
             response => {
-              console.log(response);
               this.messageService.add({severity:'success', summary: 'Success', detail: 'Cuenta creada con exito'});
             },
             error => {
-              console.log(error);
               this.messageService.add({severity:'error', summary: 'Error', detail: 'Error al crear la cuenta'});
             }
           );
         }else if(this.selectedAccount?.id==3){
           this.userService.createClient(this.dataAccount, this.companyId).subscribe(
             response => {
-              console.log(response);
               this.messageService.add({severity:'success', summary: 'Success', detail: 'Cuenta creada con exito'});
             },
             error => {
-              console.log(error);
               this.messageService.add({severity:'error', summary: 'Error', detail: 'Error al crear la cuenta'});
             }
           );
         }
       }else{
-        console.log('error');
-
+        this.messageService.add({severity:'error', summary: 'Error', detail: 'Error al crear la cuenta'});
       }
     }
 

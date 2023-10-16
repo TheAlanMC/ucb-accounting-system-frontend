@@ -92,9 +92,21 @@ export class InvoicePageComponent {
   createInvoice(){
     //Getting the gloss from the child component - transaction table
     this.transactionTableComponent.sendGlossAndTotal();
+    if (this.validateFields()) {
     //Getting the transactions from the child component - transaction table
     this.transactionTableComponent.sendTransactionDetails();
-    //TODO: Validar campos vacios
+    //If there si empty transactions, return
+    let emptyTransactions = false;
+    for (let i = 0; i < this.transactionDetails.length; i++) {
+      if (this.transactionDetails[i].subaccountId == 0 || this.transactionDetails[i].quantity == 0 || this.transactionDetails[i].unitPriceBs == 0 ) {
+        emptyTransactions = true;
+      }
+    }
+    if (emptyTransactions) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: '💡 No se puede crear la factura si hay filas vacias, elimínelas e intente nuevamente.' });        
+      return;
+    }
+
 
     //Getting the attachments from the child component - attachments section
     this.attachmentsComponent.sendAttachments();
@@ -131,6 +143,7 @@ export class InvoicePageComponent {
       });
     }
   }
+}
 
   uploadExpense(){
     //Upload expense
@@ -159,6 +172,17 @@ export class InvoicePageComponent {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Hubo un error al crear la factura, intente nuevamente' });
       }
     });
+  }
+  validateFields() {
+    if (this.selectedSupplier == null || this.selectedSupplier == undefined) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor seleccione un cliente' });
+      return false;
+    }
+    if (this.dateValue == null || this.dateValue == undefined) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor seleccione una fecha' });
+      return false;
+    }
+    return true;
   }
 }
 

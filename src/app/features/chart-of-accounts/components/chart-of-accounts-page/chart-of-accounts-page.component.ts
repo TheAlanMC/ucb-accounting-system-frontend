@@ -101,7 +101,7 @@ export class ChartOfAccountsPageComponent {
 
   onSelectedSubgroup(event: any) {
     this.selectedAccount = null;
-    console.log(event);
+    // console.log(event);
     if (this.level == 'Subcuenta') {
       var aux = this.accountsListDto.filter((item: any) => {
         return item.accountSubgroupId == event.value.code;
@@ -118,19 +118,19 @@ export class ChartOfAccountsPageComponent {
   getGroups() {
     this.accountPlanService.getAllAccountGroups(this.companyId).subscribe({
       next: (data => {
-        console.log(data.data);
+        // console.log(data.data);
         this.groupsListDto = data.data!;
       }
       ),
       error: (error => {
-        console.log(error);
+        // console.log(error);
       })
     }
     )
   }
 
   handleRadioChange(event: any) {
-    console.log(event.value);
+    // console.log(event.value);
     this.selectedCategory = null;
     this.selectedGroup = null;
     this.selectedSubgroup = null;
@@ -140,12 +140,12 @@ export class ChartOfAccountsPageComponent {
   getSubgroups() {
     this.accountPlanService.getAllAccountSubgroups(this.companyId).subscribe({
       next: (data => {
-        console.log(data.data);
+        // console.log(data.data);
         this.subgroupsListDto = data.data!;
       }
       ),
       error: (error => {
-        console.log(error);
+        // console.log(error);
       })
     }
     )
@@ -154,12 +154,12 @@ export class ChartOfAccountsPageComponent {
   getAccounts() {
     this.accountPlanService.getAllAccounts(this.companyId).subscribe({
       next: (data => {
-        console.log(data.data);
+        // console.log(data.data);
         this.accountsListDto = data.data!;
       }
       ),
       error: (error => {
-        console.log(error);
+        // console.log(error);
       })
     }
     )
@@ -169,10 +169,10 @@ export class ChartOfAccountsPageComponent {
   obtenercuentas() {
     this.accountPlanService.getAccountPlan(this.companyId).subscribe({
       next: (data => {
-        console.log(data.data);
+        // console.log(data.data);
         this.accountCategory = data.data!;
         this.cuentas = this.transformData(this.accountCategory, 1);
-        console.log(this.cuentas);
+        // console.log(this.cuentas);
         //Map cuentas
         this.categorias = this.accountCategory.map((item: any) => {
           return {
@@ -183,7 +183,7 @@ export class ChartOfAccountsPageComponent {
       }
       ),
       error: (error => {
-        console.log(error);
+        // console.log(error);
       })
     }
     )
@@ -223,10 +223,10 @@ export class ChartOfAccountsPageComponent {
             accountGroupId: null,
             accountCategoryId: this.selectedCategory.code
           }
-          console.log(accountGroup);
+          // console.log(accountGroup);
           this.accountPlanService.createAccountGroup(this.companyId, accountGroup).subscribe({
             next: (data => {
-              console.log(data.data);
+              // console.log(data.data);
               this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Grupo creado correctamente' });
               this.sidebarVisible2 = false;
               this.obtenercuentas();
@@ -234,7 +234,7 @@ export class ChartOfAccountsPageComponent {
             ),
             error: (error => {
               this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Hubo un error al crear el grupo, intente nuevamente' });
-              console.log(error);
+              // console.log(error);
             })
           }
           )
@@ -249,7 +249,7 @@ export class ChartOfAccountsPageComponent {
 
           this.accountPlanService.createAccountSubgroup(this.companyId, accountSubgroup).subscribe({
             next: (data => {
-              console.log(data.data);
+              // console.log(data.data);
               this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Subgrupo creado correctamente' });
               this.sidebarVisible2 = false;
               this.obtenercuentas();
@@ -258,7 +258,7 @@ export class ChartOfAccountsPageComponent {
             ),
             error: (error => {
               this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Hubo un error al crear el subgrupo, intente nuevamente' });
-              console.log(error);
+              // console.log(error);
             })
           }
           )
@@ -272,7 +272,7 @@ export class ChartOfAccountsPageComponent {
           }
           this.accountPlanService.createAccount(this.companyId, account).subscribe({
             next: (data => {
-              console.log(data.data);
+              // console.log(data.data);
               this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Cuenta creada correctamente' });
               this.sidebarVisible2 = false;
               this.obtenercuentas();
@@ -293,7 +293,7 @@ export class ChartOfAccountsPageComponent {
           }
           this.accountPlanService.createSubaccount(this.companyId, subaccount).subscribe({
             next: (data => {
-              console.log(data.data);
+              // console.log(data.data);
               this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Subcuenta creada correctamente' });
               this.sidebarVisible2 = false;
               this.obtenercuentas();
@@ -301,7 +301,7 @@ export class ChartOfAccountsPageComponent {
             ),
             error: (error => {
               this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Hubo un error al crear la subcuenta, intente nuevamente' });
-              console.log(error);
+              // console.log(error);
             })
           }
           )
@@ -320,10 +320,10 @@ export class ChartOfAccountsPageComponent {
             accountGroupId: this.editAccountId,
             accountCategoryId: this.editParentId
           }
-          console.log(accountGroup);
+          // console.log(accountGroup);
           this.accountPlanService.updateAccountGroup(this.companyId, this.editAccountId, accountGroup).subscribe({
             next: (data => {
-              console.log(data.data);
+              // console.log(data.data);
               this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Cuenta actualizada correctamente' });
               this.sidebarVisible2 = false;
               this.obtenercuentas();
@@ -331,7 +331,7 @@ export class ChartOfAccountsPageComponent {
             ),
             error: (error => {
               this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Hubo un error al actualizar la cuenta, intente nuevamente' });
-              console.log(error);
+              // console.log(error);
             })
           }
           )
@@ -346,7 +346,7 @@ export class ChartOfAccountsPageComponent {
 
           this.accountPlanService.updateAccountSubgroup(this.companyId, this.editAccountId, accountSubgroup).subscribe({
             next: (data => {
-              console.log(data.data);
+              // console.log(data.data);
               this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Cuenta actualizada correctamente' });
               this.sidebarVisible2 = false;
               this.obtenercuentas();
@@ -355,7 +355,7 @@ export class ChartOfAccountsPageComponent {
             ),
             error: (error => {
               this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Hubo un error al actualizar la cuenta, intente nuevamente' });
-              console.log(error);
+              // console.log(error);
             })
           }
           )
@@ -369,7 +369,7 @@ export class ChartOfAccountsPageComponent {
           }
           this.accountPlanService.updateAccount(this.companyId, this.editAccountId, account).subscribe({
             next: (data => {
-              console.log(data.data);
+              // console.log(data.data);
               this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Cuenta actualizada correctamente' });
               this.sidebarVisible2 = false;
               this.obtenercuentas();
@@ -378,7 +378,7 @@ export class ChartOfAccountsPageComponent {
             ),
             error: (error => {
               this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Hubo un error al actualizar la cuenta, intente nuevamente' });
-              console.log(error);
+              // console.log(error);
             })
           }
           )
@@ -392,7 +392,7 @@ export class ChartOfAccountsPageComponent {
           }
           this.accountPlanService.updateSubaccount(this.companyId, this.editAccountId, subaccount).subscribe({
             next: (data => {
-              console.log(data.data);
+              // console.log(data.data);
               this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Cuenta actualizada correctamente' });
               this.sidebarVisible2 = false;
               this.obtenercuentas();
@@ -400,7 +400,7 @@ export class ChartOfAccountsPageComponent {
             ),
             error: (error => {
               this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Hubo un error al actualizar la cuenta, intente nuevamente' });
-              console.log(error);
+              // console.log(error);
             })
           }
           )
@@ -417,7 +417,7 @@ export class ChartOfAccountsPageComponent {
 
   onNavbarToggle(isOpen: boolean) {
     this.isNavbarOpen = isOpen;
-    console.log(this.isNavbarOpen);
+    // console.log(this.isNavbarOpen);
     this.sidebarService.setIsOpen(this.isNavbarOpen);
   }
 
@@ -431,7 +431,7 @@ export class ChartOfAccountsPageComponent {
         this.level = 'Grupo';
         this.accountPlanService.getAccountGroup(this.companyId, accountId).subscribe({
           next: (data => {
-            console.log(data.data);
+            // console.log(data.data);
             this.accountNameInput = data.data!.accountGroupName;
             this.accountCodeInput = data.data!.accountGroupCode.toString();
             this.editParentId = data.data!.accountCategoryId;
@@ -439,7 +439,7 @@ export class ChartOfAccountsPageComponent {
 
           ),
           error: (error => {
-            console.log(error);
+            // console.log(error);
           })
         }
         )
@@ -448,7 +448,7 @@ export class ChartOfAccountsPageComponent {
         this.level = 'Subgrupo';
         this.accountPlanService.getAccountSubgroup(this.companyId, accountId).subscribe({
           next: (data => {
-            console.log(data.data);
+            // console.log(data.data);
             this.accountNameInput = data.data!.accountSubgroupName;
             this.accountCodeInput = data.data!.accountSubgroupCode.toString();
             this.editParentId = data.data!.accountGroupId;
@@ -456,7 +456,7 @@ export class ChartOfAccountsPageComponent {
 
           ),
           error: (error => {
-            console.log(error);
+            // console.log(error);
           })
         }
         )
@@ -465,7 +465,7 @@ export class ChartOfAccountsPageComponent {
         this.level = 'Cuenta';
         this.accountPlanService.getAccount(this.companyId, accountId).subscribe({
           next: (data => {
-            console.log(data.data);
+            // console.log(data.data);
             this.accountNameInput = data.data!.accountName;
             this.accountCodeInput = data.data!.accountCode.toString();
             this.editParentId = data.data!.accountSubgroupId;
@@ -473,7 +473,7 @@ export class ChartOfAccountsPageComponent {
 
           ),
           error: (error => {
-            console.log(error);
+            // console.log(error);
           })
         }
         )
@@ -482,7 +482,7 @@ export class ChartOfAccountsPageComponent {
         this.level = 'Subcuenta';
         this.accountPlanService.getSubaccount(this.companyId, accountId).subscribe({
           next: (data => {
-            console.log(data.data);
+            // console.log(data.data);
             this.accountNameInput = data.data!.subaccountName;
             this.accountCodeInput = data.data!.subaccountCode.toString();
             this.editParentId = data.data!.accountId;
@@ -490,7 +490,7 @@ export class ChartOfAccountsPageComponent {
 
           ),
           error: (error => {
-            console.log(error);
+            // console.log(error);
           })
         }
         )

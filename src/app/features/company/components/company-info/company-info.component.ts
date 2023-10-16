@@ -25,8 +25,6 @@ export class CompanyInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.companyService.getCompanyInfo(this.companyId).subscribe((data) => {
-      console.log(data);
-      console.log(data.data);
       this.companyData = data.data!;
     });
   }
@@ -39,7 +37,6 @@ export class CompanyInfoComponent implements OnInit {
         formData.append('picture', this.file);
         this.filesService.uploadPicture(formData).subscribe({
           next: (response) => {
-            console.log(response);
             this.s3Id = response.data!.s3ObjectId;
             this.saveCompanyData();
           },
@@ -49,7 +46,6 @@ export class CompanyInfoComponent implements OnInit {
           }
         });
       }
-      console.log(this.companyData);
     }else{
       this.saveCompanyData();
     }
@@ -71,7 +67,6 @@ export class CompanyInfoComponent implements OnInit {
 
     this.companyService.updateCompany(this.companyUpdated, this.companyId).subscribe({
       next: (response) => {
-        console.log(response);
         this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Tus datos se guardaron correctamente' });
       },
       error: (error) => {
@@ -79,7 +74,6 @@ export class CompanyInfoComponent implements OnInit {
         console.error(error);
       }
     });
-    console.log(this.companyData);
   }
 
 
