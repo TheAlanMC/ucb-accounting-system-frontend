@@ -22,6 +22,7 @@ export class JournalEntryPageComponent {
   @ViewChild(TransactionTableComponent) transactionTableComponent!: TransactionTableComponent; // Obtén una referencia al componente hijo
   @ViewChild(AttachmentsSectionComponent) attachmentsComponent!: AttachmentsSectionComponent; // Obtén una referencia al componente hijo
 
+  companyId = Number(localStorage.getItem('companyId'));
   dateValue!: Date;
   selectedDocumentType: any;
   documentTypes: any = []; //Document types from service
@@ -96,7 +97,7 @@ export class JournalEntryPageComponent {
       const uploadObservables = this.attachmentsComponent.uploadedFiles.map((file) => {
         const formData = new FormData();
         formData.append('attachment', file);
-        return this.filesService.uploadFile(1, formData);
+        return this.filesService.uploadFile(this.companyId, formData);
       });
 
       forkJoin(uploadObservables).subscribe({
@@ -126,7 +127,7 @@ export class JournalEntryPageComponent {
           }
           // console.log(this.journalEntry)
           //Calling service
-          this.journalEntryService.createJournalEntry(1, this.journalEntry).subscribe({
+          this.journalEntryService.createJournalEntry(this.companyId, this.journalEntry).subscribe({
             next: (data) => {
               // console.log(data);
               // console.log("Se creoo");

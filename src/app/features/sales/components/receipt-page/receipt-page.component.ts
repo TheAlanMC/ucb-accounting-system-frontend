@@ -30,6 +30,7 @@ export class ReceiptPageComponent {
   }
 
   // Variables
+  companyId = Number(localStorage.getItem('companyId'));
   importeRecibido: number = 0;
   referenceNumber: string = '';
   paymentNumber: number = 0;
@@ -67,7 +68,7 @@ export class ReceiptPageComponent {
         const uploadObservables = this.attachmentsComponent.uploadedFiles.map((file) => {
           const formData = new FormData();
           formData.append('attachment', file);
-          return this.filesService.uploadFile(1, formData);
+          return this.filesService.uploadFile(this.companyId, formData);
         });
         forkJoin(uploadObservables).subscribe({
           next: (responses) => {
@@ -116,7 +117,7 @@ export class ReceiptPageComponent {
     console.log(this.payment)
 
     //Calling service
-    this.salesService.createPaymentSale(1, this.payment).subscribe({
+    this.salesService.createPaymentSale(this.companyId, this.payment).subscribe({
       next: (data) => {
         //console.log(data);
         //console.log("Se creoo");
@@ -133,7 +134,7 @@ export class ReceiptPageComponent {
 
   //Get all the customers
   getAllCustomers(){
-    this.customerService.getAllCustomers(1).subscribe({
+    this.customerService.getAllCustomers(this.companyId).subscribe({
       next: (data) => {
         if(data.data != null){
           //Parsing the data
@@ -169,7 +170,7 @@ export class ReceiptPageComponent {
 
   //Get all the subaccounts used for payments
   getSubaccounts(){
-    this.salesService.getPaymentSubaccounts(1).subscribe({
+    this.salesService.getPaymentSubaccounts(this.companyId).subscribe({
       next: (data) => {
         if(data.data != null){
           //Parsing the data
@@ -187,7 +188,7 @@ export class ReceiptPageComponent {
 
   //Get next receipt number
   getNextReceiptNumber(){
-    this.salesService.getLastPaymentNumber(1).subscribe({
+    this.salesService.getLastPaymentNumber(this.companyId).subscribe({
       next: (data) => {
         if(data.data != null){
           this.paymentNumber = data.data;

@@ -1,17 +1,20 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MessageService } from 'primeng/api';
+import { UserService } from 'src/app/core/services/user.service';
+import { ValuesService } from 'src/app/core/services/values/values.service';
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css'],
-  providers: [MessageService]
+    selector: 'app-navbar',
+    templateUrl: './navbar.component.html',
+    styleUrls: ['./navbar.component.css'],
+    providers: [MessageService]
 })
 export class NavbarComponent {
-  items: MenuItem[] | undefined;
+    items: MenuItem[] | undefined;
+    pfpUrl: string = '';
 
-    constructor(private messageService: MessageService) {}
-    
+    constructor(private messageService: MessageService, private valuesService: ValuesService) { }
+
     ngOnInit() {
         this.items = [
             {
@@ -30,6 +33,12 @@ export class NavbarComponent {
                 ]
             },
         ];
+
+
+
+        this.valuesService.getUserInfo().subscribe((data) => {
+            this.pfpUrl = data.profilePicture;
+        })
     }
 
     update() {

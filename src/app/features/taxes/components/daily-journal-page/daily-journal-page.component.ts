@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./daily-journal-page.component.css']
 })
 export class DailyJournalPageComponent {
+  companyId = Number(localStorage.getItem('companyId'));
   isEditing = false;
   // constructor(private dailyJournalService: DailyJournalService) { }
   asientos = [
@@ -23,7 +24,7 @@ export class DailyJournalPageComponent {
   agregarNuevoAsiento() {
   }
 obtenerAsientos() {
-  // this.dailyJournalService.getAllDailyJournals(1).subscribe({
+  // this.dailyJournalService.getAllDailyJournals(this.companyId).subscribe({
   //   next: (data => {
   //     console.log(data.data);
   //   }

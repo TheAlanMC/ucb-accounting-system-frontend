@@ -22,13 +22,13 @@ import { DocumentTypeService } from 'src/app/core/services/document-type.service
   providers: [MessageService]
 })
 export class JournalEntryGeneratedComponent {
-
-  journalEntryId: number = 0;
-  transactionJournalEntry: TransactionJournalEntryDto | undefined;
-  documentTypes: any = []; //Document types from service
-  description: string = '';
-  selectedDocumentType: any;
-  dateValue: Date = new Date();
+    companyId = Number(localStorage.getItem('companyId'));
+    journalEntryId: number = 0;
+    transactionJournalEntry: TransactionJournalEntryDto | undefined;
+    documentTypes: any = []; //Document types from service
+    description: string = '';
+    selectedDocumentType: any;
+    dateValue: Date = new Date();
 
 
 
@@ -38,7 +38,7 @@ export class JournalEntryGeneratedComponent {
       this.getDocumentTypes();
       //Get the journal entry id
       this.journalEntryId = this.activatedRoute.snapshot.params['id'];
-      this.journalEntryService.getJournalEntryById(1, this.journalEntryId).subscribe(
+      this.journalEntryService.getJournalEntryById(this.companyId, this.journalEntryId).subscribe(
           {
               next: (response) => {
                   this.transactionJournalEntry = response.data!;

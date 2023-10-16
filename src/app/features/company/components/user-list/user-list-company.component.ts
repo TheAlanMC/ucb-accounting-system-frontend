@@ -14,6 +14,7 @@ export class UserListCompanyComponent implements OnInit{
     constructor(private userService: UserService) { }
     isNavbarOpen : boolean = false;
     searchValue: string = '';
+    companyId = Number(localStorage.getItem('companyId'));
     
     onNavbarToggle(isOpen: boolean) {
       this.isNavbarOpen = isOpen;
@@ -32,7 +33,7 @@ export class UserListCompanyComponent implements OnInit{
     ];
 
     ngOnInit(): void {
-      this.userService.findAllUsersByCompanyId(1).subscribe((users) => {
+      this.userService.findAllUsersByCompanyId(this.companyId).subscribe((users) => {
         this.users = users.data!;
         console.log(users);
       });

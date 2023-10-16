@@ -13,6 +13,7 @@ export class TransactionTableComponent {
   @Output() glossAndTotalEmmited = new EventEmitter<string[]>();
 
   //Variables
+  companyId = Number(localStorage.getItem('companyId'));
   totalAmount: number = 0;
   saldoAmount: number = 0;
   transactions: InvoiceDetailDto[] = [];
@@ -157,7 +158,7 @@ export class TransactionTableComponent {
   }
 
   getSubaccounts(){
-    this.expensesService.getInvoiceSubaccounts(1).subscribe({
+    this.expensesService.getInvoiceSubaccounts(this.companyId).subscribe({
       next: (data) => {
         if(data.data != null){
           //Parsing the data

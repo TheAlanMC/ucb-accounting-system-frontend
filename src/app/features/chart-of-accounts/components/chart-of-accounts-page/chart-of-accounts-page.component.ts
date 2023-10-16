@@ -16,6 +16,7 @@ import { MessageService } from 'primeng/api';
 })
 export class ChartOfAccountsPageComponent {
   @ViewChild('dt', { static: false }) dt: any;
+  companyId = Number(localStorage.getItem('companyId'));
   searchValue: string = '';
   isNavbarOpen: boolean = false;
   isEditing = false;
@@ -58,8 +59,8 @@ export class ChartOfAccountsPageComponent {
   agregarNuevaCuenta() {
     this.accountCodeInput = '';
     this.accountNameInput = '';
-
   }
+
   onSelectedCategory(event: any) {
     this.selectedGroup = null;
     this.selectedSubgroup = null;
@@ -110,7 +111,7 @@ export class ChartOfAccountsPageComponent {
   }
 
   getGroups() {
-    this.accountPlanService.getAllAccountGroups(1).subscribe({
+    this.accountPlanService.getAllAccountGroups(this.companyId).subscribe({
       next: (data => {
         console.log(data.data);
         this.groupsListDto = data.data!;
@@ -132,7 +133,7 @@ export class ChartOfAccountsPageComponent {
   }
 
   getSubgroups() {
-    this.accountPlanService.getAllAccountSubgroups(1).subscribe({
+    this.accountPlanService.getAllAccountSubgroups(this.companyId).subscribe({
       next: (data => {
         console.log(data.data);
         this.subgroupsListDto = data.data!;
@@ -146,7 +147,7 @@ export class ChartOfAccountsPageComponent {
   }
 
   getAccounts() {
-    this.accountPlanService.getAllAccounts(1).subscribe({
+    this.accountPlanService.getAllAccounts(this.companyId).subscribe({
       next: (data => {
         console.log(data.data);
         this.accountsListDto = data.data!;
@@ -161,7 +162,7 @@ export class ChartOfAccountsPageComponent {
 
 
   obtenercuentas() {
-    this.accountPlanService.getAccountPlan(1).subscribe({
+    this.accountPlanService.getAccountPlan(this.companyId).subscribe({
       next: (data => {
         console.log(data.data);
         this.accountCategory = data.data!;
@@ -218,7 +219,7 @@ export class ChartOfAccountsPageComponent {
             accountCategoryId: this.selectedCategory.code
           }
           console.log(accountGroup);
-          this.accountPlanService.createAccountGroup(1, accountGroup).subscribe({
+          this.accountPlanService.createAccountGroup(this.companyId, accountGroup).subscribe({
             next: (data => {
               console.log(data.data);
               this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Grupo creado correctamente' });
@@ -241,7 +242,7 @@ export class ChartOfAccountsPageComponent {
             accountGroupId: this.selectedGroup.code
           }
 
-          this.accountPlanService.createAccountSubgroup(1, accountSubgroup).subscribe({
+          this.accountPlanService.createAccountSubgroup(this.companyId, accountSubgroup).subscribe({
             next: (data => {
               console.log(data.data);
               this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Subgrupo creado correctamente' });
@@ -264,7 +265,7 @@ export class ChartOfAccountsPageComponent {
             accountSubgroupId: this.selectedSubgroup.code,
             accountId: null
           }
-          this.accountPlanService.createAccount(1, account).subscribe({
+          this.accountPlanService.createAccount(this.companyId, account).subscribe({
             next: (data => {
               console.log(data.data);
               this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Cuenta creada correctamente' });
@@ -285,7 +286,7 @@ export class ChartOfAccountsPageComponent {
             accountId: this.selectedAccount.code,
             subaccountId: null
           }
-          this.accountPlanService.createSubaccount(1, subaccount).subscribe({
+          this.accountPlanService.createSubaccount(this.companyId, subaccount).subscribe({
             next: (data => {
               console.log(data.data);
               this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Subcuenta creada correctamente' });
@@ -315,7 +316,7 @@ export class ChartOfAccountsPageComponent {
             accountCategoryId: this.editParentId
           }
           console.log(accountGroup);
-          this.accountPlanService.updateAccountGroup(1, this.editAccountId, accountGroup).subscribe({
+          this.accountPlanService.updateAccountGroup(this.companyId, this.editAccountId, accountGroup).subscribe({
             next: (data => {
               console.log(data.data);
               this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Cuenta actualizada correctamente' });
@@ -338,7 +339,7 @@ export class ChartOfAccountsPageComponent {
             accountGroupId: this.editParentId
           }
 
-          this.accountPlanService.updateAccountSubgroup(1, this.editAccountId, accountSubgroup).subscribe({
+          this.accountPlanService.updateAccountSubgroup(this.companyId, this.editAccountId, accountSubgroup).subscribe({
             next: (data => {
               console.log(data.data);
               this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Cuenta actualizada correctamente' });
@@ -361,7 +362,7 @@ export class ChartOfAccountsPageComponent {
             accountId: this.editAccountId,
             accountSubgroupId: this.editParentId
           }
-          this.accountPlanService.updateAccount(1, this.editAccountId, account).subscribe({
+          this.accountPlanService.updateAccount(this.companyId, this.editAccountId, account).subscribe({
             next: (data => {
               console.log(data.data);
               this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Cuenta actualizada correctamente' });
@@ -384,7 +385,7 @@ export class ChartOfAccountsPageComponent {
             subaccountId: this.editAccountId,
             accountId: this.editParentId
           }
-          this.accountPlanService.updateSubaccount(1, this.editAccountId, subaccount).subscribe({
+          this.accountPlanService.updateSubaccount(this.companyId, this.editAccountId, subaccount).subscribe({
             next: (data => {
               console.log(data.data);
               this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Cuenta actualizada correctamente' });
@@ -422,7 +423,7 @@ export class ChartOfAccountsPageComponent {
     switch (level) {
       case 2:
         this.level = 'Grupo';
-        this.accountPlanService.getAccountGroup(1, accountId).subscribe({
+        this.accountPlanService.getAccountGroup(this.companyId, accountId).subscribe({
           next: (data => {
             console.log(data.data);
             this.accountNameInput = data.data!.accountGroupName;
@@ -439,7 +440,7 @@ export class ChartOfAccountsPageComponent {
         break;
       case 3:
         this.level = 'Subgrupo';
-        this.accountPlanService.getAccountSubgroup(1, accountId).subscribe({
+        this.accountPlanService.getAccountSubgroup(this.companyId, accountId).subscribe({
           next: (data => {
             console.log(data.data);
             this.accountNameInput = data.data!.accountSubgroupName;
@@ -456,7 +457,7 @@ export class ChartOfAccountsPageComponent {
         break;
       case 4:
         this.level = 'Cuenta';
-        this.accountPlanService.getAccount(1, accountId).subscribe({
+        this.accountPlanService.getAccount(this.companyId, accountId).subscribe({
           next: (data => {
             console.log(data.data);
             this.accountNameInput = data.data!.accountName;
@@ -473,7 +474,7 @@ export class ChartOfAccountsPageComponent {
         break;
       case 5:
         this.level = 'Subcuenta';
-        this.accountPlanService.getSubaccount(1, accountId).subscribe({
+        this.accountPlanService.getSubaccount(this.companyId, accountId).subscribe({
           next: (data => {
             console.log(data.data);
             this.accountNameInput = data.data!.subaccountName;

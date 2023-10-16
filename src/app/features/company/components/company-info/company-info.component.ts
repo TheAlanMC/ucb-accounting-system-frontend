@@ -15,7 +15,7 @@ import { Location } from '@angular/common';
 
 export class CompanyInfoComponent implements OnInit {
   constructor(private companyService: CompanyService, private messageService: MessageService, private filesService: FilesService, private location: Location) { }
-
+  companyId = Number(localStorage.getItem('companyId'));
   imageChanged: boolean = false;
   previewImage: string | ArrayBuffer | null = null;
   file: File | null = null;
@@ -24,7 +24,7 @@ export class CompanyInfoComponent implements OnInit {
   s3Id: number | null = null;
 
   ngOnInit(): void {
-    this.companyService.getCompanyInfo(1).subscribe((data) => {
+    this.companyService.getCompanyInfo(this.companyId).subscribe((data) => {
       console.log(data);
       console.log(data.data);
       this.companyData = data.data!;
@@ -69,7 +69,7 @@ export class CompanyInfoComponent implements OnInit {
     }
 
 
-    this.companyService.updateCompany(this.companyUpdated, 1).subscribe({
+    this.companyService.updateCompany(this.companyUpdated, this.companyId).subscribe({
       next: (response) => {
         console.log(response);
         this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Tus datos se guardaron correctamente' });

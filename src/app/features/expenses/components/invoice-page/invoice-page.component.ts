@@ -22,6 +22,7 @@ export class InvoicePageComponent {
   @ViewChild(AttachmentsSectionComponent) attachmentsComponent!: AttachmentsSectionComponent; // Obtén una referencia al componente hijo
 
   //Variables
+  companyId = Number(localStorage.getItem('companyId'));
   invoiceNumber: number = 0;
   suppliers:any = [];
   dateValue!: Date;
@@ -59,7 +60,7 @@ export class InvoicePageComponent {
 
 
   getAllSuppliers(){
-    this.supplierService.getAllSuppliers(1).subscribe({
+    this.supplierService.getAllSuppliers(this.companyId).subscribe({
       next: (data) => {
         if(data.data != null){
           //Parsing the data
@@ -76,7 +77,7 @@ export class InvoicePageComponent {
   }
 
   getNextInvoiceNumber(){
-    this.expensesService.getLastInvoiceNumber(1).subscribe({
+    this.expensesService.getLastInvoiceNumber(this.companyId).subscribe({
       next: (data) => {
         if(data.data != null){
           this.invoiceNumber = data.data;
@@ -107,7 +108,7 @@ export class InvoicePageComponent {
       const uploadObservables = this.attachmentsComponent.uploadedFiles.map((file) => {
         const formData = new FormData();
         formData.append('attachment', file);
-        return this.filesService.uploadFile(1, formData);
+        return this.filesService.uploadFile(this.companyId, formData);
       });
       forkJoin(uploadObservables).subscribe({
         next: (responses) => {
@@ -146,7 +147,7 @@ export class InvoicePageComponent {
     }
     console.log(this.expense)
     //Calling service
-    this.expensesService.createInvoice(1, this.expense).subscribe({
+    this.expensesService.createInvoice(this.companyId, this.expense).subscribe({
       next: (data) => {
         //console.log(data);
         //console.log("Se creoo");

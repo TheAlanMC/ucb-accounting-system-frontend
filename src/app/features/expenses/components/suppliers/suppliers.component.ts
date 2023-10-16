@@ -15,6 +15,7 @@ export class SuppliersComponent {
 
   constructor(private supplierService: SupplierService, private messageService: MessageService) { }
   //Variables
+  companyId = Number(localStorage.getItem('companyId'));
   selectedProducts!: String;
   searchValue: string = '';
   addSupplierVisible: boolean = false;
@@ -37,7 +38,7 @@ export class SuppliersComponent {
   }
 
   getAllSuppliers(){
-    this.supplierService.getAllSuppliers(1).subscribe({
+    this.supplierService.getAllSuppliers(this.companyId).subscribe({
       next: (data) => {
         this.suppliers = data.data!;
         console.log(data);
@@ -80,7 +81,7 @@ export class SuppliersComponent {
       return;
     }
 
-    this.supplierService.createSupplier(1, this.newSupplier).subscribe({
+    this.supplierService.createSupplier(this.companyId, this.newSupplier).subscribe({
       next: (data) => {
         console.log(data);
         this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Cliente creado correctamente' });
@@ -98,7 +99,7 @@ export class SuppliersComponent {
     this.editMode = true;
     console.log(supplierId);
     //Get the supplier data
-    this.supplierService.getSupplierById(1, supplierId).subscribe({
+    this.supplierService.getSupplierById(this.companyId, supplierId).subscribe({
       next: (data) => {
         console.log(data);
         this.prefix = data.data!.prefix;
@@ -131,7 +132,7 @@ export class SuppliersComponent {
       companyAddress: this.companyAddress
     }
     //Update the supplier
-    this.supplierService.updateSupplier(1, this.editSupplierId, this.newSupplier).subscribe({
+    this.supplierService.updateSupplier(this.companyId, this.editSupplierId, this.newSupplier).subscribe({
       next: (data) => {
         console.log(data);
         this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Cliente actualizado correctamente' });

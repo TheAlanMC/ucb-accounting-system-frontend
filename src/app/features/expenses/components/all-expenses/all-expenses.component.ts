@@ -11,6 +11,7 @@ import {ExpensesService} from "../../../../core/services/expenses.service";
 })
 export class AllExpensesComponent {
   @ViewChild('dt2') dt2!: Table;
+  companyId = Number(localStorage.getItem('companyId'));
   items: any[] = [];
   constructor(private expensesService: ExpensesService, private userService: UserService) {
     this.items = [
@@ -40,20 +41,20 @@ export class AllExpensesComponent {
   ngOnInit(): void {
     this.getAllExpenses();
     //Guardamos el company id en el local storage - *Ejemplo
-    this.userService.getUserById().subscribe({
-      next: (data) => {
-        localStorage.setItem('companyId', data.data!.companyIds[0].toString());
-        console.log(localStorage.getItem('companyId'));
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    });
+    // this.userService.getUserById().subscribe({
+    //   next: (data) => {
+    //     localStorage.setItem('companyId', data.data!.companyIds[0].toString());
+    //     console.log(localStorage.getItem('companyId'));
+    //   },
+    //   error: (error) => {
+    //     console.log(error);
+    //   }
+    // });
 
   }
 
   getAllExpenses(){
-    this.expensesService.getAllExpenses(1).subscribe({
+    this.expensesService.getAllExpenses(this.companyId).subscribe({
       next: (data) => {
         this.expenses = data.data!;
         console.log(data);

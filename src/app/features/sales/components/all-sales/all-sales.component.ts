@@ -14,6 +14,7 @@ import { UserService } from 'src/app/core/services/user.service';
 
 export class AllSalesComponent {
     @ViewChild('dt2') dt2!: Table;
+    companyId = Number(localStorage.getItem('companyId'));
     items: any[] = [];
     constructor(private salesService: SalesService, private userService: UserService) { 
         this.items = [
@@ -43,20 +44,20 @@ export class AllSalesComponent {
     ngOnInit(): void {
         this.getAllSales();
         //Guardamos el company id en el local storage - *Ejemplo
-        this.userService.getUserById().subscribe({
-            next: (data) => {
-                localStorage.setItem('companyId', data.data!.companyIds[0].toString());
-                console.log(localStorage.getItem('companyId'));
-            },
-            error: (error) => {
-                console.log(error);
-            }
-        });
+        // this.userService.getUserById().subscribe({
+        //     next: (data) => {
+        //         localStorage.setItem('companyId', data.data!.companyIds[0].toString());
+        //         console.log(localStorage.getItem('companyId'));
+        //     },
+        //     error: (error) => {
+        //         console.log(error);
+        //     }
+        // });
         
     }
 
     getAllSales(){
-        this.salesService.getAllSales(1).subscribe({
+        this.salesService.getAllSales(this.companyId).subscribe({
             next: (data) => {
                 this.sales = data.data!;
                 console.log(data);

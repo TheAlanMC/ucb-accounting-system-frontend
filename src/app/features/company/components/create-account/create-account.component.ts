@@ -19,7 +19,7 @@ export class CreateAccountComponent implements OnInit{
   value!: string;
   
   constructor(private userService: UserService, private messageService: MessageService) { }
-  
+  companyId = Number(localStorage.getItem('companyId'));
   accountstype: accountType[] | undefined;
   dataAccount: NewUserDto = {
     email: '',
@@ -56,7 +56,7 @@ export class CreateAccountComponent implements OnInit{
             }
           );
         }else if(this.selectedAccount?.id==2){
-          this.userService.createAccountingAssistant(this.dataAccount, 1).subscribe(
+          this.userService.createAccountingAssistant(this.dataAccount, this.companyId).subscribe(
             response => {
               console.log(response);
               this.messageService.add({severity:'success', summary: 'Success', detail: 'Cuenta creada con exito'});
@@ -67,7 +67,7 @@ export class CreateAccountComponent implements OnInit{
             }
           );
         }else if(this.selectedAccount?.id==3){
-          this.userService.createClient(this.dataAccount, 1).subscribe(
+          this.userService.createClient(this.dataAccount, this.companyId).subscribe(
             response => {
               console.log(response);
               this.messageService.add({severity:'success', summary: 'Success', detail: 'Cuenta creada con exito'});

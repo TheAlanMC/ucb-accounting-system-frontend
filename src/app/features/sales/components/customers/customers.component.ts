@@ -15,6 +15,7 @@ export class CustomersComponent {
 
   constructor(private customerService: CustomerService, private messageService: MessageService) { } 
   //Variables
+  companyId = Number(localStorage.getItem('companyId'));
   selectedProducts!: String;
   searchValue: string = '';
   addCustomerVisible: boolean = false;
@@ -37,7 +38,7 @@ export class CustomersComponent {
   }
 
   getAllCustomers(){
-    this.customerService.getAllCustomers(1).subscribe({
+    this.customerService.getAllCustomers(this.companyId).subscribe({
       next: (data) => {
         this.customers = data.data!;
         console.log(data);
@@ -80,7 +81,7 @@ export class CustomersComponent {
       return;
     }
 
-    this.customerService.createCustomer(1, this.newCustomer).subscribe({
+    this.customerService.createCustomer(this.companyId, this.newCustomer).subscribe({
       next: (data) => {
         console.log(data);
         this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Cliente creado correctamente' });
@@ -98,7 +99,7 @@ export class CustomersComponent {
     this.editMode = true;
     console.log(customerId);
     //Get the customer data
-    this.customerService.getCustomerById(1, customerId).subscribe({
+    this.customerService.getCustomerById(this.companyId, customerId).subscribe({
       next: (data) => {
         console.log(data);
         this.prefix = data.data!.prefix;
@@ -131,7 +132,7 @@ export class CustomersComponent {
       companyAddress: this.companyAddress
     }
     //Update the customer
-    this.customerService.updateCustomer(1, this.editCustomerId, this.newCustomer).subscribe({
+    this.customerService.updateCustomer(this.companyId, this.editCustomerId, this.newCustomer).subscribe({
       next: (data) => {
         console.log(data);
         this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Cliente actualizado correctamente' });
