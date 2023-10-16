@@ -1,9 +1,6 @@
 <app-sidebar (navbarToggle)="onNavbarToggle($event)"></app-sidebar>
 <div class="home-section" [class.navbar-opened]="isNavbarOpen">
-
-    <p-toast></p-toast>
-    <div class="card" >
-        <p-toast></p-toast>
+    <div class="card">
         <div class="flex card-container overflow-hidden">
             <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0">
                 <i class="pi pi-users" style="color: var(--color-green); font-size: 2.5rem; z-index: 2 !important;"></i>
@@ -26,8 +23,7 @@
         <div class="flex flex-column justify-content-start">
             <div class="flex justify-content-between flex-wrap card-container purple-container">
                 <!-- <p-button label="Eliminar cliente" class="mx-2 red-button" icon="pi pi-user-minus"></p-button> -->
-                <p-button label="Añadir usuario" class="ml-2 green-button" icon="pi pi-user-plus"
-                    routerLink="/company/users/new"></p-button>
+                <p-button label="Añadir usuario" class="ml-2 green-button" icon="pi pi-user-plus" (click)="addNewAccountVisible = true"></p-button>
             </div>
         </div>
     </div>
@@ -60,3 +56,62 @@
     </div>
 </div>
 <hr style="margin-top: -15px;">
+<p-sidebar [(visible)]="addNewAccountVisible" position="right" styleClass="w-4" [modal]="false" >
+    <p-toast [style]="{'z-index':'3000'}"></p-toast>
+    <div class="page-title flex-grow-1 flex align-items-center justify-content-start font-bold mb-2" >
+        <i class="pi pi-user-plus"
+           style="color: var(--color-green); font-size: 2rem;"></i>
+        <p class="text-1xl md:text-2xl">&nbsp;&nbsp;&nbsp;Crear nueva cuenta</p>
+    </div>
+    <!-- Cuenta -->
+    <p-fieldset>
+        <ng-template pTemplate="header">
+            <div class="flex align-items-center text-primary">
+                <span class="pi pi-th-large mr-2"></span>
+                <span class="font-bold text-lg">Tipo de cuenta</span>
+            </div>
+        </ng-template>
+        <div class="formgrid grid">
+            <div class="field col-12">
+                <label for="account-number">Seleccione un tipo de cuenta</label>
+                <p-dropdown id="account-number"
+                            class="dropdown text-base text-color surface-overlay border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary"
+                            optionLabel="name" placeholder="Tipo de cuenta" [options]="accountstype"
+                            [(ngModel)]="selectedAccount" [required]="true"
+                            [style]="{'width':'100%'}"></p-dropdown>
+            </div>
+        </div>
+    </p-fieldset>
+    <br>
+    <!-- Nombre -->
+    <p-fieldset>
+        <ng-template pTemplate="header">
+            <div class="flex align-items-center text-primary">
+                <span class="pi pi-info-circle mr-2"></span>
+                <span class="font-bold text-lg">Información</span>
+            </div>
+        </ng-template>
+        <div class="card">
+            <div class="field col-12 md:col-6 p-0">
+                <label for="prefix">Nombre</label>
+                <input id="prefix" type="text" [(ngModel)]="name" pInputText class="input w-full">
+            </div>
+            <div class="formgrid grid">
+                <div class="field col-12 md:col-6 pr-0">
+                    <label for="lastname">Apellido</label>
+                    <input id="lastname" type="text" pInputText [(ngModel)]="lastName" class="input w-full">
+                </div>
+                <div class="field col-12 md:col-12">
+                    <label for="display-name">Correo electrónico</label>
+                    <input id="lastname" type="text" pInputText [(ngModel)]="email" class="input w-full">
+                </div>
+            </div>
+        </div>
+    </p-fieldset>
+    <br>
+    <div class="flex justify-content-between flex-wrap card-container purple-container mt-4">
+        <p-button label="Cancelar" class="mx-2 red-button" icon="pi pi-times-circle" (click)="addNewAccountVisible = false"></p-button>
+        <p-button label="Guardar" class="ml-2 green-button" icon="pi pi-save"
+                  (click)="createAccount()"></p-button>
+    </div>
+</p-sidebar>
