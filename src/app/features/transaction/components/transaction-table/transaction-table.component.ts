@@ -1,13 +1,5 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {TransactionDetailDto} from "../../models/transaction-detail.dto";
-
-interface Cuenta {
-  codigo?: string;
-  nombre?: string;
-  nivel?: string;
-  moneda?: string;
-  cliente_proveedor?: string;
-}
 
 @Component({
   selector: 'app-transaction-table',
@@ -24,10 +16,7 @@ export class TransactionTableComponent {
   //Variables
   totalDebitAmount: number = 0;
   totalCreditAmount: number = 0;
-  transactions: TransactionDetailDto[] = [];
 
-  cuentas: Cuenta[] = [];
-    cols: any[] = [];
     constructor() { }
   //Initial data - 4 rows
   transactionDetails = Array.from({ length: 4 }, () => ({

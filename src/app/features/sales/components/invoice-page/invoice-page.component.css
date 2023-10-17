@@ -7,7 +7,7 @@
     background: var(--color-green) !important;
     border-color: var(--color-green) !important;
 }
-::ng-deep #save-buttons button {
+::ng-deep #sale-invoice-save-buttons button {
     background: var(--color-green);
     border-color: var(--color-green);
 }
@@ -54,7 +54,7 @@
     padding: 0.2rem;
 }
 
-#save-buttons {
+#sale-invoice-save-buttons {
     position: fixed;
     bottom: 0;
     right: 0;

@@ -11,6 +11,7 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TaxPageComponent } from './components/tax-page/tax-page.component';
+import {ChipsModule} from "primeng/chips";
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { TaxPageComponent } from './components/tax-page/tax-page.component';
     SidebarModule,
     ButtonModule,
     TableModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ChipsModule
   ]
 })
 export class TaxesModule { }

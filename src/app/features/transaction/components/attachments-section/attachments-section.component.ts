@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {AttachmentDto} from "../../../../core/models/attachment.dto";
+import {AttachmentDto} from "../../models/attachment.dto";
 
 @Component({
   selector: 'app-attachments-section',
@@ -8,36 +8,22 @@ import {AttachmentDto} from "../../../../core/models/attachment.dto";
 })
 export class AttachmentsSectionComponent {
 
-    @Input() attachments: AttachmentDto[] = [];
-    //Variables
-    uploadedFiles: any[] = [];
-    isDragging: boolean = false;
+  @Input() attachmentsList: AttachmentDto[] = [];
 
-    // Manejar la selección de archivos
-    onFileToUpload(event: any) {
-      this.uploadedFiles = event.files;
-    }
-
-    onFileRemoved(event: any) {
-      this.uploadedFiles = this.uploadedFiles.filter(file => file.name !== event.file.name);
-    }
-
-    // Drag and drop
-    onDragOver(event: any) {
-      event.preventDefault();
-      this.isDragging = true;
-    }
-
-    onDragLeave(event: any) {
-      event.preventDefault();
-      this.isDragging = false;
-    }
-
-    onDrop(event: any) {
-      event.preventDefault();
-      this.isDragging = false;
-    }
-
+  downloadFile(fileUrl: string, filename: string, contentType: string) {
+    fetch(fileUrl).then(res => res.blob()).then(blob => {
+      // Create a new blob object using the response data of the onload object
+      const blobData = new Blob([blob], {type: contentType});
+      // Create a link element
+      const anchor = document.createElement('a');
+      // Create a reference to the object URL
+      anchor.href = window.URL.createObjectURL(blobData);
+      // Set the filename that will be downloaded
+      anchor.download = `${filename}`;
+      // Trigger the download by simulating click
+      anchor.click();
+      // Revoking the object URL to free up memory
+      window.URL.revokeObjectURL(anchor.href);
+    });
+  }
 }
-
-

@@ -68,14 +68,7 @@
                 </td>
                 <td [pEditableColumn]="transaction.nombre" pEditableColumnField="nombre"
                     [pEditableColumnRowIndex]="index">
-                    <p-cellEditor>
-                        <ng-template pTemplate="input">
-                            <input class="input-table" pInputText type="text" [(ngModel)]="transaction.nombre" />
-                        </ng-template>
-                        <ng-template pTemplate="output">
-                            {{ transaction.nombre }}
-                        </ng-template>
-                    </p-cellEditor>
+                  <p-dropdown id="client-dropdown" appendTo="body" [options]="clients" optionLabel="name" placeholder="Seleccione un cliente" [style]="{'width':'100%'}"></p-dropdown>
                 </td>
                 <!-- Columna boton con icono de eliminar -->
                 <td>

@@ -26,7 +26,7 @@ export class ReceiptPageComponent {
     this.getAllCustomers()
     this.getAllPaymentTypes()
     this.getSubaccounts()
-    
+
   }
 
   // Variables
@@ -92,7 +92,7 @@ export class ReceiptPageComponent {
       }
     }
 
-    
+
 
   }
   uploadPayment(){

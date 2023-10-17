@@ -4,6 +4,7 @@ import { TransactionDetailDto } from '../../models/transaction-detail.dto';
 import {AccountPlanService} from "../../../../core/services/account-plan.service";
 import {AccountCategoryDto} from "../../../chart-of-accounts/models/account-category.dto";
 import {TableAccountDto} from "../../../chart-of-accounts/models/table-account.dto";
+import {PartnerService} from "../../../../core/services/partner.service";
 
 @Component({
   selector: 'app-transaction-table',
@@ -26,16 +27,19 @@ export class TransactionTableComponent {
   accountCategory: AccountCategoryDto[] = []
   accounts: TableAccountDto[] = []
 
+  clients: any = [];
+
   //Listas almacenadas para el select
   categories: any = [];
   selectedRow: number = 0;
 
-  constructor(private accountPlanService: AccountPlanService) { }
+  constructor(private accountPlanService: AccountPlanService, private partnerService: PartnerService) { }
 
   ngOnInit(): void {
     this.calculateTotalDebitAmount();
     this.calculateTotalCreditAmount();
     this.getAccountingPlan();
+    this.getClients();
   }
 
 /*   onRowSelect(event: any) {
@@ -243,5 +247,22 @@ export class TransactionTableComponent {
     this.sidebarVisible2 = true;
   }
 
+  getClients() {
+    this.partnerService.getAllPartners(this.companyId).subscribe({
+      next: (data) => {
+        this.clients = data.data!.customers.map((clientType) => ({
+          name: clientType.displayName,
+          code: clientType.customerId
+        }));
+        this.clients = this.clients.concat(data.data!.suppliers.map((clientType) => ({
+          name: clientType.displayName,
+          code: clientType.supplierId
+        })));
+        console.log(this.clients);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
 }
-

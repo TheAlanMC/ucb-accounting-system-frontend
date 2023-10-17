@@ -76,3 +76,19 @@ input[type="number"]::-webkit-outer-spin-button {
   box-shadow: 2px 2px 12px -1px rgba(0, 0, 0, 0.25);
 }
 
+
+/* Dropdown */
+::ng-deep #client-dropdown .p-dropdown {
+  height: 30px !important;
+}
+
+::ng-deep #client-dropdown .p-dropdown span {
+  font-size: small;
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+}
+
+/* Dropdown */
+::ng-deep .p-dropdown-items{
+  font-size: small;
+
+}
