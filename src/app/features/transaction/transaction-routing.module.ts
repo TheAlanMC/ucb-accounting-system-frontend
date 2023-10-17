@@ -8,7 +8,7 @@ const routes: Routes = [
     children: [
       { path: '', component: JournalEntriesListComponent },
       { path: ':id', component: JournalEntryGeneratedComponent }
-    ]
+    ],
   }
 ];
 

@@ -18,6 +18,7 @@ import {InputTextModule} from "primeng/inputtext";
 import {AttachmentsSectionComponent} from "./components/attachments-section/attachments-section.component";
 import {FileUploadModule} from "primeng/fileupload";
 import { SharedModule } from 'src/app/shared/shared.module';
+import {PaginatorModule} from "primeng/paginator";
 
 
 @NgModule({
@@ -27,21 +28,22 @@ import { SharedModule } from 'src/app/shared/shared.module';
     TransactionTableComponent,
     AttachmentsSectionComponent
   ],
-    imports: [
-        CommonModule,
-        TransactionRoutingModule,
-        TableModule,
-        TagModule,
-        ButtonModule,
-        CalendarModule,
-        DropdownModule,
-        FormsModule,
-        InputTextareaModule,
-        ToastModule,
-        SidebarModule,
-        InputTextModule,
-        FileUploadModule,
-        SharedModule
-    ]
+  imports: [
+    CommonModule,
+    TransactionRoutingModule,
+    TableModule,
+    TagModule,
+    ButtonModule,
+    CalendarModule,
+    DropdownModule,
+    FormsModule,
+    InputTextareaModule,
+    ToastModule,
+    SidebarModule,
+    InputTextModule,
+    FileUploadModule,
+    SharedModule,
+    PaginatorModule
+  ]
 })
 export class TransactionModule { }

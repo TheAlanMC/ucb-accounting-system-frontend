@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ListTempDto } from '../../models/listTemp.dto';
-import { Table } from 'primeng/table'
 import { SidebarService } from 'src/app/core/services/sidebar/sidebar.service';
-import { is } from 'date-fns/locale';
+import {TransactionDto} from "../../models/transaction.dto";
+import {JournalEntryService} from "../../../../core/services/journal-entry.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-list-journalentries-generated',
@@ -12,21 +12,28 @@ import { is } from 'date-fns/locale';
 
 
 export class JournalEntriesListComponent implements OnInit {
-  
 
-  listTempDto!: ListTempDto[];
+  companyId = Number(localStorage.getItem('companyId'));
+  transactions: TransactionDto[] = [];
   statuses!: any[];
   loading: boolean = true;
   activityValues: number[] = [0, 100];
   isNavbarOpen : boolean = false;
 
+  // Pagination variables
+  sortBy: string = 'journalEntryId';
+  sortType: string = 'asc';
+  page: number = 0;
+  size: number = 10;
+  totalElements: number = 0;
+
   onNavbarToggle(isOpen: boolean) {
     this.isNavbarOpen = isOpen;
     this.sidebarService.setIsOpen(this.isNavbarOpen);
     console.log(this.isNavbarOpen);
-    
+
   }
-  constructor(private sidebarService: SidebarService) { 
+  constructor(private sidebarService: SidebarService, private journalEntryService: JournalEntryService, private router: Router) {
     this.sidebarService.getIsOpen().subscribe((isOpen) => {
       this.isNavbarOpen = isOpen;
       console.log(this.isNavbarOpen);
@@ -34,49 +41,44 @@ export class JournalEntriesListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
-    this.listTempDto = [
-      {
-        client: 'Cliente 1',
-        status: 'En Revisión',
-        documentType: 'Factura',
-        totalimport: 100.5,
-        date: '2023-09-13',
-        note: 'Nota para Cliente 1'
-      },
-      {
-        client: 'Cliente 2',
-        status: 'Aprobado',
-        documentType: 'Recibo',
-        totalimport: 75.0,
-        date: '2023-09-14',
-        note: 'Nota para Cliente 2'
-      },
-      {
-        client: 'Cliente 3',
-        status: 'Rechazado',
-        documentType: 'Factura',
-        totalimport: 200.0,
-        date: '2023-09-15',
-        note: 'Nota para Cliente 3'
-      }
-    ];
-
+    this.getAllTransactions();
   }
 
-  getSeverity(status: string) {
-    switch (status) {
-      case 'Aprobado':
-        return 'success';
-      case 'En Revisión':
-        return 'warning';
-      case 'Rechazado':
-        return 'danger';
-      default:
-        return 'success';
-    }
+  getSeverity(status: boolean) {
+    return status ? 'success' : 'warn';
   }
   getEventValue($event:any) :string {
     return $event.target.value;
-  } 
+  }
+
+  onPageChange(event: any) {
+    this.page = event.page;
+    this.size = event.rows;
+    // console.log(event);
+    this.getAllTransactions();
+  }
+
+  onSortChange(event: any) {
+    this.sortBy = event.field;
+    this.sortType = (event.order == 1) ? 'asc' : 'desc';
+    this.getAllTransactions();
+  }
+
+  getAllTransactions(){
+    this.journalEntryService.getAllTransactions(this.companyId, this.sortBy, this.sortType,this.page, this.size ).subscribe({
+      next: (data) => {
+        this.transactions = data.data!;
+        // console.log(data);
+        this.totalElements = data.totalElements!;
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
+  }
+
+  onViewDetail(journalEntryId: number){
+  //   router
+    this.router.navigate([`/transactions/${journalEntryId}`]);
+  }
 }

@@ -108,7 +108,7 @@ export class InvoicePageComponent {
       }
     }
     if (emptyTransactions) {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: '💡 No se puede crear la factura si hay filas vacias, elimínelas e intente nuevamente.' });        
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: '💡 No se puede crear la factura si hay filas vacias, elimínelas e intente nuevamente.' });
       return;
     }
 

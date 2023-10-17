@@ -40,7 +40,7 @@ export class NavbarComponent {
         })
 
         this.keycloakService.getToken().then((token) => {
-            console.log(token)
+            // console.log(token)
         })
     }
 

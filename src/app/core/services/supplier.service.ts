@@ -20,8 +20,8 @@ export class SupplierService {
   }
 
   //Get all the suppliers by company id
-  public getAllSuppliers(companyId: number): Observable<ResponseDto<SupplierAbstractDto[]>>{
-    return this.http.get<ResponseDto<SupplierAbstractDto[]>>(`${this.baseUrl}/companies/${companyId}`);
+  public getAllSuppliers(companyId: number, sortBy: string = 'supplierId', sortType: string = 'asc', page: number = 0, size: number = 100): Observable<ResponseDto<SupplierAbstractDto[]>>{
+    return this.http.get<ResponseDto<SupplierAbstractDto[]>>(`${this.baseUrl}/companies/${companyId}?sortBy=${sortBy}&sortType=${sortType}&page=${page}&size=${size}`);
   }
 
   //Get a supplier by id, and company id

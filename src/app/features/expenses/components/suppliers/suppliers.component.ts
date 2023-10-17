@@ -33,15 +33,36 @@ export class SuppliersComponent {
   editMode: boolean = false;
   editSupplierId!: number;
 
+  // Pagination variables
+  sortBy: string = 'supplierId';
+  sortType: string = 'asc';
+  page: number = 0;
+  size: number = 10;
+  totalElements: number = 0;
+
   ngOnInit(): void {
     this.getAllSuppliers();
   }
 
+  onPageChange(event: any) {
+    this.page = event.page;
+    this.size = event.rows;
+    // console.log(event);
+    this.getAllSuppliers();
+  }
+
+  onSortChange(event: any) {
+    this.sortBy = event.field;
+    this.sortType = (event.order == 1) ? 'asc' : 'desc';
+    this.getAllSuppliers();
+  }
+
   getAllSuppliers(){
-    this.supplierService.getAllSuppliers(this.companyId).subscribe({
+    this.supplierService.getAllSuppliers(this.companyId, this.sortBy, this.sortType,this.page, this.size ).subscribe({
       next: (data) => {
         this.suppliers = data.data!;
-        console.log(data);
+        // console.log(data);
+        this.totalElements = data.totalElements!;
       },
       error: (error) => {
         console.log(error);

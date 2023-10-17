@@ -3,19 +3,19 @@
     <div class="flex flex-row flex-wrap mb-3">
         <div class="flex flex-column justify-content-start mr-2">
             <p>Fecha</p>
-            <p-calendar class="datepicker" (onSelect)="onDateSelect($event)" (onClearClick)="dt2.filter('', 'saleTransactionDate', 'equals')" [showButtonBar]="true" [showIcon]="true" dateFormat="dd/mm/yy" inputId="icon" placeholder="Seleccione una fecha" [readonlyInput]="true" dateFormat="yy-mm-dd"></p-calendar>
+            <p-calendar class="datepicker" (onSelect)="filterByDate($event)" (onClearClick)=filterByDate(null) [showButtonBar]="true" [showIcon]="true" dateFormat="dd/mm/yy" inputId="icon" placeholder="Seleccione una fecha" [readonlyInput]="true" dateFormat="yy-mm-dd"></p-calendar>
         </div>
         <div class="flex flex-column justify-content-start mx-2">
             <p>Tipo</p>
             <p-dropdown id="document-type" optionLabel="name" optionValue="name" [options]="types"
                 placeholder="Seleccione un tipo de documento" appendTo="body" [style]="{'width':'250px'}"
-                [required]="true">
+                [required]="true" (onChange)="filterByTransactionType($event.value)">
             </p-dropdown>
         </div>
         <div class="flex flex-column justify-content-start mr-2">
             <p>Cliente</p>
-            <p-multiSelect id="customer" placeholder="Seleccione un cliente" [style]="{'width':'250px'}" [options]="customers" (onChange)="dt2.filter($event.value,'customer.displayName', 'in')" optionLabel="name" optionValue="name">
-                <ng-template let-option pTemplate="item">
+            <p-multiSelect id="customer" placeholder="Seleccione un cliente" [style]="{'width':'250px'}" [options]="customers" (onChange)= "filterByCustomer($event.value)" optionLabel="name" optionValue="name">
+                    <ng-template let-option pTemplate="item">
                     <div class="p-multiselect-representative-option">
                         <span class="ml-1">{{option.name}}</span>
                     </div>
@@ -31,18 +31,18 @@
     </div>
 </div>
 <br>
-<p-table #dt2 [value]="sales" [(selection)]="selectedSales" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
+<p-table #dt2 [value]="sales" [(selection)]="selectedSales" dataKey="code" [tableStyle]="{'min-width': '50rem'}" [lazy]="true" (onSort)="onSortChange($event)" [customSort]="true">
     <ng-template pTemplate="header">
         <tr>
             <th style="width: 4rem">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
             </th>
             <th pSortableColumn="saleTransactionDate">Fecha <p-sortIcon field="saleTransactionDate"></p-sortIcon></th>
-            <th>Tipo</th>
+            <th pSortableColumn="transactionType.transactionTypeName">Tipo <p-sortIcon field="transactionType.transactionTypeName"></p-sortIcon></th>
             <th pSortableColumn="saleTransactionNumber">Nº <p-sortIcon field="saleTransactionNumber"></p-sortIcon></th>
             <th pSortableColumn="customer.displayName">Cliente <p-sortIcon field="customer.displayName"></p-sortIcon></th>
             <th pSortableColumn="gloss">Descripción <p-sortIcon field="gloss" style="font-size: 1rem;"></p-sortIcon></th>
-            <th pSortableColumn="totalAmountBs">Importe <p-sortIcon field="totalAmountBs"></p-sortIcon></th>
+            <th>Importe</th>
             <th style="width:10%" pSortableColumn="saleTransactionAccepted">Estado <p-sortIcon field="saleTransactionAccepted"></p-sortIcon></th>
         </tr>
     </ng-template>
@@ -61,3 +61,5 @@
         </tr>
     </ng-template>
 </p-table>
+<p-paginator (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements" [rowsPerPageOptions]="[10, 20, 30] "></p-paginator>
+

@@ -13,7 +13,7 @@ import { MessageService } from 'primeng/api';
 export class CustomersComponent {
   @ViewChild('dt', { static: false }) dt: any;
 
-  constructor(private customerService: CustomerService, private messageService: MessageService) { } 
+  constructor(private customerService: CustomerService, private messageService: MessageService) { }
   //Variables
   companyId = Number(localStorage.getItem('companyId'));
   selectedProducts!: String;
@@ -32,16 +32,37 @@ export class CustomersComponent {
   companyAddress: string = '';
   editMode: boolean = false;
   editCustomerId!: number;
-  
+
+  // Pagination variables
+  sortBy: string = 'customerId';
+  sortType: string = 'asc';
+  page: number = 0;
+  size: number = 10;
+  totalElements: number = 0;
+
   ngOnInit(): void {
     this.getAllCustomers();
   }
 
+  onPageChange(event: any) {
+    this.page = event.page;
+    this.size = event.rows;
+    // console.log(event);
+    this.getAllCustomers();
+  }
+
+  onSortChange(event: any) {
+    this.sortBy = event.field;
+    this.sortType = (event.order == 1) ? 'asc' : 'desc';
+    this.getAllCustomers();
+  }
+
   getAllCustomers(){
-    this.customerService.getAllCustomers(this.companyId).subscribe({
+    this.customerService.getAllCustomers(this.companyId, this.sortBy, this.sortType,this.page, this.size ).subscribe({
       next: (data) => {
         this.customers = data.data!;
-        console.log(data);
+        // console.log(data);
+        this.totalElements = data.totalElements!;
       },
       error: (error) => {
         console.log(error);
@@ -74,7 +95,7 @@ export class CustomersComponent {
       companyPhoneNumber: this.companyPhoneNumber,
       companyAddress: this.companyAddress
     }
-    
+
     //Validate empty fields
     if(this.prefix == '' || this.firstName == '' || this.lastName == '' || this.companyName == '' || this.companyEmail == '' || this.companyPhoneNumber == '' || this.companyAddress == ''){
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor llene todos los campos' });
@@ -152,12 +173,12 @@ export class CustomersComponent {
       this.displayName = this.prefix + ' ' + this.firstName + ' ' + this.lastName;
       console.log(this.displayName);
     }
-    
+
     //Filter the table
     applyFilterGlobal(event: Event, stringVal: string) {
       const inputValue = (event.target as HTMLInputElement).value;
       this.dt.filterGlobal(inputValue, stringVal);
     }
-    
+
 
 }

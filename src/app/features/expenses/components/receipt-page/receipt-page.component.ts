@@ -91,9 +91,6 @@ export class ReceiptPageComponent {
         });
       }
     }
-
-
-
   }
   uploadPayment(){
     //Payment details

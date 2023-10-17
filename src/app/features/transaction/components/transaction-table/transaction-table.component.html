@@ -3,7 +3,6 @@
         dataKey="id" [tableStyle]="{ 'min-width': '50rem' }" [reorderableColumns]="false" [resizableColumns]="false">
         <ng-template pTemplate="header">
             <tr>
-                <th style="width:1%"></th>
                 <th style="width:2%">#</th>
                 <th style="width:15%">Cuenta</th>
                 <th style="width:20%">Debe</th>
@@ -14,63 +13,24 @@
         </ng-template>
         <ng-template pTemplate="body" let-transaction let-editing="editing" let-index="rowIndex">
             <tr [pReorderableRow]="index">
-                <td>
-                    <span style="font-size: 0.8rem" class="pi pi-bars" pReorderableRowHandle></span>
-                </td>
                 <td>{{index+1}}</td>
                 <td [pEditableColumn]="transaction.cuenta" pEditableColumnField="cuenta"
                     [pEditableColumnRowIndex]="index">
-                    <p-cellEditor>
-                        <ng-template pTemplate="input">
-                            <input class="input-table" type="button" class="mr-2" pInputText type="text" [(ngModel)]="transaction.cuenta" required />
-                        </ng-template>
-                        <ng-template pTemplate="output">
-                            {{ transaction.cuenta }}
-                        </ng-template>
-                    </p-cellEditor>
+                  {{ transaction.cuenta }}
                 </td>
                 <td [pEditableColumn]="transaction.debe" pEditableColumnField="debe" [pEditableColumnRowIndex]="index">
-                    <p-cellEditor>
-                        <ng-template pTemplate="input">
-                            <input class="input-table" pInputText [(ngModel)]="transaction.debe" type="number" min="0" value="0" />
-                        </ng-template>
-                        <ng-template pTemplate="output">
-                            {{ transaction.debe | currency: 'Bs. ' }}
-                        </ng-template>
-                    </p-cellEditor>
+                  {{ transaction.debe | currency: 'Bs. ' }}
                 </td>
                 <td [pEditableColumn]="transaction.haber" pEditableColumnField="haber"
                     [pEditableColumnRowIndex]="index">
-                    <p-cellEditor>
-                        <ng-template pTemplate="input">
-                            <input class="input-table" pInputText [(ngModel)]="transaction.haber" type="number" min="0" value="0"/>
-                        </ng-template>
-                        <ng-template pTemplate="output">
-                            {{ transaction.haber | currency: 'Bs. ' }}
-                        </ng-template>
-                    </p-cellEditor>
+                  {{ transaction.haber | currency: 'Bs. ' }}
                 </td>
                 <td [pEditableColumn]="transaction.descripcion" pEditableColumnField="descripcion"
                     [pEditableColumnRowIndex]="index">
-                    <p-cellEditor>
-                        <ng-template pTemplate="input">
-                            <input class="input-table" pInputText type="text" [(ngModel)]="transaction.descripcion" />
-                        </ng-template>
-                        <ng-template pTemplate="output">
-                            {{ transaction.descripcion }}
-                        </ng-template>
-                    </p-cellEditor>
+                  {{ transaction.descripcion }}
                 </td>
-                <td [pEditableColumn]="transaction.nombre" pEditableColumnField="nombre"
-                    [pEditableColumnRowIndex]="index">
-                    <p-cellEditor>
-                        <ng-template pTemplate="input">
-                            <input class="input-table" pInputText type="text" [(ngModel)]="transaction.nombre" />
-                        </ng-template>
-                        <ng-template pTemplate="output">
-                            {{ transaction.nombre }}
-                        </ng-template>
-                    </p-cellEditor>
+                <td [pEditableColumn]="transaction.nombre" pEditableColumnField="nombre" [pEditableColumnRowIndex]="index">
+                  {{client}}
                 </td>
                 <!-- Columna boton con icono de eliminar -->
 <!--                <td>-->
@@ -82,7 +42,7 @@
         </ng-template>
         <ng-template pTemplate="footer">
             <tr>
-                <td colspan="3" class="text-right">Total</td>
+                <td colspan="2" class="text-right">Total</td>
                 <td>{{totalDebitAmount | currency: 'Bs. '}}</td>
                 <td>{{totalCreditAmount | currency: 'Bs. '}}</td>
                 <td colspan="3"></td>

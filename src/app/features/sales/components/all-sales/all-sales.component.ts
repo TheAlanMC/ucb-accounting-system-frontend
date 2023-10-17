@@ -2,8 +2,9 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { SalesService } from 'src/app/core/services/sales.service';
 import { SaleAbstractDto } from '../../models/sale-abstract.dto';
 import { Table } from 'primeng/table';
-import { KeycloakService } from 'keycloak-angular';
-import { UserService } from 'src/app/core/services/user.service';
+
+import {TransactionTypeService} from "../../../../core/services/transaction-type.service";
+import {CustomerService} from "../../../../core/services/customer.service";
 
 @Component({
   selector: 'app-all-sales',
@@ -13,10 +14,22 @@ import { UserService } from 'src/app/core/services/user.service';
 
 
 export class AllSalesComponent {
-    @ViewChild('dt2') dt2!: Table;
-    companyId = Number(localStorage.getItem('companyId'));
-    items: any[] = [];
-    constructor(private salesService: SalesService, private userService: UserService) { 
+  @ViewChild('dt2') dt2!: Table;
+  companyId = Number(localStorage.getItem('companyId'));
+  items: any[] = [];
+
+  // Pagination variables
+  sortBy: string = 'saleTransactionId';
+  sortType: string = 'asc';
+  page: number = 0;
+  size: number = 10;
+  totalElements: number = 0;
+
+  // Filter variables
+  filterDate: string = '';
+  filterCustomer: string[] = [];
+  filterDocumentType: string = '';
+  constructor(private salesService: SalesService, private customerService: CustomerService, private transactionTypeService: TransactionTypeService) {
         this.items = [
             {
                 label: 'Factura',
@@ -30,7 +43,7 @@ export class AllSalesComponent {
             },
         ];
     }
-  
+
     //Variables
     selectedSales!: String;
     searchValue: string = '';
@@ -42,7 +55,34 @@ export class AllSalesComponent {
     dateFilters: any;
 
     ngOnInit(): void {
-        this.getAllSales();
+      this.getAllSales();
+      this.transactionTypeService.getAllTransactionTypes().subscribe({
+        next: (data) => {
+          this.types = data.data!.map((documentType) => ({
+            name: documentType.transactionTypeName,
+            code: documentType.transactionTypeId
+          }));
+          // add the default option
+            this.types.unshift({name: 'Todos', code: ''});
+          // console.log(this.types);
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      })
+      this.customerService.getAllCustomers(this.companyId).subscribe({
+        next: (data) => {
+          this.customers = data.data!.map((customer) => ({
+              name: customer.displayName,
+              code: customer.customerId
+            }
+          ));
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      });
+    }
         //Guardamos el company id en el local storage - *Ejemplo
         // this.userService.getUserById().subscribe({
         //     next: (data) => {
@@ -53,15 +93,27 @@ export class AllSalesComponent {
         //         console.log(error);
         //     }
         // });
-        
-    }
+
+  onPageChange(event: any) {
+    this.page = event.page;
+    this.size = event.rows;
+    // console.log(event);
+    this.getAllSales();
+  }
+
+  onSortChange(event: any) {
+    this.sortBy = event.field;
+    this.sortType = (event.order == 1) ? 'asc' : 'desc';
+    this.getAllSales();
+  }
 
     getAllSales(){
-        this.salesService.getAllSales(this.companyId).subscribe({
+        this.salesService.getAllSales(this.companyId, this.sortBy, this.sortType,this.page, this.size, this.filterDate, this.filterCustomer, this.filterDocumentType).subscribe({
             next: (data) => {
                 this.sales = data.data!;
-                console.log(data);
-                this.getCustomerFromData();
+                this.totalElements = data.totalElements!;
+                // console.log(data);
+                // this.getCustomerFromData();
             },
             error: (error) => {
                 console.log(error);
@@ -74,7 +126,7 @@ export class AllSalesComponent {
         this.customers = this.sales.map((sale) => ({
             code: sale.customer.customerId,
             name: sale.customer.displayName
-        })); 
+        }));
 
         //Remove duplicates
         this.customers = this.customers.filter((customer: any, index: any, self: any) =>
@@ -99,5 +151,25 @@ export class AllSalesComponent {
             day = '0' + day;
         }
         return date.getFullYear() + '-' + month + '-' + day;
+    }
+    filterByDate(event: any) {
+        if (event == null) {
+            this.filterDate = '';
+        } else {
+            this.filterDate = this.formatDate(event);
+        }
+        this.getAllSales();
+    }
+    filterByCustomer(event: any) {
+        this.filterCustomer = event;
+        this.getAllSales();
+    }
+    filterByTransactionType(event: any) {
+        if (event == 'Todos') {
+            this.filterDocumentType = '';
+        } else {
+            this.filterDocumentType = event;
+        }
+        this.getAllSales();
     }
 }

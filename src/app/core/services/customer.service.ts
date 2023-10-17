@@ -21,8 +21,8 @@ export class CustomerService {
   }
 
   //Get all the customers by company id
-  public getAllCustomers(companyId: number): Observable<ResponseDto<CustomerAbstractDto[]>>{
-    return this.http.get<ResponseDto<CustomerAbstractDto[]>>(`${this.baseUrl}/companies/${companyId}`);
+  public getAllCustomers(companyId: number, sortBy: string = 'customerId', sortType: string = 'asc', page: number = 0, size: number = 100): Observable<ResponseDto<CustomerAbstractDto[]>>{
+    return this.http.get<ResponseDto<CustomerAbstractDto[]>>(`${this.baseUrl}/companies/${companyId}?sortBy=${sortBy}&sortType=${sortType}&page=${page}&size=${size}`);
   }
 
   //Get a customer by id, and company id
@@ -34,5 +34,5 @@ export class CustomerService {
   public updateCustomer(companyId: number, customerId: number, customer: CustomerDto): Observable<ResponseDto<CustomerDto>>{
     return this.http.put<ResponseDto<CustomerDto>>(`${this.baseUrl}/${customerId}/companies/${companyId}`, customer);
   }
-  
+
 }

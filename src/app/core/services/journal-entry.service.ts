@@ -4,9 +4,9 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ResponseDto } from '../models/reponse.dto';
 import { JournalEntryDto } from 'src/app/features/journal-entry/models/journal-entry.dto';
-import { DocumentTypeDto } from 'src/app/features/journal-entry/models/document-type.dto';
-import {TransactionJournalEntryDto} from "../../features/journal-entry/models/transaction-journal-entry.dto";
-import { TransactionDto } from 'src/app/features/journal-entry/models/transaction.dto';
+import {TransactionJournalEntryDto} from "../../features/transaction/models/transaction-journal-entry.dto";
+import {TransactionDto} from "../../features/transaction/models/transaction.dto";
+import {PartnerDto} from "../../features/journal-entry/models/partner.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -31,8 +31,13 @@ export class JournalEntryService {
   }
 
   // Get all journal entries (transactions) by company id
-  public getAllTransactions(companyId: number): Observable<ResponseDto<TransactionDto[]>>{
-    return this.http.get<ResponseDto<TransactionDto[]>>(`${this.baseUrl}/companies/${companyId}/transactions`);
+  public getAllTransactions(companyId: number, sortBy: string, sortType: string, page: number, size: number): Observable<ResponseDto<TransactionDto[]>>{
+    return this.http.get<ResponseDto<TransactionDto[]>>(`${this.baseUrl}/companies/${companyId}/transactions?sortBy=${sortBy}&sortType=${sortType}&page=${page}&size=${size}`);
+  }
+
+  // Accept a journal entry
+  public acceptJournalEntry(companyId: number, journalEntryId: number): Observable<ResponseDto<String>>{
+    return this.http.put<ResponseDto<String>>(`${this.baseUrl}/${journalEntryId}/companies/${companyId}/accept`, null);
   }
 
 }

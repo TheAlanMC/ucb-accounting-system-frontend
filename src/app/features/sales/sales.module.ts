@@ -25,6 +25,7 @@ import { TagModule } from 'primeng/tag';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ReceiptPageComponent } from './components/receipt-page/receipt-page.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import {PaginatorModule} from "primeng/paginator";
 @NgModule({
   declarations: [
     InvoicePageComponent,
@@ -35,27 +36,28 @@ import { SharedModule } from 'src/app/shared/shared.module';
     AttachmentsSectionComponent,
     ReceiptPageComponent
   ],
-  imports: [
-    CommonModule,
-    SalesRoutingModule,
-    TableModule,
-    FormsModule,
-    ReactiveFormsModule,
-    InputTextModule,
-    ButtonModule,
-    CalendarModule,
-    FileUploadModule,
-    InputTextareaModule,
-    ToastModule,
-    DropdownModule,
-    InputNumberModule,
-    TabViewModule,
-    SidebarModule,
-    FieldsetModule,
-    MultiSelectModule,
-    TagModule,
-    SplitButtonModule,
-    SharedModule
-  ]
+    imports: [
+        CommonModule,
+        SalesRoutingModule,
+        TableModule,
+        FormsModule,
+        ReactiveFormsModule,
+        InputTextModule,
+        ButtonModule,
+        CalendarModule,
+        FileUploadModule,
+        InputTextareaModule,
+        ToastModule,
+        DropdownModule,
+        InputNumberModule,
+        TabViewModule,
+        SidebarModule,
+        FieldsetModule,
+        MultiSelectModule,
+        TagModule,
+        SplitButtonModule,
+        SharedModule,
+        PaginatorModule
+    ]
 })
 export class SalesModule { }
