@@ -3,7 +3,7 @@
     <div class="flex card-container overflow-hidden">
         <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0">
             <i class="pi pi-book" style="color: var(--color-green); font-size: 2.5rem;"></i>
-            <p class="text-2xl md:text-3xl">&nbsp;&nbsp;&nbsp;Asiento Diario</p>
+            <p class="text-2xl md:text-3xl">&nbsp;&nbsp;&nbsp;Comprobante de diario</p>
         </div>
         <div class="flex-none flex align-items-center justify-content-center font-bold m-2 px-5 py-3">
             <p-button  class="help-icon" icon="pi pi-question-circle" styleClass="p-button-success"></p-button>
@@ -11,7 +11,7 @@
     </div>
     <div class="flex flex-column card-container mx-8">
         <div class="page-title flex-grow-1  flex align-items-center justify-content-start">
-            <p class="text-xl font-semibold my-2">Asiento n.º{{transactionJournalEntry.journalEntryNumber}}</p>
+            <p class="text-xl font-semibold my-2">Comprobante por {{transactionJournalEntry.transactionType.transactionTypeName}} n.º{{transactionJournalEntry.transactionNumber}}</p>
         </div>
         <div class="flex flex-row flex-wrap">
             <div class="flex flex-column justify-content-start mr-2">
@@ -28,12 +28,11 @@
     </div>
 </div>
 <div class="col-12 xl:col-12 px-8 py-3" *ngIf="transactionJournalEntry">
-    <app-transaction-table [transactionDetailsList]="transactionJournalEntry.transactionDetails" [description]="transactionJournalEntry.gloss" ></app-transaction-table>
+    <app-transaction-table [transactionDetailsList]="transactionJournalEntry.transactionDetails" [description]="transactionJournalEntry.gloss" [client]="transactionJournalEntry.client.displayName" ></app-transaction-table>
     <!-- Buttons - save, save and register a new journay entry -->
-    <div class="flex justify-content-between flex-wrap" id="save-buttons">
+    <div class="flex justify-content-between flex-wrap" id="journal-save-buttons">
         <div class="flex justify-content-between flex-wrap card-container purple-container mx-3">
             <p-button label="Cancelar" class="red-button m-2 ml-5" routerLink="/transactions" [style]="{'font-size': 'medium','height':'100%'}"></p-button>
-<!--            <p-button label="Borrar" class="cyan-button m-2" [style]="{'font-size': 'medium','height':'100%'}"></p-button>-->
         </div>
         <div class="flex">
             <div class="flex"><p-button label="Aceptar" (click)="accept()" class="m-2 mr-5"></p-button></div>

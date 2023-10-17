@@ -1,14 +1,9 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { JournalEntryDto } from '../../models/journal-entry.dto';
 import { TransactionDetailDto } from '../../models/transaction-detail.dto';
-
-interface Cuenta {
-  codigo?: string;
-  nombre?: string;
-  nivel?: string;
-  moneda?: string;
-  cliente_proveedor?: string;
-}
+import {AccountPlanService} from "../../../../core/services/account-plan.service";
+import {AccountCategoryDto} from "../../../chart-of-accounts/models/account-category.dto";
+import {TableAccountDto} from "../../../chart-of-accounts/models/table-account.dto";
 
 @Component({
   selector: 'app-transaction-table',
@@ -23,160 +18,24 @@ export class TransactionTableComponent {
 
   //Variables
   journalEntry!: JournalEntryDto;
+  companyId = Number(localStorage.getItem('companyId'));
   totalDebitAmount: number = 0;
   totalCreditAmount: number = 0;
   transactions: TransactionDetailDto[] = [];
 
-  cuentas: Cuenta[] = [];
-    cols: any[] = [];
-    constructor() { }
-  
+  accountCategory: AccountCategoryDto[] = []
+  accounts: TableAccountDto[] = []
+
+  //Listas almacenadas para el select
+  categories: any = [];
+  selectedRow: number = 0;
+
+  constructor(private accountPlanService: AccountPlanService) { }
+
   ngOnInit(): void {
     this.calculateTotalDebitAmount();
     this.calculateTotalCreditAmount();
-    this.cuentas = [
-      {
-        codigo: '1101010001',
-        nombre: "Caja Moneda Nacional - MLL",
-        nivel: "S",
-        moneda: "Bs.",
-        cliente_proveedor: ""
-      },
-      {
-        codigo: '1101010002',
-        nombre: "Caja Moneda Nacional - CBBA",
-        nivel: "S",
-        moneda: "Bs.",
-        cliente_proveedor: ""
-      },
-      {
-        codigo: '1101010003',
-        nombre: "Caja Moneda Nacional - SCZ",
-        nivel: "S",
-        moneda: "Bs.",
-        cliente_proveedor: ""
-      },
-      {
-        codigo: '1101010004',
-        nombre: "Caja Moneda Nacional - PTI",
-        nivel: "S",
-        moneda: "Bs.",
-        cliente_proveedor: ""
-      },
-      {
-        codigo: '1101010005',
-        nombre: "Caja Moneda Nacional - SAC",
-        nivel: "S",
-        moneda: "Bs.",
-        cliente_proveedor: ""
-      },
-      {
-        codigo: '1101020001',
-        nombre: "Caja Moneda Extranjera - Mll",
-        nivel: "S",
-        moneda: "Bs.",
-        cliente_proveedor: ""
-      },
-      {
-        codigo: '1101030001',
-        nombre: "Caja Chica Moneda Nacional - Mll",
-        nivel: "S",
-        moneda: "Bs.",
-        cliente_proveedor: ""
-      },
-
-      {
-        codigo: '1101040001',
-        nombre: "Cta Cte Banco Bisa - 56950036 (MN)",
-        nivel: "S",
-        moneda: "Bs.",
-        cliente_proveedor: ""
-      },
-
-      {
-        codigo: '1101040002',
-        nombre: "Cta Cte Banco De Credito - 2015014846341 (MN)",
-        nivel: "S",
-        moneda: "Bs.",
-        cliente_proveedor: ""
-      },
-      
-      {
-        codigo: '1101040003',
-        nombre: "Cta Cte Banco Union - 10000006791524 (MN)",
-        nivel: "S",
-        moneda: "Bs.",
-        cliente_proveedor: ""
-      },
-
-      {
-        codigo: '1101040004',
-        nombre: "Cta Cte Banco Fortaleza - 2041005229 (MN)",
-        nivel: "S",
-        moneda: "Bs.",
-        cliente_proveedor: ""
-      },
-
-      {
-        codigo: '1101040005',
-        nombre: "Cta Cte Banco Nacional De Bolivia - 1000294221 (MN)",
-        nivel: "S",
-        moneda: "Bs.",
-        cliente_proveedor: ""
-      },
-
-      {
-        codigo: '1101040006',
-        nombre: "Cta Cte Banco De Credito - 2015095294347 (MN)",
-        nivel: "S",
-        moneda: "Bs.",
-        cliente_proveedor: ""
-      },
-      {
-        codigo: '1101040007',
-        nombre: "Cta Cte Banco Fortaleza - 2042005238 (MN)",
-        nivel: "S",
-        moneda: "Bs.",
-        cliente_proveedor: ""
-      },
-
-      {
-        codigo: '1101050001',
-        nombre: "Cta Cte Banco Bisa - 56952012 (ME)",
-        nivel: "S",
-        moneda: "Bs.",
-        cliente_proveedor: ""
-      },
-
-      {
-        codigo: '1101050002',
-        nombre: "Cta Cte Banco De Credito - 2010718992267 (ME)",
-        nivel: "S",
-        moneda: "Bs.",
-        cliente_proveedor: ""
-      },
-      {
-        codigo: '1101050002',
-        nombre: "Cta Cte Banco De Credito - 2010718992267 (ME)",
-        nivel: "S",
-        moneda: "Bs.",
-        cliente_proveedor: ""
-      },
-      {
-        codigo: '1101050002',
-        nombre: "Cta Cte Banco De Credito - 2010718992267 (ME)",
-        nivel: "S",
-        moneda: "Bs.",
-        cliente_proveedor: ""
-      },
-      {
-        codigo: '1101050002',
-        nombre: "Cta Cte Banco De Credito - 2010718992267 (ME)",
-        nivel: "S",
-        moneda: "Bs.",
-        cliente_proveedor: ""
-      },
-    ]
+    this.getAccountingPlan();
   }
 
 /*   onRowSelect(event: any) {
@@ -187,9 +46,10 @@ export class TransactionTableComponent {
       this.messageService.add({ severity: 'info', summary: 'Product Unselected', detail: event.data.name });
   } */
 
-  //Initial data - 4 rows  
+  //Initial data - 4 rows
   transactionDetails = Array.from({ length: 4 }, () => ({
     cuenta: '',
+    nombrecuenta: '',
     debe: 0,
     haber: 0,
     descripcion: '',
@@ -215,10 +75,10 @@ export class TransactionTableComponent {
 
   //Table events
   onEditInit(event: any) {
-    // console.log("onEditInit", event); 
+    // console.log("onEditInit", event);
   }
   onEditCancel(event: any) {
-    //  console.log("onEditCancel", event); 
+    //  console.log("onEditCancel", event);
   }
   onEditComplete(event: any) {
     // En el caso de que se haya modificado la columna 'descripcion' se debe repetir el contenido en toda la columna
@@ -226,11 +86,11 @@ export class TransactionTableComponent {
       for (let transaction of this.transactionDetails) {
         transaction.descripcion = this.transactionDetails[event.index].descripcion;
       }
-    } 
+    }
     // En el caso de que se haya modificado la columna 'debe' con un valor diferente a 0, la columna 'haber' debe ser 0
     else if(event.field == 'debe' && this.transactionDetails[event.index].debe != 0 ) {
       this.transactionDetails[event.index].haber = 0
-    } 
+    }
     // En el caso de que se haya modificado la columna 'haber' con un valor diferente a 0, la columna 'debe' debe ser 0
     else if(event.field == 'haber' && this.transactionDetails[event.index].haber != 0) {
       this.transactionDetails[event.index].debe = 0
@@ -244,6 +104,7 @@ export class TransactionTableComponent {
   addRow() {
     this.transactionDetails.push({
       cuenta: '',
+      nombrecuenta: '',
       debe: 0,
       haber: 0,
       descripcion: this.transactionDetails[0].descripcion,
@@ -267,6 +128,7 @@ export class TransactionTableComponent {
     this.transactionDetails = [];
     this.transactionDetails.push({
       cuenta: '',
+      nombrecuenta: '',
       debe: 0,
       haber: 0,
       descripcion: '',
@@ -310,12 +172,76 @@ export class TransactionTableComponent {
     let cuentas = document.getElementById("accountModal");
     if (cuentas != null) {
       cuentas.style.display = "block";
-      
+
     }
     console.log("selectAccount")
   }
 
   sidebarVisible2: boolean = false;
-  
+  getAccountingPlan() {
+    this.accountPlanService.getAccountPlan(this.companyId).subscribe({
+      next: (data => {
+        // console.log(data.data);
+        this.accountCategory = data.data!;
+        this.accounts = this.transformData(this.accountCategory, 1);
+        // console.log(this.cuentas);
+        //Map cuentas
+        this.categories = this.accountCategory.map((item: any) => {
+          return {
+            name: item.accountCategoryName,
+            code: item.accountCategoryId
+          }
+        })
+      }),
+      error: ((error: any) => {
+          console.log(error);
+        }
+      )
+    })
+  }
+  transformData(data: any, level: number): any[] {
+    return data.map((item: any) => {
+      const transformedItem: TableAccountDto = {
+        data: {
+          accountId: item.accountGroupId || item.accountSubgroupId || item.accountId || item.subaccountId || item.accountCategoryId,
+          accountCode: item.accountGroupCode || item.accountSubgroupCode || item.accountCode || item.subaccountCode || item.accountCategoryCode,
+          accountName: item.accountCategoryName || item.accountGroupName || item.accountSubgroupName || item.accountName || item.subaccountName,
+          level: level,
+        },
+        children: []
+      };
+
+      if (item.accountGroups || item.accountSubgroups || item.accounts || item.subaccounts) {
+        transformedItem.children = this.transformData(
+          item.accountGroups || item.accountSubgroups || item.accounts || item.subaccounts,
+          level + 1
+        );
+      }
+      return transformedItem;
+    });
+  }
+
+  selectAccount(accountId: number, level: number) {
+
+    // Get the id only ig Sub cuenta
+    if (level == 5) {
+      console.log(`Sub cuenta ${accountId}`)
+    }
+  }
+
+  onAccountSelected(rowData: any) {
+    console.log(rowData);
+    if (rowData.level == 5) {
+      this.transactionDetails[this.selectedRow].cuenta = rowData.accountId;
+      this.transactionDetails[this.selectedRow].nombrecuenta = rowData.accountName;
+      this.sidebarVisible2 = false;
+    }
+  }
+
+  selectRow(index: number) {
+    this.selectedRow = index;
+    this.sidebarVisible2 = true;
+  }
+
 }
 

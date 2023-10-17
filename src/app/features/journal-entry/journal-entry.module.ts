@@ -15,6 +15,7 @@ import { AttachmentsSectionComponent } from './components/attachments-section/at
 import { DropdownModule } from 'primeng/dropdown';
 import { SidebarModule } from 'primeng/sidebar';
 import { SharedModule } from 'src/app/shared/shared.module';
+import {TreeTableModule} from "primeng/treetable";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     ToastModule,
     DropdownModule,
     SidebarModule,
-    SharedModule
+    SharedModule,
+    TreeTableModule
   ]
 })
 export class JournalEntryModule { }

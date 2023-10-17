@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {TransactionDetailDto} from "../../../journal-entry/models/transaction-detail.dto";
+import {TransactionDetailDto} from "../../models/transaction-detail.dto";
 
 interface Cuenta {
   codigo?: string;
@@ -19,6 +19,7 @@ export class TransactionTableComponent {
   //Object emmited to the parent component
   @Input() transactionDetailsList : TransactionDetailDto[] = [];
   @Input() description: string = '';
+  @Input() client: string = '';
 
   //Variables
   totalDebitAmount: number = 0;
@@ -40,7 +41,7 @@ export class TransactionTableComponent {
   ngOnInit(): void {
     this.transactionDetails = this.transactionDetailsList.map((transaction) => {
         return {
-            cuenta: transaction.subaccountId.toString(),
+            cuenta: transaction.subaccount.subaccountName,
             debe: transaction.debitAmountBs,
             haber: transaction.creditAmountBs,
             descripcion: this.description,

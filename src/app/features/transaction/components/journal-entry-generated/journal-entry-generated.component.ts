@@ -11,9 +11,10 @@ import {FilesService} from "../../../../core/services/files.service";
 import {MessageService} from "primeng/api";
 import {forkJoin} from "rxjs";
 import {format} from "date-fns";
-import {TransactionJournalEntryDto} from "../../../journal-entry/models/transaction-journal-entry.dto";
+import {TransactionJournalEntryDto} from "../../models/transaction-journal-entry.dto";
 import {DocumentTypeDto} from "../../../journal-entry/models/document-type.dto";
 import { DocumentTypeService } from 'src/app/core/services/document-type.service';
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-journal-entry-generated',
@@ -32,7 +33,7 @@ export class JournalEntryGeneratedComponent {
 
 
 
-  constructor(private journalEntryService: JournalEntryService, private filesService: FilesService, private messageService: MessageService , private activatedRoute: ActivatedRoute, private router: Router, private documentTypeService: DocumentTypeService ) { }
+  constructor(private journalEntryService: JournalEntryService,  private messageService: MessageService , private activatedRoute: ActivatedRoute, private documentTypeService: DocumentTypeService,  private location: Location) { }
   ngOnInit(): void {
       //Get the document types
       this.getDocumentTypes();
@@ -78,8 +79,6 @@ export class JournalEntryGeneratedComponent {
     accept() {
 
     }
-
-
 }
 
 

@@ -7,7 +7,7 @@ import {AttachmentDto} from "../../../../core/models/attachment.dto";
   styleUrls: ['./attachments-section.component.css'],
 })
 export class AttachmentsSectionComponent {
-    //Object emmited to the parent component
+
     @Input() attachments: AttachmentDto[] = [];
     //Variables
     uploadedFiles: any[] = [];

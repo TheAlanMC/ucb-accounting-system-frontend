@@ -16,3 +16,63 @@ input[type="number"]::-webkit-outer-spin-button {
 .sidebar{
   width: 50rem;
 }
+
+* {
+  color: #666666;
+  font-size: small;
+}
+/* Fieldset */
+::ng-deep .p-element .p-fieldset .p-fieldset-legend{
+  padding: 7px 12px ;
+  background-color: var(--color-green);
+  border-radius: 5px;
+}
+::ng-deep .p-element .p-fieldset .p-fieldset-legend div span{
+  font-size: small;
+  color: white;
+}
+
+::ng-deep .p-sidebar{
+  background-color: #F3F6F6;
+  z-index: 1200 !important;
+}
+::ng-deep .p-sidebar .p-sidebar-content{
+  padding: 0 30px;
+}
+
+::ng-deep .p-element .p-fieldset{
+  border-radius: 11px;
+  border: 1px solid rgba(187, 187, 187, 0.60);
+  background: #FFF;
+  box-shadow: 2px 2px 12px -1px rgba(0, 0, 0, 0.25);
+}
+* {
+  color: #666666;
+  font-size: small;
+}
+/* Fieldset */
+::ng-deep .p-element .p-fieldset .p-fieldset-legend{
+  padding: 7px 12px ;
+  background-color: var(--color-green);
+  border-radius: 5px;
+}
+::ng-deep .p-element .p-fieldset .p-fieldset-legend div span{
+  font-size: small;
+  color: white;
+}
+
+::ng-deep .p-sidebar{
+  background-color: #F3F6F6;
+  z-index: 1200 !important;
+}
+::ng-deep .p-sidebar .p-sidebar-content{
+  padding: 0 30px;
+}
+
+::ng-deep .p-element .p-fieldset{
+  border-radius: 11px;
+  border: 1px solid rgba(187, 187, 187, 0.60);
+  background: #FFF;
+  box-shadow: 2px 2px 12px -1px rgba(0, 0, 0, 0.25);
+}
+

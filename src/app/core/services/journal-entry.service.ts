@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ResponseDto } from '../models/reponse.dto';
 import { JournalEntryDto } from 'src/app/features/journal-entry/models/journal-entry.dto';
-import {TransactionJournalEntryDto} from "../../features/journal-entry/models/transaction-journal-entry.dto";
+import {TransactionJournalEntryDto} from "../../features/transaction/models/transaction-journal-entry.dto";
 import {TransactionDto} from "../../features/transaction/models/transaction.dto";
 
 @Injectable({
