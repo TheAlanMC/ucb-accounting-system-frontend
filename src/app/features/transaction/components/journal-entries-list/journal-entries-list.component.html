@@ -12,10 +12,8 @@
 </div>
 
 <div class="col-12 xl:col-12 px-8 py-3">
-    <p-table #dt1 [value]="listTempDto" [tableStyle]="{'min-width': '60rem'}"
-        [globalFilterFields]="['client', 'Estado', 'status', 'status', 'documentType']" dataKey="id" [rows]="10"
-        [showCurrentPageReport]="true" [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+    <p-table #dt1 [value]="transactions" [tableStyle]="{'min-width': '60rem'}" dataKey="id"
+             [lazy]="true" (onSort)="onSortChange($event)" [customSort]="true">
 
         <ng-template pTemplate="caption">
             <div class="flex">
@@ -25,7 +23,7 @@
                 </span>
             </div>
         </ng-template>
-        
+
         <ng-template pTemplate="header">
             <tr>
 
@@ -39,22 +37,23 @@
             </tr>
         </ng-template>
 
-        <ng-template pTemplate="body" let-listTempDto>
+        <ng-template pTemplate="body" let-transaction>
             <tr>
-                <td>{{listTempDto.client}}</td>
-                <td><p-tag [value]="listTempDto.status" [severity]="getSeverity(listTempDto.status)"></p-tag></td>
-                <td>{{listTempDto.documentType}}</td>
-                <td>{{listTempDto.totalimport | currency:'Bs. '}}</td>
-                <td>{{listTempDto.date}}</td>
-                <td>{{listTempDto.note}}</td>
+                <td>{{transaction.client.displayName}}</td>
+              <td><p-tag [style]="transaction.transactionAccepted ? { 'background': '#55d0bd85' , 'color':'#1f7f7c'}: { 'background': '#eee55885' , 'color':'#938d3c'}" [value]="transaction.transactionAccepted ? 'ACEPTADO' : 'EN REVISIÓN'"></p-tag></td>
+                <td>{{transaction.documentType.documentTypeName}}</td>
+                <td>{{transaction.totalAmountBs | currency:'Bs. '}}</td>
+                <td>{{transaction.creationDate}}</td>
+                <td>{{transaction. description}}</td>
                 <td id="but-hover">
-                    <button type="button" class="p-button-rounded" id="button-custom-rounded">
+                    <button type="button" class="p-button-rounded" id="button-custom-rounded" (click)="onViewDetail(transaction.journalEntryId)">
                         <i class="pi pi-eye"></i>
                     </button>
                 </td>
             </tr>
         </ng-template>
     </p-table>
+  <p-paginator (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements" [rowsPerPageOptions]="[10, 20, 30] "></p-paginator>
 
 </div>
 </div>

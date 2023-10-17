@@ -13,5 +13,4 @@ export interface TransactionDto{
     transactionId: number;
     transactionNumber: number;
     transactionType: TransactionTypeDto;
-
 }

@@ -26,6 +26,7 @@ import {FileUploadModule} from "primeng/fileupload";
 import {FieldsetModule} from "primeng/fieldset";
 import {SidebarModule} from "primeng/sidebar";
 import {InputNumberModule} from "primeng/inputnumber";
+import {PaginatorModule} from "primeng/paginator";
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import {InputNumberModule} from "primeng/inputnumber";
         FileUploadModule,
         FieldsetModule,
         SidebarModule,
-        InputNumberModule
+        InputNumberModule,
+        PaginatorModule
     ]
 })
 export class ExpensesModule { }

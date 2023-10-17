@@ -31,18 +31,18 @@
     </div>
 </div>
 <br>
-<p-table #dt2 [value]="sales" [(selection)]="selectedSales" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
+<p-table #dt2 [value]="sales" [(selection)]="selectedSales" dataKey="code" [tableStyle]="{'min-width': '50rem'}" [lazy]="true" (onSort)="onSortChange($event)" [customSort]="true">
     <ng-template pTemplate="header">
         <tr>
             <th style="width: 4rem">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
             </th>
             <th pSortableColumn="saleTransactionDate">Fecha <p-sortIcon field="saleTransactionDate"></p-sortIcon></th>
-            <th>Tipo</th>
+            <th pSortableColumn="transactionType.transactionTypeName">Tipo <p-sortIcon field="transactionType.transactionTypeName"></p-sortIcon></th>
             <th pSortableColumn="saleTransactionNumber">Nº <p-sortIcon field="saleTransactionNumber"></p-sortIcon></th>
             <th pSortableColumn="customer.displayName">Cliente <p-sortIcon field="customer.displayName"></p-sortIcon></th>
             <th pSortableColumn="gloss">Descripción <p-sortIcon field="gloss" style="font-size: 1rem;"></p-sortIcon></th>
-            <th pSortableColumn="totalAmountBs">Importe <p-sortIcon field="totalAmountBs"></p-sortIcon></th>
+            <th>Importe</th>
             <th style="width:10%" pSortableColumn="saleTransactionAccepted">Estado <p-sortIcon field="saleTransactionAccepted"></p-sortIcon></th>
         </tr>
     </ng-template>
@@ -61,3 +61,5 @@
         </tr>
     </ng-template>
 </p-table>
+<p-paginator (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements" [rowsPerPageOptions]="[10, 20, 30] "></p-paginator>
+

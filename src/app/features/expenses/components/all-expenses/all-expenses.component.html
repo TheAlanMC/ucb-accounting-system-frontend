@@ -3,10 +3,7 @@
   <div class="flex flex-row flex-wrap mb-3">
     <div class="flex flex-column justify-content-start mr-2">
       <p>Fecha</p>
-      <!-- <p-calendar  [(ngModel)]="dateValue" [showIcon]="true" inputId="icon"
-          dateFormat="dd/mm/yy"></p-calendar> -->
-      <p-calendar class="datepicker" (onSelect)="onDateSelect($event)" (onClearClick)="dt2.filter('', 'expenseTransactionDate', 'equals')" [showButtonBar]="true" [showIcon]="true" dateFormat="dd/mm/yy" inputId="icon" placeholder="Seleccione una fecha" [readonlyInput]="true" dateFormat="yy-mm-dd"></p-calendar>
-
+      <p-calendar class="datepicker" (onSelect)="onDateSelect($event)" (onClearClick)="dt2.filter('', 'saleTransactionDate', 'equals')" [showButtonBar]="true" [showIcon]="true" dateFormat="dd/mm/yy" inputId="icon" placeholder="Seleccione una fecha" [readonlyInput]="true" dateFormat="yy-mm-dd"></p-calendar>
     </div>
     <div class="flex flex-column justify-content-start mx-2">
       <p>Tipo</p>
@@ -28,27 +25,24 @@
   </div>
   <div class="flex flex-column justify-content-start">
     <div class="flex justify-content-between flex-wrap card-container purple-container my-4">
-<!--      <p-button label="Eliminar venta" class="mx-2 red-button" icon="pi pi-trash"></p-button>-->
-      <!-- <p-button label="Nueva venta" class="ml-2 green-button" icon="pi pi-plus-circle"
-          routerLink="/invoice"></p-button> -->
       <p-splitButton #ua label="Nueva transacción" icon="pi pi-plus-circle" class="green-button"  [model]="items" (onClick)="ua.onDropdownButtonClick()"></p-splitButton>
 
     </div>
   </div>
 </div>
 <br>
-<p-table #dt2 [value]="expenses" [(selection)]="selectedExpenses" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
+<p-table #dt2 [value]="expenses" [(selection)]="selectedExpenses" dataKey="code" [tableStyle]="{'min-width': '50rem'}" [lazy]="true" (onSort)="onSortChange($event)" [customSort]="true">
   <ng-template pTemplate="header">
     <tr>
       <th style="width: 4rem">
         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
       </th>
       <th pSortableColumn="expenseTransactionDate">Fecha <p-sortIcon field="expenseTransactionDate"></p-sortIcon></th>
-      <th>Tipo</th>
+      <th pSortableColumn="transactionType.transactionTypeName">Tipo <p-sortIcon field="transactionType.transactionTypeName"></p-sortIcon></th>
       <th pSortableColumn="expenseTransactionNumber">Nº <p-sortIcon field="expenseTransactionNumber"></p-sortIcon></th>
       <th pSortableColumn="supplier.displayName">Proveedor <p-sortIcon field="supplier.displayName"></p-sortIcon></th>
       <th pSortableColumn="gloss">Descripción <p-sortIcon field="gloss" style="font-size: 1rem;"></p-sortIcon></th>
-      <th pSortableColumn="totalAmountBs">Importe <p-sortIcon field="totalAmountBs"></p-sortIcon></th>
+      <th>Importe </th>
       <th style="width:10%" pSortableColumn="expenseTransactionAccepted">Estado <p-sortIcon field="expenseTransactionAccepted"></p-sortIcon></th>
     </tr>
   </ng-template>
@@ -67,3 +61,4 @@
     </tr>
   </ng-template>
 </p-table>
+<p-paginator (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements" [rowsPerPageOptions]="[10, 20, 30] "></p-paginator>

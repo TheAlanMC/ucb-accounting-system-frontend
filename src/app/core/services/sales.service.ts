@@ -18,8 +18,8 @@ export class SalesService {
   constructor(private http: HttpClient) { }
 
   // Get all sales
-  public getAllSales(companyId: number): Observable<ResponseDto<SaleAbstractDto[]>>{
-    return this.http.get<ResponseDto<SaleAbstractDto[]>>(`${this.baseUrl}/companies/${companyId}`);
+  public getAllSales(companyId: number, sortBy: string, sortType: string, page: number, size: number): Observable<ResponseDto<SaleAbstractDto[]>>{
+    return this.http.get<ResponseDto<SaleAbstractDto[]>>(`${this.baseUrl}/companies/${companyId}?sortBy=${sortBy}&sortType=${sortType}&page=${page}&size=${size}`);
   }
 
 
@@ -46,7 +46,7 @@ export class SalesService {
   public createPaymentSale(companyId: number, paymentSale: PaymentDto): Observable<ResponseDto<String>>{
     return this.http.post<ResponseDto<String>>(`${this.baseUrl}/payments/companies/${companyId}`, paymentSale);
   }
- 
+
   //Get payment subaccounts
   public getPaymentSubaccounts(companyId: number): Observable<ResponseDto<SubaccountDto[]>>{
     return this.http.get<ResponseDto<SubaccountDto[]>>(`${this.baseUrl}/payments/companies/${companyId}/subaccounts`);

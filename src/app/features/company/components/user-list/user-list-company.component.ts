@@ -27,9 +27,16 @@ export class UserListCompanyComponent implements OnInit{
     accountstype: any[] = [];
     canAddAccountant: boolean = false;
     newUserDto!: NewUserDto;
+    // Pagination variables
+    sortBy: string = 'id';
+    sortType: string = 'asc';
+    page: number = 0;
+    size: number = 10;
+    totalElements: number = 0;
+
 
     constructor(private userService: UserService, private sidebarService: SidebarService, private keycloakService: KeycloakService, private messageService: MessageService) { }
-    
+
     onNavbarToggle(isOpen: boolean) {
       this.isNavbarOpen = isOpen;
       // console.log(this.isNavbarOpen);
@@ -43,11 +50,9 @@ export class UserListCompanyComponent implements OnInit{
       this.sidebarService.getIsOpen().subscribe((isOpen) => {
         this.isNavbarOpen = isOpen;
       });
-      this.userService.findAllUsersByCompanyId(this.companyId).subscribe((users) => {
-        this.users = users.data!;
-      });
+      this.getData();
       this.determineRole();
-      
+
     }
 
     createAccount(){
@@ -68,7 +73,7 @@ export class UserListCompanyComponent implements OnInit{
               this.messageService.add({severity:'error', summary: 'Error', detail: 'Error al crear la cuenta'});
             }
           });
-          
+
         }else if(this.selectedAccount.code==2){
           this.userService.createAccountingAssistant(this.newUserDto, this.companyId).subscribe({
             next: (data) => {
@@ -126,5 +131,24 @@ export class UserListCompanyComponent implements OnInit{
       }
     }
 
-   
+  onPageChange(event: any) {
+    this.page = event.page;
+    this.size = event.rows;
+    // console.log(event);
+    this.getData();
+  }
+
+  onSortChange(event: any) {
+    this.sortBy = event.field;
+    this.sortType = (event.order == 1) ? 'asc' : 'desc';
+    this.getData();
+  }
+
+  getData() {
+    this.userService.findAllUsersByCompanyId(this.companyId, this.sortBy, this.sortType,this.page, this.size ).subscribe((users) => {
+      this.users = users.data!;
+      this.totalElements = users.totalElements!;
+    });
+  }
+
 }

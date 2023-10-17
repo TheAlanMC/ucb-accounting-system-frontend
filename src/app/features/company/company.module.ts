@@ -12,6 +12,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { InputTextModule } from 'primeng/inputtext';
 import { FieldsetModule } from 'primeng/fieldset';
 import { SidebarModule } from 'primeng/sidebar';
+import {PaginatorModule} from "primeng/paginator";
 
 
 
@@ -21,19 +22,20 @@ import { SidebarModule } from 'primeng/sidebar';
     CompanyInfoComponent,
     UserListCompanyComponent
   ],
-  imports: [
-    CommonModule,
-    CompanyRoutingModule,
-    FormsModule,
-    ButtonModule,
-    ToastModule, 
-    DropdownModule, 
-    TableModule,
-    SharedModule,
-    InputTextModule,
-    FieldsetModule,
-    SidebarModule
-  ],
-  
+    imports: [
+        CommonModule,
+        CompanyRoutingModule,
+        FormsModule,
+        ButtonModule,
+        ToastModule,
+        DropdownModule,
+        TableModule,
+        SharedModule,
+        InputTextModule,
+        FieldsetModule,
+        SidebarModule,
+        PaginatorModule
+    ],
+
 })
 export class CompanyModule { }
