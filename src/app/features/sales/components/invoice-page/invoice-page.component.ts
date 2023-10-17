@@ -10,6 +10,7 @@ import { FilesService } from 'src/app/core/services/files.service';
 import { InvoiceDto } from '../../models/invoice.dto';
 import { format } from 'date-fns';
 import { SalesService } from 'src/app/core/services/sales.service';
+import { PaymentTypeService } from 'src/app/core/services/payment-type.service';
 
 @Component({
   selector: 'app-invoice-page',
@@ -25,6 +26,7 @@ export class InvoicePageComponent {
   companyId = Number(localStorage.getItem('companyId'));
   invoiceNumber: number = 0;
   customers: any = [];
+  paymentTypes: any = [];
   dateValue!: Date;
   description: string = ' ';
   filesDetails: any[] = []; //Files from component - attachments section
@@ -34,6 +36,7 @@ export class InvoicePageComponent {
   saldoAmount: number = 0;
   sale!: InvoiceDto;
   selectedCustomer: any;
+  selectedPaymentType: any;
 
   //Retrieve the data from the child component - transaction table
   retrieveTransactionDetails(transactionDetails: InvoiceDetailDto[]) {
@@ -52,10 +55,11 @@ export class InvoicePageComponent {
   }
 
 
-  constructor(private messageService: MessageService, private customerService: CustomerService, private filesService: FilesService, private salesService: SalesService) { }
+  constructor(private messageService: MessageService, private customerService: CustomerService, private filesService: FilesService, private salesService: SalesService, private paymentTypeService: PaymentTypeService) { }
   ngOnInit(): void {
     this.getAllCustomers()
     this.getNextInvoiceNumber()
+    this.getPaymentTypes()
   }
 
 
@@ -150,7 +154,7 @@ export class InvoicePageComponent {
     //Sale dto
     this.sale = {
       invoiceNumber: this.invoiceNumber,
-      paymentTypeId: 1, //TODO: Cambiar por el valor del select
+      paymentTypeId: this.selectedPaymentType.code,
       clientId: this.selectedCustomer.code,
       gloss: this.gloss,
       description: this.description,
@@ -179,10 +183,32 @@ export class InvoicePageComponent {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor seleccione un cliente' });
       return false;
     }
+    if(this.selectedPaymentType == null || this.selectedPaymentType == undefined) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor seleccione un tipo de pago' });
+      return false;
+    }
     if (this.dateValue == null || this.dateValue == undefined) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor seleccione una fecha' });
       return false;
     }
     return true;
+  }
+
+  getPaymentTypes() {
+    this.paymentTypeService.getAllPaymentTypes().subscribe({
+      next: (data) => {
+        if (data.data != null) {
+          //Parsing the data
+          this.paymentTypes = data.data.map((paymentType) => ({
+            name: paymentType.paymentTypeName,
+            code: paymentType.paymentTypeId
+          }));
+        }
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
+    
   }
 }

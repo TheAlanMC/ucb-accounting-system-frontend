@@ -1,7 +1,6 @@
 <div #sidebar [ngClass]="{ 'sidebar': !isOpen, 'sidebar open': isOpen }" id="sidebar">
   <div class="logo-details">
     <i class='bx bxl-c-plus-plus icon'></i>
-    <!-- <div class="logo_name">CodingLab</div> -->
     <i #btn class="pi pi-bars" id="btn" (click)="expandir()"></i>
   </div>
   <ul class="nav-list">
@@ -22,7 +21,7 @@
     <li>
       <a routerLink="/sales">
         <i>
-          <img class="local-icon" src="/assets/ventas.png" alt="">
+          <img class="local-icon" src="/assets/ventas.svg" alt="" width="23px">
         </i>
         <span class="links_name">Ventas</span>
       </a>
@@ -38,7 +37,7 @@
     <li>
       <a routerLink="/expenses">
         <i>
-          <img class="local-icon" src="/assets/gastos.png" alt="">
+          <img class="local-icon" src="/assets/gastos.svg" alt="" width="23px">
         </i>
         <span class="links_name">Gastos</span>
       </a>
@@ -64,14 +63,6 @@
       </ul>
       <span class="tooltip">Contabilidad</span>
     </li>
-    <!-- <li>
-      <a href="#">
-        <i class='pi pi-users'></i>
-        <span class="links_name">Administrar usuarios</span>
-        <i class='pi pi-chevron-right right-arrow' style="font-size: 0.6rem"></i>
-      </a>
-      <span class="tooltip">Administrar usuarios</span>
-    </li> -->
     <li>
       <a routerLink="/chartofaccounts">
         <i class='pi pi-th-large'></i>

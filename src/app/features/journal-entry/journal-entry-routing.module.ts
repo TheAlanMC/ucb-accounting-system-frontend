@@ -4,7 +4,7 @@ import { JournalEntryPageComponent } from './components/journal-entry-page/journ
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
 
 const routes: Routes = [
-  {path: 'journal', component: JournalEntryPageComponent, data: {roles: ['journal-entry-recorder']}, canActivate: [AuthGuard]},
+  {path: 'journal', component: JournalEntryPageComponent, data: {roles: ['journal-entry-recorder', 'journal-entry-recorder-assistant']}, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

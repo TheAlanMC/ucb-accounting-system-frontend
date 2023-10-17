@@ -14,14 +14,19 @@
 
             <div class="flex flex-row flex-wrap">
                 <div class="flex flex-column justify-content-start mr-2">
+                    <p>Fecha de factura</p>
+                    <p-calendar class="datepicker" [(ngModel)]="dateValue" [showIcon]="true" inputId="icon"
+                        dateFormat="dd/mm/yy"></p-calendar>
+                </div>
+                <div class="flex flex-column justify-content-start mx-2">
                     <p>Cliente</p>
                     <p-dropdown id="document-type" [options]="customers" [(ngModel)]="selectedCustomer" optionLabel="name"
                         placeholder="Seleccione un cliente" [style]="{'width':'250px'}" [required]="true" [editable]="true"></p-dropdown>
                 </div>
                 <div class="flex flex-column justify-content-start mx-2">
-                    <p>Fecha de factura</p>
-                    <p-calendar class="datepicker" [(ngModel)]="dateValue" [showIcon]="true" inputId="icon"
-                        dateFormat="dd/mm/yy"></p-calendar>
+                    <p>Método de pago</p>
+                    <p-dropdown id="document-type" [options]="paymentTypes" [(ngModel)]="selectedPaymentType" optionLabel="name"
+                        placeholder="Seleccione un método de pago" [style]="{'width':'250px'}" [required]="true" [editable]="true"></p-dropdown>
                 </div>
             </div>
         </div>

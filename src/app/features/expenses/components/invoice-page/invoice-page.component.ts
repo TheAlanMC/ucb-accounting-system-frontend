@@ -10,6 +10,7 @@ import {FilesService} from "../../../../core/services/files.service";
 import {ExpensesService} from "../../../../core/services/expenses.service";
 import {forkJoin} from "rxjs";
 import {format} from "date-fns";
+import { PaymentTypeService } from 'src/app/core/services/payment-type.service';
 
 @Component({
   selector: 'app-invoice-page',
@@ -25,6 +26,7 @@ export class InvoicePageComponent {
   companyId = Number(localStorage.getItem('companyId'));
   invoiceNumber: number = 0;
   suppliers:any = [];
+  paymentTypes: any = [];
   dateValue!: Date;
   description: string = ' ';
   filesDetails: any[] = []; //Files from component - attachments section
@@ -34,6 +36,7 @@ export class InvoicePageComponent {
   saldoAmount: number = 0;
   expense!: InvoiceDto;
   selectedSupplier: any;
+  selectedPaymentType: any;
 
   //Retrieve the data from the child component - transaction table
   retrieveTransactionDetails(transactionDetails: InvoiceDetailDto[]) {
@@ -52,10 +55,12 @@ export class InvoicePageComponent {
   }
 
 
-  constructor( private messageService: MessageService,private supplierService: SupplierService, private filesService: FilesService, private expensesService: ExpensesService){}
+  constructor( private messageService: MessageService,private supplierService: SupplierService, private filesService: FilesService, private expensesService: ExpensesService, private paymentTypeService: PaymentTypeService){}
+
   ngOnInit(): void{
     this.getAllSuppliers()
     this.getNextInvoiceNumber()
+    this.getPaymentTypes()
   }
 
 
@@ -150,7 +155,7 @@ export class InvoicePageComponent {
     //Expense dto
     this.expense = {
       invoiceNumber: this.invoiceNumber,
-      paymentTypeId: 1, //TODO: Cambiar por el valor del select
+      paymentTypeId: this.selectedPaymentType.code,
       clientId: this.selectedSupplier.code,
       gloss: this.gloss,
       description: this.description,
@@ -178,11 +183,32 @@ export class InvoicePageComponent {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor seleccione un cliente' });
       return false;
     }
+    if(this.selectedPaymentType == null || this.selectedPaymentType == undefined) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor seleccione un tipo de pago' });
+      return false;
+    }
     if (this.dateValue == null || this.dateValue == undefined) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor seleccione una fecha' });
       return false;
     }
     return true;
+  }
+
+  getPaymentTypes() {
+    this.paymentTypeService.getAllPaymentTypes().subscribe({
+      next: (data) => {
+        if (data.data != null) {
+          //Parsing the data
+          this.paymentTypes = data.data.map((paymentType) => ({
+            name: paymentType.paymentTypeName,
+            code: paymentType.paymentTypeId
+          }));
+        }
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
   }
 }
 

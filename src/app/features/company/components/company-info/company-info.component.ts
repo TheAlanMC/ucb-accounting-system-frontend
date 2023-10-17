@@ -30,7 +30,6 @@ export class CompanyInfoComponent implements OnInit {
   }
 
   save(): void {
-
     if(this.imageChanged){
       if (this.file) {
         const formData = new FormData();

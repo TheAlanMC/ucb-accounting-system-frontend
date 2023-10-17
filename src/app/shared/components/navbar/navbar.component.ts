@@ -38,6 +38,10 @@ export class NavbarComponent {
         this.valuesService.getUserInfo().subscribe((data) => {
             this.pfpUrl = data.profilePicture;
         })
+
+        this.keycloakService.getToken().then((token) => {
+            console.log(token)
+        })
     }
 
 }

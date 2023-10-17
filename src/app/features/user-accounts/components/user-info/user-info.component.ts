@@ -82,9 +82,6 @@ export class UserInfoComponent implements OnInit {
     return true;
   }
 
-  
-
-
   onFileSelected2(event: any) {
     this.file = event.target.files[0];
     this.imageChanged = true;
@@ -94,7 +91,6 @@ export class UserInfoComponent implements OnInit {
         this.previewImage = e.target.result;
         this.userData.profilePicture = e.target.result;
       };
-
       reader.readAsDataURL(this.file);
     }
   }

@@ -28,11 +28,7 @@ export class UserListCompanyComponent implements OnInit{
     canAddAccountant: boolean = false;
     newUserDto!: NewUserDto;
 
-
-
-
     constructor(private userService: UserService, private sidebarService: SidebarService, private keycloakService: KeycloakService, private messageService: MessageService) { }
-    
     
     onNavbarToggle(isOpen: boolean) {
       this.isNavbarOpen = isOpen;
@@ -41,15 +37,7 @@ export class UserListCompanyComponent implements OnInit{
     }
 
     //crea una variable de tipo user con datos de tipo user
-    users: UserAbstractDto[] = [
-      {
-        kcGroupName: 'Admin',
-        firstName: 'Juan',
-        lastName: 'Perez',
-        email: 'asdsa',
-        creationDate: 'asdsa'
-      },
-    ];
+    users: UserAbstractDto[] = [];
 
     ngOnInit(): void {
       this.sidebarService.getIsOpen().subscribe((isOpen) => {
