@@ -18,8 +18,8 @@ export class ExpensesService {
   constructor(private http: HttpClient) { }
 
   // Get all expenses
-  public getAllExpenses(companyId: number, sortBy: string, sortType: string, page: number, size: number): Observable<ResponseDto<ExpenseAbstractDto[]>>{
-    return this.http.get<ResponseDto<ExpenseAbstractDto[]>>(`${this.baseUrl}/companies/${companyId}?sortBy=${sortBy}&sortType=${sortType}&page=${page}&size=${size}`);
+  public getAllExpenses(companyId: number, sortBy: string, sortType: string, page: number, size: number, filterDate: string, filterSupplier: string[], filterDocumentType: string) : Observable<ResponseDto<ExpenseAbstractDto[]>>{;
+    return this.http.get<ResponseDto<ExpenseAbstractDto[]>>(`${this.baseUrl}/companies/${companyId}?sortBy=${sortBy}&sortType=${sortType}&page=${page}&size=${size}&creationDate=${filterDate}&suppliers=${filterSupplier}&transactionType=${filterDocumentType}`);
   }
 
 

@@ -1,11 +1,11 @@
 import {Component, ViewChild} from '@angular/core';
 import {Table} from "primeng/table";
-import {UserService} from "../../../../core/services/user.service";
 import {ExpenseAbstractDto} from "../../models/expense-abstract.dto";
 import {ExpensesService} from "../../../../core/services/expenses.service";
-import {CustomerService} from "../../../../core/services/customer.service";
 import {TransactionTypeService} from "../../../../core/services/transaction-type.service";
 import {SupplierService} from "../../../../core/services/supplier.service";
+import {filter} from "rxjs";
+import {el} from "date-fns/locale";
 
 @Component({
   selector: 'app-all-expenses',
@@ -24,6 +24,11 @@ export class AllExpensesComponent {
   page: number = 0;
   size: number = 10;
   totalElements: number = 0;
+
+  // Filter variables
+  filterDate: string = '';
+  filterSupplier: string[] = [];
+  filterDocumentType: string = '';
 
   constructor(private expensesService: ExpensesService, private supplierService: SupplierService, private transactionTypeService: TransactionTypeService) {
     this.items = [
@@ -47,7 +52,7 @@ export class AllExpensesComponent {
   supplier: string = '';
   expenses: ExpenseAbstractDto[] = [];
   suppliers: any = [];
-  types: any = [{code:0, name:'Factura'}];
+  types: any = [];
   dateFilters: any;
 
   ngOnInit(): void {
@@ -58,6 +63,8 @@ export class AllExpensesComponent {
           name: documentType.transactionTypeName,
           code: documentType.transactionTypeId
         }));
+        // add the default option
+        this.types.unshift({name: 'Todos', code: ''});
         // console.log(this.types);
       },
       error: (error) => {
@@ -103,7 +110,7 @@ export class AllExpensesComponent {
   }
 
   getAllExpenses(){
-    this.expensesService.getAllExpenses(this.companyId, this.sortBy, this.sortType,this.page, this.size).subscribe({
+    this.expensesService.getAllExpenses(this.companyId, this.sortBy, this.sortType,this.page, this.size, this.filterDate, this.filterSupplier, this.filterDocumentType).subscribe({
       next: (data) => {
         this.expenses = data.data!;
         this.totalElements = data.totalElements!;
@@ -148,4 +155,25 @@ export class AllExpensesComponent {
     return date.getFullYear() + '-' + month + '-' + day;
   }
 
+  protected readonly filter = filter;
+  filterByDate(event: any) {
+    if (event == null) {
+      this.filterDate = '';
+    } else {
+      this.filterDate = this.formatDate(event);
+    }
+    this.getAllExpenses();
+  }
+  filterBySupplier(event: any) {
+    this.filterSupplier = event;
+    this.getAllExpenses();
+  }
+  filterByTransactionType(event: any) {
+    if (event == 'Todos') {
+      this.filterDocumentType = '';
+    } else {
+      this.filterDocumentType = event;
+    }
+    this.getAllExpenses();
+  }
 }

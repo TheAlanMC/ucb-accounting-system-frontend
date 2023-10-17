@@ -2,8 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { SalesService } from 'src/app/core/services/sales.service';
 import { SaleAbstractDto } from '../../models/sale-abstract.dto';
 import { Table } from 'primeng/table';
-import { KeycloakService } from 'keycloak-angular';
-import { UserService } from 'src/app/core/services/user.service';
+
 import {TransactionTypeService} from "../../../../core/services/transaction-type.service";
 import {CustomerService} from "../../../../core/services/customer.service";
 
@@ -26,6 +25,10 @@ export class AllSalesComponent {
   size: number = 10;
   totalElements: number = 0;
 
+  // Filter variables
+  filterDate: string = '';
+  filterCustomer: string[] = [];
+  filterDocumentType: string = '';
   constructor(private salesService: SalesService, private customerService: CustomerService, private transactionTypeService: TransactionTypeService) {
         this.items = [
             {
@@ -59,6 +62,8 @@ export class AllSalesComponent {
             name: documentType.transactionTypeName,
             code: documentType.transactionTypeId
           }));
+          // add the default option
+            this.types.unshift({name: 'Todos', code: ''});
           // console.log(this.types);
         },
         error: (error) => {
@@ -103,7 +108,7 @@ export class AllSalesComponent {
   }
 
     getAllSales(){
-        this.salesService.getAllSales(this.companyId, this.sortBy, this.sortType,this.page, this.size).subscribe({
+        this.salesService.getAllSales(this.companyId, this.sortBy, this.sortType,this.page, this.size, this.filterDate, this.filterCustomer, this.filterDocumentType).subscribe({
             next: (data) => {
                 this.sales = data.data!;
                 this.totalElements = data.totalElements!;
@@ -146,5 +151,25 @@ export class AllSalesComponent {
             day = '0' + day;
         }
         return date.getFullYear() + '-' + month + '-' + day;
+    }
+    filterByDate(event: any) {
+        if (event == null) {
+            this.filterDate = '';
+        } else {
+            this.filterDate = this.formatDate(event);
+        }
+        this.getAllSales();
+    }
+    filterByCustomer(event: any) {
+        this.filterCustomer = event;
+        this.getAllSales();
+    }
+    filterByTransactionType(event: any) {
+        if (event == 'Todos') {
+            this.filterDocumentType = '';
+        } else {
+            this.filterDocumentType = event;
+        }
+        this.getAllSales();
     }
 }

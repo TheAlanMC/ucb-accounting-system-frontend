@@ -18,8 +18,8 @@ export class SalesService {
   constructor(private http: HttpClient) { }
 
   // Get all sales
-  public getAllSales(companyId: number, sortBy: string, sortType: string, page: number, size: number): Observable<ResponseDto<SaleAbstractDto[]>>{
-    return this.http.get<ResponseDto<SaleAbstractDto[]>>(`${this.baseUrl}/companies/${companyId}?sortBy=${sortBy}&sortType=${sortType}&page=${page}&size=${size}`);
+  public getAllSales(companyId: number, sortBy: string, sortType: string, page: number, size: number, filterDate: string, filterCustomer: string[], filterDocumentType: string): Observable<ResponseDto<SaleAbstractDto[]>>{
+    return this.http.get<ResponseDto<SaleAbstractDto[]>>(`${this.baseUrl}/companies/${companyId}?sortBy=${sortBy}&sortType=${sortType}&page=${page}&size=${size}&creationDate=${filterDate}&customers=${filterCustomer}&transactionType=${filterDocumentType}`);
   }
 
 
