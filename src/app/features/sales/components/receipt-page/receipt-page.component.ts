@@ -10,6 +10,7 @@ import { AttachmentDto } from 'src/app/core/models/attachment.dto';
 import { PaymentDto } from '../../models/payment.dto';
 import { format } from 'date-fns';
 import { PaymentDetailDto } from '../../models/payment-detail.dto';
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-receipt-page',
@@ -20,7 +21,7 @@ import { PaymentDetailDto } from '../../models/payment-detail.dto';
 export class ReceiptPageComponent {
   @ViewChild(AttachmentsSectionComponent) attachmentsComponent!: AttachmentsSectionComponent; // Obtén una referencia al componente hijo
 
-  constructor(private customerService: CustomerService, private paymentTypeService: PaymentTypeService, private salesService: SalesService, private filesService: FilesService ,private messageService: MessageService) { }
+  constructor(private customerService: CustomerService, private paymentTypeService: PaymentTypeService, private salesService: SalesService, private filesService: FilesService ,private messageService: MessageService, private location: Location) { }
   ngOnInit(): void{
     this.getNextReceiptNumber()
     this.getAllCustomers()
@@ -122,6 +123,10 @@ export class ReceiptPageComponent {
         //console.log(data);
         //console.log("Se creoo");
         this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Recibo guardado correctamente' });
+        //Esperar 1 segundo para redirigir
+        setTimeout(() => {
+          this.goBack();
+        }, 1000);
       },
       error: (error) => {
         // console.log(error);
@@ -229,5 +234,8 @@ export class ReceiptPageComponent {
     return true;
   }
 
+  goBack(): void {
+    this.location.back();
+  }
 
 }
