@@ -17,7 +17,8 @@ const routes: Routes = [
   { path: '', loadChildren: () => import('./features/taxes/taxes.module').then(m => m.TaxesModule) },
   { path: '', loadChildren: () => import('./features/reports/reports.module').then(m => m.ReportsModule) },
   { path: '', loadChildren: () => import('./features/journal-entry/journal-entry.module').then(m => m.JournalEntryModule) },
-  
+  { path: '', loadChildren: () => import('./features/company-registration/company-registration.module').then(m => m.CompanyRegistrationModule) },
+
   // 404 Error page
   { path: '404', component: NotFoundComponent },
   // // 403 Error page

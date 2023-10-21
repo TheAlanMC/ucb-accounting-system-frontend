@@ -5,6 +5,8 @@
 
 body {
   font-family: var(--font-family);
+  margin: 0;
+  padding: 0;
 }
 
 /*Declarando colores como variables */
