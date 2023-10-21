@@ -6,6 +6,7 @@ import { KeycloakService } from 'keycloak-angular';
 import { MessageService } from 'primeng/api';
 import { NewUserDto } from 'src/app/features/user-accounts/models/new-user.dto';
 import {debounceTime, Subject} from "rxjs";
+import {th} from "date-fns/locale";
 
 
 
@@ -79,7 +80,8 @@ export class UserListCompanyComponent implements OnInit{
           this.userService.createAccountant(this.newUserDto).subscribe({
             next: (data) => {
               this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Cuenta de contador creada con éxito'});
-            },
+              this.getData();
+              },
             error: (error) => {
               this.messageService.add({severity:'error', summary: 'Error', detail: 'Error al crear la cuenta'});
             }
@@ -89,7 +91,8 @@ export class UserListCompanyComponent implements OnInit{
           this.userService.createAccountingAssistant(this.newUserDto, this.companyId).subscribe({
             next: (data) => {
               this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Cuenta de asistente contable creada con éxito'});
-            },
+              this.getData();
+              },
             error: (error) => {
               this.messageService.add({severity:'error', summary: 'Error', detail: 'Error al crear la cuenta'});
             }
@@ -98,7 +101,8 @@ export class UserListCompanyComponent implements OnInit{
           this.userService.createClient(this.newUserDto, this.companyId).subscribe({
             next: (data) => {
               this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Cuenta de cliente creada con éxito'});
-            },
+              this.getData();
+              },
             error: (error) => {
               this.messageService.add({severity:'error', summary: 'Error', detail: 'Error al crear la cuenta'});
             }

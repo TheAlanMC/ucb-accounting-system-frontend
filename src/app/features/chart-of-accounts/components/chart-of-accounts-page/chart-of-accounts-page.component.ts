@@ -58,7 +58,7 @@ export class ChartOfAccountsPageComponent {
     this.getGroups();
     this.getSubgroups();
     this.getAccounts();
-    
+
   }
 
   agregarNuevaCuenta() {
@@ -234,7 +234,7 @@ export class ChartOfAccountsPageComponent {
             ),
             error: (error => {
               this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Hubo un error al crear el grupo, intente nuevamente' });
-              // console.log(error);
+              console.log(error);
             })
           }
           )

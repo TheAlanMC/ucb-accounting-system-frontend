@@ -48,7 +48,7 @@ export class JournalEntryPageComponent {
 
   //Retrieve the data from the child component - transaction table
   retrieveTransactionDetails(transactionDetails: TransactionDetailDto[]) {
-    console.log(transactionDetails)
+   // console.log(transactionDetails)
     this.transactionDetails = transactionDetails;
   }
   //Retrieve the gloss from the child component - transaction table
@@ -120,7 +120,7 @@ export class JournalEntryPageComponent {
               filename: data.data.filename
             }));
 
-            console.log(this.attachments);
+            // console.log(this.attachments);
             this.uploadJournalEntry()
           },
           error: (error) => {

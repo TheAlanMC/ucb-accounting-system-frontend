@@ -8,7 +8,7 @@
 </div>
 <div class="search-bar">
     <span class="pi pi-search"></span>
-    <input pInputText type="text" placeholder="Buscar..." (input)="onSearch($event)" />
+    <input pInputText type="text" (input)="onSearch($event)" />
 </div>
 <p-table [value]="asientos" [tableStyle]="{ 'min-width': '50rem' }" class="tabla">
     <ng-template pTemplate="header">
@@ -41,7 +41,7 @@
     <!-- <app-daily-journal-addentry *ngIf="!isEditing"></app-daily-journal-addentry> -->
 
     <h3 *ngIf="isEditing">Editar Asiento</h3>
-    
+
     <!-- Asegúrate de reemplazar 'app-daily-journal-editentry' con el nombre real de tu componente de edición -->
     <!-- <app-daily-journal-editentry *ngIf="isEditing"></app-daily-journal-editentry>  -->
 </p-sidebar>

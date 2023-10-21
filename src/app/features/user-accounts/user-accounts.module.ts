@@ -16,6 +16,7 @@ import { ToastModule } from 'primeng/toast';
 import { PasswordModule } from 'primeng/password';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DialogModule } from 'primeng/dialog';
+import {MessageService} from "primeng/api";
 
 @NgModule({
   declarations: [
@@ -39,7 +40,6 @@ import { DialogModule } from 'primeng/dialog';
     SharedModule,
     DialogModule
   ],
-  
 })
 
 export class UserAccountsModule { }

@@ -18,9 +18,10 @@
             <ng-template pTemplate="caption">
                 <div class="flex">
                     <span class="p-input-icon-left ml-auto">
-                        <span class="p-input-icon-left ml-auto"><i class="pi pi-search"></i>
+                        <span class="p-input-icon-left ml-auto">
+                            <i class="pi pi-search" *ngIf="!searchTerm"></i>
                             <input pInputText="" type="text" [(ngModel)]="searchTerm" (input)="onSearch($event)"
-                                placeholder="Buscar..." class="p-inputtext p-component p-element"></span>
+                                 class="p-inputtext p-component p-element"></span>
                     </span>
                 </div>
             </ng-template>

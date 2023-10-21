@@ -2,8 +2,8 @@
 
     <div class="flex flex-column justify-content-start">
         <span class="p-input-icon-left">
-            <i class="pi pi-search"></i>
-            <input type="text" pInputText placeholder="Buscar" class="input w-full" [(ngModel)]="searchTerm"
+            <i class="pi pi-search" *ngIf="!searchTerm"></i>
+            <input type="text" pInputText  class="input w-full" [(ngModel)]="searchTerm"
                 (input)="onSearch($event)">
         </span>
     </div>

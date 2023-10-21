@@ -191,10 +191,10 @@ export class CustomersComponent {
     }
 
     //Filter the table
-    applyFilterGlobal(event: Event, stringVal: string) {
-      const inputValue = (event.target as HTMLInputElement).value;
-      this.dt.filterGlobal(inputValue, stringVal);
-    }
+    // applyFilterGlobal(event: Event, stringVal: string) {
+    //   const inputValue = (event.target as HTMLInputElement).value;
+    //   this.dt.filterGlobal(inputValue, stringVal);
+    // }
 
     onSearch(event: any) {
       this.searchTerm = event.target.value;

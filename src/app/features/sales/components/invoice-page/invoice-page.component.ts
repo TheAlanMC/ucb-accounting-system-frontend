@@ -219,4 +219,16 @@ export class InvoicePageComponent {
   goBack(): void {
     this.location.back();
   }
+
+  filterCustomer(event: any) {
+    let filtered: any[] = [];
+    let query = event.query;
+    for (let i = 0; i < this.customers.length; i++) {
+      let customer = this.customers[i];
+      if (customer.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(customer);
+      }
+    }
+    this.customers = filtered;
+  }
 }

@@ -9,6 +9,7 @@ import {FormsModule} from "@angular/forms";
 import {ButtonModule} from "primeng/button";
 import { CompanySelectComponent } from './components/company-select/company-select.component';
 import { CardModule } from 'primeng/card';
+import {ToastModule} from "primeng/toast";
 
 @NgModule({
   declarations: [
@@ -16,13 +17,14 @@ import { CardModule } from 'primeng/card';
     StartFormComponent,
     CompanySelectComponent
   ],
-  imports: [
-    CommonModule,
-    CompanyRegistrationRoutingModule,
-    DropdownModule,
-    ButtonModule,
-    CardModule,
-    FormsModule
-  ]
+    imports: [
+        CommonModule,
+        CompanyRegistrationRoutingModule,
+        DropdownModule,
+        ButtonModule,
+        CardModule,
+        FormsModule,
+        ToastModule
+    ]
 })
 export class CompanyRegistrationModule { }

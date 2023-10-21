@@ -86,7 +86,7 @@ export class ReceiptPageComponent {
           },
           error: (error) => {
             // console.log("Hubo un error al subir los archivos");
-            // console.log(error);
+            console.log(error);
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Hubo un error al crear la factura, intente nuevamente' });
           }
         });

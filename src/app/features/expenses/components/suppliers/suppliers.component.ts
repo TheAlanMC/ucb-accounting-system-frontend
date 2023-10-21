@@ -113,7 +113,7 @@ export class SuppliersComponent {
 
     this.supplierService.createSupplier(this.companyId, this.newSupplier).subscribe({
       next: (data) => {
-        console.log(data);
+        // console.log(data);
         this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Cliente creado correctamente' });
         //Esperar 1 segundo para que se cierre el modal
         setTimeout(() => {
@@ -130,11 +130,11 @@ export class SuppliersComponent {
 
   editSupplier(supplierId: number){
     this.editMode = true;
-    console.log(supplierId);
+    // console.log(supplierId);
     //Get the supplier data
     this.supplierService.getSupplierById(this.companyId, supplierId).subscribe({
       next: (data) => {
-        console.log(data);
+        // console.log(data);
         this.prefix = data.data!.prefix;
         this.firstName = data.data!.firstName;
         this.lastName = data.data!.lastName;
@@ -167,7 +167,7 @@ export class SuppliersComponent {
     //Update the supplier
     this.supplierService.updateSupplier(this.companyId, this.editSupplierId, this.newSupplier).subscribe({
       next: (data) => {
-        console.log(data);
+        // console.log(data);
         this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Cliente actualizado correctamente' });
         //Esperar 1 segundo para que se cierre el modal
         setTimeout(() => {
@@ -190,10 +190,10 @@ export class SuppliersComponent {
   }
 
   //Filter the table
-  applyFilterGlobal(event: Event, stringVal: string) {
-    const inputValue = (event.target as HTMLInputElement).value;
-    this.dt.filterGlobal(inputValue, stringVal);
-  }
+  // applyFilterGlobal(event: Event, stringVal: string) {
+  //   const inputValue = (event.target as HTMLInputElement).value;
+  //   this.dt.filterGlobal(inputValue, stringVal);
+  // }
 
   onSearch(event: any) {
     this.searchTerm = event.target.value;

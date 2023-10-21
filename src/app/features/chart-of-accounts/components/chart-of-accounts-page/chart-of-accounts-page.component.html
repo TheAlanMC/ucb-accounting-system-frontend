@@ -1,7 +1,6 @@
 <app-sidebar (navbarToggle)="onNavbarToggle($event)"></app-sidebar>
 <div class="home-section" [class.navbar-opened]="isNavbarOpen">
     <div class="card">
-        <p-toast></p-toast>
         <div class="flex card-container overflow-hidden">
             <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0">
                 <i class="pi pi-th-large"
@@ -18,7 +17,7 @@
 
             <div class="flex flex-column justify-content-start">
                 <span class="p-input-icon-left">
-                    <i class="pi pi-search"></i>
+                    <i class="pi pi-search" *ngIf="!searchValue"></i>
                     <input type="text" (input)="applyFilterGlobal($event, 'contains')" pInputText [(ngModel)]="searchValue"/>
                 </span>
             </div>
@@ -52,7 +51,7 @@
                     <td style="width: 5%;">
                         <p-button *ngIf="rowData.level != 1" icon="pi pi-pencil" styleClass="p-button-rounded p-button-secondary"
                             (click)="editAccount(rowData.accountId, rowData.level)" (click)="sidebarVisible2= true; isEditing = true; "></p-button>
-                    </td> 
+                    </td>
                 </tr>
             </ng-template>
         </p-treeTable>
@@ -99,17 +98,17 @@
                             <p-radioButton value="Grupo" [(ngModel)]="level" inputId="level1"> (onClick)="handleRadioChange($event)"</p-radioButton>
                             <label for="level1" class="ml-2">Grupo</label>
                         </div>
-                        
+
                         <div class="flex align-items-center">
                             <p-radioButton value="Subgrupo" [(ngModel)]="level" inputId="level2" (onClick)="handleRadioChange($event)"></p-radioButton>
                             <label for="level2" class="ml-2">Subgrupo</label>
                         </div>
-                        
+
                         <div class="flex align-items-center">
                             <p-radioButton value="Cuenta" [(ngModel)]="level" inputId="level3" (onClick)="handleRadioChange($event)"></p-radioButton>
                             <label for="level3" class="ml-2">Cuenta</label>
                         </div>
-                    
+
                         <div class="flex align-items-center">
                             <p-radioButton value="Subcuenta" [(ngModel)]="level" inputId="level4" (onClick)="handleRadioChange($event)"></p-radioButton>
                             <label for="level4" class="ml-2">Subcuenta</label>
@@ -163,7 +162,7 @@
         <br>
         <div class="flex flex-end mt-4" style="position: fixed; bottom: 5%; right:2.5rem">
             <p-button label="Cancelar" class="mx-2 red-button" icon="pi pi-times-circle" (click)="sidebarVisible2 = false;" ></p-button>
-            <p-button label="Guardar" class="ml-2 green-button" icon="pi pi-save" 
+            <p-button label="Guardar" class="ml-2 green-button" icon="pi pi-save"
                 (click)="isEditing ? saveAccountChanges() : createAccount()"></p-button>
         </div>
     </p-sidebar>

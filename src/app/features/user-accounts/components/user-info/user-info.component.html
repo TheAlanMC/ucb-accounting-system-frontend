@@ -10,7 +10,7 @@
 </div>
 
 <hr>
-<div id="main-container">
+<div id="main-container" *ngIf="userData">
     <div class="mx-8 my-5 tarjeta-info">
         <div class="w-11rem h-11rem">
             <img width="150px" height="150px" class="shadow-4" [src]="userData.profilePicture"

@@ -16,7 +16,7 @@ export class HomePageComponent {
 
   onNavbarToggle(isOpen: boolean) {
     this.isNavbarOpen = isOpen;
-    console.log(this.isNavbarOpen);
+    // console.log(this.isNavbarOpen);
     this.sidebarService.setIsOpen(this.isNavbarOpen);
   }
   constructor(private userService: UserService, private valuesService: ValuesService, private sidebarService: SidebarService, private router: Router) { }
@@ -25,14 +25,16 @@ export class HomePageComponent {
     this.sidebarService.getIsOpen().subscribe((isOpen) => {
       this.isNavbarOpen = isOpen;
     });
+    // Eliminamos el company id del local storage, en caso de que exista
+    localStorage.removeItem('companyId');
     //Guardamos el company id en el local storage
     this.userService.getUserById().subscribe({
       next: (data) => {
         if (data.data!.companyIds.length > 0) {
           localStorage.setItem('companyId', data.data!.companyIds[0].toString()); //TODO: Change this to get the company id selected by the user
+          localStorage.setItem('profilePicture', data.data!.profilePicture! );
           this.valuesService.setUser(data.data!);
           this.companyId = Number(localStorage.getItem('companyId'));
-          console.log(localStorage.getItem('companyId'));
         } else {
           this.router.navigate(['/start']);
         }

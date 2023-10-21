@@ -18,17 +18,20 @@ export class UserPasswordComponent {
   value!: string;
   value2!: string;
   value3!: string;
-  
+
   passwordData: any = {
     currentPassword: '',
     newPassword: '',
     confirmNewPassword: ''
   };
-  
-  
+
+
 
   updatePassword(): void {
-    if (this.checkPassword() == false) {
+    // console.log('Datos de la contraseña:', this.passwordData);
+    // update messageService z-index
+    if (!this.checkPassword()) {
+      // console.log('Contraseñas no coinciden');
       this.messageService.add({ severity: 'error', summary: 'ERROR', detail: 'Verifica tus datos' });
     } else {
       this.userService.updateUserPassword(this.passwordData).subscribe(
@@ -38,10 +41,10 @@ export class UserPasswordComponent {
           } else {
             this.messageService.add({ severity: 'error', summary: 'ERROR', detail: 'Hubo un error. La contraseña no se actualizó' });
           }
-          console.log('Respuesta:', response);
+          // console.log('Respuesta:', response);
         },
         (error) => {
-          
+
           console.error('Error al actualizar la contraseña:', error);
         }
       );
