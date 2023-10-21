@@ -12,6 +12,7 @@ import {Router} from "@angular/router";
 })
 export class HomePageComponent {
   isNavbarOpen : boolean = false;
+  companyId = 0;
 
   onNavbarToggle(isOpen: boolean) {
     this.isNavbarOpen = isOpen;
@@ -30,6 +31,7 @@ export class HomePageComponent {
         if (data.data!.companyIds.length > 0) {
           localStorage.setItem('companyId', data.data!.companyIds[0].toString()); //TODO: Change this to get the company id selected by the user
           this.valuesService.setUser(data.data!);
+          this.companyId = Number(localStorage.getItem('companyId'));
           console.log(localStorage.getItem('companyId'));
         } else {
           this.router.navigate(['/start']);

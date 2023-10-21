@@ -9,7 +9,7 @@
         <div class="w-11rem h-11rem pl-4">
             <img src="/assets/Logo.png" class="logo" alt="logo">
             <!-- <div class="custom-file-upload">
-            <input type="file" id="fileInput" (change)="onFileSelected2($event)" accept="image/*" />   
+            <input type="file" id="fileInput" (change)="onFileSelected2($event)" accept="image/*" />
                 <label for="fileInput">
                     <span class="custom-button">
                         <i class="pi pi-pencil" style="color: white;"></i>
@@ -22,14 +22,24 @@
     <div class="form">
         <div class="grid h-40rem">
             <div class="col-12 md:col-6">
-                <div class="card p-fluid pr-8 pl-4">
-                    <p-dropdown [options]="types" [(ngModel)]="selectedType" optionLabel="name"></p-dropdown>
-                    <div class="field pr-8"><label htmlfor="name1">Nombre:</label><input class="p-inputtext p-component p-element h-2rem w-28rem"></div>
-                    <div class="field pr-8"><label htmlfor="name1">Denominación social:</label><input class="p-inputtext p-component p-element h-2rem w-28rem"></div>
-                    <div class="field pr-8"><label htmlfor="name1">No de identificación fiscal:</label><input class="p-inputtext p-component p-element h-2rem w-28rem"></div>
-                    <div class="field pr-8"><label htmlfor="name1">Dirección:</label><input class="p-inputtext p-component p-element h-2rem w-28rem"></div>
-                    <div class="field pr-8"><label htmlfor="name1">No de teléfono:</label><input class="p-inputtext p-component p-element h-2rem w-28rem"></div>
-                    <div class="field pr-8"><label htmlfor="name1">Sector:</label><input class="p-inputtext p-component p-element h-2rem w-28rem"></div>
+                <div class="card p-fluid">
+                    <div class="field pr-8"><label htmlfor="name1" >Nombre:</label><input class="p-inputtext p-component p-element h-2rem w-28rem" [(ngModel)]="companyName"></div>
+                    <div class="field pr-8"><label htmlfor="name1">No. de identificación tributaria:</label><input class="p-inputtext p-component p-element h-2rem w-28rem" [(ngModel)]="companyNit"></div>
+                    <div class="field pr-8"><label htmlfor="name1">Dirección:</label><input class="p-inputtext p-component p-element h-2rem w-28rem" [(ngModel)]="companyAddress"></div>
+                    <div class="field pr-8"><label htmlfor="name1">No de teléfono:</label><input class="p-inputtext p-component p-element h-2rem w-28rem" [(ngModel)]="companyPhoneNumber"></div>
+
+                    <div class="field pr-8"><label htmlfor="name1">Tipo de negocio:</label>
+                        <p-dropdown [options]="businessEntities" [(ngModel)]="selectedBusinessEntity"
+                                    optionLabel="name" placeholder="Seleccione un tipo de negocio" [style]="{'width':'auto'}"></p-dropdown>
+                    </div>
+                    <div class="field pr-8"><label htmlfor="name1">Industria:</label>
+                        <p-dropdown [options]="industries" [(ngModel)]="selectedIndustry"
+                                    optionLabel="name" placeholder="Seleccione una industria" [style]="{'width':'auto'}"></p-dropdown>
+                    </div>
+                    <div class="col-6 mt-8" id="save-buttons">
+                        <p-button (click)="save()" icon="pi pi-save" label="Guardar empresa"
+                                  styleClass="p-button-success"></p-button>
+                    </div>
                 </div>
             </div>
         </div>

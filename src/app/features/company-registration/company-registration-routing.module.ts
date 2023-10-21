@@ -6,8 +6,8 @@ import { StartFormComponent } from './components/start-form/start-form.component
 const routes: Routes = [
   { path: 'start',
     children: [
-      { path: '', component: StartFormComponent },
-      { path: 'register', component: RegistrationFormComponent },
+      // { path: '', component: StartFormComponent },
+      { path: '', component: RegistrationFormComponent },
     ]
   }
 ];
