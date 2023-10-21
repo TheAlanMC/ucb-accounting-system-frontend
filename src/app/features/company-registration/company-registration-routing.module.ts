@@ -4,9 +4,9 @@ import { RegistrationFormComponent } from './components/registration-form/regist
 import { StartFormComponent } from './components/start-form/start-form.component';
 
 const routes: Routes = [
-  { path: '',
+  { path: 'start',
     children: [
-      { path: 'start', component: StartFormComponent },
+      { path: '', component: StartFormComponent },
       { path: 'register', component: RegistrationFormComponent },
     ]
   }

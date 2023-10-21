@@ -3,6 +3,7 @@ import { SidebarService } from 'src/app/core/services/sidebar/sidebar.service';
 import { CommunicationService } from 'src/app/core/services/tabview/communication.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { ValuesService } from 'src/app/core/services/values/values.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home-page',
@@ -17,7 +18,7 @@ export class HomePageComponent {
     console.log(this.isNavbarOpen);
     this.sidebarService.setIsOpen(this.isNavbarOpen);
   }
-  constructor(private userService: UserService, private valuesService: ValuesService, private sidebarService: SidebarService) {}
+  constructor(private userService: UserService, private valuesService: ValuesService, private sidebarService: SidebarService, private router: Router) { }
 
   ngOnInit(): void {
     this.sidebarService.getIsOpen().subscribe((isOpen) => {
@@ -26,9 +27,13 @@ export class HomePageComponent {
     //Guardamos el company id en el local storage
     this.userService.getUserById().subscribe({
       next: (data) => {
-        localStorage.setItem('companyId', data.data!.companyIds[0].toString()); //TODO: Change this to get the company id selected by the user
-        this.valuesService.setUser(data.data!);
-        console.log(localStorage.getItem('companyId'));
+        if (data.data!.companyIds.length > 0) {
+          localStorage.setItem('companyId', data.data!.companyIds[0].toString()); //TODO: Change this to get the company id selected by the user
+          this.valuesService.setUser(data.data!);
+          console.log(localStorage.getItem('companyId'));
+        } else {
+          this.router.navigate(['/start']);
+        }
       },
       error: (error) => {
         console.log(error);
