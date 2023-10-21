@@ -1,12 +1,37 @@
 <div class="form">
-    <div class="form_header">
-        <h2 class="form_title">Registre su empresa</h2>
+    <div class="flex card-container overflow-hidden">
+        <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0">
+            <i class="pi pi-building" style="color: var(--color-green); font-size: 2.5rem; z-index: 2 !important;"></i>
+            <p class="text-2xl md:text-3xl" style="z-index:2;">&nbsp;&nbsp;&nbsp;Registre su empresa</p>
+        </div>
     </div>
     <div class="bar">
-        <img src="/assets/Logo.png" width="100px" class="logo" alt="logo">
+        <div class="w-11rem h-11rem pl-4">
+            <img src="/assets/Logo.png" class="logo" alt="logo">
+            <!-- <div class="custom-file-upload">
+            <input type="file" id="fileInput" (change)="onFileSelected2($event)" accept="image/*" />   
+                <label for="fileInput">
+                    <span class="custom-button">
+                        <i class="pi pi-pencil" style="color: white;"></i>
+                    </span>
+                </label>
+            </div> -->
+        </div>
         <h3 class="bar_text">Registre la información de su empresa:</h3>
     </div>
     <div class="form">
-
+        <div class="grid h-40rem">
+            <div class="col-12 md:col-6">
+                <div class="card p-fluid pr-8 pl-4">
+                    <p-dropdown [options]="types" [(ngModel)]="selectedType" optionLabel="name"></p-dropdown>
+                    <div class="field pr-8"><label htmlfor="name1">Nombre:</label><input class="p-inputtext p-component p-element h-2rem w-28rem"></div>
+                    <div class="field pr-8"><label htmlfor="name1">Denominación social:</label><input class="p-inputtext p-component p-element h-2rem w-28rem"></div>
+                    <div class="field pr-8"><label htmlfor="name1">No de identificación fiscal:</label><input class="p-inputtext p-component p-element h-2rem w-28rem"></div>
+                    <div class="field pr-8"><label htmlfor="name1">Dirección:</label><input class="p-inputtext p-component p-element h-2rem w-28rem"></div>
+                    <div class="field pr-8"><label htmlfor="name1">No de teléfono:</label><input class="p-inputtext p-component p-element h-2rem w-28rem"></div>
+                    <div class="field pr-8"><label htmlfor="name1">Sector:</label><input class="p-inputtext p-component p-element h-2rem w-28rem"></div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
