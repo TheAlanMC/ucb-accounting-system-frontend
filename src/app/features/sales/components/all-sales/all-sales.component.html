@@ -1,9 +1,10 @@
-
 <div class="flex justify-content-between">
     <div class="flex flex-row flex-wrap mb-3">
         <div class="flex flex-column justify-content-start mr-2">
             <p>Fecha</p>
-            <p-calendar class="datepicker" (onSelect)="filterByDate($event)" (onClearClick)=filterByDate(null) [showButtonBar]="true" [showIcon]="true" dateFormat="dd/mm/yy" inputId="icon" placeholder="Seleccione una fecha" [readonlyInput]="true" dateFormat="yy-mm-dd"></p-calendar>
+            <p-calendar class="datepicker" (onSelect)="filterByDate($event)" (onClearClick)=filterByDate(null)
+                [showButtonBar]="true" [showIcon]="true" dateFormat="dd/mm/yy" inputId="icon"
+                placeholder="Seleccione una fecha" [readonlyInput]="true" dateFormat="yy-mm-dd"></p-calendar>
         </div>
         <div class="flex flex-column justify-content-start mx-2">
             <p>Tipo</p>
@@ -14,8 +15,9 @@
         </div>
         <div class="flex flex-column justify-content-start mr-2">
             <p>Cliente</p>
-            <p-multiSelect id="customer" placeholder="Seleccione un cliente" [style]="{'width':'250px'}" [options]="customers" (onChange)= "filterByCustomer($event.value)" optionLabel="name" optionValue="name">
-                    <ng-template let-option pTemplate="item">
+            <p-multiSelect id="customer" placeholder="Seleccione un cliente" [style]="{'width':'250px'}"
+                [options]="customers" (onChange)="filterByCustomer($event.value)" optionLabel="name" optionValue="name">
+                <ng-template let-option pTemplate="item">
                     <div class="p-multiselect-representative-option">
                         <span class="ml-1">{{option.name}}</span>
                     </div>
@@ -25,13 +27,15 @@
     </div>
     <div class="flex flex-column justify-content-start">
         <div class="flex justify-content-between flex-wrap card-container purple-container my-4">
-                <p-splitButton #ua label="Nueva transacción" icon="pi pi-plus-circle" class="green-button"  [model]="items" (onClick)="ua.onDropdownButtonClick()"></p-splitButton>
+            <p-splitButton #ua label="Nueva transacción" icon="pi pi-plus-circle" class="green-button" [model]="items"
+                (onClick)="ua.onDropdownButtonClick()"></p-splitButton>
 
         </div>
     </div>
 </div>
 <br>
-<p-table #dt2 [value]="sales" [(selection)]="selectedSales" dataKey="code" [tableStyle]="{'min-width': '50rem'}" [lazy]="true" (onSort)="onSortChange($event)" [customSort]="true">
+<p-table #dt2 [value]="sales" [(selection)]="selectedSales" dataKey="code" [tableStyle]="{'min-width': '50rem'}"
+    [lazy]="true" (onSort)="onSortChange($event)" [customSort]="true">
     <ng-template pTemplate="header">
         <tr>
             <th style="width: 4rem">
@@ -41,9 +45,11 @@
             <th pSortableColumn="transactionTypeName">Tipo <p-sortIcon field="transactionTypeName"></p-sortIcon></th>
             <th pSortableColumn="saleTransactionNumber">Nº <p-sortIcon field="saleTransactionNumber"></p-sortIcon></th>
             <th pSortableColumn="displayName">Cliente <p-sortIcon field="displayName"></p-sortIcon></th>
-            <th pSortableColumn="gloss">Descripción <p-sortIcon field="gloss" style="font-size: 1rem;"></p-sortIcon></th>
+            <th pSortableColumn="gloss">Descripción <p-sortIcon field="gloss" style="font-size: 1rem;"></p-sortIcon>
+            </th>
             <th>Importe</th>
-            <th style="width:10%" pSortableColumn="saleTransactionAccepted">Estado <p-sortIcon field="saleTransactionAccepted"></p-sortIcon></th>
+            <th style="width:10%" pSortableColumn="saleTransactionAccepted">Estado <p-sortIcon
+                    field="saleTransactionAccepted"></p-sortIcon></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-sale>
@@ -57,9 +63,11 @@
             <td>{{sale.customer.displayName}}</td>
             <td>{{sale.gloss}}</td>
             <td>{{sale.totalAmountBs | currency: 'Bs. '}}</td>
-            <td><p-tag [style]="sale.saleTransactionAccepted ? { 'background': '#55d0bd85' , 'color':'#1f7f7c'}: { 'background': '#eee55885' , 'color':'#938d3c'}" [value]="sale.saleTransactionAccepted ? 'ACEPTADO' : 'EN REVISIÓN'"></p-tag></td>
+            <td><p-tag
+                    [style]="sale.saleTransactionAccepted ? { 'background': '#55d0bd85' , 'color':'#1f7f7c'}: { 'background': '#eee55885' , 'color':'#938d3c'}"
+                    [value]="sale.saleTransactionAccepted ? 'ACEPTADO' : 'EN REVISIÓN'"></p-tag></td>
         </tr>
     </ng-template>
 </p-table>
-<p-paginator (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements" [rowsPerPageOptions]="[10, 25, 50, 100] "></p-paginator>
-
+<p-paginator (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements"
+    [rowsPerPageOptions]="[10, 25, 50, 100]" id="paginator"></p-paginator>

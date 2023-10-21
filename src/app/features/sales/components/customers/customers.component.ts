@@ -116,8 +116,11 @@ export class CustomersComponent {
       next: (data) => {
         console.log(data);
         this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Cliente creado correctamente' });
-        this.addCustomerVisible = false;
-        this.getAllCustomers();
+        //Esperar 1 segundo para que se cierre el modal
+        setTimeout(() => {
+          this.addCustomerVisible = false;
+          this.getAllCustomers();
+        }, 1000);
       },
       error: (error) => {
         console.log(error);
@@ -167,8 +170,11 @@ export class CustomersComponent {
       next: (data) => {
         console.log(data);
         this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Cliente actualizado correctamente' });
-        this.getAllCustomers();
-        this.addCustomerVisible = false;
+        //Esperar 1 segundo para que se cierre el modal
+        setTimeout(() => {
+          this.addCustomerVisible = false;
+          this.getAllCustomers();
+        }, 1000);
       },
       error: (error) => {
         console.log(error);

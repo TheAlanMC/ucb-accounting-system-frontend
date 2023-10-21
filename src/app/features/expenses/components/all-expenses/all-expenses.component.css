@@ -80,3 +80,10 @@
 ::ng-deep.p-tieredmenu-root-list{
   font-size: small;
 }
+
+/* Paginator */
+::ng-deep #paginator .p-dropdown-label{
+  width: 100%;
+  font-size: small;
+  padding: 0.5rem;
+}

@@ -11,6 +11,7 @@ import {ExpensesService} from "../../../../core/services/expenses.service";
 import {forkJoin} from "rxjs";
 import {format} from "date-fns";
 import { PaymentTypeService } from 'src/app/core/services/payment-type.service';
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-invoice-page',
@@ -55,7 +56,7 @@ export class InvoicePageComponent {
   }
 
 
-  constructor( private messageService: MessageService,private supplierService: SupplierService, private filesService: FilesService, private expensesService: ExpensesService, private paymentTypeService: PaymentTypeService){}
+  constructor( private location: Location, private messageService: MessageService,private supplierService: SupplierService, private filesService: FilesService, private expensesService: ExpensesService, private paymentTypeService: PaymentTypeService){}
 
   ngOnInit(): void{
     this.getAllSuppliers()
@@ -170,6 +171,11 @@ export class InvoicePageComponent {
         //console.log(data);
         //console.log("Se creoo");
         this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Factura guardada correctamente' });
+        //Esperamos 1 segundo para que se muestre el mensaje
+        setTimeout(() => {
+          //Redireccionamos
+          this.goBack()
+        }, 1000);
       },
       error: (error) => {
         // console.log(error);
@@ -209,6 +215,10 @@ export class InvoicePageComponent {
         console.log(error);
       }
     })
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }
 

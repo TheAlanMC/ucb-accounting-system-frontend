@@ -17,6 +17,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { SharedModule } from 'src/app/shared/shared.module';
 import {TreeTableModule} from "primeng/treetable";
 
+
 @NgModule({
   declarations: [
     JournalEntryPageComponent,

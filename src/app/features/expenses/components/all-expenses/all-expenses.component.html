@@ -1,20 +1,22 @@
-
 <div class="flex justify-content-between">
   <div class="flex flex-row flex-wrap mb-3">
     <div class="flex flex-column justify-content-start mr-2">
       <p>Fecha</p>
-      <p-calendar class="datepicker" (onSelect)="filterByDate($event)" (onClearClick)=filterByDate(null) [showButtonBar]="true" [showIcon]="true" dateFormat="dd/mm/yy" inputId="icon" placeholder="Seleccione una fecha" [readonlyInput]="true" dateFormat="yy-mm-dd"></p-calendar>
+      <p-calendar class="datepicker" (onSelect)="filterByDate($event)" (onClearClick)=filterByDate(null)
+        [showButtonBar]="true" [showIcon]="true" dateFormat="dd/mm/yy" inputId="icon" placeholder="Seleccione una fecha"
+        [readonlyInput]="true" dateFormat="yy-mm-dd"></p-calendar>
     </div>
     <div class="flex flex-column justify-content-start mx-2">
       <p>Tipo</p>
       <p-dropdown id="document-type" optionLabel="name" optionValue="name" [options]="types"
-                  placeholder="Seleccione un tipo de documento" appendTo="body" [style]="{'width':'250px'}"
-                  [required]="true" (onChange)="filterByTransactionType($event.value)">
+        placeholder="Seleccione un tipo de documento" appendTo="body" [style]="{'width':'250px'}" [required]="true"
+        (onChange)="filterByTransactionType($event.value)">
       </p-dropdown>
     </div>
     <div class="flex flex-column justify-content-start mr-2">
       <p>Proveedor</p>
-      <p-multiSelect id="supplier" placeholder="Seleccione un proveedor" [style]="{'width':'250px'}" [options]="suppliers" (onChange)= "filterBySupplier($event.value)"  optionLabel="name" optionValue="name">
+      <p-multiSelect id="supplier" placeholder="Seleccione un proveedor" [style]="{'width':'250px'}"
+        [options]="suppliers" (onChange)="filterBySupplier($event.value)" optionLabel="name" optionValue="name">
         <ng-template let-option pTemplate="item">
           <div class="p-multiselect-representative-option">
             <span class="ml-1">{{option.name}}</span>
@@ -25,13 +27,15 @@
   </div>
   <div class="flex flex-column justify-content-start">
     <div class="flex justify-content-between flex-wrap card-container purple-container my-4">
-      <p-splitButton #ua label="Nueva transacción" icon="pi pi-plus-circle" class="green-button"  [model]="items" (onClick)="ua.onDropdownButtonClick()"></p-splitButton>
+      <p-splitButton #ua label="Nueva transacción" icon="pi pi-plus-circle" class="green-button" [model]="items"
+        (onClick)="ua.onDropdownButtonClick()"></p-splitButton>
 
     </div>
   </div>
 </div>
 <br>
-<p-table [value]="expenses" [(selection)]="selectedExpenses" dataKey="code" [tableStyle]="{'min-width': '50rem'}" [lazy]="true" (onSort)="onSortChange($event)" [customSort]="true">
+<p-table [value]="expenses" [(selection)]="selectedExpenses" dataKey="code" [tableStyle]="{'min-width': '50rem'}"
+  [lazy]="true" (onSort)="onSortChange($event)" [customSort]="true">
   <ng-template pTemplate="header">
     <tr>
       <th style="width: 4rem">
@@ -43,7 +47,8 @@
       <th pSortableColumn="displayName">Proveedor <p-sortIcon field="displayName"></p-sortIcon></th>
       <th pSortableColumn="gloss">Descripción <p-sortIcon field="gloss" style="font-size: 1rem;"></p-sortIcon></th>
       <th>Importe </th>
-      <th style="width:10%" pSortableColumn="expenseTransactionAccepted">Estado <p-sortIcon field="expenseTransactionAccepted"></p-sortIcon></th>
+      <th style="width:10%" pSortableColumn="expenseTransactionAccepted">Estado <p-sortIcon
+          field="expenseTransactionAccepted"></p-sortIcon></th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-expense>
@@ -57,8 +62,11 @@
       <td>{{expense.supplier.displayName}}</td>
       <td>{{expense.gloss}}</td>
       <td>{{expense.totalAmountBs | currency: 'Bs. '}}</td>
-      <td><p-tag [style]="expense.expenseTransactionAccepted ? { 'background': '#55d0bd85' , 'color':'#1f7f7c'}: { 'background': '#eee55885' , 'color':'#938d3c'}" [value]="expense.expenseTransactionAccepted ? 'ACEPTADO' : 'EN REVISIÓN'"></p-tag></td>
+      <td><p-tag
+          [style]="expense.expenseTransactionAccepted ? { 'background': '#55d0bd85' , 'color':'#1f7f7c'}: { 'background': '#eee55885' , 'color':'#938d3c'}"
+          [value]="expense.expenseTransactionAccepted ? 'ACEPTADO' : 'EN REVISIÓN'"></p-tag></td>
     </tr>
   </ng-template>
 </p-table>
-<p-paginator (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements" [rowsPerPageOptions]="[10, 25, 50, 100] "></p-paginator>
+<p-paginator id="paginator" (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements"
+  [rowsPerPageOptions]="[10, 25, 50, 100] "></p-paginator>

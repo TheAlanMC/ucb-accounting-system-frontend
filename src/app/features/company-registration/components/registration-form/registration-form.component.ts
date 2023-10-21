@@ -33,9 +33,9 @@ export class RegistrationFormComponent implements OnInit {
     constructor(private router: Router, private companyService: CompanyService, private messageService: MessageService, private route: Router) { }
 
   ngOnInit() {
-      if (this.companyId > 0) {
-          this.router.navigate(['/home']);
-      }
+      // if (this.companyId > 0) {
+      //     this.router.navigate(['/home']);
+      // }
       this.companyService.getBusinessEntities().subscribe({
           next: (data) => {
               if (data.data != null) {
