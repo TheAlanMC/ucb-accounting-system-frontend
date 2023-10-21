@@ -38,9 +38,9 @@
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
             </th>
             <th pSortableColumn="saleTransactionDate">Fecha <p-sortIcon field="saleTransactionDate"></p-sortIcon></th>
-            <th pSortableColumn="transactionType.transactionTypeName">Tipo <p-sortIcon field="transactionType.transactionTypeName"></p-sortIcon></th>
+            <th pSortableColumn="transactionTypeName">Tipo <p-sortIcon field="transactionTypeName"></p-sortIcon></th>
             <th pSortableColumn="saleTransactionNumber">Nº <p-sortIcon field="saleTransactionNumber"></p-sortIcon></th>
-            <th pSortableColumn="customer.displayName">Cliente <p-sortIcon field="customer.displayName"></p-sortIcon></th>
+            <th pSortableColumn="displayName">Cliente <p-sortIcon field="displayName"></p-sortIcon></th>
             <th pSortableColumn="gloss">Descripción <p-sortIcon field="gloss" style="font-size: 1rem;"></p-sortIcon></th>
             <th>Importe</th>
             <th style="width:10%" pSortableColumn="saleTransactionAccepted">Estado <p-sortIcon field="saleTransactionAccepted"></p-sortIcon></th>
@@ -61,5 +61,5 @@
         </tr>
     </ng-template>
 </p-table>
-<p-paginator (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements" [rowsPerPageOptions]="[10, 20, 30] "></p-paginator>
+<p-paginator (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements" [rowsPerPageOptions]="[10, 25, 50, 100] "></p-paginator>
 

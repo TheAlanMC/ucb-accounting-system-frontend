@@ -31,16 +31,16 @@
   </div>
 </div>
 <br>
-<p-table #dt2 [value]="expenses" [(selection)]="selectedExpenses" dataKey="code" [tableStyle]="{'min-width': '50rem'}" [lazy]="true" (onSort)="onSortChange($event)" [customSort]="true">
+<p-table [value]="expenses" [(selection)]="selectedExpenses" dataKey="code" [tableStyle]="{'min-width': '50rem'}" [lazy]="true" (onSort)="onSortChange($event)" [customSort]="true">
   <ng-template pTemplate="header">
     <tr>
       <th style="width: 4rem">
         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
       </th>
       <th pSortableColumn="expenseTransactionDate">Fecha <p-sortIcon field="expenseTransactionDate"></p-sortIcon></th>
-      <th pSortableColumn="transactionType.transactionTypeName">Tipo <p-sortIcon field="transactionType.transactionTypeName"></p-sortIcon></th>
+      <th pSortableColumn="transactionTypeName">Tipo <p-sortIcon field="transactionTypeName"></p-sortIcon></th>
       <th pSortableColumn="expenseTransactionNumber">Nº <p-sortIcon field="expenseTransactionNumber"></p-sortIcon></th>
-      <th pSortableColumn="supplier.displayName">Proveedor <p-sortIcon field="supplier.displayName"></p-sortIcon></th>
+      <th pSortableColumn="displayName">Proveedor <p-sortIcon field="displayName"></p-sortIcon></th>
       <th pSortableColumn="gloss">Descripción <p-sortIcon field="gloss" style="font-size: 1rem;"></p-sortIcon></th>
       <th>Importe </th>
       <th style="width:10%" pSortableColumn="expenseTransactionAccepted">Estado <p-sortIcon field="expenseTransactionAccepted"></p-sortIcon></th>
@@ -61,4 +61,4 @@
     </tr>
   </ng-template>
 </p-table>
-<p-paginator (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements" [rowsPerPageOptions]="[10, 20, 30] "></p-paginator>
+<p-paginator (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements" [rowsPerPageOptions]="[10, 25, 50, 100] "></p-paginator>

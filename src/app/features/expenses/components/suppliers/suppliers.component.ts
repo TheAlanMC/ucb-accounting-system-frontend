@@ -3,6 +3,7 @@ import {MessageService} from "primeng/api";
 import {SupplierService} from "../../../../core/services/supplier.service";
 import {SupplierAbstractDto} from "../../models/supplier-abstract.dto";
 import {SupplierDto} from "../../models/supplier.dto";
+import {debounceTime, Subject} from "rxjs";
 
 @Component({
   selector: 'app-suppliers',
@@ -40,8 +41,16 @@ export class SuppliersComponent {
   size: number = 10;
   totalElements: number = 0;
 
+  searchTerm: string = '';
+
+  private searchSubject = new Subject<string>();
+
   ngOnInit(): void {
     this.getAllSuppliers();
+    this.searchSubject.pipe(debounceTime(500)).subscribe(() => {
+      // When the user has stopped typing for 500 milliseconds, trigger the getAllTransactions method
+      this.getAllSuppliers();
+    });
   }
 
   onPageChange(event: any) {
@@ -58,7 +67,7 @@ export class SuppliersComponent {
   }
 
   getAllSuppliers(){
-    this.supplierService.getAllSuppliers(this.companyId, this.sortBy, this.sortType,this.page, this.size ).subscribe({
+    this.supplierService.getAllSuppliers(this.companyId, this.sortBy, this.sortType,this.page, this.size, this.searchTerm ).subscribe({
       next: (data) => {
         this.suppliers = data.data!;
         // console.log(data);
@@ -178,6 +187,11 @@ export class SuppliersComponent {
   applyFilterGlobal(event: Event, stringVal: string) {
     const inputValue = (event.target as HTMLInputElement).value;
     this.dt.filterGlobal(inputValue, stringVal);
+  }
+
+  onSearch(event: any) {
+    this.searchTerm = event.target.value;
+    this.searchSubject.next(this.searchTerm);
   }
 
 

@@ -17,7 +17,7 @@
         <div class="flex flex-column justify-content-start">
             <span class="p-input-icon-left">
                 <i class="pi pi-search"></i>
-                <input type="text" pInputText [(ngModel)]="searchValue" />
+                <input type="text" pInputText placeholder="Buscar" class="input w-full" [(ngModel)]="searchTerm" (input)="onSearch($event)">
             </span>
         </div>
         <div class="flex flex-column justify-content-start">
@@ -31,9 +31,9 @@
         <p-table [value]="users" [lazy]="true" (onSort)="onSortChange($event)" [customSort]="true">"
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="width:20%">Nombre </th>
-                    <th style="width:20%">Apellido </th>
-                    <th style="width:20%">Correo</th>
+                    <th pSortableColumn="kcUser.firstName" style="width:20%">Nombre <p-sortIcon field="firstName"></p-sortIcon></th>
+                    <th pSortableColumn="kcUser.lastName" style="width:20%">Apellido <p-sortIcon field="lastName"></p-sortIcon></th>
+                    <th pSortableColumn="kcUser.email" style="width:20%">Correo electrónico <p-sortIcon field="email"></p-sortIcon></th>
                     <th pSortableColumn="kcGroup.groupName" style="width:20%">Grupo <p-sortIcon field="kcGroup.groupName"></p-sortIcon> </th>
                     <th pSortableColumn="kcUser.txDate" style="width:20%">Fecha de creacion <p-sortIcon field="txDate"></p-sortIcon></th>
                 </tr>
@@ -48,7 +48,7 @@
                 </tr>
             </ng-template>
         </p-table>
-        <p-paginator (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements" [rowsPerPageOptions]="[10, 20, 30] "></p-paginator>
+        <p-paginator (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements" [rowsPerPageOptions]="[10, 25, 50, 100] "></p-paginator>
     </div>
 </div>
 <hr style="margin-top: -15px;">

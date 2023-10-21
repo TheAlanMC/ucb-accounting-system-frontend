@@ -3,6 +3,7 @@ import { SidebarService } from 'src/app/core/services/sidebar/sidebar.service';
 import {TransactionDto} from "../../models/transaction.dto";
 import {JournalEntryService} from "../../../../core/services/journal-entry.service";
 import {Router} from "@angular/router";
+import {debounceTime, Subject} from "rxjs";
 
 @Component({
   selector: 'app-list-journalentries-generated',
@@ -19,6 +20,8 @@ export class JournalEntriesListComponent implements OnInit {
   loading: boolean = true;
   activityValues: number[] = [0, 100];
   isNavbarOpen : boolean = false;
+  searchTerm: string = '';
+
 
   // Pagination variables
   sortBy: string = 'journalEntryId';
@@ -27,6 +30,7 @@ export class JournalEntriesListComponent implements OnInit {
   size: number = 10;
   totalElements: number = 0;
 
+  private searchSubject = new Subject<string>();
   onNavbarToggle(isOpen: boolean) {
     this.isNavbarOpen = isOpen;
     this.sidebarService.setIsOpen(this.isNavbarOpen);
@@ -41,7 +45,11 @@ export class JournalEntriesListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllTransactions();
+    this.getAllTransactions()
+    this.searchSubject.pipe(debounceTime(500)).subscribe(() => {
+      // When the user has stopped typing for 500 milliseconds, trigger the getAllTransactions method
+      this.getAllTransactions();
+    });
   }
 
   getSeverity(status: boolean) {
@@ -65,7 +73,7 @@ export class JournalEntriesListComponent implements OnInit {
   }
 
   getAllTransactions(){
-    this.journalEntryService.getAllTransactions(this.companyId, this.sortBy, this.sortType,this.page, this.size ).subscribe({
+    this.journalEntryService.getAllTransactions(this.companyId, this.sortBy, this.sortType,this.page, this.size, this.searchTerm ).subscribe({
       next: (data) => {
         this.transactions = data.data!;
         // console.log(data);
@@ -80,5 +88,10 @@ export class JournalEntriesListComponent implements OnInit {
   onViewDetail(journalEntryId: number){
   //   router
     this.router.navigate([`/transactions/${journalEntryId}`]);
+  }
+
+  onSearch(event: any) {
+    this.searchTerm = event.target.value;
+    this.searchSubject.next(this.searchTerm);
   }
 }

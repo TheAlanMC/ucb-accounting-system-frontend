@@ -12,14 +12,15 @@
 </div>
 
 <div class="col-12 xl:col-12 px-8 py-3">
-    <p-table #dt1 [value]="transactions" [tableStyle]="{'min-width': '60rem'}" dataKey="id"
+    <p-table [value]="transactions" [tableStyle]="{'min-width': '60rem'}"
              [lazy]="true" (onSort)="onSortChange($event)" [customSort]="true">
 
         <ng-template pTemplate="caption">
             <div class="flex">
                 <span class="p-input-icon-left ml-auto">
-                    <span class="p-input-icon-left ml-auto"><i class="pi pi-search"></i><input pinputtext="" type="text" (input)="dt1.filterGlobal(getEventValue($event), 'contains')"
-                        placeholder="Buscar..." class="p-inputtext p-component p-element"></span>
+                    <span class="p-input-icon-left ml-auto"><i class="pi pi-search"></i>
+                      <input pInputText="" type="text" [(ngModel)]="searchTerm" (input)="onSearch($event)"
+                             placeholder="Buscar..." class="p-inputtext p-component p-element"></span>
                 </span>
             </div>
         </ng-template>
@@ -27,21 +28,21 @@
         <ng-template pTemplate="header">
             <tr>
 
-                <th>Cliente/Proveedor</th>
-                <th>Estado</th>
-                <th>Tipo de Documento</th>
-                <th>Tipo de Transaccion</th>
+                <th pSortableColumn="displayName">Cliente/Proveedor <p-sortIcon field="displayName"></p-sortIcon></th>
+                <th pSortableColumn="journalEntryAccepted">Estado <p-sortIcon field="journalEntryAccepted"></p-sortIcon></th>
+                <th pSortableColumn="documentTypeName">Tipo de Documento <p-sortIcon field="documentType.documentTypeName"></p-sortIcon></th>
+                <th pSortableColumn="transactionTypeName">Tipo de Transaccion <p-sortIcon field="transactionType.transactionTypeName"></p-sortIcon></th>
                 <th>Importe Total</th>
-                <th>Fecha de Creacion</th>
-                <th>Nota</th>
+                <th pSortableColumn="creationDate">Fecha de Creación <p-sortIcon field="creationDate"></p-sortIcon></th>
+                <th pSortableColumn="description">Nota <p-sortIcon field="description"></p-sortIcon></th>
                 <th>Ver Detalle</th>
             </tr>
         </ng-template>
 
         <ng-template pTemplate="body" let-transaction>
             <tr>
-                <td>{{transaction.client.displayName}}</td>
-              <td><p-tag [style]="transaction.transactionAccepted ? { 'background': '#55d0bd85' , 'color':'#1f7f7c'}: { 'background': '#eee55885' , 'color':'#938d3c'}" [value]="transaction.transactionAccepted ? 'ACEPTADO' : 'EN REVISIÓN'"></p-tag></td>
+                <td >{{transaction.client.displayName}}</td>
+                <td ><p-tag [style]="transaction.transactionAccepted ? { 'background': '#55d0bd85' , 'color':'#1f7f7c'}: { 'background': '#eee55885' , 'color':'#938d3c'}" [value]="transaction.transactionAccepted ? 'ACEPTADO' : 'EN REVISIÓN'"></p-tag></td>
                 <td>{{transaction.documentType.documentTypeName}}</td>
                 <td>{{transaction.transactionType.transactionTypeName}}</td>
                 <td>{{transaction.totalAmountBs | currency:'Bs. '}}</td>
@@ -55,7 +56,7 @@
             </tr>
         </ng-template>
     </p-table>
-  <p-paginator (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements" [rowsPerPageOptions]="[10, 20, 30] "></p-paginator>
+  <p-paginator (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements" [rowsPerPageOptions]="[10, 25, 50, 100] "></p-paginator>
 
 </div>
 </div>

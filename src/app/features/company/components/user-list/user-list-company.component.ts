@@ -5,6 +5,7 @@ import { SidebarService } from 'src/app/core/services/sidebar/sidebar.service';
 import { KeycloakService } from 'keycloak-angular';
 import { MessageService } from 'primeng/api';
 import { NewUserDto } from 'src/app/features/user-accounts/models/new-user.dto';
+import {debounceTime, Subject} from "rxjs";
 
 
 
@@ -34,8 +35,13 @@ export class UserListCompanyComponent implements OnInit{
     size: number = 10;
     totalElements: number = 0;
 
+    searchTerm: string = '';
 
-    constructor(private userService: UserService, private sidebarService: SidebarService, private keycloakService: KeycloakService, private messageService: MessageService) { }
+  private searchSubject = new Subject<string>();
+
+
+
+  constructor(private userService: UserService, private sidebarService: SidebarService, private keycloakService: KeycloakService, private messageService: MessageService) { }
 
     onNavbarToggle(isOpen: boolean) {
       this.isNavbarOpen = isOpen;
@@ -52,6 +58,11 @@ export class UserListCompanyComponent implements OnInit{
       });
       this.getData();
       this.determineRole();
+
+      this.searchSubject.pipe(debounceTime(500)).subscribe(() => {
+        // When the user has stopped typing for 500 milliseconds, trigger the getAllTransactions method
+        this.getData()
+      });
 
     }
 
@@ -145,10 +156,15 @@ export class UserListCompanyComponent implements OnInit{
   }
 
   getData() {
-    this.userService.findAllUsersByCompanyId(this.companyId, this.sortBy, this.sortType,this.page, this.size ).subscribe((users) => {
+    this.userService.findAllUsersByCompanyId(this.companyId, this.sortBy, this.sortType,this.page, this.size, this.searchTerm ).subscribe((users) => {
       this.users = users.data!;
       this.totalElements = users.totalElements!;
     });
+  }
+
+  onSearch(event: any) {
+      this.searchTerm = event.target.value;
+      this.searchSubject.next(this.searchTerm);
   }
 
 }

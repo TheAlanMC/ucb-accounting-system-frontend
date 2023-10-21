@@ -3,7 +3,7 @@
     <div class="flex flex-column justify-content-start">
         <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
-            <input type="text" (input)="applyFilterGlobal($event, 'contains')" pInputText [(ngModel)]="searchValue" />
+                <input type="text" pInputText placeholder="Buscar" class="input w-full" [(ngModel)]="searchTerm" (input)="onSearch($event)">
         </span>
     </div>
     <div class="flex flex-column justify-content-start">
@@ -45,7 +45,7 @@
         </tr>
     </ng-template>
 </p-table>
-<p-paginator (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements" [rowsPerPageOptions]="[10, 20, 30] "></p-paginator>
+<p-paginator (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements" [rowsPerPageOptions]="[10, 25, 50, 100] "></p-paginator>
 
 <p-sidebar [(visible)]="addCustomerVisible" position="right" styleClass="w-4" [modal]="false" >
     <p-toast [style]="{'z-index':'3000'}"></p-toast>

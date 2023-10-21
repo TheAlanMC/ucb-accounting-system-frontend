@@ -31,8 +31,8 @@ export class JournalEntryService {
   }
 
   // Get all journal entries (transactions) by company id
-  public getAllTransactions(companyId: number, sortBy: string, sortType: string, page: number, size: number): Observable<ResponseDto<TransactionDto[]>>{
-    return this.http.get<ResponseDto<TransactionDto[]>>(`${this.baseUrl}/companies/${companyId}/transactions?sortBy=${sortBy}&sortType=${sortType}&page=${page}&size=${size}`);
+  public getAllTransactions(companyId: number, sortBy: string, sortType: string, page: number, size: number, keyword: string): Observable<ResponseDto<TransactionDto[]>>{
+    return this.http.get<ResponseDto<TransactionDto[]>>(`${this.baseUrl}/companies/${companyId}/transactions?sortBy=${sortBy}&sortType=${sortType}&page=${page}&size=${size}&keyword=${keyword}`);
   }
 
   // Accept a journal entry

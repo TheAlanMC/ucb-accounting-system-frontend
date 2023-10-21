@@ -3,6 +3,7 @@ import { CustomerService } from 'src/app/core/services/customer.service';
 import { CustomerAbstractDto } from '../../models/customer.-abstract.dto';
 import { CustomerDto } from '../../models/customer.dto';
 import { MessageService } from 'primeng/api';
+import {debounceTime, Subject} from "rxjs";
 
 @Component({
   selector: 'app-customers',
@@ -40,8 +41,17 @@ export class CustomersComponent {
   size: number = 10;
   totalElements: number = 0;
 
+  searchTerm: string = '';
+
+  private searchSubject = new Subject<string>();
+
+
   ngOnInit(): void {
     this.getAllCustomers();
+    this.searchSubject.pipe(debounceTime(500)).subscribe(() => {
+      // When the user has stopped typing for 500 milliseconds, trigger the getAllTransactions method
+      this.getAllCustomers()
+    });
   }
 
   onPageChange(event: any) {
@@ -58,7 +68,7 @@ export class CustomersComponent {
   }
 
   getAllCustomers(){
-    this.customerService.getAllCustomers(this.companyId, this.sortBy, this.sortType,this.page, this.size ).subscribe({
+    this.customerService.getAllCustomers(this.companyId, this.sortBy, this.sortType,this.page, this.size, this.searchTerm ).subscribe({
       next: (data) => {
         this.customers = data.data!;
         // console.log(data);
@@ -180,5 +190,9 @@ export class CustomersComponent {
       this.dt.filterGlobal(inputValue, stringVal);
     }
 
+    onSearch(event: any) {
+      this.searchTerm = event.target.value;
+      this.searchSubject.next(this.searchTerm);
+    }
 
 }

@@ -33,8 +33,8 @@ export class UserService {
   }
 
   //Find all users by company id
-  public findAllUsersByCompanyId(companyId: number, sortBy: string, sortType: string, page: number, size: number): Observable<ResponseDto<UserAbstractDto[]>>{
-    return this.http.get<ResponseDto<UserAbstractDto[]>>(`${this.baseUrl}/companies/${companyId}?sortBy=${sortBy}&sortType=${sortType}&page=${page}&size=${size}`);
+  public findAllUsersByCompanyId(companyId: number, sortBy: string, sortType: string, page: number, size: number, keyword: string): Observable<ResponseDto<UserAbstractDto[]>>{
+    return this.http.get<ResponseDto<UserAbstractDto[]>>(`${this.baseUrl}/companies/${companyId}?sortBy=${sortBy}&sortType=${sortType}&page=${page}&size=${size}&keyword=${keyword}`);
   }
 
   //==========================Create users=============================
