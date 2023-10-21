@@ -1,12 +1,12 @@
 <div class="form">
     <div class="flex card-container overflow-hidden">
-        <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0">
+        <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0 ml--2">
             <i class="pi pi-building" style="color: var(--color-green); font-size: 2.5rem; z-index: 2 !important;"></i>
             <p class="text-2xl md:text-3xl" style="z-index:2;">&nbsp;&nbsp;&nbsp;Registre su empresa</p>
         </div>
     </div>
     <div class="bar">
-        <div class="w-11rem h-11rem pl-4">
+        <div class="w-11rem h-11rem pl-4" id="logo-container">
             <img src="/assets/Logo.png" class="logo" alt="logo">
             <!-- <div class="custom-file-upload">
             <input type="file" id="fileInput" (change)="onFileSelected2($event)" accept="image/*" />
@@ -21,22 +21,25 @@
     </div>
     <div class="form">
         <div class="grid h-40rem">
-            <div class="col-12 md:col-6">
+            <div class="col-12">
                 <div class="card p-fluid">
-                    <div class="field pr-8"><label htmlfor="name1" >Nombre:</label><input class="p-inputtext p-component p-element h-2rem w-28rem" [(ngModel)]="companyName"></div>
-                    <div class="field pr-8"><label htmlfor="name1">No. de identificación tributaria:</label><input class="p-inputtext p-component p-element h-2rem w-28rem" [(ngModel)]="companyNit"></div>
-                    <div class="field pr-8"><label htmlfor="name1">Dirección:</label><input class="p-inputtext p-component p-element h-2rem w-28rem" [(ngModel)]="companyAddress"></div>
-                    <div class="field pr-8"><label htmlfor="name1">No de teléfono:</label><input class="p-inputtext p-component p-element h-2rem w-28rem" [(ngModel)]="companyPhoneNumber"></div>
-
-                    <div class="field pr-8"><label htmlfor="name1">Tipo de negocio:</label>
+                    <div class="field px-6 mt-3"><label htmlfor="name1" >Nombre:</label>
+                      <br><input class="p-inputtext p-component p-element h-2rem w-28rem" [(ngModel)]="companyName"></div>
+                    <div class="field px-6"><label htmlfor="name1">No. de identificación tributaria:</label>
+                      <br><input class="p-inputtext p-component p-element h-2rem w-28rem" [(ngModel)]="companyNit"></div>
+                    <div class="field px-6"><label htmlfor="name1">Dirección:</label>
+                      <br><input class="p-inputtext p-component p-element h-2rem w-28rem" [(ngModel)]="companyAddress"></div>
+                    <div class="field px-6"><label htmlfor="name1">No de teléfono:</label>
+                      <br><input class="p-inputtext p-component p-element h-2rem w-28rem" [(ngModel)]="companyPhoneNumber"></div>
+                    <div class="field px-6"><label htmlfor="name1">Tipo de negocio:</label>
                         <p-dropdown [options]="businessEntities" [(ngModel)]="selectedBusinessEntity"
                                     optionLabel="name" placeholder="Seleccione un tipo de negocio" [style]="{'width':'auto'}"></p-dropdown>
                     </div>
-                    <div class="field pr-8"><label htmlfor="name1">Industria:</label>
+                    <div class="field px-6"><label htmlfor="name1">Industria:</label>
                         <p-dropdown [options]="industries" [(ngModel)]="selectedIndustry"
                                     optionLabel="name" placeholder="Seleccione una industria" [style]="{'width':'auto'}"></p-dropdown>
                     </div>
-                    <div class="col-6 mt-8" id="save-buttons">
+                    <div class="mt-5 pr-6 flex justify-content-end" id="save-buttons">
                         <p-button (click)="save()" icon="pi pi-save" label="Guardar empresa"
                                   styleClass="p-button-success"></p-button>
                     </div>
