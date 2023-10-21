@@ -25,7 +25,7 @@
                     <p-cellEditor>
                         <ng-template pTemplate="input">
                             <input class="input-table" type="button" class="mr-2" (click)="selectRow(index)"
-                                pInputText type="text" [(ngModel)]="transaction.nombrecuenta" required readonly />
+                                pInputText type="text" [(ngModel)]="transaction.nombrecuenta" required readonly id="account-input" />
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{ transaction.nombrecuenta }}

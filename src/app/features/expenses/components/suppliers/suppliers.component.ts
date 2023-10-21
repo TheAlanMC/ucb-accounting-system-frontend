@@ -106,8 +106,11 @@ export class SuppliersComponent {
       next: (data) => {
         console.log(data);
         this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Cliente creado correctamente' });
-        this.addSupplierVisible = false;
-        this.getAllSuppliers();
+        //Esperar 1 segundo para que se cierre el modal
+        setTimeout(() => {
+          this.addSupplierVisible = false;
+          this.getAllSuppliers();
+        }, 1000);
       },
       error: (error) => {
         console.log(error);
@@ -157,8 +160,11 @@ export class SuppliersComponent {
       next: (data) => {
         console.log(data);
         this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Cliente actualizado correctamente' });
-        this.getAllSuppliers();
-        this.addSupplierVisible = false;
+        //Esperar 1 segundo para que se cierre el modal
+        setTimeout(() => {
+          this.getAllSuppliers();
+          this.addSupplierVisible = false;
+        }, 1000);
       },
       error: (error) => {
         console.log(error);

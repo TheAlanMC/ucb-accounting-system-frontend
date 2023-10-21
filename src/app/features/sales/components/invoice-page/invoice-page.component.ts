@@ -11,6 +11,7 @@ import { InvoiceDto } from '../../models/invoice.dto';
 import { format } from 'date-fns';
 import { SalesService } from 'src/app/core/services/sales.service';
 import { PaymentTypeService } from 'src/app/core/services/payment-type.service';
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-invoice-page',
@@ -55,7 +56,7 @@ export class InvoicePageComponent {
   }
 
 
-  constructor(private messageService: MessageService, private customerService: CustomerService, private filesService: FilesService, private salesService: SalesService, private paymentTypeService: PaymentTypeService) { }
+  constructor(private messageService: MessageService, private customerService: CustomerService, private filesService: FilesService, private salesService: SalesService, private paymentTypeService: PaymentTypeService, private location: Location) { }
   ngOnInit(): void {
     this.getAllCustomers()
     this.getNextInvoiceNumber()
@@ -169,6 +170,10 @@ export class InvoicePageComponent {
         //console.log(data);
         //console.log("Se creoo");
         this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Factura guardada correctamente' });
+        //Esperar 1 segundo para redireccionar
+        setTimeout(() => {
+          this.goBack();
+        }, 1000);
       },
       error: (error) => {
         // console.log(error);
@@ -209,6 +214,9 @@ export class InvoicePageComponent {
         console.log(error);
       }
     })
+  }
 
+  goBack(): void {
+    this.location.back();
   }
 }

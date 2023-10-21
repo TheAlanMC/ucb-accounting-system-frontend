@@ -19,21 +19,15 @@
     styleClass="p-datatable-sm" [lazy]="true" (onSort)="onSortChange($event)" [customSort]="true">
     <ng-template pTemplate="header">
         <tr>
-            <th style="width: 4rem">
-                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-            </th>
             <th pSortableColumn="displayName">Nombre <p-sortIcon field="displayName"></p-sortIcon></th>
             <th pSortableColumn="companyName">Nombre de la compañia <p-sortIcon field="companyName"></p-sortIcon></th>
             <th pSortableColumn="companyPhoneNumber">Teléfono de la compañia <p-sortIcon field="companyPhoneNumber"></p-sortIcon></th>
             <th pSortableColumn="txDate">Fecha de creación <p-sortIcon field="txDate"></p-sortIcon></th>
-            <th style="width:5%"> </th>
+            <th style="width:5%; height: 50px"> </th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-customer>
         <tr>
-            <td>
-                <p-tableCheckbox [value]="customer"></p-tableCheckbox>
-            </td>
             <td>{{customer.displayName}}</td>
             <td>{{customer.companyName}}</td>
             <td>{{customer.companyPhoneNumber}}</td>
@@ -45,7 +39,7 @@
         </tr>
     </ng-template>
 </p-table>
-<p-paginator (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements" [rowsPerPageOptions]="[10, 20, 30] "></p-paginator>
+<p-paginator id="paginator"  (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements" [rowsPerPageOptions]="[10, 20, 30] "></p-paginator>
 
 <p-sidebar [(visible)]="addCustomerVisible" position="right" styleClass="w-4" [modal]="false" >
     <p-toast [style]="{'z-index':'3000'}"></p-toast>
@@ -65,24 +59,20 @@
         <div class="card">
             <div class="field col-12 md:col-6 p-0">
                 <label for="prefix">Prefijo</label>
-                <input id="prefix" type="text" [(ngModel)]="prefix" pInputText class="input w-full"
-                    (change)="onChange($event)">
+                <input id="prefix" type="text" [(ngModel)]="prefix" pInputText class="input w-full" (change)="onChange($event)">
             </div>
             <div class="formgrid grid">
                 <div class="field col-12 md:col-6">
                     <label for="name">Nombre</label>
-                    <input id="name" pInputText type="text" [(ngModel)]="firstName" class="input w-full" required
-                        (change)="onChange($event)">
+                    <input id="name" pInputText type="text" [(ngModel)]="firstName" class="input w-full" (change)="onChange($event)">
                 </div>
                 <div class="field col-12 md:col-6">
                     <label for="lastname">Apellido</label>
-                    <input id="lastname" type="text" pInputText [(ngModel)]="lastName" class="input w-full" required
-                        (change)="onChange($event)">
+                    <input id="lastname" type="text" pInputText [(ngModel)]="lastName" class="input w-full" (change)="onChange($event)">
                 </div>
                 <div class="field col-12 md:col-12">
                     <label for="display-name">Nombre a mostrar</label>
-                    <input id="lastname" type="text" pInputText [(ngModel)]="displayName" class="input w-full"
-                        [value]="prefix+' '+firstName + ' '+ lastName" required>
+                    <input id="display-name" type="text" pInputText [(ngModel)]="displayName" class="input w-full" [value]="prefix+' '+firstName + ' '+ lastName">
                 </div>
 
             </div>
@@ -118,7 +108,6 @@
             </div>
         </ng-template>
         <div class="formgrid grid">
-
             <div class="field col-12 md:col-12">
                 <label for="companyName">Nombre de la compañía</label>
                 <input id="companyName" type="text" [(ngModel)]="companyName" class="w-full" pInputText>
@@ -134,7 +123,7 @@
             <div class="field col-12">
                 <label for="address">Dirección</label>
                 <textarea id="address" pInputTextarea [(ngModel)]="companyAddress" type="text" rows="5"
-                    class="w-full"></textarea>
+                    class="w-full" style="height: 100%"></textarea>
             </div>
 
         </div>

@@ -10,6 +10,7 @@ import {PaymentDto} from "../../models/payment.dto";
 import {forkJoin} from "rxjs";
 import {PaymentDetailDto} from "../../models/payment-detail.dto";
 import {format} from "date-fns";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-receipt-page',
@@ -20,7 +21,7 @@ import {format} from "date-fns";
 export class ReceiptPageComponent {
   @ViewChild(AttachmentsSectionComponent) attachmentsComponent!: AttachmentsSectionComponent; // Obtén una referencia al componente hijo
 
-  constructor(private supplierService: SupplierService, private paymentTypeService: PaymentTypeService, private expensesService: ExpensesService, private filesService: FilesService ,private messageService: MessageService) { }
+  constructor(private location: Location, private supplierService: SupplierService, private paymentTypeService: PaymentTypeService, private expensesService: ExpensesService, private filesService: FilesService ,private messageService: MessageService) { }
   ngOnInit(): void{
     this.getNextReceiptNumber()
     this.getAllSuppliers()
@@ -119,6 +120,11 @@ export class ReceiptPageComponent {
         //console.log(data);
         //console.log("Se creoo");
         this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Recibo guardado correctamente' });
+        //Esperamos 1 segundo para redirigir
+        setTimeout(() => {
+          //Redireccionamos
+          this.goBack()
+        }, 1000);
       },
       error: (error) => {
         // console.log(error);
@@ -226,5 +232,8 @@ export class ReceiptPageComponent {
     return true;
   }
 
+  goBack(): void {
+    this.location.back();
+  }
 
 }

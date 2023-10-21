@@ -17,5 +17,5 @@
     width: 320px !important;
     padding: 20px !important;
     background-color: #F3F6F6 !important;
-    transform: translateX(-27%);
+    transform: translateX(-27%) !important;
 }

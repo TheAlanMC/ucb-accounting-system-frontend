@@ -14,7 +14,7 @@ export class NavbarComponent {
     items: MenuItem[] | undefined;
     pfpUrl: string = '';
 
-    constructor(private messageService: MessageService, private valuesService: ValuesService, private keycloakService: KeycloakService) { }
+    constructor(private messageService: MessageService, private valuesService: ValuesService, private keycloakService: KeycloakService, private userService: UserService) { }
 
     ngOnInit() {
         this.items = [
@@ -36,7 +36,14 @@ export class NavbarComponent {
         ];
 
         this.valuesService.getUserInfo().subscribe((data) => {
+          if (data.profilePicture != null){
             this.pfpUrl = data.profilePicture;
+          } else {
+            this.userService.getUserById().subscribe((data) => {
+              this.valuesService.setUser(data.data!);
+              this.pfpUrl = data.data!.profilePicture!;
+            })
+          }
         })
 
         this.keycloakService.getToken().then((token) => {
