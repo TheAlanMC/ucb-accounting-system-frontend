@@ -1,0 +1,43 @@
+<h4 style="color: #8c8c8c;">Reporte por rango de fechas</h4>
+<div class="flex justify-content-between">    
+    <div class="flex flex-row flex-wrap mb-3">
+        <div class="flex flex-row justify-content-start mr-2">
+            <p>Desde:</p>
+            <p-calendar class="datepicker ml-2 mt-2" (onSelect)="filterByDate($event)" (onClearClick)=filterByDate(null) [showButtonBar]="true" [showIcon]="true" dateFormat="dd/mm/yy" inputId="icon" placeholder="Seleccione una fecha" [readonlyInput]="true" dateFormat="yy-mm-dd"></p-calendar>
+            <p class="ml-8">Hasta:</p>
+            <p-calendar class="datepicker ml-2 mt-2" (onSelect)="filterByDate($event)" (onClearClick)=filterByDate(null) [showButtonBar]="true" [showIcon]="true" dateFormat="dd/mm/yy" inputId="icon" placeholder="Seleccione una fecha" [readonlyInput]="true" dateFormat="yy-mm-dd"></p-calendar>
+        </div>
+    </div>
+    <div class="flex flex-column justify-content-start">
+        <div class="flex justify-content-between flex-wrap card-container purple-container">
+                <p-button label="Generar Reporte" class="green-button"></p-button>
+        </div>
+    </div>
+</div>
+<br>
+
+<p-table #dt2 [value]="journalBook" [(selection)]="selectedjournalBook" dataKey="code" [tableStyle]="{'min-width': '50rem'}" [lazy]="true" (onSort)="onSortChange($event)" [customSort]="true">
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="accountNumber">No <p-sortIcon field="accountNumber"></p-sortIcon></th>
+            <th pSortableColumn="date">Fecha <p-sortIcon field="date"></p-sortIcon></th>
+            <th pSortableColumn="code">Codigo <p-sortIcon field="code"></p-sortIcon></th>
+            <th pSortableColumn="name">Nombre <p-sortIcon field="name"></p-sortIcon></th>
+            <th>Referencia</th>
+            <th>Debe (Bs.)</th>
+            <th>Haber (Bs.)</th>
+        </tr>
+        
+    </ng-template>
+    <ng-template pTemplate="body" let-journalBook>
+        <tr>
+            <td>{{journalBook.accountNumber}}</td>
+            <td>{{journalBook.date | date:'dd-MM-yyyy'}}</td>
+            <td>{{journalBook.code}}</td>
+            <td>{{journalBook.name}}</td>
+            <td>{{journalBook.reference}}</td>
+            <td>{{journalBook.debit | currency: ' '}}</td>
+            <td>{{journalBook.credit| currency: ' '}}</td>
+        </tr>
+    </ng-template>
+</p-table>

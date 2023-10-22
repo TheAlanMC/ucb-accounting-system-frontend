@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'app-reports-page',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./reports-page.component.css']
 })
 export class ReportsPageComponent {
-
+  
 }
