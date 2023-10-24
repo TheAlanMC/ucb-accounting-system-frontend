@@ -1,0 +1,13 @@
+<div>
+    <p>Seleccione un rango de fechas para el reporte</p>
+    <div class="flex flex-column justify-content-center">
+        <div class="flex flex-column">
+            <p>Desde</p>
+            <p-calendar [(ngModel)]="dateFrom" dateFormat="dd/mm/yy" [showIcon]="true" [readonlyInput]="true" appendTo="body"></p-calendar>
+        </div>
+        <div class="flex flex-column">
+            <p>Hasta</p>
+            <p-calendar [(ngModel)]="dateTo" dateFormat="dd/mm/yy" [showIcon]="true" [readonlyInput]="true" appendTo="body"></p-calendar>
+        </div>
+    </div>
+</div>

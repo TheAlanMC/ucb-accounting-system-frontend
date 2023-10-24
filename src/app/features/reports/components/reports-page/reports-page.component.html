@@ -1,1 +1,32 @@
-<p>reports-page works!</p>
+<app-sidebar (navbarToggle)="onNavbarToggle($event)"></app-sidebar>
+<div class="home-section" [class.navbar-opened]="isNavbarOpen">
+  <div class="card">
+    <p-toast></p-toast>
+    <div class="flex card-container overflow-hidden">
+      <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0">
+        <i class="pi pi-file"
+           style="color: var(--color-green); font-size: 2.5rem; z-index: 2 !important;"></i>
+        <p class="text-2xl md:text-3xl" style="z-index:2;">&nbsp;&nbsp;&nbsp;Reportes</p>
+      </div>
+      <div class="flex-none flex align-items-center justify-content-center font-bold m-2 px-5 py-3">
+        <app-navbar></app-navbar>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 xl:col-12 px-8 py-3">
+    <!-- <a [routerLink]="['ledgerbook']" >Libro mayor</a> -->
+    <a (click)="visible=true">Libro mayor</a>
+  </div>
+</div>
+
+
+<!-- Modal ledger book -->
+<div class="card flex justify-content-center">
+  <p-dialog header="Seleccionar fechas" [(visible)]="visible" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" (onHide)="ocultar()">
+     <app-date-modal *ngIf="ledgerBookDate"></app-date-modal>
+     <app-account-modal *ngIf="!ledgerBookDate"></app-account-modal>
+     <ng-template pTemplate="footer">
+        <button type="button" pButton icon="pi pi-check" (click)="selectAccounts()" label="Siguiente"></button>
+    </ng-template>
+  </p-dialog>
+</div>

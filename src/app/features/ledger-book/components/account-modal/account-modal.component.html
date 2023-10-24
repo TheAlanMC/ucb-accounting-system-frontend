@@ -1,0 +1,55 @@
+<div>
+    <div class="flex flex-wrap gap-3">
+        <div class="flex align-items-center">
+            <p-radioButton name="account" value="checkbox" [(ngModel)]="typeOfSelection" inputId="checkbox"></p-radioButton>
+            <label for="checkbox" class="ml-2">Seleccionar individualmente</label>
+        </div>
+        
+        <div class="flex align-items-center">
+            <p-radioButton name="account" value="range" [(ngModel)]="typeOfSelection" inputId="range"></p-radioButton>
+            <label for="range" class="ml-2">Selecciona un rango</label>
+        </div>
+    </div>  
+    <p-divider></p-divider>
+    <div>
+        <!-- Checkboxes -->
+        <div *ngIf="typeOfSelection === 'checkbox'">
+            <div class="card">
+                <p-table [value]="accounts" [(selection)]="selectedAccounts" dataKey="code" styleClass="p-datatable-sm">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 4rem">
+                                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                            </th>
+                            <th>Código</th>
+                            <th>Nombre</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-account>
+                        <tr>
+                            <td>
+                                <p-tableCheckbox [value]="account"></p-tableCheckbox>
+                            </td>
+                            <td>{{account.code}}</td>
+                            <td>{{account.name}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+        <!-- Rango -->
+        <div *ngIf="typeOfSelection == 'range'">
+            <div class="flex flex-column justify-content-center">
+                <div class="flex flex-column">
+                    <p>Desde</p>
+                    <input  pInputText type="text" [(ngModel)]="firstAccount" class="input w-full" required>
+                </div>
+                <div class="flex flex-column">
+                    <p>Hasta</p>
+                    <input  pInputText type="text" [(ngModel)]="lastAccount" class="input w-full" required>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
