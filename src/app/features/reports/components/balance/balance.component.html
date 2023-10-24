@@ -1,0 +1,54 @@
+<div class="header">
+    <i class="pi pi-chart-bar icono-verde"></i>
+    <h1 class="titulo">Balance de sumas y saldos</h1>
+    <i class="pi pi-question icono-verde" style="position: absolute; right: 0;"></i>
+</div>
+<div class="contenedor-boton">
+    <td><p-button type="button" class="mr-2 boton-sidebar" (click)="sidebarVisible2 = true; isEditing = false" icon="pi pi-plus" label="Generar Reporte"></p-button>
+</div>
+<p>Rango de fechas para el reporte</p>
+<div class="search-bar">
+    <input pInputText type="date" placeholder="Fecha inicial" />
+    <input pInputText type="date" placeholder="Fecha final" />
+</div>
+<p-table [value]="cuentas" [tableStyle]="{ 'min-width': '25rem' }">
+    <ng-template pTemplate="header">
+        <tr>
+            <th colspan="3">
+                <div class="cabecera-derecha cabecera-sumas">
+                    Sumas
+                </div>
+            </th>
+            <th colspan="3">
+                <div class="cabecera-derecha cabecera-saldos">
+                    Saldos
+                </div>
+            </th>
+        </tr>
+        <tr>
+            <th>Código de cuenta</th>
+            <th>Nombre de cuenta</th>
+            <th>Cargos</th>
+            <th>Abonos</th>
+            <th>Deudor</th>
+            <th>Acreedor</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-cuenta>
+        <tr>
+            <td>{{ cuenta.codigo }}</td>
+            <td>{{ cuenta.nombre }}</td>
+            <td>{{ cuenta.saldoInicial }}</td>
+            <td>{{ cuenta.debito }}</td>
+            <td>{{ cuenta.credito }}</td>
+            <td>{{ cuenta.saldoFinal }}</td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-sidebar [(visible)]="sidebarVisible2" position="right" class="sidebar">
+    <!-- Aquí puedes agregar el contenido de tu barra lateral -->
+</p-sidebar>
+
+<p-button (click)="obtenercuentas()" label="Exportar a PDF" class="boton-submit boton-derecha"></p-button>
+

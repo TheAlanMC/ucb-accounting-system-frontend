@@ -1,0 +1,20 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~primeicons/primeicons.css";
+@import "~primeng/resources/themes/saga-green/theme.css";
+@import "~primeng/resources/primeng.min.css";
+
+body {
+  font-family: var(--font-family);
+}
+
+/*Declarando colores como variables */
+:root {
+  --color-blue: #2469A0;
+  --color-cyan: #10bce3;
+  --color-cyan-green: #3dd6af;
+  --color-green: #8BD480;
+}
+
+:host ::ng-deep .ui-button-success {
+    background-color: #00BFFF !important; /* Cambia este valor al color celeste que estás utilizando */
+}
