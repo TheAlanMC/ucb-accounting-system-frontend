@@ -26,7 +26,8 @@
      <app-date-modal *ngIf="ledgerBookDate"></app-date-modal>
      <app-account-modal *ngIf="!ledgerBookDate"></app-account-modal>
      <ng-template pTemplate="footer">
-        <button type="button" pButton icon="pi pi-check" (click)="selectAccounts()" label="Siguiente"></button>
+        <p-button id="next-button" label="Siguiente" (click)="selectAccounts()" icon="pi pi-angle-right" iconPos="right"></p-button>
+        <!-- <button type="button" " (click)="selectAccounts()" label="Siguiente" ></button> -->
     </ng-template>
   </p-dialog>
 </div>

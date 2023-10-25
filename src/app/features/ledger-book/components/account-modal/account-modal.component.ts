@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ReportService } from 'src/app/core/services/report.service';
+import { SubaccountDto } from 'src/app/features/chart-of-accounts/models/subaccount.dto';
 
 @Component({
   selector: 'app-account-modal',
@@ -6,15 +8,29 @@ import { Component } from '@angular/core';
   styleUrls: ['./account-modal.component.css']
 })
 export class AccountModalComponent {
+  companyId = Number(localStorage.getItem('companyId'));
   typeOfSelection: string = 'checkbox';
   firstAccount: string = '1';
   lastAccount: string = '3';
-  accounts: any[] = [
-    {code: '1', name: 'Caja'},
-    {code: '2', name: 'Banco'},
-    {code: '3', name: 'Clientes'},
-  ];
+  accounts: SubaccountDto[] = [];
   selectedAccounts: any[] = [];
+
+  constructor(private reportService: ReportService) { }
+
+  ngOnInit(): void {
+    this.getAccounts();
+  }
   
+  getAccounts() {
+    this.reportService.getLedgerBookSubaccounts(this.companyId, '2021-01-01', '2023-12-31', '', 'asc').subscribe({
+      next: (response) => {
+        this.accounts = response.data!;
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+    
+  }
 
 }

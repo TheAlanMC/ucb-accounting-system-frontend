@@ -28,3 +28,12 @@
     padding: 0.2rem;
   }
   
+
+  ::ng-deep #next-button button{
+    background-color: var(--color-green);
+    border-color: var(--color-green);
+    color: white;
+    font-size: small;
+    font-weight: 500;
+    height: 30px;
+  }
