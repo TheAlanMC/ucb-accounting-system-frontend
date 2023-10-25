@@ -14,6 +14,7 @@ import {FormsModule} from "@angular/forms";
 import { DividerModule } from 'primeng/divider';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputTextModule } from 'primeng/inputtext';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { InputTextModule } from 'primeng/inputtext';
         FormsModule,
         DividerModule,
         RadioButtonModule,
-        InputTextModule
+        InputTextModule,
+        ProgressSpinnerModule
         
     ],
   exports: [

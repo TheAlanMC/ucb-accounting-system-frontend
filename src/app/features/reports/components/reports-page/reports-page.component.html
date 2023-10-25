@@ -22,7 +22,7 @@
 
 <!-- Modal ledger book -->
 <div class="card flex justify-content-center">
-  <p-dialog header="Seleccionar fechas" [(visible)]="visible" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" (onHide)="ocultar()">
+  <p-dialog id="ledgerbook-dialog" header={{title}} [(visible)]="visible" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" (onHide)="ocultar()">
      <app-date-modal *ngIf="ledgerBookDate"></app-date-modal>
      <app-account-modal *ngIf="!ledgerBookDate"></app-account-modal>
      <ng-template pTemplate="footer">

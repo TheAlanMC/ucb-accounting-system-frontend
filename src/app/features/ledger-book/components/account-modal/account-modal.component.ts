@@ -13,7 +13,8 @@ export class AccountModalComponent {
   firstAccount: string = '1';
   lastAccount: string = '3';
   accounts: SubaccountDto[] = [];
-  selectedAccounts: any[] = [];
+  selectedAccounts!: SubaccountDto;
+  isLoading: boolean = true;
 
   constructor(private reportService: ReportService) { }
 
@@ -25,6 +26,7 @@ export class AccountModalComponent {
     this.reportService.getLedgerBookSubaccounts(this.companyId, '2021-01-01', '2023-12-31', '', 'asc').subscribe({
       next: (response) => {
         this.accounts = response.data!;
+        this.isLoading = false;
       },
       error: (error) => {
         console.log(error);

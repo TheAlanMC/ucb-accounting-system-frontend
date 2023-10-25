@@ -19,3 +19,8 @@
   left: 250px;
   width: calc(100% - 250px);
 }
+
+::ng-deep #ledgerbook-dialog .p-dialog{
+  min-height: 30vh;
+  height: 50vh;
+}

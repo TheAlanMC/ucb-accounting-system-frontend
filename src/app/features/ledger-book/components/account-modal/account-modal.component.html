@@ -2,7 +2,7 @@
     <div class="flex flex-wrap gap-3">
         <div class="flex align-items-center">
             <p-radioButton name="account" value="checkbox" [(ngModel)]="typeOfSelection" inputId="checkbox"></p-radioButton>
-            <label for="checkbox" class="ml-2">Seleccionar individualmente</label>
+            <label for="checkbox" class="ml-2">Selecciona individualmente</label>
         </div>
         
         <div class="flex align-items-center">
@@ -14,8 +14,12 @@
     <div>
         <!-- Checkboxes -->
         <div *ngIf="typeOfSelection === 'checkbox'">
-            <div class="card">
-                <p-table [value]="accounts" [(selection)]="selectedAccounts" dataKey="code" styleClass="p-datatable-sm">
+            
+            <div class="card flex justify-content-center align-items-center">
+                
+                <p-progressSpinner id="spinner" *ngIf="isLoading"></p-progressSpinner>
+
+                <p-table *ngIf="!isLoading" [value]="accounts" [(selection)]="selectedAccounts" dataKey="subaccountId" styleClass="p-datatable-sm" id="accounts-table">
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="width: 4rem">

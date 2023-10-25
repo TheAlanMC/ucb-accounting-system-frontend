@@ -11,6 +11,7 @@ export class ReportsPageComponent {
   isNavbarOpen : boolean = false;
   visible: boolean = false;
   ledgerBookDate: boolean = true;
+  title: string = "Seleccionar fechas";
 
   onNavbarToggle(isOpen: boolean) {
     this.isNavbarOpen = isOpen;
@@ -32,10 +33,12 @@ export class ReportsPageComponent {
       this.router.navigate(['/ledgerbook']);
     }else{
       this.ledgerBookDate = false;
+      this.title = "Seleccionar cuentas";
     }
   }
   ocultar(){
     this.visible = false;
     this.ledgerBookDate = true;
+    this.title = "Seleccionar fechas";
   }
 }
