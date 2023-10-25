@@ -22,5 +22,5 @@
 
 ::ng-deep #ledgerbook-dialog .p-dialog{
   min-height: 30vh;
-  height: 50vh;
+  height: 380px;
 }

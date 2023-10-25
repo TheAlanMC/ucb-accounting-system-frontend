@@ -15,9 +15,9 @@
     <div class="flex justify-content-between">
       <div class="flex flex-column card-container mx-8">
         <div class="flex flex-row flex-wrap align-items-center"> 
-          <i class="pi pi-angle-left pass-icon mr-3" style="font-size: 1.3rem" pTooltip="Anterior cuenta" tooltipPosition="left" [showDelay]="800" [hideDelay]="800"></i>
+          <i class="pi pi-angle-left pass-icon mr-3" style="font-size: 1.3rem" pTooltip="Anterior cuenta" tooltipPosition="left" [showDelay]="800" [hideDelay]="800" (click)="previousAccount()"></i>
           <p id="account-name">{{transaction.subaccount.subaccountName}}</p>
-          <i class="pi pi-angle-right pass-icon mx-3" style="font-size: 1.3rem" pTooltip="Siguiente cuenta" tooltipPosition="right" [showDelay]="800" [hideDelay]="800"></i>
+          <i class="pi pi-angle-right pass-icon mx-3" style="font-size: 1.3rem" pTooltip="Siguiente cuenta" tooltipPosition="right" [showDelay]="800" [hideDelay]="800" (click)="nextAccount()"></i>
         </div>
       </div>
       <div class="flex flex-column card-container mx-8">
@@ -27,7 +27,7 @@
           </div>
           <p class="ml-2" style="color: #666666 ;"> SALDO FINAL</p>
         </div>
-        <p class="text-right font-semibold text-base my-2">Bs. {{saldoFinal}}</p>
+        <p class="text-right font-semibold text-base my-2">Bs. {{transaction.totalBalanceAmount | currency:' '}}</p>
         <div>
           <hr>
         </div>
@@ -35,11 +35,11 @@
     </div>
   </div>
   <div class="col-12 xl:col-12 px-8 py-3">
-    <p-table [value]="transaction.transactionDetails" [tableStyle]="{ 'min-width': '50rem' }">
+    <p-table [value]="transaction.transactionDetails" [tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-gridlines">
       <ng-template pTemplate="header">
         <tr>
+          <th>Nº</th>
           <th>Fecha</th>
-          <th>Tipo</th>
           <th>Referencia</th>
           <th>Debe</th>
           <th>Haber</th>
@@ -47,17 +47,26 @@
           <th>Notas</th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-transaction>
+      <ng-template pTemplate="body" let-transaction let-rowIndex="rowIndex">
         <tr>
+          <td style="background-color: #29acac78; color: white; width: 40px;">{{ rowIndex + 1 }}</td>
           <td>{{ transaction.transactionDate }}</td>
-          <td>{{ transaction.name }}</td>
           <td>{{ transaction.gloss }}</td>
-          <td>{{ transaction.debitAmount }}</td>
-          <td>{{ transaction.creditAmount }}</td>
-          <td>{{ transaction.balanceAmount }}</td>
+          <td>{{ transaction.debitAmount  | currency: 'Bs. '}}</td>
+          <td>{{ transaction.creditAmount  | currency: 'Bs. '}}</td>
+          <td [style.color]="transaction.balanceAmount < 0 ? 'red' : 'initial'">Bs. {{ transaction.balanceAmount  | currency: ' '}}</td>
           <td>{{ transaction.description }}</td>
         </tr>
       </ng-template>
+      <ng-template pTemplate="footer">
+        <tr>
+            <td colspan="3" class="text-right">Total</td>
+            <td>{{transaction.totalDebitAmount | currency: 'Bs. '}}</td>
+            <td>{{transaction.totalCreditAmount | currency: 'Bs. '}}</td>
+            <td [style.color]="transaction.totalBalanceAmount < 0 ? 'red' : 'initial'">Bs. {{transaction.totalBalanceAmount | currency: ' '}}</td>
+            <td colspan="1"></td>
+        </tr>
+    </ng-template>
     </p-table>
   </div>
 </div>

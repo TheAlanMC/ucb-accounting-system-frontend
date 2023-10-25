@@ -14,6 +14,12 @@ export class LedgerBookPageComponent {
   allTransactions: GeneralLedgerReportDataDto[] = [];
   transaction!: GeneralLedgerReportDataDto;
   nombreCuenta: string = 'Caja Moneda Nacional - MLL';
+  dateFrom!: string;
+  dateTo!: string;
+  sortType: string = 'asc';
+  sortBy: string = '';
+  subaccountIds: string[] = ['1','2','3'];
+  index: number = 0;
 
   onNavbarToggle(isOpen: boolean) {
     this.isNavbarOpen = isOpen;
@@ -27,6 +33,10 @@ export class LedgerBookPageComponent {
     this.sidebarService.getIsOpen().subscribe((isOpen) => {
       this.isNavbarOpen = isOpen;
     });
+    this.getInitialTransaction();
+  }
+
+  getInitialTransaction(){
     this.reportService.getGeneralLedgers(1,'2021-01-01', '2023-12-31', '', 'asc', ['1','2','3']).subscribe({
       next: (response) => {
         this.allTransactions = response.data!.reportData;
@@ -37,6 +47,23 @@ export class LedgerBookPageComponent {
         console.log(error);
       }
     });
-
   }
+
+  nextAccount(){
+    this.index = (this.index + 1) % this.allTransactions.length;
+    this.transaction = this.allTransactions[this.index];
+    console.log(this.index);
+  }
+  previousAccount(){
+    if(this.index > 0){
+      this.index--;
+    }else{
+      //Vamos a la ultima cuenta
+      this.index = this.allTransactions.length - 1;
+    }
+    this.transaction = this.allTransactions[this.index];
+    console.log(this.index);
+  }
+
+
 }

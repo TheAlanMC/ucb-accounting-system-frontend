@@ -3,7 +3,7 @@
 }
 /* Input */
 ::ng-deep .p-inputtext{
-    width: 100%;
+    width: 50%;
     font-size: small;
     padding: 0.25rem 0.5rem 0.25rem 0.5rem;
 }
