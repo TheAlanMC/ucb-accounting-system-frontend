@@ -10,34 +10,64 @@
     </div>
     <div class="flex flex-column justify-content-start">
         <div class="flex justify-content-between flex-wrap card-container purple-container">
+                <p-splitButton #ua label="Documento Contable" class="green-button mr-4"  [model]="items"></p-splitButton>
                 <p-button label="Generar Reporte" class="green-button"></p-button>
         </div>
     </div>
 </div>
 <br>
 
-<p-table #dt2 [value]="journalBook" [(selection)]="selectedjournalBook" dataKey="code" [tableStyle]="{'min-width': '50rem'}" [lazy]="true" (onSort)="onSortChange($event)" [customSort]="true">
+<p-table class="p-table-noborder" [value]="journalBooks" sortField="code" sortMode="single" [scrollable]="true"  [tableStyle]="{'min-width': '50rem'}" rowGroupMode="subheader" groupRowsBy="code" [customSort]="true">
     <ng-template pTemplate="header">
         <tr>
-            <th pSortableColumn="accountNumber">No <p-sortIcon field="accountNumber"></p-sortIcon></th>
-            <th pSortableColumn="date">Fecha <p-sortIcon field="date"></p-sortIcon></th>
-            <th pSortableColumn="code">Codigo <p-sortIcon field="code"></p-sortIcon></th>
-            <th pSortableColumn="name">Nombre <p-sortIcon field="name"></p-sortIcon></th>
+            <th>Fecha</th>
+            <th>Codigo</th>
+            <th>Nombre</th>
             <th>Referencia</th>
             <th>Debe (Bs.)</th>
             <th>Haber (Bs.)</th>
         </tr>
         
     </ng-template>
-    <ng-template pTemplate="body" let-journalBook>
+    <ng-template pTemplate="groupheader" let-journalBook>
+        <tr pRowGroupHeader>
+            <td colspan="1">
+                <span class="font-bold ml-2">{{journalBook.date}}</span>
+            </td>
+            <td colspan="5">
+                <span class="font-bold ml-2">{{journalBook.name}}</span>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="groupfooter" let-journalBook>
+        <tr pRowGroupHeader >
+            <td id="borderblack" colspan="1">
+                <span class="font-bold ml-2"></span>
+            </td>
+            <td id="borderblack" colspan="3">
+                <span class="font-bold ml-2">Nombre</span>
+            </td>
+            <td id="borderblack" colspan="1">
+                <span class="font-bold ml-2">5000</span>
+            </td>
+            <td id="borderblack" colspan="1">
+                <span class="font-bold ml-2">4000</span>
+            </td>
+            
+        </tr>
+        
+        
+    </ng-template>
+    
+    <ng-template pTemplate="body" let-journalBook let-rowIndex="rowIndex">
         <tr>
-            <td>{{journalBook.accountNumber}}</td>
-            <td>{{journalBook.date | date:'dd-MM-yyyy'}}</td>
-            <td>{{journalBook.code}}</td>
-            <td>{{journalBook.name}}</td>
-            <td>{{journalBook.reference}}</td>
-            <td>{{journalBook.debit | currency: ' '}}</td>
-            <td>{{journalBook.credit| currency: ' '}}</td>
+            <td id="bordernone"></td>
+            <td id="bordernone">{{journalBook.code}}</td>
+            <td id="bordernone">{{journalBook.name}}</td>
+            <td id="bordernone">{{journalBook.reference}}</td>
+            <td id="bordernone">{{journalBook.debit | currency: ' '}}</td>
+            <td id="bordernone">{{journalBook.credit| currency: ' '}}</td>
         </tr>
     </ng-template>
 </p-table>
+

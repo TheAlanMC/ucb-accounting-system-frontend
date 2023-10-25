@@ -11,6 +11,33 @@ export interface JournalBookDto{
   credit: number;
 }
 
+interface City {
+  name: string,
+  code: string
+}
+export interface Country {
+  name?: string;
+  code?: string;
+}
+
+export interface Representative {
+  name?: string;
+  image?: string;
+}
+
+export interface Customer {
+  id?: number;
+  name?: string;
+  country?: Country;
+  company?: string;
+  date?: string | Date;
+  status?: string;
+  activity?: number;
+  representative?: Representative;
+  verified?: boolean;
+  balance?: number;
+}
+
 @Component({
   selector: 'app-journal-book-report',
   templateUrl: './journal-book-report.component.html',
@@ -21,74 +48,66 @@ export class JournalBookReportComponent {
   companyId = Number(localStorage.getItem('companyId'));
   items: any[] = [];
 
-  // Pagination variables
-  sortBy: string = 'saleTransactionId';
-  sortType: string = 'asc';
-  page: number = 0;
-  size: number = 10;
-  totalElements: number = 0;
+  cities!: City[];
+  selectedCity!: City;
+
+  customers!: Customer[];
+
 
   // Filter variables
   filterDate: string = '';
   filterCustomer: string[] = [];
   filterDocumentType: string = '';
   constructor() {
-    
+    this.items = [
+      {
+          label: 'Factura',
+          icon: 'pi pi-book',
+          
+      },
+      {
+          label: 'Recibo',
+          icon: 'pi pi-file-edit',
+          
+      },
+  ];
   }
 
-  //Variables
-  selectedjournalBook!: String;
-  searchValue: string = '';
-  dateValue!: Date;
+  
 
   //sales: SaleAbstractDto[] = [];
-  journalBook: JournalBookDto[] = [];
-  dateFilters: any;
+  journalBooks: JournalBookDto[] = [];
+  
 
   ngOnInit(): void {
-    this.getAllJournals();
-    /*this.transactionTypeService.getAllTransactionTypes().subscribe({
-      next: (data) => {
-        this.types = data.data!.map((documentType) => ({
-          name: documentType.transactionTypeName,
-          code: documentType.transactionTypeId
-        }));
-        // add the default option
-          this.types.unshift({name: 'Todos', code: ''});
-        // console.log(this.types);
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    })
-    this.customerService.getAllCustomers(this.companyId).subscribe({
-      next: (data) => {
-        this.customers = data.data!.map((customer) => ({
-            name: customer.displayName,
-            code: customer.customerId
-          }
-        ));
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    });*/
+    this.journalBooks = this.getAllJournals();
+    this.cities = [
+      { name: 'New York', code: 'NY' },
+      { name: 'Rome', code: 'RM' },
+      { name: 'London', code: 'LDN' },
+      { name: 'Istanbul', code: 'IST' },
+      { name: 'Paris', code: 'PRS' }
+  ];
   }
+  calculateCustomerTotal(name: string) {
+    let total = 0;
 
-  onPageChange(event: any) {
-    this.page = event.page;
-    this.size = event.rows;
-    this.getAllJournals();
-  }
+    if (this.customers) {
+        for (let customer of this.customers) {
+            if (customer.representative?.name === name) {
+                total++;
+            }
+        }
+    }
 
-  onSortChange(event: any) {
-    this.sortBy = event.field;
-    this.sortType = (event.order == 1) ? 'asc' : 'desc';
-    this.getAllJournals();
-  }
+    return total;
+}
+
+
+
 
   getAllJournals() {
-    this.journalBook = [
+    return [
       {
         accountNumber: 1,
         date: "2023-11-21",
@@ -97,6 +116,60 @@ export class JournalBookReportComponent {
         reference: "FACT-12345",
         debit: 1000,
         credit: 0,
+      },
+      {
+        accountNumber: 1,
+        date: "2023-11-21",
+        code: "A001",
+        name: "Venta de productos",
+        reference: "FACT-12345",
+        debit: 1000,
+        credit: 0,
+      },
+      {
+        accountNumber: 1,
+        date: "2023-11-21",
+        code: "A001",
+        name: "Venta de productos",
+        reference: "FACT-12345",
+        debit: 1000,
+        credit: 0,
+      },
+      {
+        accountNumber: 1,
+        date: "2023-11-21",
+        code: "A001",
+        name: "Venta de productos",
+        reference: "FACT-12345",
+        debit: 1000,
+        credit: 0,
+      },
+      {
+        accountNumber: 2,
+        date: "2023-10-01",
+        code: "A002",
+        name: "Compra de mercaderías",
+        reference: "FACT-67890",
+        debit: 0,
+        credit: 500,
+      },
+      {
+        accountNumber: 2,
+        date: "2023-10-01",
+        code: "A002",
+        name: "Compra de mercaderías",
+        reference: "FACT-67890",
+        debit: 0,
+        credit: 500,
+      },
+      {
+        accountNumber: 2,
+        date: "2023-10-01",
+        code: "A002",
+        name: "Compra de mercaderías",
+        reference: "FACT-67890",
+        debit: 0,
+        credit: 500,
       },
       {
         accountNumber: 2,
@@ -161,5 +234,6 @@ export class JournalBookReportComponent {
     }
     this.getAllJournals();
   }
+  
   
 }

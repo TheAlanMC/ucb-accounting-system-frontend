@@ -16,6 +16,8 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { SharedModule } from 'primeng/api';
 import { PaginatorModule } from 'primeng/paginator';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { ListboxModule } from 'primeng/listbox';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 @NgModule({
@@ -40,6 +42,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
     SharedModule,
     PaginatorModule,
     MultiSelectModule,
+    ListboxModule,
+    DropdownModule
   ]
 })
 export class ReportsModule { }
