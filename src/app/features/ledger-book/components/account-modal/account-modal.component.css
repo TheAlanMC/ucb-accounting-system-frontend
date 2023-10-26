@@ -1,6 +1,10 @@
 ::ng-deep #accounts-table .p-datatable-table{
     font-size: small;
 }
+::ng-deep #accounts-table{
+    width: 100%;
+}
+
 /* Input */
 ::ng-deep .p-inputtext{
     width: 50%;

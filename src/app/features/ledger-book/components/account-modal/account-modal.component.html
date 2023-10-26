@@ -19,11 +19,11 @@
                 
                 <p-progressSpinner id="spinner" *ngIf="isLoading"></p-progressSpinner>
 
-                <p-table *ngIf="!isLoading" [value]="accounts" [(selection)]="selectedAccounts" dataKey="subaccountId" styleClass="p-datatable-sm" id="accounts-table">
+                <p-table *ngIf="!isLoading" [value]="accounts" [(selection)]="selectedAccounts" dataKey="subaccountId" styleClass="p-datatable-sm" id="accounts-table" (onRowSelect)="onCheckboxChange($event)">
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="width: 4rem">
-                                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                <p-tableHeaderCheckbox ></p-tableHeaderCheckbox>
                             </th>
                             <th>Código</th>
                             <th>Nombre</th>

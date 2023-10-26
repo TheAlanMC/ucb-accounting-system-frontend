@@ -3,11 +3,11 @@
         <div>
             <div class="flex flex-column">
                 <p>Desde</p>
-                <p-calendar [style]="{'width':'230px'}" class="datepicker" [(ngModel)]="dateFrom" dateFormat="dd/mm/yy" [showIcon]="true" [readonlyInput]="true" appendTo="body"></p-calendar>
+                <p-calendar [style]="{'width':'230px'}" class="datepicker" [(ngModel)]="dateFrom" dateFormat="dd/mm/yy" [showIcon]="true" [readonlyInput]="true" appendTo="body" (onSelect)="updateDateFrom($event)"></p-calendar>
             </div>
             <div class="flex flex-column">
                 <p>Hasta</p>
-                <p-calendar [style]="{'width':'230px'}"  class="datepicker" [(ngModel)]="dateTo" dateFormat="dd/mm/yy" [showIcon]="true" [readonlyInput]="true" appendTo="body"></p-calendar>
+                <p-calendar [style]="{'width':'230px'}"  class="datepicker" [(ngModel)]="dateTo" dateFormat="dd/mm/yy" [showIcon]="true" [readonlyInput]="true" appendTo="body" (onSelect)="updateDateTo($event)"></p-calendar>
             </div>
         </div>
         <div style="width: 200px;">

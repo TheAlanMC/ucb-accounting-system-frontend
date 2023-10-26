@@ -38,6 +38,15 @@ export class InvoicePageComponent {
   selectedSupplier: any;
   selectedPaymentType: any;
 
+  constructor( private messageService: MessageService,private supplierService: SupplierService, private filesService: FilesService, private expensesService: ExpensesService, private paymentTypeService: PaymentTypeService){}
+
+  ngOnInit(): void{
+    this.getAllSuppliers()
+    this.getNextInvoiceNumber()
+    this.getPaymentTypes()
+  }
+
+
   //Retrieve the data from the child component - transaction table
   retrieveTransactionDetails(transactionDetails: InvoiceDetailDto[]) {
     console.log(transactionDetails)
@@ -53,16 +62,6 @@ export class InvoicePageComponent {
     this.gloss = values[0];
     this.saldoAmount = parseFloat(values[1]);
   }
-
-
-  constructor( private messageService: MessageService,private supplierService: SupplierService, private filesService: FilesService, private expensesService: ExpensesService, private paymentTypeService: PaymentTypeService){}
-
-  ngOnInit(): void{
-    this.getAllSuppliers()
-    this.getNextInvoiceNumber()
-    this.getPaymentTypes()
-  }
-
 
   getAllSuppliers(){
     this.supplierService.getAllSuppliers(this.companyId).subscribe({

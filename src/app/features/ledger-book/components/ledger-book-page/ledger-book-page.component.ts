@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import {SidebarService} from "../../../../core/services/sidebar/sidebar.service";
 import { ReportService } from 'src/app/core/services/report.service';
 import { GeneralLedgerReportDataDto } from '../../models/general-ledger-report-data.dto';
+import { LedgerBookService } from 'src/app/core/services/values/ledger-book.service';
+import { format } from 'date-fns';
 
 @Component({
   selector: 'app-ledger-book-page',
@@ -9,6 +11,7 @@ import { GeneralLedgerReportDataDto } from '../../models/general-ledger-report-d
   styleUrls: ['./ledger-book-page.component.css']
 })
 export class LedgerBookPageComponent {
+  companyId = Number(localStorage.getItem('companyId'));
   isNavbarOpen : boolean = false;
   saldoFinal: number = 0;
   allTransactions: GeneralLedgerReportDataDto[] = [];
@@ -26,7 +29,7 @@ export class LedgerBookPageComponent {
     console.log(this.isNavbarOpen);
     this.sidebarService.setIsOpen(this.isNavbarOpen);
   }
-  constructor(private sidebarService: SidebarService, private reportService: ReportService) {
+  constructor(private sidebarService: SidebarService, private reportService: ReportService, private ledgerBookService: LedgerBookService) {
   }
 
   ngOnInit(): void {
@@ -37,7 +40,20 @@ export class LedgerBookPageComponent {
   }
 
   getInitialTransaction(){
-    this.reportService.getGeneralLedgers(1,'2021-01-01', '2023-12-31', '', 'asc', ['1','2','3']).subscribe({
+    this.ledgerBookService.getdateFrom().subscribe((dateFrom) => {
+      this.dateFrom = format(dateFrom, 'yyyy-MM-dd');
+      this.ledgerBookService.getdateTo().subscribe((dateTo) => {
+        this.dateTo = format(dateTo, 'yyyy-MM-dd');
+        this.ledgerBookService.getsubaccountIds().subscribe((subaccountIds) => {
+          this.subaccountIds = subaccountIds;
+          this.getTransactions();
+        });
+      });
+    });
+  }
+
+  getTransactions(){
+    this.reportService.getGeneralLedgers(this.companyId, this.dateFrom, this.dateTo, '', 'asc', this.subaccountIds).subscribe({
       next: (response) => {
         this.allTransactions = response.data!.reportData;
         this.transaction = this.allTransactions[0];

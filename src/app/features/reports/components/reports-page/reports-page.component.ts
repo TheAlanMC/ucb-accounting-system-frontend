@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {SidebarService} from "../../../../core/services/sidebar/sidebar.service";
 import { Router } from '@angular/router';
+import { LedgerBookService } from 'src/app/core/services/values/ledger-book.service';
 
 @Component({
   selector: 'app-reports-page',
@@ -19,7 +20,7 @@ export class ReportsPageComponent {
     this.sidebarService.setIsOpen(this.isNavbarOpen);
   }
 
-  constructor(private sidebarService: SidebarService, private router: Router) {}
+  constructor(private sidebarService: SidebarService, private router: Router, private ledgerBookService: LedgerBookService) {}
 
   ngOnInit(): void {
     this.sidebarService.getIsOpen().subscribe((isOpen) => {
@@ -36,6 +37,7 @@ export class ReportsPageComponent {
       this.title = "Seleccionar cuentas";
     }
   }
+
   ocultar(){
     this.visible = false;
     this.ledgerBookDate = true;
