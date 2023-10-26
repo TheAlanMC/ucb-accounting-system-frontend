@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { TaxService } from 'src/app/core/services/tax.service';
+import { SubaccountTaxTypeAbstractDto } from '../../models/subaccount-tax-type-abstract.dto';
+import { TaxTypeDto } from '../../models/tax-type.dto';
+import { SubaccountTaxTypeDto } from '../../models/subaccount-tax-type.dto';
 
 @Component({
   selector: 'app-tax-page',
@@ -6,25 +10,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./tax-page.component.css']
 })
 export class TaxPageComponent {
-  impuestos = [
-    {
-      id: 1,
-      fechaCreacion: '15/06/2021',
-      nombreImpuesto: 'Impuestos sobre la renta',
-      numero: 1,
-      tasaImpuesto: '21%',
-      acciones: ''
-    },
-    {
-      id: 2,
-      fechaCreacion: '07/04/2021',
-      nombreImpuesto: 'Impuesto al valor agregado',
-      numero: 2,
-      tasaImpuesto: '16%',
-      acciones: ''
-    },
-    // Agrega más impuestos aquí
-  ];
+  impuestos!: SubaccountTaxTypeAbstractDto[];
 
   clonedImpuestos: any = {};
 
@@ -32,9 +18,19 @@ export class TaxPageComponent {
 
   editingRow: number | null = null;
 
-  constructor() { }
+  constructor(private taxService: TaxService) {
+
+   }
 
   ngOnInit(): void {
+    this.taxService.getSubaccountTaxTypes(1).subscribe({
+      next: (data) => {
+        this.impuestos = data.data!;
+        console.log(this.impuestos);
+      },
+      error: (error) => {
+        console.log(error);      }
+          });
   }
 
   onRowEditInit(impuesto: any) {
@@ -42,10 +38,32 @@ export class TaxPageComponent {
   }
 
   onRowEditSave(impuesto: any) {
+    console.log(impuesto);
+    var impuestomodificado: SubaccountTaxTypeDto = {
+      subaccountId: impuesto.subaccount.subaccountId,
+      taxRate: impuesto.taxRate,
+      taxTypeId: impuesto.taxType.taxTypeId
+    }
+    console.log(impuestomodificado);
+            
+        this.taxService.updateSubaccountTaxTypeRate(1, impuestomodificado).subscribe({
+          next: (data) => {
+            console.log(data);
+            this.taxService.getSubaccountTaxTypes(1).subscribe({
+              next: (data) => {
+                this.impuestos = data.data!;
+                console.log(this.impuestos);
+              },
+              error: (error) => {
+                console.log(error);      }
+                  });
+          },
+          error: (error) => {
+            console.log(error);      }
+                                                      });    
     if (impuesto.tasaImpuesto) {
         delete this.clonedImpuestos[impuesto.id];
-        // Aquí puedes agregar el código para guardar los cambios en tu backend
-        this.editingRow = null;
+        console.log(impuesto);      
     }
     else {
         // Restaura el valor original si la nueva tasa es inválida
