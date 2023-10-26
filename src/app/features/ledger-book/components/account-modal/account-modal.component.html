@@ -46,14 +46,41 @@
             <div class="flex flex-column justify-content-center">
                 <div class="flex flex-column">
                     <p>Desde</p>
-                    <input  pInputText type="text" [(ngModel)]="firstAccount" class="input w-full" required>
+                    <input  pInputText type="text" [(ngModel)]="firstAccount" class="input w-full" (click)="selectRow(1)" required>
                 </div>
                 <div class="flex flex-column">
                     <p>Hasta</p>
-                    <input  pInputText type="text" [(ngModel)]="lastAccount" class="input w-full" required>
+                    <input  pInputText type="text" [(ngModel)]="lastAccount" class="input w-full" (click)="selectRow(2)" required>
                 </div>
             </div>
             
         </div>
     </div>
 </div>
+<!-- 
+<p-sidebar [(visible)]="sidebarVisible2" position="right" styleClass="w-5">
+    <ng-template pTemplate="header">
+      <h1>Selector de cuentas</h1>
+    </ng-template>
+    <p-treeTable [value]="planAccounts" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 40%;">Nombre</th>
+          <th style="width: 10%;">Código</th>
+          <th style="width: 10%;">Nivel</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+        <tr [ttRow]="rowNode">
+          <td style="width: 40%;" (click)=onAccountSelected(rowData)>
+            <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+            {{ rowData.accountName }}
+          </td>
+          <td style="width: 10%;">{{ rowData.accountCode }}</td>
+          <td style="width: 10%;">
+            {{ rowData.level === 1 ? 'Categoría' : (rowData.level === 2 ? 'Grupo' : (rowData.level === 3 ? 'Subgrupo' : (rowData.level === 4 ? 'Cuenta' : 'Subcuenta')))}}
+          </td>
+        </tr>
+      </ng-template>
+    </p-treeTable>
+  </p-sidebar> -->

@@ -15,6 +15,8 @@ import { DividerModule } from 'primeng/divider';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputTextModule } from 'primeng/inputtext';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { SidebarModule } from 'primeng/sidebar';
+import { TreeTableModule } from 'primeng/treetable';
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
         DividerModule,
         RadioButtonModule,
         InputTextModule,
-        ProgressSpinnerModule
+        ProgressSpinnerModule,
+        SidebarModule,
+        TreeTableModule
         
     ],
   exports: [

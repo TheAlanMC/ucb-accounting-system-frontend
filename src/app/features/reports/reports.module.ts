@@ -9,6 +9,8 @@ import {CalendarModule} from "primeng/calendar";
 import {DropdownModule} from "primeng/dropdown";
 import { DialogModule } from 'primeng/dialog';
 import { LedgerBookModule } from '../ledger-book/ledger-book.module';
+import { SidebarModule } from 'primeng/sidebar';
+import { TableModule } from 'primeng/table';
 
 
 @NgModule({
@@ -24,7 +26,8 @@ import { LedgerBookModule } from '../ledger-book/ledger-book.module';
     DropdownModule,
     DialogModule,
     LedgerBookModule,
-   
+   SidebarModule,
+   TableModule
 
   ]
 })
