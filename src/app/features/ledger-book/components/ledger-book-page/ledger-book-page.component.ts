@@ -23,6 +23,8 @@ export class LedgerBookPageComponent {
   sortBy: string = '';
   subaccountIds: string[] = ['1','2','3'];
   index: number = 0;
+  moreThanOneAccount: boolean = false;
+  isLoading: boolean = true;
 
   onNavbarToggle(isOpen: boolean) {
     this.isNavbarOpen = isOpen;
@@ -40,16 +42,22 @@ export class LedgerBookPageComponent {
   }
 
   getInitialTransaction(){
-    this.ledgerBookService.getdateFrom().subscribe((dateFrom) => {
-      this.dateFrom = format(dateFrom, 'yyyy-MM-dd');
-      this.ledgerBookService.getdateTo().subscribe((dateTo) => {
-        this.dateTo = format(dateTo, 'yyyy-MM-dd');
-        this.ledgerBookService.getsubaccountIds().subscribe((subaccountIds) => {
-          this.subaccountIds = subaccountIds;
-          this.getTransactions();
-        });
-      });
-    });
+    // this.ledgerBookService.getdateFrom().subscribe((dateFrom) => {
+    //   this.dateFrom = format(dateFrom, 'yyyy-MM-dd');
+    //   this.ledgerBookService.getdateTo().subscribe((dateTo) => {
+    //     this.dateTo = format(dateTo, 'yyyy-MM-dd');
+    //     this.ledgerBookService.getsubaccountIds().subscribe((subaccountIds) => {
+    //       this.subaccountIds = subaccountIds;
+    //       this.getTransactions();
+
+    //     });
+    //   });
+    // });
+
+      this.dateFrom = format(this.ledgerBookService.getdateFrom(), 'yyyy-MM-dd');
+      this.dateTo = format(this.ledgerBookService.getdateTo(), 'yyyy-MM-dd');
+      this.subaccountIds = this.ledgerBookService.getsubaccountIds();
+      this.getTransactions();
   }
 
   getTransactions(){
@@ -58,6 +66,10 @@ export class LedgerBookPageComponent {
         this.allTransactions = response.data!.reportData;
         this.transaction = this.allTransactions[0];
         console.log(response.data);
+        if(this.allTransactions.length > 1){
+          this.moreThanOneAccount = true;
+        }
+        this.isLoading = false;
       },
       error: (error) => {
         console.log(error);

@@ -19,7 +19,7 @@
                 
                 <p-progressSpinner id="spinner" *ngIf="isLoading"></p-progressSpinner>
 
-                <p-table *ngIf="!isLoading" [value]="accounts" [(selection)]="selectedAccounts" dataKey="subaccountId" styleClass="p-datatable-sm" id="accounts-table" (onRowSelect)="onCheckboxChange($event)">
+                <p-table *ngIf="!isLoading" [value]="accounts" [(selection)]="selectedAccounts" dataKey="subaccountId" styleClass="p-datatable-sm" id="accounts-table" (onRowSelect)="onCheckboxChange($event)" (onRowUnselect)="onCheckboxChange($event)" (onHeaderCheckboxToggle)="onCheckboxChange($event)">
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="width: 4rem">

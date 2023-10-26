@@ -47,24 +47,39 @@ export class AccountModalComponent {
   }
   
   getAccounts() {
+    // if(this.ledgerBookService.getdateFrom() != null && this.ledgerBookService.getdateTo() != null){
+    //   this.ledgerBookService.getdateFrom().subscribe((dateFrom) => {
+    //     var formattedDateFrom = format(dateFrom, 'yyyy-MM-dd');
+    //     this.ledgerBookService.getdateTo().subscribe((dateTo) => {
+    //       var formattedDateTo = format(dateTo, 'yyyy-MM-dd');
+    //       this.reportService.getLedgerBookSubaccounts(this.companyId, formattedDateFrom, formattedDateTo, '', 'asc').subscribe({
+    //         next: (response) => {
+    //           this.accounts = response.data!;
+    //           this.isLoading = false;
+    //           this.sendAccounts();
+    //         },
+    //         error: (error) => {
+    //           console.log(error);
+    //         }
+    //       });
+    //     });
+    //   });
+    // }
+
     if(this.ledgerBookService.getdateFrom() != null && this.ledgerBookService.getdateTo() != null){
-      this.ledgerBookService.getdateFrom().subscribe((dateFrom) => {
-        var formattedDateFrom = format(dateFrom, 'yyyy-MM-dd');
-        this.ledgerBookService.getdateTo().subscribe((dateTo) => {
-          var formattedDateTo = format(dateTo, 'yyyy-MM-dd');
-          this.reportService.getLedgerBookSubaccounts(this.companyId, formattedDateFrom, formattedDateTo, '', 'asc').subscribe({
-            next: (response) => {
-              this.accounts = response.data!;
-              this.isLoading = false;
-              this.sendAccounts();
-            },
-            error: (error) => {
-              console.log(error);
-            }
-          });
-        });
-      });
-    }
+          var formattedDateFrom = format(this.ledgerBookService.getdateFrom(), 'yyyy-MM-dd');
+            var formattedDateTo = format(this.ledgerBookService.getdateTo(), 'yyyy-MM-dd');
+            this.reportService.getLedgerBookSubaccounts(this.companyId, formattedDateFrom, formattedDateTo, '', 'asc').subscribe({
+              next: (response) => {
+                this.accounts = response.data!;
+                this.isLoading = false;
+                this.sendAccounts();
+              },
+              error: (error) => {
+                console.log(error);
+              }
+            });
+      }
   }
 
   onCheckboxChange(event: any) {

@@ -6,31 +6,60 @@ import { UserDto } from 'src/app/features/user-accounts/models/user.dto';
     providedIn: 'root'
 })
 export class LedgerBookService {
-    private dateTo = new BehaviorSubject<Date>(new Date());
-    private dateFrom = new BehaviorSubject<Date>(new Date());
-    private subaccountIds = new BehaviorSubject<string[]>([]);
+    // private dateTo = new BehaviorSubject<Date>(new Date());
+    // private dateFrom = new BehaviorSubject<Date>(new Date());
+    // private subaccountIds = new BehaviorSubject<string[]>([]);
 
-    setdateTo(data: Date) {
-        this.dateTo.next(data);
+    // setdateTo(data: Date) {
+    //     this.dateTo.next(data);
+    // }
+
+    // getdateTo(): Observable<Date> {
+    //     return this.dateTo.asObservable();
+    // }
+
+    // setdateFrom(data: Date) {
+    //     this.dateFrom.next(data);
+    // }
+
+    // getdateFrom(): Observable<Date> {
+    //     return this.dateFrom.asObservable();
+    // }
+
+    // setsubaccountIds(data: string[]) {
+    //     this.subaccountIds.next(data);
+    // }
+
+    // getsubaccountIds(): Observable<string[]> {
+    //     return this.subaccountIds.asObservable();
+    // }
+    private dateTo: Date = new Date();
+    private dateFrom: Date = new Date();
+    private subaccountIds: string[] = [];
+
+   //Getters and setters
+    public getdateTo(): Date {
+     return this.dateTo;
     }
 
-    getdateTo(): Observable<Date> {
-        return this.dateTo.asObservable();
+    public setdateTo(dateTo: Date): void {
+     this.dateTo = dateTo;
     }
 
-    setdateFrom(data: Date) {
-        this.dateFrom.next(data);
+    public getdateFrom(): Date {
+     return this.dateFrom;
     }
 
-    getdateFrom(): Observable<Date> {
-        return this.dateFrom.asObservable();
+    public setdateFrom(dateFrom: Date): void {
+     this.dateFrom = dateFrom;
     }
 
-    setsubaccountIds(data: string[]) {
-        this.subaccountIds.next(data);
+
+    public getsubaccountIds(): string[] {
+     return this.subaccountIds;
     }
 
-    getsubaccountIds(): Observable<string[]> {
-        return this.subaccountIds.asObservable();
+    public setsubaccountIds(subaccountIds: string[]): void {
+     this.subaccountIds = subaccountIds;
     }
 }
