@@ -13,11 +13,12 @@ import { ToastModule } from 'primeng/toast';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { TabViewModule } from 'primeng/tabview';
 import { SplitButtonModule } from 'primeng/splitbutton';
-import { SharedModule } from 'primeng/api';
+// import { SharedModule } from 'primeng/api';
 import { PaginatorModule } from 'primeng/paginator';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ListboxModule } from 'primeng/listbox';
 import { DropdownModule } from 'primeng/dropdown';
+import {SharedModule} from "../../shared/shared.module";
 
 
 @NgModule({
@@ -26,24 +27,25 @@ import { DropdownModule } from 'primeng/dropdown';
     JournalBookReportComponent,
 
   ],
-  imports: [
-    CommonModule,
-    ReportsRoutingModule,
-    TableModule,
-    FormsModule,
-    ReactiveFormsModule,
-    InputTextModule,
-    ButtonModule,
-    CalendarModule,
-    ToastModule,
-    InputNumberModule,
-    TabViewModule,
-    SplitButtonModule,
-    SharedModule,
-    PaginatorModule,
-    MultiSelectModule,
-    ListboxModule,
-    DropdownModule
-  ]
+    imports: [
+        CommonModule,
+        ReportsRoutingModule,
+        TableModule,
+        FormsModule,
+        ReactiveFormsModule,
+        InputTextModule,
+        ButtonModule,
+        CalendarModule,
+        ToastModule,
+        InputNumberModule,
+        TabViewModule,
+        SplitButtonModule,
+        SharedModule,
+        PaginatorModule,
+        MultiSelectModule,
+        ListboxModule,
+        DropdownModule,
+        SharedModule
+    ]
 })
 export class ReportsModule { }

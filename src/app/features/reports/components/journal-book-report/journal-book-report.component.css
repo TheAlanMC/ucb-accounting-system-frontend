@@ -1,6 +1,55 @@
+* {
+  color: #666666;
+  font-size: small;
+}
+
+/* datepicker */
+::ng-deep .datepicker span input {
+  height: 30px !important;
+  font-size: small;
+}
+
+::ng-deep .datepicker span .p-datepicker-trigger {
+  background: var(--color-green) !important;
+  border-color: var(--color-green) !important;
+  height: 30px !important;
+}
+
+::ng-deep .p-datepicker table td {
+  padding: 0.2rem !important;
+}
+
 #bordernone{
-    border: none;
+  border: none;
 }
 #borderblack{
-    border-color: rgb(175, 175, 175);
+  border-color: rgb(175, 175, 175);
+}
+
+::ng-deep .help-icon button{
+  background: var(--color-green) !important;
+  border-color: var(--color-green) !important;
+}
+::ng-deep #save-buttons button {
+  background: var(--color-green);
+  border-color: var(--color-green);
+}
+
+::ng-deep .help-icon span {
+  font-size: 1.3rem;
+}
+
+
+.home-section{
+  position: absolute;
+  min-height: 100vh;
+  top: 0;
+  left: 70px;
+  width: calc(100% - 78px);
+  transition: all 0.5s ease;
+  z-index: 2;
+}
+.navbar-opened {
+  left: 250px;
+  width: calc(100% - 250px);
 }

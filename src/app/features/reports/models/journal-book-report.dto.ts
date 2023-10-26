@@ -2,12 +2,12 @@ export interface BusinessEntity {
     businessEntityId: number;
     businessEntityName: string;
   }
-  
+
   export interface Industry {
     industryId: number;
     industryName: string;
   }
-  
+
   export interface Company {
     businessEntity: BusinessEntity;
     companyAddress: string;
@@ -17,35 +17,35 @@ export interface BusinessEntity {
     industry: Industry;
     phoneNumber: string;
   }
-  
+
   export interface CurrencyType {
     currencyCode: string;
     currencyName: string;
   }
-  
+
   export interface DocumentType {
     documentTypeId: number;
     documentTypeName: string;
   }
-  
+
   export interface Subaccount {
     subaccountCode: number;
     subaccountId: number;
     subaccountName: string;
   }
-  
+
   export interface TransactionDetails {
     creditAmountBs: number;
     debitAmountBs: number;
     subaccount: Subaccount;
   }
-  
+
   export interface Attachment {
+    attachmentId: number;
     contentType: string;
-    fileUrl: string;
     filename: string;
   }
-  
+
   export interface ReportData {
     attachments: Attachment[];
     description: string;
@@ -56,7 +56,7 @@ export interface BusinessEntity {
     transactionDate: string;
     transactionDetails: TransactionDetails[];
   }
-  
+
   export interface journalBookReportDto {
     company: Company;
     currencyType: CurrencyType;
@@ -64,4 +64,3 @@ export interface BusinessEntity {
     reportData: ReportData[];
     startDate: string;
   }
-  
