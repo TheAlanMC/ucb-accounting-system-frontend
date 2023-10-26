@@ -7,6 +7,9 @@ import { BalanceComponent } from './components/balance/balance.component';
 import { Button, ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { SidebarModule } from 'primeng/sidebar';
+import { CalendarModule } from 'primeng/calendar';
+import { FormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -19,7 +22,9 @@ import { SidebarModule } from 'primeng/sidebar';
     ReportsRoutingModule,
     ButtonModule,
     TableModule,
-    SidebarModule
+    SidebarModule,
+    CalendarModule,
+    FormsModule
   ]
 })
 export class ReportsModule { }

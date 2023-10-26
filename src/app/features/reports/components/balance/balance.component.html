@@ -7,14 +7,18 @@
     
 </div>
 <div class="contenedor-boton">
-    <td><p-button type="button" class="mr-2 boton-sidebar" (click)="sidebarVisible2 = true; isEditing = false" icon="pi pi-plus" label="Generar Reporte"></p-button>
+    <td><p-button type="button" class="mr-2 boton-sidebar" (click)="obtenertransacciones()" icon="pi pi-plus" label="Generar Reporte"></p-button>
 </div>
 <p>Rango de fechas para el reporte</p>
 <div class="search-bar">
-    <input pInputText type="date" placeholder="Fecha inicial" />
-    <input pInputText type="date" placeholder="Fecha final" />
+    <p>Fecha Inicial</p>
+          <p-calendar class="datepicker" [(ngModel)]="fechaInicial" [showIcon]="true" inputId="icon"
+                      dateFormat="dd/mm/yy"></p-calendar>
+                      <p>Fecha Final</p>
+                      <p-calendar class="datepicker" [(ngModel)]="fechaFinal" [showIcon]="true" inputId="icon"
+                                  dateFormat="dd/mm/yy"></p-calendar>
 </div>
-<p-table [value]="cuentas" [tableStyle]="{ 'min-width': '25rem' }">
+<p-table [value]="transaction.trialBalanceDetails" [tableStyle]="{ 'min-width': '25rem' }">
     <ng-template pTemplate="header">
         <tr>
             <th colspan="3">
@@ -37,21 +41,17 @@
             <th>Acreedor</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-cuenta>
+    <ng-template pTemplate="body" let-transaction>
         <tr>
-            <td>{{ cuenta.codigo }}</td>
-            <td>{{ cuenta.nombre }}</td>
-            <td>{{ cuenta.saldoInicial }}</td>
-            <td>{{ cuenta.debito }}</td>
-            <td>{{ cuenta.credito }}</td>
-            <td>{{ cuenta.saldoFinal }}</td>
-        </tr>
+            <td>{{ transaction.subaccount.subaccountCode }}</td>
+            <td>{{ transaction.subaccount.subaccountName }}</td>
+            <td>{{ transaction.balanceDebtor }}</td>
+            <td>{{ transaction.balanceCreditor }}</td>
+            <td>{{ transaction.debitAmount }}</td>
+            <td>{{ transaction.creditAmount }}</td>
+                   </tr>
     </ng-template>
 </p-table>
 
-<p-sidebar [(visible)]="sidebarVisible2" position="right" class="sidebar">
-    <!-- Aquí puedes agregar el contenido de tu barra lateral -->
-</p-sidebar>
-
-<p-button (click)="obtenercuentas()" label="Exportar a PDF" class="boton-submit boton-derecha"></p-button>
+<p-button (click)="obtenertransacciones()" label="Exportar a PDF" class="boton-submit boton-derecha"></p-button>
 
