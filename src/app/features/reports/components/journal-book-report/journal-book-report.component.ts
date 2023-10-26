@@ -1,7 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
+import { th } from 'date-fns/locale';
 import { Table } from 'primeng/table';
+import { ReportJournalbookService } from 'src/app/core/services/report-journalbook.service';
+import { ReportData } from 'src/app/features/reports/models/journal-book-report.dto';
 
-export interface JournalBookDto{
+export interface JournalBookDto {
+  reportData: ReportData[];
   accountNumber: number;
   date: string;
   code: string;
@@ -11,32 +15,11 @@ export interface JournalBookDto{
   credit: number;
 }
 
-interface City {
-  name: string,
-  code: string
-}
 export interface Country {
   name?: string;
   code?: string;
 }
 
-export interface Representative {
-  name?: string;
-  image?: string;
-}
-
-export interface Customer {
-  id?: number;
-  name?: string;
-  country?: Country;
-  company?: string;
-  date?: string | Date;
-  status?: string;
-  activity?: number;
-  representative?: Representative;
-  verified?: boolean;
-  balance?: number;
-}
 
 @Component({
   selector: 'app-journal-book-report',
@@ -45,63 +28,73 @@ export interface Customer {
 })
 export class JournalBookReportComponent {
   @ViewChild('dt2') dt2!: Table;
+
+  startDate: Date | undefined;  // Variable para la fecha de inicio
+  endDate: Date | undefined;
+
   companyId = Number(localStorage.getItem('companyId'));
   items: any[] = [];
-
-  cities!: City[];
-  selectedCity!: City;
-
-  customers!: Customer[];
-
 
   // Filter variables
   filterDate: string = '';
   filterCustomer: string[] = [];
   filterDocumentType: string = '';
-  constructor() {
+  constructor(private reportJournalBookService: ReportJournalbookService) {
     this.items = [
       {
-          label: 'Factura',
-          icon: 'pi pi-book',
-          
+        label: 'Factura',
+        icon: 'pi pi-book',
+
       },
       {
-          label: 'Recibo',
-          icon: 'pi pi-file-edit',
-          
+        label: 'Recibo',
+        icon: 'pi pi-file-edit',
+
       },
-  ];
+    ];
   }
 
-  
+
 
   //sales: SaleAbstractDto[] = [];
-  journalBooks: JournalBookDto[] = [];
+  journalBooks: JournalBookDto | undefined ;
+
+  reportDatas: ReportData[] = [];
   
 
+
   ngOnInit(): void {
-    this.journalBooks = this.getAllJournals();
-    this.cities = [
-      { name: 'New York', code: 'NY' },
-      { name: 'Rome', code: 'RM' },
-      { name: 'London', code: 'LDN' },
-      { name: 'Istanbul', code: 'IST' },
-      { name: 'Paris', code: 'PRS' }
-  ];
+    //this.journalBooks = this.getAllJournals();
+    
   }
+
+  generateReport(){
+    console.log(this.startDate);
+    console.log(this.endDate);
+    this.reportJournalBookService.getJournalBookReport(this.formatDate(this.startDate!), this.formatDate(this.endDate!)).subscribe({
+
+      next: (data) => {
+        console.log(data);
+        this.journalBooks = data.data!;
+        console.log(this.journalBooks);
+
+        this.reportDatas = this.journalBooks.reportData;
+        console.log(this.reportDatas);
+        console.log("sdasadas")
+        console.log(this.reportDatas[0].transactionDetails);
+        console.log("sdasadas22")
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
+
   calculateCustomerTotal(name: string) {
     let total = 0;
 
-    if (this.customers) {
-        for (let customer of this.customers) {
-            if (customer.representative?.name === name) {
-                total++;
-            }
-        }
-    }
-
     return total;
-}
+  }
 
 
 
@@ -234,6 +227,6 @@ export class JournalBookReportComponent {
     }
     this.getAllJournals();
   }
-  
-  
+
+
 }
