@@ -1,0 +1,61 @@
+<h4 style="color: #8c8c8c;">Reporte por rango de fechas</h4>
+<div class="flex justify-content-between">    
+    <div class="flex flex-row flex-wrap mb-3">
+        <div class="flex flex-row justify-content-start mr-2">
+            <p>Desde:</p>
+            <p-calendar class="datepicker ml-2 mt-2" [(ngModel)]="startDate" (onSelect)="filterByDate($event)" (onClearClick)=filterByDate(null) [showButtonBar]="true" [showIcon]="true" dateFormat="dd/mm/yy" inputId="icon" placeholder="Seleccione una fecha" [readonlyInput]="true" dateFormat="yy-mm-dd"></p-calendar>
+            <p class="ml-8">Hasta:</p>
+            <p-calendar class="datepicker ml-2 mt-2" [(ngModel)]="endDate" (onSelect)="filterByDate($event)" (onClearClick)=filterByDate(null) [showButtonBar]="true" [showIcon]="true" dateFormat="dd/mm/yy" inputId="icon" placeholder="Seleccione una fecha" [readonlyInput]="true" dateFormat="yy-mm-dd"></p-calendar>
+        </div>
+    </div>
+    <div class="flex flex-column justify-content-start">
+        <div class="flex justify-content-between flex-wrap card-container purple-container">
+                <p-button label="Ver PDF" class="green-button mr-2"></p-button>
+                <p-button label="Generar Reporte" class="green-button" (onClick)="generateReport()"></p-button>
+        </div>
+    </div>
+</div>
+<br>
+
+<p-table #dt2 [value]="worksheetDetail" [(selection)]="selectedworksheet" [tableStyle]="{'min-width': '50rem'}" [lazy]="true" (onSort)="onSortChange($event)" [customSort]="true">
+    <ng-template pTemplate="header">
+        <tr>
+            <th></th>
+            <th colspan="2">Balance de comprobacion</th>
+            <th colspan="2">Estado de Resultados</th>
+            <th colspan="2">Balance General</th>
+        </tr>
+        <tr>
+            <th>Cuenta</th>
+            <th>Debe (Bs.)</th>
+            <th>Haber (Bs.)</th>
+            <th>Debe (Bs.)</th>
+            <th>Haber (Bs.)</th>
+            <th>Debe (Bs.)</th>
+            <th>Haber (Bs.)</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-worksheetDetail>
+        <tr>
+            <td>{{worksheetDetail.subaccount.subaccountName}}</td>
+            <td>{{worksheetDetail.balanceCreditor | currency: ' '}}</td>
+            <td>{{worksheetDetail.balanceDebtor | currency: ' '}}</td>
+            <td>{{worksheetDetail.balanceSheetAsset | currency: ' '}}</td>
+            <td>{{worksheetDetail.balanceSheetLiability | currency: ' '}}</td>
+            <td>{{worksheetDetail.incomeStatementExpense | currency: ' '}}</td>
+            <td>{{worksheetDetail.incomeStatementIncome | currency: ' '}}</td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <tr>
+            <td>TOTAL: </td>
+            <td>{{worksheetReport.reportData.totalBalanceCreditor}}</td>
+            <td>{{worksheetReport.reportData.totalBalanceDebtor}}</td>
+            <td>{{worksheetReport.reportData.totalBalanceSheetAsset}}</td>
+            <td>{{worksheetReport.reportData.totalBalanceSheetLiability}}</td>
+            <td>{{worksheetReport.reportData.totalIncomeStatementExpense}}</td>
+            <td>{{worksheetReport.reportData.totalIncomeStatementIncome}}</td>
+        </tr>
+    </ng-template>
+</p-table>
+

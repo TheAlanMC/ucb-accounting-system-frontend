@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ReportsPageComponent } from './components/reports-page/reports-page.component';
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
+import { WorksheetReportComponent } from './components/worksheet-report/worksheet-report.component';
 
 const routes: Routes = [{
   path: 'reports',
   children: [{
-    path: '', component: ReportsPageComponent, data: { roles: ['report-generator', 'report-viewer']}, canActivate: [AuthGuard] 
+    path: 'worksheet-report', component: WorksheetReportComponent},
+    {path: '', component: ReportsPageComponent, data: { roles: ['report-generator', 'report-viewer']}, canActivate: [AuthGuard] 
   }]
 }
 ];
