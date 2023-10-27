@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { BrowserModule } from '@angular/platform-browser';
 import { TaxesRoutingModule } from './taxes-routing.module';
 import { TaxModificationPageComponent } from './components/tax-modification-page/tax-modification-page.component';
 import { DailyJournalPageComponent } from './components/daily-journal-page/daily-journal-page.component';
@@ -12,6 +12,10 @@ import { TableModule } from 'primeng/table';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TaxPageComponent } from './components/tax-page/tax-page.component';
 import {ChipsModule} from "primeng/chips";
+import { InputTextModule } from 'primeng/inputtext';
+import { DialogModule } from 'primeng/dialog'; 
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -28,7 +32,10 @@ import {ChipsModule} from "primeng/chips";
     ButtonModule,
     TableModule,
     ReactiveFormsModule,
-    ChipsModule
+    ChipsModule,
+    InputTextModule,
+    DialogModule,
+    FormsModule
   ]
 })
 export class TaxesModule { }

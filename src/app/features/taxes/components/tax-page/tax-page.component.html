@@ -1,1 +1,54 @@
-<p>tax-page works!</p>
+<div class="header">
+    <i class="pi pi-wallet" style="color: rgb(139, 212, 128); font-size: 35px;"></i>
+    <h1 class="titulo" style="display: inline;">Impuestos</h1>
+    <div style="position: absolute; top: 0; right: 0;" class="flex-none flex align-items-center justify-content-center font-bold m-2 px-5 py-3">
+        <p-button class="help-icon" icon="pi pi-question-circle" styleClass="p-button-success"></p-button>
+        <p-button label="Create" styleClass="p-button-success"></p-button> <!-- Botón adicional "Create" -->
+    </div>
+</div>
+
+<p>Tasa de Impuesto</p>
+<div class="search-bar">
+    <select>
+        <!-- Agrega las opciones para tu dropdown aquí -->
+        <option value="">Selecciona una tasa de impuesto</option>
+    </select>
+</div>
+
+<p-table [value]="impuestos" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width:20%">Fecha de Creacion</th>
+            <th style="width:20%">Nombre del impuesto</th>
+            <th style="width:20%">Nº</th>
+            <th style="width:20%">Tasa actual del impuesto</th>
+            <th style="width:20%">Editar<br></th> <!-- Agrega un salto de línea aquí -->
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-impuesto let-editing="editing" let-ri="rowIndex">
+        <tr [pEditableRow]="impuesto">
+            <td>{{impuesto.fechaCreacion}}</td>
+            <td>{{impuesto.taxType.taxTypeName}}</td>
+            <td>{{ri+1}}</td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="impuesto.taxRate">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{impuesto.taxRate}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>
+                <div class="flex align-items-center justify-content-center gap-2">
+                    <span>Modificar</span> <!-- Agrega la palabra "Modificar" aquí -->
+                    <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(impuesto)" class="p-button-rounded p-button-text"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(impuesto)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(impuesto, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+

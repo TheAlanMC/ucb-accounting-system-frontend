@@ -21,14 +21,15 @@ import { ListboxModule } from 'primeng/listbox';
 import { DropdownModule } from 'primeng/dropdown';
 import { TagModule } from 'primeng/tag';
 import {SharedModule} from "../../shared/shared.module";
+import { BalanceComponent } from './components/balance/balance.component';
 
 
 @NgModule({
   declarations: [
     ReportsPageComponent,
     JournalBookReportComponent,
-    WorksheetReportComponent
-
+    WorksheetReportComponent,
+    BalanceComponent
   ],
   imports: [
     CommonModule,
