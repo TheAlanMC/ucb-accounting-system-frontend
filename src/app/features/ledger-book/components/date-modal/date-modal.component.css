@@ -1,0 +1,41 @@
+/* datepicker */
+::ng-deep .datepicker span input {
+    height: 30px !important;
+    font-size: small;
+  }
+  
+  ::ng-deep .datepicker span .p-datepicker-trigger {
+    background: var(--color-green) !important;
+    border-color: var(--color-green) !important;
+    height: 30px !important;
+  }
+  
+  ::ng-deep .p-datepicker table td {
+    padding: 0.2rem !important;
+  }
+  
+  ::ng-deep .p-datepicker table td>span {
+    width: 1.7rem;
+    height: 1.7rem;
+  }
+  
+  ::ng-deep .p-datepicker table {
+    font-size: 10pt;
+    margin: -0.143rem 0;
+  }
+  
+  ::ng-deep .p-datepicker .p-datepicker-header {
+    padding: 0.2rem;
+  }
+  
+
+  ::ng-deep #next-button button{
+    background-color: var(--color-green);
+    border-color: var(--color-green);
+    color: white;
+    font-size: small;
+    font-weight: 500;
+    height: 30px;
+  }
+
+  

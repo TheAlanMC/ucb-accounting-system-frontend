@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Input, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ReportsRoutingModule } from './reports-routing.module';
@@ -22,6 +22,9 @@ import { DropdownModule } from 'primeng/dropdown';
 import { TagModule } from 'primeng/tag';
 import {SharedModule} from "../../shared/shared.module";
 import { BalanceComponent } from './components/balance/balance.component';
+import { DialogModule } from 'primeng/dialog';
+import { LedgerBookModule } from '../ledger-book/ledger-book.module';
+import { SidebarModule } from 'primeng/sidebar';
 
 
 @NgModule({
@@ -49,8 +52,14 @@ import { BalanceComponent } from './components/balance/balance.component';
     MultiSelectModule,
     ListboxModule,
     DropdownModule,
-    SharedModule,
-    SharedModule
+    ToastModule,
+    CalendarModule,
+    DropdownModule,
+    DialogModule,
+    LedgerBookModule,
+    SidebarModule,
+    TableModule,
+    ToastModule
   ]
 })
 export class ReportsModule { }

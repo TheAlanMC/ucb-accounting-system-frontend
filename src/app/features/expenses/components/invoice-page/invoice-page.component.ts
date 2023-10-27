@@ -39,6 +39,8 @@ export class InvoicePageComponent {
   selectedSupplier: any;
   selectedPaymentType: any;
 
+
+
   //Retrieve the data from the child component - transaction table
   retrieveTransactionDetails(transactionDetails: InvoiceDetailDto[]) {
     console.log(transactionDetails)

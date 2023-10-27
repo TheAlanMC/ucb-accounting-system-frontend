@@ -20,7 +20,19 @@
   width: calc(100% - 250px);
 }
 
-::ng-deep #ledgerbook-dialog .p-dialog{
-  min-height: 30vh;
-  height: 380px;
+#account-name{
+  font-size: 20px;
+  font-weight: 500;
+  color: #666666;
+}
+
+.pass-icon{
+  color: #29ABAC;
+  cursor: pointer;
+  /* Transiciom */
+  transition: color 0.5s ease;
+}
+
+.pass-icon:hover{
+  color: #22d4d4;
 }

@@ -5,6 +5,8 @@ import { AuthGuard } from 'src/app/core/guards/auth.guard';
 import { JournalBookReportComponent } from './components/journal-book-report/journal-book-report.component';
 import { WorksheetReportComponent } from './components/worksheet-report/worksheet-report.component';
 import { BalanceComponent } from './components/balance/balance.component';
+import { LedgerBookPageComponent } from '../ledger-book/components/ledger-book-page/ledger-book-page.component';
+import { AccountModalComponent } from '../ledger-book/components/account-modal/account-modal.component';
 
 const routes: Routes = [{
   path: 'reports',
@@ -12,6 +14,9 @@ const routes: Routes = [{
   {path: 'journal-book', component: JournalBookReportComponent},
   {path: 'balance', component: BalanceComponent},
    {path: 'worksheet-report', component: WorksheetReportComponent},
+   { path:'ledgerbook', component: LedgerBookPageComponent},
+    {path: 'prueba', component: AccountModalComponent},
+  
     {path: '', component: ReportsPageComponent, data: { roles: ['report-generator', 'report-viewer']}, canActivate: [AuthGuard] 
   }]
 }];
