@@ -4,11 +4,13 @@ import { Router } from '@angular/router';
 import { LedgerBookService } from 'src/app/core/services/values/ledger-book.service';
 import { AccountModalComponent } from 'src/app/features/ledger-book/components/account-modal/account-modal.component';
 import { SubaccountDto } from 'src/app/features/sales/models/subaccount.dto';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-reports-page',
   templateUrl: './reports-page.component.html',
-  styleUrls: ['./reports-page.component.css']
+  styleUrls: ['./reports-page.component.css'],
+  providers: [MessageService]
 })
 export class ReportsPageComponent {
   @ViewChild(AccountModalComponent) accountModalComponent!: AccountModalComponent; // Obtén una referencia al componente hijo
@@ -27,7 +29,7 @@ export class ReportsPageComponent {
     this.sidebarService.setIsOpen(this.isNavbarOpen);
   }
 
-  constructor(private sidebarService: SidebarService, private router: Router, private ledgerBookService: LedgerBookService) {}
+  constructor(private messageService: MessageService, private sidebarService: SidebarService, private router: Router, private ledgerBookService: LedgerBookService) {}
 
   ngOnInit(): void {
     this.sidebarService.getIsOpen().subscribe((isOpen) => {
@@ -48,11 +50,28 @@ export class ReportsPageComponent {
 
   selectAccounts(){
     if(!this.ledgerBookDate){
-      //Router link to ledgerbook
-      this.router.navigate(['/ledgerbook']);
+      //Validate if there are accounts selected
+      console.log(this.ledgerBookService.getsubaccountIds());
+      if(this.ledgerBookService.getsubaccountIds().length > 0){
+        if(this.ledgerBookService.getsubaccountIds()[0]=="error"){
+          this.messageService.add({severity:'error', summary: 'Error', detail: 'La cuenta inicial debe ser menor a la cuenta final'});
+        }else{
+          //Router link to ledgerbook
+          this.router.navigate(['/ledgerbook']);
+        }
+      }else{
+        this.messageService.add({severity:'error', summary: 'Error', detail: 'Debe seleccionar al menos una cuenta'});
+      }
     }else{
-      this.ledgerBookDate = false;
-      this.title = "Seleccionar cuentas";
+      //Validate dates
+      if(this.ledgerBookService.getdateFrom() != null && this.ledgerBookService.getdateTo() != null){
+        if(this.ledgerBookService.getdateFrom() < this.ledgerBookService.getdateTo()){
+          this.ledgerBookDate = false;
+          this.title = "Seleccionar cuentas";
+        }else{
+          this.messageService.add({severity:'error', summary: 'Error', detail: 'La fecha inicial debe ser menor a la fecha final'});
+        }
+      }
     }
   }
 

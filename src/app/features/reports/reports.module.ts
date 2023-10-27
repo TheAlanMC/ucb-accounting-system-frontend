@@ -26,9 +26,9 @@ import { TableModule } from 'primeng/table';
     DropdownModule,
     DialogModule,
     LedgerBookModule,
-   SidebarModule,
-   TableModule
-
+    SidebarModule,
+    TableModule,
+    ToastModule
   ]
 })
 export class ReportsModule { }

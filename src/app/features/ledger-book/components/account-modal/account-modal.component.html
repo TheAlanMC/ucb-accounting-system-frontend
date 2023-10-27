@@ -1,12 +1,12 @@
 <div>
     <div class="flex flex-wrap gap-3">
         <div class="flex align-items-center">
-            <p-radioButton name="account" value="checkbox" [(ngModel)]="typeOfSelection" inputId="checkbox"></p-radioButton>
+            <p-radioButton name="account" value="checkbox" [(ngModel)]="typeOfSelection" inputId="checkbox" (onClick)="onSelectionChange($event)"></p-radioButton>
             <label for="checkbox" class="ml-2">Selecciona individualmente</label>
         </div>
         
         <div class="flex align-items-center">
-            <p-radioButton name="account" value="range" [(ngModel)]="typeOfSelection" inputId="range"></p-radioButton>
+            <p-radioButton name="account" value="range" [(ngModel)]="typeOfSelection" inputId="range" (onClick)="onSelectionChange($event)"></p-radioButton>
             <label for="range" class="ml-2">Selecciona un rango</label>
         </div>
     </div>  

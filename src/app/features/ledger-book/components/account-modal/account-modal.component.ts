@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { format } from 'date-fns';
 import { da } from 'date-fns/locale';
+import { MessageService } from 'primeng/api';
+import { Messages } from 'primeng/messages';
 import { AccountPlanService } from 'src/app/core/services/account-plan.service';
 import { ReportService } from 'src/app/core/services/report.service';
 import { LedgerBookService } from 'src/app/core/services/values/ledger-book.service';
@@ -11,7 +13,8 @@ import { TableAccountDto } from 'src/app/features/chart-of-accounts/models/table
 @Component({
   selector: 'app-account-modal',
   templateUrl: './account-modal.component.html',
-  styleUrls: ['./account-modal.component.css']
+  styleUrls: ['./account-modal.component.css'],
+  providers: [MessageService]
 })
 export class AccountModalComponent {
   companyId = Number(localStorage.getItem('companyId'));
@@ -27,7 +30,7 @@ export class AccountModalComponent {
   sidebarVisible2: boolean = false;
   editingInput: number = 1;
 
-  constructor(private reportService: ReportService, private ledgerBookService: LedgerBookService, private accountPlanService: AccountPlanService) { }
+  constructor(private reportService: ReportService, private ledgerBookService: LedgerBookService, private accountPlanService: AccountPlanService, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.getAccounts();
@@ -124,17 +127,33 @@ export class AccountModalComponent {
       var rangeOfAccounts: SubaccountDto[] = [];
       var initialRow = this.initialRow;
       var lastRow = this.lastRow;
-      for(var i = initialRow; i <= lastRow; i++){
-        rangeOfAccounts.push(this.accounts[i]);
+      if(this.initialRow > this.lastRow){
+        this.ledgerBookService.setsubaccountIds(['error']);
+      }else{
+        for(var i = initialRow; i <= lastRow; i++){
+          rangeOfAccounts.push(this.accounts[i]);
+        }
+        var selectedAccountsIds: string[] = [];
+        selectedAccountsIds = rangeOfAccounts.map((account) => account.subaccountId.toString());
+        console.log(selectedAccountsIds);
+        this.ledgerBookService.setsubaccountIds(selectedAccountsIds);
       }
-      var selectedAccountsIds: string[] = [];
-      selectedAccountsIds = rangeOfAccounts.map((account) => account.subaccountId.toString());
-      console.log(selectedAccountsIds);
-      this.ledgerBookService.setsubaccountIds(selectedAccountsIds);
+      
+    }
+
+    
+  }
+  onSelectionChange(event: any) {
+    //Establecemos el selectedIds en el ledgerBookService
+    this.ledgerBookService.setsubaccountIds([]);
+    if(this.typeOfSelection == 'checkbox'){
+      this.selectedAccounts = [];
+    }else{
+      this.firstAccount = '';
+      this.lastAccount = '';
     }
   }
-
-  
+    
 
 
   
