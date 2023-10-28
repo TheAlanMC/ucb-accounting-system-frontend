@@ -5,8 +5,8 @@ import {LedgerBookPageComponent} from "./components/ledger-book-page/ledger-book
 import { AccountModalComponent } from './components/account-modal/account-modal.component';
 
 const routes: Routes = [
-  {path: 'ledgerbook', component: LedgerBookPageComponent},
-  {path: 'prueba', component: AccountModalComponent},
+  // {path: 'ledgerbook', component: LedgerBookPageComponent},
+  
 
 ];
 

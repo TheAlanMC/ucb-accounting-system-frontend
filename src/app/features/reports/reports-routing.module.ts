@@ -11,14 +11,11 @@ import { AccountModalComponent } from '../ledger-book/components/account-modal/a
 const routes: Routes = [{
   path: 'reports',
   children: [
-  {path: 'journal-book', component: JournalBookReportComponent},
-  {path: 'balance', component: BalanceComponent},
-   {path: 'worksheet-report', component: WorksheetReportComponent},
-   { path:'ledgerbook', component: LedgerBookPageComponent},
-    {path: 'prueba', component: AccountModalComponent},
-  
-    {path: '', component: ReportsPageComponent, data: { roles: ['report-generator', 'report-viewer']}, canActivate: [AuthGuard] 
-  }]
+    { path: 'journal-book', component: JournalBookReportComponent },
+    { path: 'balance', component: BalanceComponent },
+    { path: 'worksheet-report', component: WorksheetReportComponent },
+    { path: 'ledgerbook', component: LedgerBookPageComponent },
+    {path: '', component: ReportsPageComponent, data: { roles: ['report-generator', 'report-viewer'] }, canActivate: [AuthGuard]}]
 }];
 
 @NgModule({

@@ -58,7 +58,7 @@ export class ReportsPageComponent {
           this.messageService.add({severity:'error', summary: 'Error', detail: 'La cuenta inicial debe ser menor a la cuenta final'});
         }else{
           //Router link to ledgerbook
-          this.router.navigate(['/ledgerbook']);
+          this.router.navigate(['/reports/ledgerbook']);
         }
       }else{
         this.messageService.add({severity:'error', summary: 'Error', detail: 'Debe seleccionar al menos una cuenta'});
