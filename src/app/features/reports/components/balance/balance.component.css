@@ -1,41 +1,62 @@
-@import '~primeicons/primeicons.css';
-
-.contenedor-boton {
-    display: flex;
-    justify-content: flex-end;
-}
-.header {
-    display: flex;
-    align-items: center;
-}
-.icono-verde {
-    color: #008000; /* Reemplaza este código de color por el código de color verde exacto que estás utilizando */
-}
-.icono-verde {
-    margin-left: 5px; /* Ajusta la separación del icono de la barra de gráficos del borde izquierdo */
+* {
+    color: #666666;
+    font-size: small;
 }
 
-.icono-verde:last-of-type {
-    margin-right: 5px; /* Ajusta la separación del icono de interrogación del borde derecho */
+/* datepicker */
+::ng-deep .datepicker span input {
+    height: 30px !important;
+    font-size: small;
+  }
+  
+  ::ng-deep .datepicker span .p-datepicker-trigger {
+    background: var(--color-green) !important;
+    border-color: var(--color-green) !important;
+    height: 30px !important;
+  }
+  
+  ::ng-deep .p-datepicker table td {
+    padding: 0.2rem !important;
+  }
+  
+  ::ng-deep .p-datepicker table td>span {
+    width: 1.7rem;
+    height: 1.7rem;
+  }
+  
+  ::ng-deep .p-datepicker table {
+    font-size: 10pt;
+    margin: -0.143rem 0;
+  }
+  
+  ::ng-deep .p-datepicker .p-datepicker-header {
+    padding: 0.2rem;
+  }
+  
+/* Buttons */
+::ng-deep #export-button button,
+::ng-deep #generate-button button{
+  background-color: var(--color-green);
+  border-color: var(--color-green);
+  color: white;
+  font-size: small;
+  font-weight: 500;
+  height: 30px;
 }
 
 
-
-
-.boton-derecha {
-    float: right;
+/* Sidebar configuration */
+.home-section {
+    position: absolute;
+    min-height: 100vh;
+    top: 0;
+    left: 70px;
+    width: calc(100% - 78px);
+    transition: all 0.5s ease;
+    z-index: 2;
 }
 
-.cabecera-derecha {
-    text-align: right;
-}
-
-.cabecera-sumas {
-   position: absolute;
-   right: 42%;
-}
-
-.cabecera-saldos {
-   position: absolute;
-   right: 16%;
+.navbar-opened {
+    left: 250px;
+    width: calc(100% - 250px);
 }

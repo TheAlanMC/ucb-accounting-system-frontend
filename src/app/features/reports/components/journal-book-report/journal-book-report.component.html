@@ -14,20 +14,18 @@
     </div>
   </div>
   <div class="col-12 xl:col-12 px-8 pb-3">
-    <h4 style="color: #8c8c8c;">Reporte por rango de fechas</h4>
+    <h4 style="color: #8c8c8c;">Rango de fechas para el reporte</h4>
     <div class="flex justify-content-between">
       <div class="flex flex-row flex-wrap mb-3">
         <div class="flex flex-column justify-content-start mr-2">
-          <p>Desde:</p>
-          <p-calendar class="datepicker" [(ngModel)]="startDate" (onSelect)="filterByDate($event)"
-            (onClearClick)=filterByDate(null) [showButtonBar]="true" [showIcon]="true" dateFormat="dd/mm/yy"
-            inputId="icon" placeholder="Seleccione una fecha" [readonlyInput]="true" dateFormat="yy-mm-dd"></p-calendar>
+          <p>Fecha inicial</p>
+          <p-calendar class="datepicker" [(ngModel)]="startDate" [showButtonBar]="true" [showIcon]="true" dateFormat="dd/mm/yy"
+            inputId="icon" placeholder="Seleccione una fecha" [readonlyInput]="true"></p-calendar>
         </div>
         <div class="flex flex-column justify-content-start mr-2">
-          <p>Hasta:</p>
-          <p-calendar class="datepicker" [(ngModel)]="endDate" (onSelect)="filterByDate($event)"
-            (onClearClick)=filterByDate(null) [showButtonBar]="true" [showIcon]="true" dateFormat="dd/mm/yy"
-            inputId="icon" placeholder="Seleccione una fecha" [readonlyInput]="true" dateFormat="yy-mm-dd"></p-calendar>
+          <p>Fecha final</p>
+          <p-calendar class="datepicker" [(ngModel)]="endDate" [showButtonBar]="true" [showIcon]="true" dateFormat="dd/mm/yy"
+            inputId="icon" placeholder="Seleccione una fecha" [readonlyInput]="true"></p-calendar>
         </div>
       </div>
       <div class="flex flex-column justify-content-end flex-wrap mb-3">

@@ -3,21 +3,6 @@
   font-size: small;
 }
 
-/* datepicker */
-::ng-deep .datepicker span input {
-  height: 30px !important;
-  font-size: small;
-}
-
-::ng-deep .datepicker span .p-datepicker-trigger {
-  background: var(--color-green) !important;
-  border-color: var(--color-green) !important;
-  height: 30px !important;
-}
-
-::ng-deep .p-datepicker table td {
-  padding: 0.2rem !important;
-}
 
 #bordernone{
   border: none;
@@ -45,8 +30,8 @@
   font-size: 1.3rem;
 }
 
-
-.home-section{
+/* Sidebar configuration */
+.home-section {
   position: absolute;
   min-height: 100vh;
   top: 0;
@@ -55,6 +40,7 @@
   transition: all 0.5s ease;
   z-index: 2;
 }
+
 .navbar-opened {
   left: 250px;
   width: calc(100% - 250px);

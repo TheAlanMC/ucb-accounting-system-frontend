@@ -11,15 +11,15 @@ import {AttachmentDto} from "../../features/transaction/models/attachment.dto";
 })
 export class ReportJournalbookService {
 
-  baseUrl: string = `${environment.API_URL}/api/v1/reports/journal-books/companies/1`;
+  baseUrl: string = `${environment.API_URL}/api/v1/reports/journal-books/companies`;
 
   constructor(private http: HttpClient) { }
   /*public getAllPaymentTypes(): Observable<ResponseDto<PaymentTypeDto[]>>{
     return this.http.get<ResponseDto<PaymentTypeDto[]>>(`${this.baseUrl}`);
   }*/
-  public getJournalBookReport(dateFrom: string, dateTo: String):  Observable<ResponseDto<JournalBookDto>>{
+  public getJournalBookReport(companyId: number, dateFrom: string, dateTo: String):  Observable<ResponseDto<JournalBookDto>>{
     console.log(`${this.baseUrl}?dateFrom=${dateFrom}&dateTo=${dateTo}`);
-    return this.http.get<ResponseDto<JournalBookDto>>(`${this.baseUrl}?dateFrom=${dateFrom}&dateTo=${dateTo}`);
+    return this.http.get<ResponseDto<JournalBookDto>>(`${this.baseUrl}/${companyId}?dateFrom=${dateFrom}&dateTo=${dateTo}`);
   }
 
   public getJournalBookReportPdf(dateFrom: string, dateTo: String):  Observable<ResponseDto<AttachmentDto>>{

@@ -1,57 +1,89 @@
-<div class="header">
-    <i class="pi pi-ellipsis-v" style="color: rgb(139, 212, 128); font-size: 35px;"></i>
-    <h1 class="titulo">Balance de sumas y saldos</h1>
-    <div style="position: absolute; top: 0; right: 0;" class="flex-none flex align-items-center justify-content-center font-bold m-2 px-5 py-3">
-        <p-button class="help-icon" icon="pi pi-question-circle" styleClass="p-button-success"></p-button>
+<app-sidebar (navbarToggle)="onNavbarToggle($event)"></app-sidebar>
+<p-toast></p-toast>
+<div class="home-section" [class.navbar-opened]="isNavbarOpen">
+    <div class="card">
+        <p-toast></p-toast>
+        <div class="flex card-container overflow-hidden">
+            <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0">
+                <i class="pi pi-ellipsis-v"
+                    style="color: var(--color-green); font-size: 2.5rem; z-index: 2 !important;"></i>
+                <p class="text-2xl md:text-3xl" style="z-index:2;">&nbsp;&nbsp;&nbsp;Balance de sumas y saldos</p>
+            </div>
+            <div class="flex-none flex align-items-center justify-content-center font-bold m-2 px-5 py-3">
+                <app-navbar></app-navbar>
+            </div>
+        </div>
     </div>
-    
-</div>
-<div class="contenedor-boton">
-    <td><p-button type="button" class="mr-2 boton-sidebar" (click)="obtenertransacciones()" icon="pi pi-plus" label="Generar Reporte"></p-button>
-</div>
-<p>Rango de fechas para el reporte</p>
-<div class="search-bar">
-    <p>Fecha Inicial</p>
-          <p-calendar class="datepicker" [(ngModel)]="fechaInicial" [showIcon]="true" inputId="icon"
-                      dateFormat="dd/mm/yy"></p-calendar>
-                      <p>Fecha Final</p>
-                      <p-calendar class="datepicker" [(ngModel)]="fechaFinal" [showIcon]="true" inputId="icon"
-                                  dateFormat="dd/mm/yy"></p-calendar>
-</div>
-<p-table [value]="transaction.trialBalanceDetails" [tableStyle]="{ 'min-width': '25rem' }">
-    <ng-template pTemplate="header">
-        <tr>
-            <th colspan="3">
-                <div class="cabecera-derecha cabecera-sumas">
-                    Sumas
+    <div class="col-12 xl:col-12 px-8 pb-3">
+        <!-- <div class="contenedor-boton">
+        <td><p-button type="button" class="mr-2 boton-sidebar" (click)="obtenertransacciones()" icon="pi pi-plus"
+                label="Generar Reporte"></p-button>
+    </div>
+    <p>Rango de fechas para el reporte</p>
+    <div class="search-bar">
+        <p>Fecha Inicial</p>
+        <p-calendar class="datepicker" [(ngModel)]="fechaInicial" [showIcon]="true" inputId="icon"
+            dateFormat="dd/mm/yy"></p-calendar>
+        <p>Fecha Final</p>
+        <p-calendar class="datepicker" [(ngModel)]="fechaFinal" [showIcon]="true" inputId="icon"
+            dateFormat="dd/mm/yy"></p-calendar>
+    </div> -->
+        <h4 style="color: #8c8c8c;">Rango de fechas para el reporte</h4>
+        <div class="flex justify-content-between">
+            <div class="flex flex-row flex-wrap mb-3">
+                <div class="flex flex-column justify-content-start mr-2">
+                    <p>Fecha inicial</p>
+                    <p-calendar class="datepicker" [(ngModel)]="fechaInicial" [showButtonBar]="true" [showIcon]="true"
+                        dateFormat="dd/mm/yy" inputId="icon" placeholder="Seleccione una fecha"
+                        [readonlyInput]="true"></p-calendar>
                 </div>
-            </th>
-            <th colspan="3">
-                <div class="cabecera-derecha cabecera-saldos">
-                    Saldos
+                <div class="flex flex-column justify-content-start mr-2">
+                    <p>Fecha final</p>
+                    <p-calendar class="datepicker" [(ngModel)]="fechaFinal" [showButtonBar]="true" [showIcon]="true"
+                        dateFormat="dd/mm/yy" inputId="icon" placeholder="Seleccione una fecha"
+                        [readonlyInput]="true"></p-calendar>
                 </div>
-            </th>
-        </tr>
-        <tr>
-            <th>Código de cuenta</th>
-            <th>Nombre de cuenta</th>
-            <th>Cargos</th>
-            <th>Abonos</th>
-            <th>Deudor</th>
-            <th>Acreedor</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-transaction>
-        <tr>
-            <td>{{ transaction.subaccount.subaccountCode }}</td>
-            <td>{{ transaction.subaccount.subaccountName }}</td>
-            <td>{{ transaction.balanceDebtor }}</td>
-            <td>{{ transaction.balanceCreditor }}</td>
-            <td>{{ transaction.debitAmount }}</td>
-            <td>{{ transaction.creditAmount }}</td>
-                   </tr>
-    </ng-template>
-</p-table>
+            </div>
+            <div class="flex flex-column justify-content-end flex-wrap mb-3">
+                <div class="flex justify-content-between  card-container ">
+                    <p-button label="Generar Reporte" class="green-button" (onClick)="obtenertransacciones()"
+                        id="generate-button" icon="pi pi-sync" iconPos="right"></p-button>
+                    <span class="ml-2"></span>
+                    <p-button label="Exportar" class="green-button" id="export-button" icon="pi pi-file-export"
+                        iconPos="right"></p-button>
+                </div>
+            </div>
+        </div>
+        <br>
+        <p-table [value]="transactionTrial" [tableStyle]="{ 'min-width': '25rem' }">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th colspan="2"></th>
+                    <th>Sumas</th>
+                    <th colspan="1"></th>
+                    <th>Saldos</th>
+                    <th colspan="1"></th>
+                </tr>
+                <tr>
+                    <th style="width: 10%;">Código de cuenta</th>
+                    <th style="width: 30%;">Nombre de cuenta</th>
+                    <th>Cargos</th>
+                    <th>Abonos</th>
+                    <th>Deudor</th>
+                    <th>Acreedor</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-transaction>
+                <tr>
+                    <td style="width: 10%;">{{ transaction.subaccount.subaccountCode }}</td>
+                    <td style="width: 30%;">{{ transaction.subaccount.subaccountName }}</td>
+                    <td>{{ transaction.balanceDebtor | currency: 'Bs. '}}</td>
+                    <td>{{ transaction.balanceCreditor | currency: 'Bs. ' }}</td>
+                    <td>{{ transaction.debitAmount | currency: 'Bs. '}}</td>
+                    <td>{{ transaction.creditAmount | currency: 'Bs. '}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
 
-<p-button (click)="obtenertransacciones()" label="Exportar a PDF" class="boton-submit boton-derecha"></p-button>
-
+    </div>
+</div>
