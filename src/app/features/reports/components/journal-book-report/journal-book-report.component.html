@@ -62,7 +62,6 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-reportDatas let-rowIndex="rowIndex">
-
         <tr *ngFor="let transaction of reportDatas.transactionDetails">
           <td *ngIf="!isLoading" id="bordernone"></td>
           <td *ngIf="!isLoading" id="bordernone">{{ transaction.subaccount.subaccountCode }}</td>
@@ -70,7 +69,6 @@
           <td *ngIf="!isLoading" id="bordernone">{{ reportDatas.description }}</td>
           <td *ngIf="!isLoading" id="bordernone">{{ transaction.debitAmountBs | currency: 'Bs. '}}</td>
           <td *ngIf="!isLoading" id="bordernone">{{ transaction.creditAmountBs | currency: 'Bs. ' }}</td>
-
           <td *ngIf="isLoading && !emptyTable"><p-skeleton></p-skeleton></td>
           <td *ngIf="isLoading && !emptyTable"><p-skeleton></p-skeleton></td>
           <td *ngIf="isLoading && !emptyTable"><p-skeleton></p-skeleton></td>
@@ -78,7 +76,6 @@
           <td *ngIf="isLoading && !emptyTable"><p-skeleton></p-skeleton></td>
           <td *ngIf="isLoading && !emptyTable"><p-skeleton></p-skeleton></td>
         </tr>
-          
         <tr id="total-row" *ngIf="!isLoading">
           <td colspan="4" style="text-align: right">Total</td>
           <td>{{ calculateSum(reportDatas.transactionDetails, 'debit')  | currency: 'Bs. ' }}</td>

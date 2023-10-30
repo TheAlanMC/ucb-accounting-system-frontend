@@ -1,54 +1,67 @@
-<div class="header">
-    <i class="pi pi-wallet" style="color: rgb(139, 212, 128); font-size: 35px;"></i>
-    <h1 class="titulo" style="display: inline;">Impuestos</h1>
-    <div style="position: absolute; top: 0; right: 0;" class="flex-none flex align-items-center justify-content-center font-bold m-2 px-5 py-3">
-        <p-button class="help-icon" icon="pi pi-question-circle" styleClass="p-button-success"></p-button>
-        <p-button label="Create" styleClass="p-button-success"></p-button> <!-- Botón adicional "Create" -->
+<app-sidebar (navbarToggle)="onNavbarToggle($event)"></app-sidebar>
+<p-toast></p-toast>
+<div class="home-section" [class.navbar-opened]="isNavbarOpen">
+    <div class="card">
+        <div class="flex card-container overflow-hidden">
+            <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0">
+                <i class="pi pi-wallet"
+                    style="color: var(--color-green); font-size: 2.5rem; z-index: 2 !important;"></i>
+                <p class="text-2xl md:text-3xl" style="z-index:2;">&nbsp;&nbsp;&nbsp;Impuestos</p>
+            </div>
+            <div class="flex-none flex align-items-center justify-content-center font-bold m-2 px-5 py-3">
+                <app-navbar></app-navbar>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 xl:col-12 px-8 pb-3">
+
+        <!-- <p>Tasa de Impuesto</p>
+        <div class="search-bar">
+            <select>
+                <option value="">Selecciona una tasa de impuesto</option>
+            </select>
+        </div> -->
+
+        <p-table [value]="impuestos" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width:5%">Nº</th>
+                    <th style="width:10%">Fecha de Creacion</th>
+                    <th style="width:25%">Nombre del impuesto</th>
+                    
+                    <th style="width:10%">Tasa actual del impuesto</th>
+                    <th style="width:5%"></th> <!-- Agrega un salto de línea aquí -->
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-impuesto let-editing="editing" let-ri="rowIndex">
+                <tr [pEditableRow]="impuesto">
+                    <td>{{ri+1}}</td>
+                    <td>{{date | date: 'dd-MM-yyyy'}}</td> 
+                    <td>{{impuesto.taxType.taxTypeName}}</td>
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text" [(ngModel)]="impuesto.taxRate">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{impuesto.taxRate}} %
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td style="width:5%">
+                        <div class="flex align-items-center justify-content-center gap-2">
+                            <button style="color: white;" *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+                                (click)="onRowEditInit(impuesto)" class="p-button-rounded p-button-secondary"></button>
+                            <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
+                                (click)="onRowEditSave(impuesto)"
+                                class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                            <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+                                (click)="onRowEditCancel(impuesto, ri)"
+                                class="p-button-rounded p-button-text p-button-danger"></button>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
     </div>
 </div>
-
-<p>Tasa de Impuesto</p>
-<div class="search-bar">
-    <select>
-        <!-- Agrega las opciones para tu dropdown aquí -->
-        <option value="">Selecciona una tasa de impuesto</option>
-    </select>
-</div>
-
-<p-table [value]="impuestos" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
-    <ng-template pTemplate="header">
-        <tr>
-            <th style="width:20%">Fecha de Creacion</th>
-            <th style="width:20%">Nombre del impuesto</th>
-            <th style="width:20%">Nº</th>
-            <th style="width:20%">Tasa actual del impuesto</th>
-            <th style="width:20%">Editar<br></th> <!-- Agrega un salto de línea aquí -->
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-impuesto let-editing="editing" let-ri="rowIndex">
-        <tr [pEditableRow]="impuesto">
-            <td>{{impuesto.fechaCreacion}}</td>
-            <td>{{impuesto.taxType.taxTypeName}}</td>
-            <td>{{ri+1}}</td>
-            <td>
-                <p-cellEditor>
-                    <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="impuesto.taxRate">
-                    </ng-template>
-                    <ng-template pTemplate="output">
-                        {{impuesto.taxRate}}
-                    </ng-template>
-                </p-cellEditor>
-            </td>
-            <td>
-                <div class="flex align-items-center justify-content-center gap-2">
-                    <span>Modificar</span> <!-- Agrega la palabra "Modificar" aquí -->
-                    <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(impuesto)" class="p-button-rounded p-button-text"></button>
-                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(impuesto)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
-                    <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(impuesto, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
-                </div>
-            </td>
-        </tr>
-    </ng-template>
-</p-table>
-

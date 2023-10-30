@@ -15,6 +15,8 @@ import {ChipsModule} from "primeng/chips";
 import { InputTextModule } from 'primeng/inputtext';
 import { DialogModule } from 'primeng/dialog'; 
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { ToastModule } from 'primeng/toast';
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import { FormsModule } from '@angular/forms';
     ChipsModule,
     InputTextModule,
     DialogModule,
-    FormsModule
+    FormsModule,
+    SharedModule,
+    ToastModule
   ]
 })
 export class TaxesModule { }
