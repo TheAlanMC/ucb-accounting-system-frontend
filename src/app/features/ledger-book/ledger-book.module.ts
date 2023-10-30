@@ -18,6 +18,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SidebarModule } from 'primeng/sidebar';
 import { TreeTableModule } from 'primeng/treetable';
 import { SkeletonModule } from 'primeng/skeleton';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 @NgModule({
@@ -41,7 +43,9 @@ import { SkeletonModule } from 'primeng/skeleton';
         ProgressSpinnerModule,
         SidebarModule,
         TreeTableModule,
-        SkeletonModule
+        SkeletonModule,
+        ScrollPanelModule,
+        DropdownModule
     ],
   exports: [
     DateModalComponent,

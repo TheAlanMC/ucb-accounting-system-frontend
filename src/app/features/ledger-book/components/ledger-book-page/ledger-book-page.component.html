@@ -12,56 +12,47 @@
         <app-navbar></app-navbar>
       </div>
     </div>
-    <div *ngIf="!isLoading" class="flex justify-content-between">
-      <div class="flex flex-column card-container mx-8">
+    <div class="flex justify-content-between">
+      <div class="flex flex-column card-container mx-8 justify-content-end">
         <div class="flex flex-row flex-wrap align-items-center"> 
           <i *ngIf="moreThanOneAccount" class="pi pi-angle-left pass-icon mr-3" style="font-size: 1.3rem" pTooltip="Anterior cuenta" tooltipPosition="left" [showDelay]="800" [hideDelay]="800" (click)="previousAccount()"></i>
-          <p id="account-name">{{transaction.subaccount.subaccountName}}</p>
+          <!-- <p *ngIf="!isLoading" id="account-name">{{transaction.subaccount.subaccountName}} </p>  -->
+          <p-dropdown *ngIf="!isLoading" id="account-number"
+                        optionLabel="name" [required]="true" [options]="cuentasDropdown" [(ngModel)]="selectedAccount" (onChange)="onSelectedAccount($event)"
+                        [style]="{'width':'350px'}"></p-dropdown>
+          <p-skeleton *ngIf="isLoading" width="200px" height="20px" ></p-skeleton>
           <i *ngIf="moreThanOneAccount" class="pi pi-angle-right pass-icon mx-3" style="font-size: 1.3rem" pTooltip="Siguiente cuenta" tooltipPosition="right" [showDelay]="800" [hideDelay]="800" (click)="nextAccount()"></i>
         </div>
-        <p>Código de la cuenta: {{transaction.subaccount.subaccountCode}}</p>
+        <br>
+        <p *ngIf="!isLoading" style="margin-left: 37px;"><strong>Código de la cuenta:</strong> {{transaction.subaccount.subaccountCode}}</p>
+        <p *ngIf="!isLoading" style="margin-left: 37px;">Del {{dateFrom | date: 'dd-MM-yyyy'}} al {{dateTo | date: 'dd-MM-yyyy'}}</p>
+        <p-skeleton *ngIf="isLoading" width="400px" height="20px" class="mb-6"></p-skeleton>
       </div>
-      <div class="flex flex-column card-container mx-8">
+      <div class="flex flex-column align-items-end">
+        
+      <div class="flex flex-column card-container mr-8 ml-4">
+        
         <div class="flex flex-row flex-wrap align-items-center mt-4">
           <div style="border: 1px solid #B1B1B1; border-radius: 50%; height: 20px; width: 20px; display:flex; justify-content: center; align-items: center;">
             <i class="pi pi-dollar" style="font-size: 0.8rem; text-align: center; color: #B1B1B1;"></i>
           </div>
           <p class="ml-2" style="color: #666666 ;"> SALDO FINAL</p>
         </div>
-        <p class="text-right font-semibold text-base my-2">Bs. {{transaction.totalBalanceAmount | currency:' '}}</p>
+        <p class="text-right font-semibold text-base my-2" [style.color]="transaction.totalBalanceAmount < 0 ? 'red' : 'initial'">Bs. {{transaction.totalBalanceAmount | currency:' '}}</p>
         <div>
           <hr>
         </div>
+      </div>
+      <div class="my-2 mr-8">
+        <p-button label="Exportar" class="green-button " id="export-button" icon="pi pi-file-export" iconPos="right"></p-button>
       </div>
     </div>
-
-    <div *ngIf="isLoading" class="flex justify-content-between">
-      <div class="flex flex-column card-container mx-8">
-        <div class="flex flex-row flex-wrap align-items-center"> 
-          <p-skeleton shape="circle" size="2rem" styleClass="mr-2"></p-skeleton>
-          <p-skeleton></p-skeleton>
-          <p-skeleton shape="circle" size="2rem" styleClass="mr-2"></p-skeleton>
-        </div>
-        <p-skeleton></p-skeleton>
-      </div>
-      <div class="flex flex-column card-container mx-8">
-        <div class="flex flex-row flex-wrap align-items-center mt-4">
-          <div style="border: 1px solid #B1B1B1; border-radius: 50%; height: 20px; width: 20px; display:flex; justify-content: center; align-items: center;">
-            <i class="pi pi-dollar" style="font-size: 0.8rem; text-align: center; color: #B1B1B1;"></i>
-          </div>
-          <p class="ml-2" style="color: #666666 ;"> SALDO FINAL</p>
-        </div>
-        <p class="text-right font-semibold text-base my-2">Bs. {{transaction.totalBalanceAmount | currency:' '}}</p>
-        <div>
-          <hr>
-        </div>
-      </div>
     </div>
   </div>
 
 
   <div class="col-12 xl:col-12 px-8 py-3">
-    <p-table [value]="transaction.transactionDetails" [tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-gridlines">
+    <p-table [value]="transactionDetails" [tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-gridlines">
       <ng-template pTemplate="header">
         <tr>
           <th>Nº</th>
@@ -74,14 +65,23 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-transaction let-rowIndex="rowIndex">
-        <tr>
-          <td style="background-color: #29acac78; color: white; width: 40px;">{{ rowIndex + 1 }} </td>
+        <tr *ngIf="!isLoading">
+          <td style="background-color: #29acac78; color: white; width: 40px;">{{ rowIndex + 1 }}</td>
           <td>{{ transaction.transactionDate }}</td>
           <td>{{ transaction.gloss }}</td>
           <td>{{ transaction.debitAmount  | currency: 'Bs. '}}</td>
           <td>{{ transaction.creditAmount  | currency: 'Bs. '}}</td>
           <td [style.color]="transaction.balanceAmount < 0 ? 'red' : 'initial'">Bs. {{ transaction.balanceAmount  | currency: ' '}}</td>
           <td>{{ transaction.description }}</td>
+        </tr>
+        <tr *ngIf="isLoading" >
+          <td><p-skeleton></p-skeleton></td>
+          <td><p-skeleton></p-skeleton></td>
+          <td><p-skeleton></p-skeleton></td>
+          <td><p-skeleton></p-skeleton></td>
+          <td><p-skeleton></p-skeleton></td>
+          <td><p-skeleton></p-skeleton></td>
+          <td><p-skeleton></p-skeleton></td>
         </tr>
       </ng-template>
       <ng-template pTemplate="footer">

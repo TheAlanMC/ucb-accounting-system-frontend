@@ -24,6 +24,26 @@
   width: calc(100% - 250px);
 }
 
+/* Buttons */
+::ng-deep #next-button button{
+  background-color: var(--color-green);
+  border-color: var(--color-green);
+  color: white;
+  font-size: small;
+  font-weight: 500;
+  height: 30px;
+}
+
+::ng-deep #back-button button{
+  background-color: #f77;
+  border-color: #f77;
+  color: white;
+  font-size: small;
+  font-weight: 500;
+  height: 30px;
+}
+
+
 
 /* Cards */
 

@@ -66,7 +66,7 @@ export class ReportsPageComponent {
     }else{
       //Validate dates
       if(this.ledgerBookService.getdateFrom() != null && this.ledgerBookService.getdateTo() != null){
-        if(this.ledgerBookService.getdateFrom() < this.ledgerBookService.getdateTo()){
+        if(this.ledgerBookService.getdateFrom() <= this.ledgerBookService.getdateTo()){
           this.ledgerBookDate = false;
           this.title = "Seleccionar cuentas";
         }else{
@@ -92,5 +92,10 @@ export class ReportsPageComponent {
   ngAfterViewInit() {
     this.selectedSubaccount = this.accountModalComponent.subaccountDto;
     console.log(this.selectedSubaccount);
+  }
+
+  goBack(){
+    this.ledgerBookDate = true;
+    this.title = "Seleccionar fechas";
   }
 }

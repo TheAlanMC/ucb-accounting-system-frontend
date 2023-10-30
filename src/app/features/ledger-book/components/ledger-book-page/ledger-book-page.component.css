@@ -36,3 +36,28 @@
 .pass-icon:hover{
   color: #22d4d4;
 }
+
+/* Dropdown */
+::ng-deep #account-number .p-dropdown .p-dropdown-items .p-dropdown-item span {
+  font-size: small !important;
+  font-weight: normal !important;
+}
+
+::ng-deep #account-number .p-dropdown span {
+  font-size: 20px;
+  font-weight: 500;
+  color: #666666;
+  padding:0.25rem 0.5rem 0.25rem 0.5rem;
+}
+
+/* Buttons */
+::ng-deep #export-button button{
+  background-color: var(--color-green);
+  border-color: var(--color-green);
+  color: white;
+  font-size: small;
+  font-weight: 500;
+  height: 30px;
+}
+
+
