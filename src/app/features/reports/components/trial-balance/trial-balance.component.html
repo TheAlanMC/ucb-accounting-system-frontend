@@ -5,7 +5,7 @@
         <p-toast></p-toast>
         <div class="flex card-container overflow-hidden">
             <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0">
-                <i class="pi pi-ellipsis-v"
+                <i class="pi pi-plus-circle"
                     style="color: var(--color-green); font-size: 2.5rem; z-index: 2 !important;"></i>
                 <p class="text-2xl md:text-3xl" style="z-index:2;">&nbsp;&nbsp;&nbsp;Balance de sumas y saldos</p>
             </div>
@@ -15,19 +15,6 @@
         </div>
     </div>
     <div class="col-12 xl:col-12 px-8 pb-3">
-        <!-- <div class="contenedor-boton">
-        <td><p-button type="button" class="mr-2 boton-sidebar" (click)="obtenertransacciones()" icon="pi pi-plus"
-                label="Generar Reporte"></p-button>
-    </div>
-    <p>Rango de fechas para el reporte</p>
-    <div class="search-bar">
-        <p>Fecha Inicial</p>
-        <p-calendar class="datepicker" [(ngModel)]="fechaInicial" [showIcon]="true" inputId="icon"
-            dateFormat="dd/mm/yy"></p-calendar>
-        <p>Fecha Final</p>
-        <p-calendar class="datepicker" [(ngModel)]="fechaFinal" [showIcon]="true" inputId="icon"
-            dateFormat="dd/mm/yy"></p-calendar>
-    </div> -->
         <h4 style="color: #8c8c8c;">Rango de fechas para el reporte</h4>
         <div class="flex justify-content-between">
             <div class="flex flex-row flex-wrap mb-3">
@@ -77,10 +64,10 @@
                 <tr>
                     <td style="width: 10%;">{{ transaction.subaccount.subaccountCode }}</td>
                     <td style="width: 30%;">{{ transaction.subaccount.subaccountName }}</td>
-                    <td>{{ transaction.balanceDebtor | currency: 'Bs. '}}</td>
-                    <td>{{ transaction.balanceCreditor | currency: 'Bs. ' }}</td>
-                    <td>{{ transaction.debitAmount | currency: 'Bs. '}}</td>
-                    <td>{{ transaction.creditAmount | currency: 'Bs. '}}</td>
+                    <td [style.color]="transaction.balanceDebtor < 0 ? 'red' : 'initial'">Bs. {{ transaction.balanceDebtor | currency: ' '}}</td>
+                    <td [style.color]="transaction.balanceCreditor < 0 ? 'red' : 'initial'">Bs. {{ transaction.balanceCreditor | currency: ' '}}</td>
+                    <td [style.color]="transaction.debitAmount < 0 ? 'red' : 'initial'">Bs. {{ transaction.debitAmount | currency: ' '}}</td>
+                    <td [style.color]="transaction.creditAmount < 0 ? 'red' : 'initial'">Bs. {{ transaction.creditAmount | currency: ' '}}</td>
                 </tr>
             </ng-template>
         </p-table>

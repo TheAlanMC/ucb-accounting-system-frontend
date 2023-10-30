@@ -9,8 +9,8 @@ import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-balance',
-  templateUrl: './balance.component.html',
-  styleUrls: ['./balance.component.css'],
+  templateUrl: './trial-balance.component.html',
+  styleUrls: ['./trial-balance.component.css'],
   providers: [MessageService]
 })
 export class BalanceComponent {

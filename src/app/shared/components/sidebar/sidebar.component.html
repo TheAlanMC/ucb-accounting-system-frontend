@@ -39,16 +39,16 @@
         <i>
           <img class="local-icon" src="/assets/gastos.svg" alt="" width="23px">
         </i>
-        <span class="links_name">Gastos</span>
+        <span class="links_name">Compras</span>
       </a>
       <i class='pi pi-chevron-right right-arrow' style="font-size: 0.6rem;"></i>
       <ul class="sub-menu">
-        <li><a routerLink="/expenses" (click)="changeTab(0)">Todos los gastos</a></li>
+        <li><a routerLink="/expenses" (click)="changeTab(0)">Todos las compras</a></li>
         <li><a routerLink="/expenses/invoice">Nueva factura a proveedores</a></li>
         <li><a routerLink="/expenses/receipt">Nuevo recibo de abono</a></li>
         <li><a routerLink="/expenses" (click)="changeTab(1)">Proveedores</a></li>
       </ul>
-      <span class="tooltip">Gastos</span>
+      <span class="tooltip">Compras</span>
     </li>
 
     <li *ngIf="isAccountant">
