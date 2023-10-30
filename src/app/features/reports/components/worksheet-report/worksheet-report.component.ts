@@ -5,7 +5,7 @@ import { WorksheetDetail, WorksheetReportDto } from '../../models/worksheet-repo
 import { SidebarService } from 'src/app/core/services/sidebar/sidebar.service';
 import { MessageService } from 'primeng/api';
 
-export interface worksheetDto{
+export interface worksheetDto {
   accountNumber: number;
   account: string;
   clasification: string;
@@ -38,13 +38,18 @@ export class WorksheetReportComponent {
   size: number = 10;
   totalElements: number = 0;
 
+
   // Filter variables
   filterDate: string = '';
   filterCustomer: string[] = [];
   filterDocumentType: string = '';
 
   isNavbarOpen: boolean = false;
-  constructor(private reportWorksheetService: ReportWorksheetService,  private sidebarService: SidebarService, private messageService: MessageService) {
+  isLoading: boolean = true;
+  message: string = 'Seleccione un rango de fechas para generar su reporte.';
+  emptyTable: boolean = true;
+
+  constructor(private reportWorksheetService: ReportWorksheetService, private sidebarService: SidebarService, private messageService: MessageService) {
 
   }
 
@@ -64,61 +69,72 @@ export class WorksheetReportComponent {
 
 
   worksheetReport: WorksheetReportDto | undefined;
-  worksheetDetail: WorksheetDetail[] = [];
+  worksheetDetail: WorksheetDetail[] = [
+    {
+      balanceCreditor: 0,
+      balanceDebtor: 0,
+      balanceSheetAsset: 0,
+      balanceSheetLiability: 0,
+      incomeStatementExpense: 0,
+      incomeStatementIncome: 0,
+      subaccount: {
+        subaccountCode: 0,
+        subaccountName: '',
+        subaccountId: 0,
+      }
+    }
+  ];
 
   ngOnInit(): void {
     this.sidebarService.getIsOpen().subscribe((isOpen) => {
       this.isNavbarOpen = isOpen;
     });
-    
+
   }
 
-  generateReport(){
+  generateReport() {
+    this.isLoading = true;
+    this.message = '';
     if (this.endDate == null || this.startDate == null) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: '💡 No olvide seleccionar las fechas' });
     } else if (this.startDate > this.endDate) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'La fecha inicial debe ser menor a la fecha final' });
     } else {
-      this.reportWorksheetService.getWorksheetReport(this.formatDate(this.startDate!), this.formatDate(this.endDate!)).subscribe({    
-          next: (data) => {
-            console.log(data);
-            this.worksheetReport = data.data!;
-            console.log(this.worksheetReport);
-
-            this.worksheetDetail = this.worksheetReport.reportData.worksheetDetails;
-            console.log(this.worksheetDetail);
-            //this.worksheet = data.data!.reportData.worksheetDetails;
-            console.log(this.worksheet);
-          },
-          error: (error) => {
-            console.log(error);
+      this.emptyTable = false;
+      this.reportWorksheetService.getWorksheetReport(this.formatDate(this.startDate!), this.formatDate(this.endDate!)).subscribe({
+        next: (data) => {
+          this.worksheetReport = data.data!;
+          this.worksheetDetail = this.worksheetReport.reportData.worksheetDetails;
+          if(this.worksheetDetail.length == 0){
+            this.message = 'No se encontraron movimientos en este rango de fechas, por favor intente con otro intérvalo.';
+            this.worksheetDetail = [
+              {
+                balanceCreditor: 0,
+                balanceDebtor: 0,
+                balanceSheetAsset: 0,
+                balanceSheetLiability: 0,
+                incomeStatementExpense: 0,
+                incomeStatementIncome: 0,
+                subaccount: {
+                  subaccountCode: 0,
+                  subaccountName: '',
+                  subaccountId: 0,
+                }
+              }
+            ];
+            this.isLoading = true;
+            this.emptyTable = true;
+          }else{
+            this.isLoading = false;
           }
-        });
+          
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      });
     }
   }
-  /*
-  generateReport(){
-    console.log(this.startDate);
-    console.log(this.endDate);
-    this.reportJournalBookService.getJournalBookReport(this.formatDate(this.startDate!), this.formatDate(this.endDate!)).subscribe({
-
-      next: (data) => {
-        console.log(data);
-        this.journalBooks = data.data!;
-        console.log(this.journalBooks);
-
-        this.reportDatas = this.journalBooks.reportData;
-        console.log(this.reportDatas);
-        console.log("sdasadas")
-        console.log(this.reportDatas[0].transactionDetails);
-        console.log("sdasadas22")
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    });
-  }
-   */
 
   onPageChange(event: any) {
     this.page = event.page;

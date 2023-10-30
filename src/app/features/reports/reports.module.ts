@@ -21,11 +21,12 @@ import { ListboxModule } from 'primeng/listbox';
 import { DropdownModule } from 'primeng/dropdown';
 import { TagModule } from 'primeng/tag';
 import {SharedModule} from "../../shared/shared.module";
-import { BalanceComponent } from './components/trial-balance/trial-balance.component';
+import { TrialBalanceComponent } from './components/trial-balance/trial-balance.component';
 import { DialogModule } from 'primeng/dialog';
 import { LedgerBookModule } from '../ledger-book/ledger-book.module';
 import { SidebarModule } from 'primeng/sidebar';
 import { Divider, DividerModule } from 'primeng/divider';
+import { SkeletonModule } from 'primeng/skeleton';
 
 
 @NgModule({
@@ -33,7 +34,7 @@ import { Divider, DividerModule } from 'primeng/divider';
     ReportsPageComponent,
     JournalBookReportComponent,
     WorksheetReportComponent,
-    BalanceComponent
+    TrialBalanceComponent
   ],
   imports: [
     CommonModule,
@@ -61,7 +62,8 @@ import { Divider, DividerModule } from 'primeng/divider';
     SidebarModule,
     TableModule,
     ToastModule,
-    DividerModule
+    DividerModule,
+    SkeletonModule,
   ]
 })
 export class ReportsModule { }

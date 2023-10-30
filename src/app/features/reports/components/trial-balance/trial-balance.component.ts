@@ -13,15 +13,34 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./trial-balance.component.css'],
   providers: [MessageService]
 })
-export class BalanceComponent {
+export class TrialBalanceComponent {
   companyid = Number(localStorage.getItem('companyId'));
   cuentas!: TrialBalanceReportDto;
   alltransactions: TrialBalanceReportDataDto[] = []; // Aquí declaramos alltransactions
   transaction!: TrialBalanceReportDataDto;
-  transactionTrial: TrialBalanceDetailsDto[] = [];
+  transactionTrial: TrialBalanceDetailsDto[] = [{
+    balanceCreditor: 0,
+    balanceDebtor: 0,
+    creditAmount: 0,
+    debitAmount: 0,
+    subaccount: {
+      subaccountCode: 0,
+      subaccountName: '',
+      subaccountId: 0,
+    },
+    }
+  ];
   fechaInicial!: Date; // Aquí declaramos fechaInicial
   fechaFinal!: Date; // Aquí declaramos fechaFinal
   isNavbarOpen: boolean = false;
+  isLoading: boolean = true;
+  message: string = 'Seleccione un rango de fechas para generar su reporte.';
+  emptyTable: boolean = true;
+  totalDebtor: number = 0;
+  totalCreditor: number = 0;
+  totalCredit: number = 0;
+  totalDebit: number = 0;
+
 
   constructor(private reportsService: ReportsService, private sidebarService: SidebarService, private messageService: MessageService) { }
 
@@ -37,19 +56,46 @@ export class BalanceComponent {
   }
 
   obtenertransacciones() {
+    this.isLoading = true;
+    this.message = '';
+    this.totalCredit = 0;
+    this.totalDebit = 0;
+    this.totalCreditor = 0;
+    this.totalDebtor = 0;
     //Validate dates
     if (this.fechaFinal == null || this.fechaInicial == null) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: '💡 No olvide seleccionar las fechas' });
     } else if (this.fechaInicial > this.fechaFinal) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'La fecha inicial debe ser menor a la fecha final' });
     } else {
+      this.emptyTable = false;
       this.reportsService.getTrialBalances(this.companyid, format(this.fechaInicial, 'yyyy-MM-dd'), format(this.fechaFinal, 'yyyy-MM-dd')).subscribe({
         next: (response) => {
           console.log(response);
           this.alltransactions = response.data!.reportData;
           this.transaction = this.alltransactions[0];
           this.transactionTrial = this.transaction.trialBalanceDetails;
-          console.log(this.cuentas);
+          if (this.alltransactions.length == 0) {
+            this.message = 'No se encontraron movimientos en este rango de fechas, por favor intente con otro intérvalo.';
+            this.transactionTrial = [
+              {
+                balanceCreditor: 0,
+                balanceDebtor: 0,
+                creditAmount: 0,
+                debitAmount: 0,
+                subaccount: {
+                  subaccountCode: 0,
+                  subaccountName: '',
+                  subaccountId: 0,
+                },
+                }
+            ];
+            this.isLoading = true;
+            this.emptyTable = true;
+         }else{
+          this.calculateAll()
+          this.isLoading = false;
+         }
         },
         error: (error) => {
           console.log(error);
@@ -57,6 +103,21 @@ export class BalanceComponent {
       })
     }
 
+  }
+
+  calculateAll(){
+    this.totalCredit = 0;
+    this.totalDebit = 0;
+    this.totalCreditor = 0;
+    this.totalDebtor = 0;
+    for (const transaction of this.alltransactions) {
+      for (const transactionDetail of transaction.trialBalanceDetails) {
+        this.totalCredit += transactionDetail.creditAmount;
+        this.totalDebit += transactionDetail.debitAmount;
+        this.totalCreditor += transactionDetail.balanceCreditor;
+        this.totalDebtor += transactionDetail.balanceDebtor;
+      }
+    }
   }
 
 }
