@@ -6,6 +6,7 @@ import { addDays, format } from 'date-fns';
 import { SidebarService } from 'src/app/core/services/sidebar/sidebar.service';
 import { TrialBalanceDetailsDto } from '../../models/trial-balance-details.dto';
 import { MessageService } from 'primeng/api';
+import {ReportService} from "../../../../core/services/report.service";
 
 @Component({
   selector: 'app-balance',
@@ -42,7 +43,7 @@ export class TrialBalanceComponent {
   totalDebit: number = 0;
 
 
-  constructor(private reportsService: ReportsService, private sidebarService: SidebarService, private messageService: MessageService) { }
+  constructor(private reportService: ReportService, private sidebarService: SidebarService, private messageService: MessageService) { }
 
   onNavbarToggle(isOpen: boolean) {
     this.isNavbarOpen = isOpen;
@@ -69,7 +70,7 @@ export class TrialBalanceComponent {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'La fecha inicial debe ser menor a la fecha final' });
     } else {
       this.emptyTable = false;
-      this.reportsService.getTrialBalances(this.companyid, format(this.fechaInicial, 'yyyy-MM-dd'), format(this.fechaFinal, 'yyyy-MM-dd')).subscribe({
+      this.reportService.getTrialBalances(this.companyid, format(this.fechaInicial, 'yyyy-MM-dd'), format(this.fechaFinal, 'yyyy-MM-dd')).subscribe({
         next: (response) => {
           console.log(response);
           this.alltransactions = response.data!.reportData;
@@ -103,6 +104,14 @@ export class TrialBalanceComponent {
       })
     }
 
+  }
+
+  exportPdf() {
+    this.reportService.getTrialBalancesPdf(this.companyid, format(this.fechaInicial!, 'yyyy-MM-dd'), format(this.fechaFinal!, 'yyyy-MM-dd')).subscribe({
+      next: (data) => {
+        window.open(data.data!.fileUrl, '_blank');
+      }
+    });
   }
 
   calculateAll(){

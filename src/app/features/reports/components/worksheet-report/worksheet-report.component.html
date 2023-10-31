@@ -37,7 +37,7 @@
                         id="generate-button" icon="pi pi-sync" iconPos="right"></p-button>
                     <span class="ml-2"></span>
                     <p-button label="Exportar" class="green-button" id="export-button" icon="pi pi-file-export"
-                        iconPos="right"></p-button>
+                        iconPos="right" (onClick)="exportPdf()" [disabled]="!worksheetReport"></p-button>
                 </div>
             </div>
         </div>
@@ -89,7 +89,19 @@
 
                 </tr>
             </ng-template>
-            <ng-template pTemplate="footer">
+<!--          ng templeate to view the utilidades-->
+
+          <ng-template pTemplate="footer">
+                <tr *ngIf="!isLoading">
+                  <td colspan="1"></td>
+                  <td>Utilidades</td>
+                  <td [style.color]="worksheetReport!.reportData.totalBalanceDebtor < 0 ? 'red' : 'initial'"></td>
+                  <td [style.color]="worksheetReport!.reportData.totalBalanceCreditor < 0 ? 'red' : 'initial'"></td>
+                  <td [style.color]="(worksheetReport!.reportData.totalIncomeStatementIncome - worksheetReport!.reportData.totalIncomeStatementExpense) < 0 ? 'red' : 'initial'">Bs. {{(worksheetReport!.reportData.totalIncomeStatementIncome - worksheetReport!.reportData.totalIncomeStatementExpense) | currency: ' '}}</td>
+                  <td [style.color]="worksheetReport!.reportData.totalIncomeStatementIncome < 0 ? 'red' : 'initial'"></td>
+                  <td [style.color]="worksheetReport!.reportData.totalBalanceSheetAsset < 0 ? 'red' : 'initial'"></td>
+                  <td [style.color]="(worksheetReport!.reportData.totalIncomeStatementIncome - worksheetReport!.reportData.totalIncomeStatementExpense)  < 0 ? 'red' : 'initial'">Bs. {{(worksheetReport!.reportData.totalBalanceSheetAsset - worksheetReport!.reportData.totalBalanceSheetLiability) | currency: ' '}}</td>
+                </tr>
                 <tr *ngIf="!isLoading">
                     <td colspan="1"></td>
                     <td>Total</td>

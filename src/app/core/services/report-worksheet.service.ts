@@ -11,8 +11,8 @@ import { WorksheetReportDto } from 'src/app/features/reports/models/worksheet-re
 export class ReportWorksheetService {
 
   baseUrl: string = `${environment.API_URL}/api/v1/reports/worksheets/companies/1`;
-  constructor(private http: HttpClient) { 
-    
+  constructor(private http: HttpClient) {
+
   }
   public getWorksheetReport(dateFrom: string, dateTo: String):  Observable<ResponseDto<WorksheetReportDto>>{
     console.log(`${this.baseUrl}?dateFrom=${dateFrom}&dateTo=${dateTo}`);
@@ -21,7 +21,7 @@ export class ReportWorksheetService {
 
   /*
    baseUrl: string = `${environment.API_URL}/api/v1/reports/journal-books/companies/1`;
-  
+
   constructor(private http: HttpClient) { }
   /*public getAllPaymentTypes(): Observable<ResponseDto<PaymentTypeDto[]>>{
     return this.http.get<ResponseDto<PaymentTypeDto[]>>(`${this.baseUrl}`);

@@ -14,7 +14,7 @@
     </div>
     <div class="flex justify-content-between">
       <div class="flex flex-column card-container mx-8 justify-content-end">
-        <div class="flex flex-row flex-wrap align-items-center"> 
+        <div class="flex flex-row flex-wrap align-items-center">
           <i *ngIf="moreThanOneAccount" class="pi pi-angle-left pass-icon mr-3" style="font-size: 1.3rem" pTooltip="Anterior cuenta" tooltipPosition="left" [showDelay]="800" [hideDelay]="800" (click)="previousAccount()"></i>
           <!-- <p *ngIf="!isLoading" id="account-name">{{transaction.subaccount.subaccountName}} </p>  -->
           <p-dropdown *ngIf="!isLoading" id="account-number"
@@ -29,9 +29,9 @@
         <p-skeleton *ngIf="isLoading" width="400px" height="20px" class="mb-6"></p-skeleton>
       </div>
       <div class="flex flex-column align-items-end">
-        
+
       <div class="flex flex-column card-container mr-8 ml-4">
-        
+
         <div class="flex flex-row flex-wrap align-items-center mt-4">
           <div style="border: 1px solid #B1B1B1; border-radius: 50%; height: 20px; width: 20px; display:flex; justify-content: center; align-items: center;">
             <i class="pi pi-dollar" style="font-size: 0.8rem; text-align: center; color: #B1B1B1;"></i>
@@ -44,7 +44,7 @@
         </div>
       </div>
       <div class="my-2 mr-8">
-        <p-button label="Exportar" class="green-button " id="export-button" icon="pi pi-file-export" iconPos="right"></p-button>
+        <p-button label="Exportar" class="green-button " id="export-button" icon="pi pi-file-export" iconPos="right" (onClick)="exportPdf()" [disabled]="!transactionDetails.length"></p-button>
       </div>
     </div>
     </div>
@@ -67,7 +67,7 @@
       <ng-template pTemplate="body" let-transaction let-rowIndex="rowIndex">
         <tr *ngIf="!isLoading">
           <td style="background-color: #29acac78; color: white; width: 40px;">{{ rowIndex + 1 }}</td>
-          <td>{{ transaction.transactionDate }}</td>
+          <td>{{ transaction.transactionDate| date: 'dd/MM/yyyy' : 'UTC'}}</td>
           <td>{{ transaction.gloss }}</td>
           <td>{{ transaction.debitAmount  | currency: 'Bs. '}}</td>
           <td>{{ transaction.creditAmount  | currency: 'Bs. '}}</td>

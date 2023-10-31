@@ -4,6 +4,8 @@ import { ReportWorksheetService } from 'src/app/core/services/report-worksheet.s
 import { WorksheetDetail, WorksheetReportDto } from '../../models/worksheet-report.dto';
 import { SidebarService } from 'src/app/core/services/sidebar/sidebar.service';
 import { MessageService } from 'primeng/api';
+import {ReportService} from "../../../../core/services/report.service";
+import {format} from "date-fns";
 
 export interface worksheetDto {
   accountNumber: number;
@@ -49,7 +51,7 @@ export class WorksheetReportComponent {
   message: string = 'Seleccione un rango de fechas para generar su reporte.';
   emptyTable: boolean = true;
 
-  constructor(private reportWorksheetService: ReportWorksheetService, private sidebarService: SidebarService, private messageService: MessageService) {
+  constructor(private reportService: ReportService, private sidebarService: SidebarService, private messageService: MessageService) {
 
   }
 
@@ -101,7 +103,7 @@ export class WorksheetReportComponent {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'La fecha inicial debe ser menor a la fecha final' });
     } else {
       this.emptyTable = false;
-      this.reportWorksheetService.getWorksheetReport(this.formatDate(this.startDate!), this.formatDate(this.endDate!)).subscribe({
+      this.reportService.getWorksheetReport(this.companyId, this.formatDate(this.startDate!), this.formatDate(this.endDate!)).subscribe({
         next: (data) => {
           this.worksheetReport = data.data!;
           this.worksheetDetail = this.worksheetReport.reportData.worksheetDetails;
@@ -127,7 +129,7 @@ export class WorksheetReportComponent {
           }else{
             this.isLoading = false;
           }
-          
+
         },
         error: (error) => {
           console.log(error);
@@ -169,6 +171,14 @@ export class WorksheetReportComponent {
     } else {
       this.filterDate = this.formatDate(event);
     }
+  }
+
+  exportPdf() {
+    this.reportService.getWorksheetReportPdf(this.companyId, format(this.startDate!, 'yyyy-MM-dd'), format(this.endDate!, 'yyyy-MM-dd')).subscribe({
+      next: (data) => {
+        window.open(data.data!.fileUrl, '_blank');
+      }
+    });
   }
 
 }

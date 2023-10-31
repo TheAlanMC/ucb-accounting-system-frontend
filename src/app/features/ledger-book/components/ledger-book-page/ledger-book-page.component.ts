@@ -51,7 +51,7 @@ export class LedgerBookPageComponent {
   cuentasDropdown: any = [];
   selectedAccount: any;
 
- 
+
   onNavbarToggle(isOpen: boolean) {
     this.isNavbarOpen = isOpen;
     console.log(this.isNavbarOpen);
@@ -65,7 +65,7 @@ export class LedgerBookPageComponent {
       this.isNavbarOpen = isOpen;
     });
     this.getInitialTransaction();
-    
+
   }
 
   getInitialTransaction() {
@@ -128,5 +128,14 @@ export class LedgerBookPageComponent {
     this.transactionDetails = this.transaction.transactionDetails;
   }
 
-
+  exportPdf() {
+    this.reportService.getGeneralLedgersPdf(this.companyId, this.dateFrom, this.dateTo, '', 'asc', this.subaccountIds).subscribe({
+      next: (response) => {
+        window.open(response.data!.fileUrl, '_blank');
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
 }

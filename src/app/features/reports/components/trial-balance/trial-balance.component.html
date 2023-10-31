@@ -36,7 +36,7 @@
                         id="generate-button" icon="pi pi-sync" iconPos="right"></p-button>
                     <span class="ml-2"></span>
                     <p-button label="Exportar" class="green-button" id="export-button" icon="pi pi-file-export"
-                        iconPos="right"></p-button>
+                        iconPos="right" [disabled]="emptyTable" (onClick)="exportPdf()"></p-button>
                 </div>
             </div>
         </div>
@@ -63,14 +63,14 @@
                 <tr *ngIf="!isLoading">
                     <td style="width: 10%;">{{ transaction.subaccount.subaccountCode }}</td>
                     <td style="width: 30%;">{{ transaction.subaccount.subaccountName }}</td>
+                  <td [style.color]="transaction.debitAmount < 0 ? 'red' : 'initial'">Bs. {{ transaction.debitAmount |
+                    currency: ' '}}</td>
+                  <td [style.color]="transaction.creditAmount < 0 ? 'red' : 'initial'">Bs. {{ transaction.creditAmount
+                    | currency: ' '}}</td>
                     <td [style.color]="transaction.balanceDebtor < 0 ? 'red' : 'initial'">Bs. {{
                         transaction.balanceDebtor | currency: ' '}}</td>
                     <td [style.color]="transaction.balanceCreditor < 0 ? 'red' : 'initial'">Bs. {{
                         transaction.balanceCreditor | currency: ' '}}</td>
-                    <td [style.color]="transaction.debitAmount < 0 ? 'red' : 'initial'">Bs. {{ transaction.debitAmount |
-                        currency: ' '}}</td>
-                    <td [style.color]="transaction.creditAmount < 0 ? 'red' : 'initial'">Bs. {{ transaction.creditAmount
-                        | currency: ' '}}</td>
                 </tr>
                 <tr *ngIf="isLoading && !emptyTable">
                     <td><p-skeleton></p-skeleton></td>
@@ -84,10 +84,10 @@
             <ng-template pTemplate="footer">
                 <tr *ngIf="!isLoading">
                     <td colspan="2" style="text-align: right">Total</td>
-                    <td>{{ totalDebtor | currency: 'Bs. ' }}</td>
-                    <td>{{ totalCreditor | currency: 'Bs. ' }}</td>
                     <td>{{ totalDebit | currency: 'Bs. ' }}</td>
                     <td>{{ totalCredit | currency: 'Bs. ' }}</td>
+                    <td>{{ totalDebtor | currency: 'Bs. ' }}</td>
+                    <td>{{ totalCreditor | currency: 'Bs. ' }}</td>
                 </tr>
             </ng-template>
         </p-table>

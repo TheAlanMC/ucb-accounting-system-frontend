@@ -32,12 +32,12 @@
         <div class="flex justify-content-between  card-container ">
           <p-button label="Generar Reporte" class="green-button" (onClick)="generateReport()" id="generate-button" icon="pi pi-sync" iconPos="right"></p-button>
           <span class="ml-2"></span>
-          <p-button label="Exportar" class="green-button" (onClick)="exportPdf()" id="export-button" icon="pi pi-file-export" iconPos="right"></p-button>
+          <p-button label="Exportar" class="green-button" (onClick)="exportPdf()" id="export-button" icon="pi pi-file-export" iconPos="right" [disabled]="emptyTable"></p-button>
         </div>
       </div>
     </div>
     <br>
-    <p-table class="p-table-noborder" [value]="reportDatas" sortField="journalEntryId" sortMode="single"
+    <p-table class="p-table-noborder" [value]="reportDatas" sortField="transactionDate" sortMode="single"
       [scrollable]="true" [tableStyle]="{'min-width': '50rem'}" rowGroupMode="subheader" groupRowsBy="journalEntryId"
       [customSort]="true">
       <ng-template pTemplate="header">
@@ -53,7 +53,7 @@
       <ng-template pTemplate="groupheader" let-reportDatas >
         <tr pRowGroupHeader>
           <td colspan="1">
-            <span *ngIf="!isLoading" class="font-bold ml-2">{{reportDatas.transactionDate}}</span>
+            <span *ngIf="!isLoading" class="font-bold ml-2">{{reportDatas.transactionDate | date: 'dd/MM/yyyy' : 'UTC'}}</span>
             <p-skeleton *ngIf="isLoading && !emptyTable"></p-skeleton>
           </td>
           <td colspan="5">
@@ -94,6 +94,6 @@
     <div class="flex justify-content-center p-4">
       <p style="font-size: medium;">{{message}}</p>
     </div>
-    
+
   </div>
 </div>

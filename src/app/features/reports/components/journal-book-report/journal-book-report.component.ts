@@ -7,6 +7,7 @@ import { CommunicationService } from "../../../../core/services/tabview/communic
 import { SidebarService } from "../../../../core/services/sidebar/sidebar.service";
 import { MessageService } from 'primeng/api';
 import { format } from 'date-fns';
+import {ReportService} from "../../../../core/services/report.service";
 
 export interface JournalBookDto {
   reportData: ReportData[];
@@ -39,7 +40,7 @@ export class JournalBookReportComponent {
   message: string = 'Seleccione un rango de fechas para generar su reporte.';
 
 
-  constructor(private messageService: MessageService, private reportJournalBookService: ReportJournalbookService, private sidebarService: SidebarService) {
+  constructor(private messageService: MessageService, private reportService: ReportService, private sidebarService: SidebarService) {
   }
 
 
@@ -95,7 +96,7 @@ export class JournalBookReportComponent {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'La fecha inicial debe ser menor a la fecha final' });
     } else {
       this.emptyTable = false;
-      this.reportJournalBookService.getJournalBookReport(this.companyId, format(this.startDate!, 'yyyy-MM-dd'), format(this.endDate!, 'yyyy-MM-dd')).subscribe({
+      this.reportService.getJournalBookReport(this.companyId, format(this.startDate!, 'yyyy-MM-dd'), format(this.endDate!, 'yyyy-MM-dd')).subscribe({
         next: (data) => {
           this.journalBooks = data.data!;
           this.reportDatas = this.journalBooks.reportData;
@@ -131,7 +132,7 @@ export class JournalBookReportComponent {
             this.calculateTotal();
             this.isLoading = false;
           }
-          
+
         },
         error: (error) => {
           console.log(error);
@@ -141,7 +142,7 @@ export class JournalBookReportComponent {
   }
 
   exportPdf() {
-    this.reportJournalBookService.getJournalBookReportPdf(format(this.startDate!, 'yyyy-MM-dd'), format(this.endDate!, 'yyyy-MM-dd')).subscribe({
+    this.reportService.getJournalBookReportPdf(this.companyId, format(this.startDate!, 'yyyy-MM-dd'), format(this.endDate!, 'yyyy-MM-dd')).subscribe({
       next: (data) => {
         window.open(data.data!.fileUrl, '_blank');
       }
