@@ -28,7 +28,7 @@ export class SidebarComponent {
   @Output() navbarToggle = new EventEmitter<boolean>();
 
   constructor(private communicationService: CommunicationService, private confirmationService: ConfirmationService, private keycloakService: KeycloakService, private sidebarService: SidebarService) {
-    
+
   }
 
   ngOnInit() {
@@ -44,6 +44,7 @@ export class SidebarComponent {
       message: 'Estás seguro de que quieres cerrar sesión?',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
+        localStorage.removeItem('companyId');
         this.keycloakService.logout(this.homeUrl).then(r => console.log(r));
       }
     });
@@ -60,7 +61,7 @@ export class SidebarComponent {
       this.isNavbarOpen = !this.isNavbarOpen;
       this.navbarToggle.emit(this.isNavbarOpen); // Raise event
       this.sidebarService.setIsOpen(this.isNavbarOpen);
-      
+
     }
   }
 

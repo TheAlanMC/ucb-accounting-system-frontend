@@ -1,6 +1,8 @@
+<div *ngIf="!(companyId == 0)">
 <app-sidebar (navbarToggle)="onNavbarToggle($event)" ></app-sidebar>
 <div class="home-section" [class.navbar-opened]="isNavbarOpen">
 <app-navbar></app-navbar>
+
 <div class="page">
     <div class="p-grid">
         <app-header></app-header>
@@ -123,5 +125,6 @@
     <p-divider></p-divider>
     <app-fields></app-fields>
     <app-footer></app-footer>
+</div>
 </div>
 </div>

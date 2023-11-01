@@ -27,11 +27,11 @@ export class UserInfoComponent implements OnInit {
       this.visible = true;
   }
 
-  userData!: UserDto;
+  userData: UserDto | null = null;
   ngOnInit(): void {
     this.userService.getUserById().subscribe((data) => {
       this.userData = data.data!;
-      console.log(this.userData);
+      // console.log(this.userData);
     }
     );
   }
@@ -39,14 +39,14 @@ export class UserInfoComponent implements OnInit {
   save(): void {
     if (this.imageChanged) {
       if (this.file) {
-        console.log(this.file);
+        // console.log(this.file);
         const formData = new FormData();
         formData.append('picture', this.file);
         this.filesService.uploadPicture(formData).subscribe({
           next: (data) => {
             console.log(data);
-            this.userData.profilePicture = data.data?.fileUrl || ''; // add null check here
-            this.userData.s3ProfilePictureId = data.data?.s3ObjectId || 0; // add null check here
+            this.userData!.profilePicture = data.data?.fileUrl || ''; // add null check here
+            this.userData!.s3ProfilePictureId = data.data?.s3ObjectId || 0; // add null check here
             this.saveUserData();
           }, error: (error) => {
             console.error(error);
@@ -59,11 +59,11 @@ export class UserInfoComponent implements OnInit {
   }
 
   saveUserData(){
-    if (this.verifyData() == false) {
+    if (!this.verifyData()) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Verifica tus datos' });
     } else {
       console.log(this.userData);
-      this.userService.updateUser(this.userData).subscribe({
+      this.userService.updateUser(this.userData!).subscribe({
         next: (data) => {
         console.log(data);
         this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Tus datos se guardaron correctamente' });
@@ -74,9 +74,9 @@ export class UserInfoComponent implements OnInit {
   }
 
   verifyData(): boolean {
-    if (this.userData.firstName == "" || this.userData.lastName == "" || this.userData.email == "") {
+    if (this.userData!.firstName == "" || this.userData!.lastName == "" || this.userData!.email == "") {
       return false;
-    } else if (this.userData.email.includes("@") == false || this.userData.email.includes(".") == false) {
+    } else if (!this.userData!.email.includes("@") || !this.userData!.email.includes(".")) {
       return false;
     }
     return true;
@@ -89,7 +89,7 @@ export class UserInfoComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.previewImage = e.target.result;
-        this.userData.profilePicture = e.target.result;
+        this.userData!.profilePicture = e.target.result;
       };
       reader.readAsDataURL(this.file);
     }

@@ -26,7 +26,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     CarouselComponent,
     FooterComponent,
     InfoCardComponent,
-    DashboardComponent
+    DashboardComponent,
   ],
   imports: [
     CommonModule,
@@ -38,7 +38,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     CarouselModule,
     FieldsetModule,
     TableModule,
-    SharedModule
+    SharedModule,
   ],
   // exports: [HomePageComponent],
   // providers: [CarouselService],

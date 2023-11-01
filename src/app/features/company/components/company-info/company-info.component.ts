@@ -6,6 +6,7 @@ import { KeycloakService } from 'keycloak-angular';
 import { CompanyAbstractDto } from 'src/app/features/company-registration/models/company-abstract.dto';
 import { FilesService } from 'src/app/core/services/files.service';
 import { Location } from '@angular/common';
+import {BusinessEntityDto} from "../../models/business-entity.dto";
 
 @Component({
   selector: 'app-company',
@@ -22,10 +23,50 @@ export class CompanyInfoComponent implements OnInit {
   companyData!: CompanyDto;
   companyUpdated!: CompanyAbstractDto;
   s3Id: number | null = null;
-
+  businessEntities: any = [];
+  industries: any = [];
+  selectedBusinessEntity: any;
+  selectedIndustry: any;
   ngOnInit(): void {
     this.companyService.getCompanyInfo(this.companyId).subscribe((data) => {
       this.companyData = data.data!;
+      this.selectedIndustry = {
+        name: this.companyData.industry?.industryName,
+        code: this.companyData.industry?.industryId
+      };
+      this.selectedBusinessEntity = {
+        name: this.companyData.businessEntity?.businessEntityName,
+        code: this.companyData.businessEntity?.businessEntityId
+      }
+    });
+    this.companyService.getBusinessEntities().subscribe({
+      next: (data) => {
+        if (data.data != null) {
+          // Parsing the data
+          this.businessEntities = data.data.map((businessEntity) => ({
+            name: businessEntity.businessEntityName,
+            code: businessEntity.businessEntityId
+          }));
+        }
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+
+    this.companyService.getIndustries().subscribe({
+      next: (data) => {
+        if (data.data != null) {
+          // Parsing the data
+          this.industries = data.data.map((industry) => ({
+            name: industry.industryName,
+            code: industry.industryId
+          }));
+        }
+      },
+      error: (error) => {
+        console.log(error);
+      }
     });
   }
 
@@ -59,8 +100,8 @@ export class CompanyInfoComponent implements OnInit {
       phoneNumber: this.companyData.phoneNumber,
       //si el campo esta vacio, se envia el valor del objeto anterior
       s3CompanyLogoId: this.s3Id,
-      industryId: this.companyData.industry?.industryId,
-      businessEntityId: this.companyData.businessEntity?.businessEntityId
+      industryId: this.selectedIndustry.code,
+      businessEntityId: this.selectedBusinessEntity.code,
     }
 
 
@@ -76,19 +117,19 @@ export class CompanyInfoComponent implements OnInit {
   }
 
 
-  
+
 
   onFileSelected2(event: any) {
     this.file = event.target.files[0];
     this.imageChanged = true;
     if (this.file) {
       const reader = new FileReader();
-  
+
       reader.onload = (e: any) => {
         this.previewImage = e.target.result;
         this.companyData.companyLogo = e.target.result;
       };
-  
+
       reader.readAsDataURL(this.file);
     }
   }

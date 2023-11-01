@@ -39,16 +39,16 @@
         <i>
           <img class="local-icon" src="/assets/gastos.svg" alt="" width="23px">
         </i>
-        <span class="links_name">Gastos</span>
+        <span class="links_name">Compras</span>
       </a>
       <i class='pi pi-chevron-right right-arrow' style="font-size: 0.6rem;"></i>
       <ul class="sub-menu">
-        <li><a routerLink="/expenses" (click)="changeTab(0)">Todos los gastos</a></li>
+        <li><a routerLink="/expenses" (click)="changeTab(0)">Todos las compras</a></li>
         <li><a routerLink="/expenses/invoice">Nueva factura a proveedores</a></li>
         <li><a routerLink="/expenses/receipt">Nuevo recibo de abono</a></li>
         <li><a routerLink="/expenses" (click)="changeTab(1)">Proveedores</a></li>
       </ul>
-      <span class="tooltip">Gastos</span>
+      <span class="tooltip">Compras</span>
     </li>
 
     <li *ngIf="isAccountant">
@@ -58,9 +58,10 @@
         <i class='pi pi-chevron-right right-arrow' style="font-size: 0.6rem"></i>
       </a>
       <ul class="sub-menu">
-        <li><a routerLink="/transactions" >Todas las transacciones</a></li>
-<!--        <li><a routerLink="/journal">Asiento diario</a></li>-->
+        <li><a routerLink="/transactions">Todas las transacciones</a></li>
+        <!--        <li><a routerLink="/journal">Asiento diario</a></li>-->
         <li><a routerLink="/journal">Comprobante de diario</a></li>
+        <li><a routerLink="/taxes">Impuestos</a></li>
       </ul>
       <span class="tooltip">Contabilidad</span>
     </li>
@@ -73,14 +74,14 @@
       <span class="tooltip">Plan de cuentas</span>
     </li>
     <li>
-      <a href="#">
+      <a routerLink="/reports">
         <i class='pi pi-file'></i>
         <span class="links_name">Reportes</span>
         <i class='pi pi-chevron-right right-arrow' style="font-size: 0.6rem"></i>
       </a>
       <span class="tooltip">Reportes</span>
     </li>
-    <li class="profile"  (click)="confirm($event)" style="cursor: pointer;">
+    <li class="profile" (click)="confirm($event)" style="cursor: pointer;">
       <div class="profile-details">
         <div class="name_job">
           <i class='pi pi-sign-out' id="log_out"></i>

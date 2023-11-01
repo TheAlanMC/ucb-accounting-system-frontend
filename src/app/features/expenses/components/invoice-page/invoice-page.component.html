@@ -21,12 +21,12 @@
         <div class="flex flex-column justify-content-start mx-2">
           <p>Proveedor</p>
           <p-dropdown id="document-type" [options]="suppliers" [(ngModel)]="selectedSupplier" optionLabel="name"
-                      placeholder="Seleccione un proveedor" [style]="{'width':'250px'}" [required]="true" [editable]="true"></p-dropdown>
+                      placeholder="Seleccione un proveedor" [style]="{'width':'250px'}" [required]="true" ></p-dropdown>
         </div>
         <div class="flex flex-column justify-content-start mx-2">
           <p>Método de pago</p>
           <p-dropdown id="document-type" [options]="paymentTypes" [(ngModel)]="selectedPaymentType" optionLabel="name"
-              placeholder="Seleccione un método de pago" [style]="{'width':'250px'}" [required]="true" [editable]="true"></p-dropdown>
+              placeholder="Seleccione un método de pago" [style]="{'width':'250px'}" [required]="true" ></p-dropdown>
       </div>
       </div>
     </div>

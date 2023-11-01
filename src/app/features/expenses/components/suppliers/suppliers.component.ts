@@ -3,6 +3,7 @@ import {MessageService} from "primeng/api";
 import {SupplierService} from "../../../../core/services/supplier.service";
 import {SupplierAbstractDto} from "../../models/supplier-abstract.dto";
 import {SupplierDto} from "../../models/supplier.dto";
+import {debounceTime, Subject} from "rxjs";
 
 @Component({
   selector: 'app-suppliers',
@@ -40,8 +41,16 @@ export class SuppliersComponent {
   size: number = 10;
   totalElements: number = 0;
 
+  searchTerm: string = '';
+
+  private searchSubject = new Subject<string>();
+
   ngOnInit(): void {
     this.getAllSuppliers();
+    this.searchSubject.pipe(debounceTime(500)).subscribe(() => {
+      // When the user has stopped typing for 500 milliseconds, trigger the getAllTransactions method
+      this.getAllSuppliers();
+    });
   }
 
   onPageChange(event: any) {
@@ -58,7 +67,7 @@ export class SuppliersComponent {
   }
 
   getAllSuppliers(){
-    this.supplierService.getAllSuppliers(this.companyId, this.sortBy, this.sortType,this.page, this.size ).subscribe({
+    this.supplierService.getAllSuppliers(this.companyId, this.sortBy, this.sortType,this.page, this.size, this.searchTerm ).subscribe({
       next: (data) => {
         this.suppliers = data.data!;
         // console.log(data);
@@ -104,7 +113,7 @@ export class SuppliersComponent {
 
     this.supplierService.createSupplier(this.companyId, this.newSupplier).subscribe({
       next: (data) => {
-        console.log(data);
+        // console.log(data);
         this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Cliente creado correctamente' });
         //Esperar 1 segundo para que se cierre el modal
         setTimeout(() => {
@@ -121,11 +130,11 @@ export class SuppliersComponent {
 
   editSupplier(supplierId: number){
     this.editMode = true;
-    console.log(supplierId);
+    // console.log(supplierId);
     //Get the supplier data
     this.supplierService.getSupplierById(this.companyId, supplierId).subscribe({
       next: (data) => {
-        console.log(data);
+        // console.log(data);
         this.prefix = data.data!.prefix;
         this.firstName = data.data!.firstName;
         this.lastName = data.data!.lastName;
@@ -158,7 +167,7 @@ export class SuppliersComponent {
     //Update the supplier
     this.supplierService.updateSupplier(this.companyId, this.editSupplierId, this.newSupplier).subscribe({
       next: (data) => {
-        console.log(data);
+        // console.log(data);
         this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Cliente actualizado correctamente' });
         //Esperar 1 segundo para que se cierre el modal
         setTimeout(() => {
@@ -181,9 +190,14 @@ export class SuppliersComponent {
   }
 
   //Filter the table
-  applyFilterGlobal(event: Event, stringVal: string) {
-    const inputValue = (event.target as HTMLInputElement).value;
-    this.dt.filterGlobal(inputValue, stringVal);
+  // applyFilterGlobal(event: Event, stringVal: string) {
+  //   const inputValue = (event.target as HTMLInputElement).value;
+  //   this.dt.filterGlobal(inputValue, stringVal);
+  // }
+
+  onSearch(event: any) {
+    this.searchTerm = event.target.value;
+    this.searchSubject.next(this.searchTerm);
   }
 
 
