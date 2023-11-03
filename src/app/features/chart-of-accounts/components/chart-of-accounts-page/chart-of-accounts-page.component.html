@@ -17,8 +17,8 @@
 
             <div class="flex flex-column justify-content-start">
                 <span class="p-input-icon-left">
-                    <i class="pi pi-search" *ngIf="!searchValue"></i>
-                    <input class="ca-input" type="text" (input)="applyFilterGlobal($event, 'contains')" pInputText [(ngModel)]="searchValue"/>
+                    <i class="pi pi-search"></i>
+                    <input class="right-search-input" type="text" (input)="applyFilterGlobal($event, 'contains')" pInputText [(ngModel)]="searchValue"/>
                 </span>
             </div>
             <div class="flex flex-column justify-content-start">

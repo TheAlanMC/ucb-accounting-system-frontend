@@ -26,6 +26,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { ReceiptPageComponent } from './components/receipt-page/receipt-page.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import {PaginatorModule} from "primeng/paginator";
+import {KeyFilterModule} from 'primeng/keyfilter';
 @NgModule({
   declarations: [
     InvoicePageComponent,
@@ -57,7 +58,8 @@ import {PaginatorModule} from "primeng/paginator";
         TagModule,
         SplitButtonModule,
         SharedModule,
-        PaginatorModule
+        PaginatorModule,
+        KeyFilterModule
     ]
 })
 export class SalesModule { }

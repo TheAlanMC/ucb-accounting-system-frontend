@@ -77,6 +77,13 @@
     font-size: small;
     padding: 0.25rem 0.5rem 0.25rem 0.5rem;
 }
+::ng-deep .rp-input-number .p-inputtext{
+    width: 100%;
+    height: 30px;
+    font-size: small;
+    padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+}
+
 
 /* Dropdown */
 ::ng-deep .dropdown .p-dropdown {

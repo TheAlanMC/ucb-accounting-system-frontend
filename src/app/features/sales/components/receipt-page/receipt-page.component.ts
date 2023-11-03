@@ -32,7 +32,7 @@ export class ReceiptPageComponent {
 
   // Variables
   companyId = Number(localStorage.getItem('companyId'));
-  importeRecibido: number = 0;
+  importeRecibido = 0;
   referenceNumber: string = '';
   paymentNumber: number = 0;
   dateValue!: Date;

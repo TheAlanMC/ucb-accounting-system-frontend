@@ -4,4 +4,11 @@
 }
 ::ng-deep .p-dropdown-items{
     font-size: small;
-  }
+}
+/* ------- */
+::ng-deep .p-dropdown-filter{
+    width: 100%;
+    height: 30px;
+    font-size: small;
+    padding: 0.25rem 2rem 0.25rem 0.5rem;
+}
