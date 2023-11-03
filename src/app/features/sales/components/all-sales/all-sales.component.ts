@@ -24,6 +24,7 @@ export class AllSalesComponent {
   page: number = 0;
   size: number = 10;
   totalElements: number = 0;
+  isLoading: boolean = true;
 
   // Filter variables
   filterDate: string = '';
@@ -55,6 +56,7 @@ export class AllSalesComponent {
     dateFilters: any;
 
     ngOnInit(): void {
+      
       this.getAllSales();
       this.transactionTypeService.getAllTransactionTypes().subscribe({
         next: (data) => {
@@ -95,8 +97,14 @@ export class AllSalesComponent {
         // });
 
   onPageChange(event: any) {
-    this.page = event.page;
-    this.size = event.rows;
+    // console.log(event);
+    var first = event.first;
+    var rows = event.rows;
+    this.page = Math.floor(first / rows);
+    this.size = rows;
+    // this.getAllSales();
+    // this.page = event.page;
+    // this.size = event.rows;
     // console.log(event);
     this.getAllSales();
   }
@@ -108,10 +116,12 @@ export class AllSalesComponent {
   }
 
     getAllSales(){
+      this.isLoading = true;
         this.salesService.getAllSales(this.companyId, this.sortBy, this.sortType,this.page, this.size, this.filterDate, this.filterCustomer, this.filterDocumentType).subscribe({
             next: (data) => {
                 this.sales = data.data!;
                 this.totalElements = data.totalElements!;
+                this.isLoading = false;
                 // console.log(data);
                 // this.getCustomerFromData();
             },

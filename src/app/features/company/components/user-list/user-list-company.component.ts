@@ -35,6 +35,7 @@ export class UserListCompanyComponent implements OnInit{
     page: number = 0;
     size: number = 10;
     totalElements: number = 0;
+    isLoading: boolean = true;
 
     searchTerm: string = '';
 
@@ -147,8 +148,10 @@ export class UserListCompanyComponent implements OnInit{
     }
 
   onPageChange(event: any) {
-    this.page = event.page;
-    this.size = event.rows;
+    var first = event.first;
+    var rows = event.rows;
+    this.page = Math.floor(first / rows);
+    this.size = rows;
     // console.log(event);
     this.getData();
   }
@@ -160,9 +163,11 @@ export class UserListCompanyComponent implements OnInit{
   }
 
   getData() {
+    this.isLoading = true;
     this.userService.findAllUsersByCompanyId(this.companyId, this.sortBy, this.sortType,this.page, this.size, this.searchTerm ).subscribe((users) => {
       this.users = users.data!;
       this.totalElements = users.totalElements!;
+      this.isLoading = false;
     });
   }
 

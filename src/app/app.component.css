@@ -2,3 +2,6 @@
     margin: 0;
     padding: 0;
 }
+::ng-deep .p-dropdown-items{
+    font-size: small;
+  }

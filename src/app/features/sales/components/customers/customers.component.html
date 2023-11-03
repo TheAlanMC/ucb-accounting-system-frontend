@@ -2,8 +2,8 @@
 
     <div class="flex flex-column justify-content-start">
         <span class="p-input-icon-left">
-            <i class="pi pi-search" *ngIf="!searchTerm"></i>
-            <input type="text" pInputText  class="input w-full" [(ngModel)]="searchTerm"
+            <i class="pi pi-search"></i>
+            <input type="text" pInputText  class="input w-full right-search-input" [(ngModel)]="searchTerm"
                 (input)="onSearch($event)">
         </span>
     </div>
@@ -17,7 +17,10 @@
 </div>
 <br>
 <p-table #dt [value]="customers" [(selection)]="selectedProducts" dataKey="code" [tableStyle]="{'min-width': '50rem'} "
-    styleClass="p-datatable-sm" [lazy]="true" (onSort)="onSortChange($event)" [customSort]="true">
+    styleClass="p-datatable-sm" [lazy]="true" (onSort)="onSortChange($event)" [customSort]="true" [rows]="10" [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 25, 50, 100]" [paginator]="true" [totalRecords]="totalElements" [loading]="isLoading"
+    (onPage)="onPageChange($event)"
+    currentPageReportTemplate="Mostrando los registros del {first} al {last} de un total de {totalRecords}">
     <ng-template pTemplate="header">
         <tr>
             <th pSortableColumn="displayName">Nombre <p-sortIcon field="displayName"></p-sortIcon></th>
@@ -40,10 +43,18 @@
             </td>
         </tr>
     </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="5">No se encontraron clientes.</td>
+        </tr>
+    </ng-template>
 </p-table>
-<p-paginator id="paginator" (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements"
-    [rowsPerPageOptions]="[10, 25, 50, 100] "></p-paginator>
+<!-- <p-paginator id="paginator" (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements"
+    [rowsPerPageOptions]="[10, 25, 50, 100] "></p-paginator> -->
 
+
+
+<!-- SIDEBAR -->
 <p-sidebar [(visible)]="addCustomerVisible" position="right" styleClass="w-4" [modal]="false">
     <p-toast [style]="{'z-index':'3000'}"></p-toast>
     <div class="page-title flex-grow-1 flex align-items-center justify-content-start font-bold mb-2">
@@ -62,23 +73,23 @@
         <div class="card">
             <div class="field col-12 md:col-6 p-0">
                 <label for="prefix">Prefijo</label>
-                <input id="prefix" type="text" [(ngModel)]="prefix" pInputText class="input w-full"
+                <input id="prefix" type="text" [(ngModel)]="prefix" pInputText class="input w-full cu-input"
                     (change)="onChange($event)">
             </div>
             <div class="formgrid grid">
                 <div class="field col-12 md:col-6">
                     <label for="name">Nombre</label>
-                    <input id="name" pInputText type="text" [(ngModel)]="firstName" class="input w-full"
+                    <input id="name" pInputText type="text" [(ngModel)]="firstName" class="input w-full cu-input"
                         (change)="onChange($event)">
                 </div>
                 <div class="field col-12 md:col-6">
                     <label for="lastname">Apellido</label>
-                    <input id="lastname" type="text" pInputText [(ngModel)]="lastName" class="input w-full"
+                    <input id="lastname" type="text" pInputText [(ngModel)]="lastName" class="input w-full cu-input"
                         (change)="onChange($event)">
                 </div>
                 <div class="field col-12 md:col-12">
                     <label for="display-name">Nombre a mostrar</label>
-                    <input id="display-name" type="text" pInputText [(ngModel)]="displayName" class="input w-full"
+                    <input id="display-name" type="text" pInputText [(ngModel)]="displayName" class="input w-full cu-input"
                         [value]="prefix+' '+firstName + ' '+ lastName">
                 </div>
 
@@ -117,20 +128,20 @@
         <div class="formgrid grid">
             <div class="field col-12 md:col-12">
                 <label for="companyName">Nombre de la compañía</label>
-                <input id="companyName" type="text" [(ngModel)]="companyName" class="w-full" pInputText>
+                <input id="companyName" type="text" [(ngModel)]="companyName" class="w-full cu-input" pInputText>
             </div>
             <div class="field col-12 md:col-6">
                 <label for="email">Correo electrónico</label>
-                <input id="email" type="text" [(ngModel)]="companyEmail" class="w-full" pInputText>
+                <input id="email" type="text" [(ngModel)]="companyEmail" class="w-full cu-input" pInputText>
             </div>
             <div class="field col-12 md:col-6">
                 <label for="phone">Teléfono</label>
-                <input id="phone" type="text" [(ngModel)]="companyPhoneNumber" class="w-full" pInputText>
+                <input id="phone" type="text" [(ngModel)]="companyPhoneNumber" class="w-full cu-input" pInputText>
             </div>
             <div class="field col-12">
                 <label for="address">Dirección</label>
                 <textarea id="address" pInputTextarea [(ngModel)]="companyAddress" type="text" rows="5" class="w-full"
-                    style="height: 100%"></textarea>
+                    style="height: 100%; font-size: small;"></textarea>
             </div>
 
         </div>

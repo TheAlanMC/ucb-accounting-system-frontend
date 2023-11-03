@@ -48,7 +48,7 @@
 }
 
 /* Input */
-::ng-deep .p-inputtext{
+::ng-deep .ca-input{
     width: 100%;
     font-size: small;
     padding: 0.25rem 0.5rem 0.25rem 0.5rem;
