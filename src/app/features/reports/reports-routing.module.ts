@@ -7,6 +7,7 @@ import { WorksheetReportComponent } from './components/worksheet-report/workshee
 import { TrialBalanceComponent } from './components/trial-balance/trial-balance.component';
 import { LedgerBookPageComponent } from '../ledger-book/components/ledger-book-page/ledger-book-page.component';
 import { AccountModalComponent } from '../ledger-book/components/account-modal/account-modal.component';
+import { ReportListComponent } from './components/report-list/report-list.component';
 
 const routes: Routes = [{
   path: 'reports',
@@ -15,6 +16,7 @@ const routes: Routes = [{
     { path: 'trialbalance', component: TrialBalanceComponent },
     { path: 'worksheet', component: WorksheetReportComponent },
     { path: 'ledgerbook', component: LedgerBookPageComponent },
+    { path: 'list', component: ReportListComponent },
     {path: '', component: ReportsPageComponent, data: { roles: ['report-generator', 'report-viewer'] }, canActivate: [AuthGuard]}]
 }];
 
