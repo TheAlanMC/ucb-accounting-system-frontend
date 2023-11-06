@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {Router} from "@angular/router";
 import {debounceTime, Subject} from "rxjs";
+import { GeneratedReportsListService } from 'src/app/core/services/generated-reports-list.service';
 import { SidebarService } from 'src/app/core/services/sidebar/sidebar.service';
-
+import { ReportData } from 'src/app/features/reports/models/generated-reports.dto';
+import { format } from 'date-fns';
 
 interface Reporte {
   fecha: string;
@@ -23,7 +25,8 @@ export class ReportListComponent {
   companyId = Number(localStorage.getItem('companyId'));
   startDate: Date | undefined;  // Variable para la fecha de inicio
   endDate: Date | undefined;
-  transactions: Reporte[] = [
+  transactions: ReportData[] = [];
+  transactions2: Reporte[] = [
     {
       fecha: "2023-10-26 16:05",
       nombreReporte: "Reporte Trimestral",
@@ -82,7 +85,7 @@ export class ReportListComponent {
 
 
   // Pagination variables
-  sortBy: string = 'journalEntryId';
+  sortBy: string = 'reportId';
   sortType: string = 'asc';
   page: number = 0;
   size: number = 10;
@@ -95,7 +98,7 @@ export class ReportListComponent {
     console.log(this.isNavbarOpen);
 
   }
-  constructor(private sidebarService: SidebarService, private router: Router) {
+  constructor(private sidebarService: SidebarService, private router: Router, private generatedReportsListService: GeneratedReportsListService) {
     this.sidebarService.getIsOpen().subscribe((isOpen) => {
       this.isNavbarOpen = isOpen;
       console.log(this.isNavbarOpen);
@@ -103,15 +106,15 @@ export class ReportListComponent {
   }
 
   ngOnInit(): void {
-    this.getAllTransactions()
+    /*this.getAllReportsGenerated();
     this.searchSubject.pipe(debounceTime(500)).subscribe(() => {
       // When the user has stopped typing for 500 milliseconds, trigger the getAllTransactions method
-      this.getAllTransactions();
-    });
+      this.getAllReportsGenerated()
+    });*/
   }
 
   generateList(){
-
+    this.getAllReportsGenerated();
   }
 
   getSeverity(status: boolean) {
@@ -125,16 +128,27 @@ export class ReportListComponent {
     this.page = event.page;
     this.size = event.rows;
     // console.log(event);
-    this.getAllTransactions();
+    this.getAllReportsGenerated()
   }
 
   onSortChange(event: any) {
     this.sortBy = event.field;
     this.sortType = (event.order == 1) ? 'asc' : 'desc';
-    this.getAllTransactions();
+    this.getAllReportsGenerated()
   }
 
-  getAllTransactions(){
+  getAllReportsGenerated(){
+    this.generatedReportsListService.getGeneratedReports(this.companyId, format(this.startDate!, 'yyyy-MM-dd'), format(this.endDate!, 'yyyy-MM-dd'), this.sortBy, this.sortType,this.page, this.size).subscribe({
+      next: (data) => {
+        this.transactions = data.data!;
+        console.log(data);
+        this.totalElements = data.totalElements!;
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
+
     /*this.journalEntryService.getAllTransactions(this.companyId, this.sortBy, this.sortType,this.page, this.size, this.searchTerm ).subscribe({
       next: (data) => {
         this.transactions = data.data!;
@@ -147,9 +161,9 @@ export class ReportListComponent {
     })*/
   }
 
-  onViewDetail(journalEntryId: number){
+  onViewDetail(reportId: number){
   //   router
-    this.router.navigate([`/transactions/${journalEntryId}`]);
+    this.router.navigate([`/transactions/${reportId}`]);
   }
 
   onSearch(event: any) {

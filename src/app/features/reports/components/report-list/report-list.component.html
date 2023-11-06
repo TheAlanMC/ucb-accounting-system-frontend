@@ -44,29 +44,28 @@
             (onSort)="onSortChange($event)" [customSort]="true">
             <ng-template pTemplate="header">
                 <tr>
-                    <th pSortableColumn="creationDate">Fecha de Creación <p-sortIcon field="creationDate"></p-sortIcon>
+                    <th pSortableColumn="dateTime">Fecha de Creación <p-sortIcon field="dateTime"></p-sortIcon>
                     </th>
-                    <th pSortableColumn="displayName">Nombre del Reporte <p-sortIcon field="displayName"></p-sortIcon>
+                    <th pSortableColumn="reportDescription">Nombre del Reporte <p-sortIcon field="reportDescription"></p-sortIcon>
                     </th>
-                    <th pSortableColumn="journalEntryAccepted">Tipo de Reporte <p-sortIcon
-                            field="journalEntryAccepted"></p-sortIcon></th>
-                    <th pSortableColumn="documentType.documentTypeName">Usuario <p-sortIcon
-                            field="documentType.documentTypeName"></p-sortIcon></th>
-                    <th pSortableColumn="transactionType.transactionTypeName">Estado <p-sortIcon
-                            field="transactionType.transactionTypeName"></p-sortIcon></th>
+                    <th pSortableColumn="reportType">Tipo de Reporte <p-sortIcon
+                            field="reportType"></p-sortIcon></th>
+                    <th pSortableColumn="user">Usuario <p-sortIcon
+                            field="user"></p-sortIcon></th>
+                    
                     <th>Ver Detalle</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-transactions>
                 <tr>
-                    <td>{{transactions.fecha}}</td>
-                    <td>{{transactions.nombreReporte}}</td>
-                    <td>{{transactions.tipoReporte}}</td>
-                    <td>{{transactions.usuario}}</td>
-                    <td>{{transactions.estado}}</td>
+                    <td>{{transactions.dateTime | date:'yyyy-MM-dd HH:mm'}}</td>
+                    <td>{{transactions.reportDescription}}</td>
+                    <td>{{transactions.reportType.reportName}}</td>
+                    <td>{{transactions.user.email}}</td>
+                    
                     <td id="but-hover">
                         <button type="button" class="p-button-rounded" id="button-custom-rounded"
-                            (click)="onViewDetail(transactions.journalEntryId)">
+                            (click)="onViewDetail(transactions.reportId)">
                             <i class="pi pi-eye"></i>
                         </button>
                     </td>
