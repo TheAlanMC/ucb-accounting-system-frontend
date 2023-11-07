@@ -23,7 +23,7 @@ export class IncomeStatementsComponent {
   message: string = 'Seleccione un rango de fechas para generar su reporte.';
   emptyTable: boolean = true;
 
-  incomeStatements!: IncomeStatementsReportDto;
+  incomeStatementsReport!: IncomeStatementsReportDto;
   incomeStatementsDetail!: FinancialStatementDetailsDto[];
 
   //TODO: Rellenar arreglos
@@ -58,14 +58,16 @@ export class IncomeStatementsComponent {
       this.reportService.getIncomeStatements(this.companyId, format(this.startDate!, 'yyyy-MM-dd'), format(this.endDate!, 'yyyy-MM-dd')).subscribe({
         next: (data) => {
           console.log(data);
-          this.incomeStatements = data.data!;
-          this.incomeStatementsDetail = this.incomeStatements.reportData.financialStatementDetails;
-           this.ingresos = this.transformData(this.incomeStatementsDetail);
-            console.log(this.ingresos);
+          this.incomeStatementsReport = data.data!;
+          this.incomeStatementsDetail = this.incomeStatementsReport.reportData.financialStatementDetails;
+          this.ingresos = this.transformData(this.incomeStatementsDetail[0].accountCategory.accountGroups);
+          this.egresos = this.transformData(this.incomeStatementsDetail[1].accountCategory.accountGroups);
+          this.totalIngresos = this.incomeStatementsDetail[0].totalAmountBs;
+          this.totalEgresos = this.incomeStatementsDetail[1].totalAmountBs;
           if (this.incomeStatementsDetail.length == 0) {
             this.message = 'No se encontraron movimientos en este rango de fechas, por favor intente con otro intérvalo.';
-            this.incomeStatementsDetail = this.incomeStatements.reportData.financialStatementDetails;
-           
+            this.incomeStatementsDetail = this.incomeStatementsReport.reportData.financialStatementDetails;
+
             this.isLoading = true;
             this.emptyTable = true;
           } else {

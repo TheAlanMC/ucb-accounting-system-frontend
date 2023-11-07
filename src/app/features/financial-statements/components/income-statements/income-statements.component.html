@@ -37,7 +37,7 @@
                         id="generate-button" icon="pi pi-sync" iconPos="right"></p-button>
                     <span class="ml-2"></span>
                     <p-button label="Exportar" class="green-button" id="export-button" icon="pi pi-file-export"
-                        iconPos="right" (onClick)="exportPdf()" [disabled]="!incomeStatements"></p-button>
+                        iconPos="right" (onClick)="exportPdf()" [disabled]="!incomeStatementsReport"></p-button>
                 </div>
             </div>
         </div>
@@ -68,9 +68,9 @@
         <p-treeTable [value]="ingresos" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="width: 25%;">Código</th>
                     <th style="width: 40%;">Nombre</th>
-                    <th style="width: 5%;">Total</th>
+                    <th style="width: 25%;">Código</th>
+                    <th style="width: 15%;">Total</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
@@ -80,32 +80,35 @@
                         {{ rowData.accountName }}
                     </td>
                     <td style="width: 25%;">{{ rowData.accountCode }}</td>
-                    <td style="width: 5%;">{{ rowData.total }}
-                    </td>
+                    <td style="width: 15%;">Bs. {{ rowData.totalAmountBs | currency: ' '}}</td>
                 </tr>
             </ng-template>
         </p-treeTable>
+        <br>
         <div class="flex flex-row align-items-center justify-content-center gap-3">
             <p>EGRESOS - COSTOS Y GASTOS</p>
             <p-divider class="flex-grow-1 mt-1"></p-divider>
             <p>Total: Bs. {{totalEgresos | currency:' '}}</p>
         </div>
-        <p-table [value]="egresos" [tableStyle]="{ 'min-width': '70%' }">
+        <p-treeTable [value]="egresos" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
             <ng-template pTemplate="header">
                 <tr>
-                    <th>Código de la cuenta</th>
-                    <th>Nombre</th>
-                    <th>Total</th>
+                    <th style="width: 40%;">Nombre</th>
+                    <th style="width: 25%;">Código</th>
+                    <th style="width: 15%;">Total</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-product>
-                <tr>
-                    <td>{{ egresos.code }}</td>
-                    <td>{{ egresos.name }}</td>
-                    <td>{{ egresos.category }}</td>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+                <tr [ttRow]="rowNode">
+                    <td style="width: 40%;">
+                        <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                        {{ rowData.accountName }}
+                    </td>
+                    <td style="width: 25%;">{{ rowData.accountCode }}</td>
+                    <td style="width: 15%;">Bs. {{ rowData.totalAmountBs | currency: ' '}}</td>
                 </tr>
             </ng-template>
-        </p-table>
+        </p-treeTable>
 
         
         </div>
@@ -115,8 +118,8 @@
                 <i id="icon-results" class="pi pi-info-circle"></i>
             </div>
             <ul>
-                <li>Total ingresos (Utilidad bruta): </li>
-                <li>Total egresos (Utilidad operacional): </li>
+                <li>Total ingresos (Utilidad bruta): Bs. {{totalIngresos | currency: ' '}}</li>
+                <li>Total egresos (Utilidad operacional): Bs. {{totalEgresos | currency: ' '}}</li>
             </ul>
 
         </div>
