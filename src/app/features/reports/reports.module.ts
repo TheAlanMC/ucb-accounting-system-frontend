@@ -27,6 +27,9 @@ import { LedgerBookModule } from '../ledger-book/ledger-book.module';
 import { SidebarModule } from 'primeng/sidebar';
 import { Divider, DividerModule } from 'primeng/divider';
 import { SkeletonModule } from 'primeng/skeleton';
+import { BalanceSheetsComponent } from './components/balance-sheets/balance-sheets.component';
+import { TreeTableModule } from 'primeng/treetable';
+
 
 
 @NgModule({
@@ -34,7 +37,8 @@ import { SkeletonModule } from 'primeng/skeleton';
     ReportsPageComponent,
     JournalBookReportComponent,
     WorksheetReportComponent,
-    TrialBalanceComponent
+    TrialBalanceComponent,
+    BalanceSheetsComponent
   ],
   imports: [
     CommonModule,
@@ -64,6 +68,7 @@ import { SkeletonModule } from 'primeng/skeleton';
     ToastModule,
     DividerModule,
     SkeletonModule,
+    TreeTableModule
   ]
 })
 export class ReportsModule { }

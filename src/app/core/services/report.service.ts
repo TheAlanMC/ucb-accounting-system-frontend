@@ -9,6 +9,7 @@ import {JournalBookDto} from "../../features/reports/components/journal-book-rep
 import {AttachmentDto} from "../../features/transaction/models/attachment.dto";
 import {TrialBalanceReportDto} from "../../features/reports/models/trial-balance-report.dto";
 import {WorksheetReportDto} from "../../features/reports/models/worksheet-report.dto";
+import { BalanceSheetsDto } from "src/app/features/reports/models/balance-sheets.dto";
 
 @Injectable({
     providedIn: 'root'
@@ -68,6 +69,10 @@ export class ReportService {
 
   public getWorksheetReportPdf(companyId: number, dateFrom: string, dateTo: String):  Observable<ResponseDto<AttachmentDto>>{
     return this.http.get<ResponseDto<AttachmentDto>>(`${this.baseUrl}/worksheets/companies/${companyId}/pdf?dateFrom=${dateFrom}&dateTo=${dateTo}`);
+  }
+
+  public getBalanceSheetsReport(companyId: number, dateFrom: string, dateTo: String):  Observable<ResponseDto<BalanceSheetsDto>>{
+    return this.http.get<ResponseDto<BalanceSheetsDto>>(`${this.baseUrl}/balance-sheets/companies/${companyId}?dateFrom=${dateFrom}&dateTo=${dateTo}`);
   }
 
 }
