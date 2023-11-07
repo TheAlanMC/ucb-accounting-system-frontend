@@ -10,6 +10,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ToastModule } from 'primeng/toast';
 import { TableModule } from 'primeng/table';
 import { FormsModule } from '@angular/forms';
+import { DividerModule } from 'primeng/divider';
+import { TreeTableModule } from 'primeng/treetable';
 
 
 @NgModule({
@@ -25,8 +27,9 @@ import { FormsModule } from '@angular/forms';
     SharedModule,
     ToastModule,
     TableModule,
-    FormsModule
-
+    FormsModule,
+    DividerModule,
+    TreeTableModule
   ]
 })
 export class FinancialStatementsModule { }

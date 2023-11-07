@@ -1,19 +1,17 @@
 import { Component } from '@angular/core';
-import { format } from 'date-fns';
-import { MessageService } from 'primeng/api';
+import { IncomeStatementsReportDto } from '../../../financial-statements/models/income-statements-report.dto';
+import { FinancialStatementDetailsDto } from '../../../financial-statements/models/financial-statements-details.dto';
 import { ReportService } from 'src/app/core/services/report.service';
 import { SidebarService } from 'src/app/core/services/sidebar/sidebar.service';
-import { IncomeStatementsReportDto } from '../../models/income-statements-report.dto';
-import { FinancialStatementDetailsDto } from '../../models/financial-statements-details.dto';
-import { TableAccountExpandDto } from '../../models/table-account-expand.dto';
+import { MessageService } from 'primeng/api';
+import { format } from 'date-fns';
 
 @Component({
-  selector: 'app-income-statements',
-  templateUrl: './income-statements.component.html',
-  styleUrls: ['./income-statements.component.css'],
-  providers: [MessageService]
+  selector: 'app-opening-balance',
+  templateUrl: './opening-balance.component.html',
+  styleUrls: ['./opening-balance.component.css']
 })
-export class IncomeStatementsComponent {
+export class OpeningBalanceComponent {
   startDate: Date | undefined;  // Variable para la fecha de inicio
   endDate: Date | undefined;
   companyId = Number(localStorage.getItem('companyId'));
@@ -25,16 +23,16 @@ export class IncomeStatementsComponent {
 
   incomeStatements!: IncomeStatementsReportDto;
   incomeStatementsDetail!: FinancialStatementDetailsDto[];
-
+  
   //TODO: Rellenar arreglos
-  ingresos: any = [];
-  egresos: any = [];
-  totalIngresos: number = 0;
-  totalEgresos: number = 0;
+  activos: any = [];
+  pasivos: any = [];
+  patrimonio: any = [];
 
   constructor(private reportService: ReportService, private sidebarService: SidebarService, private messageService: MessageService) {
 
   }
+
   ngOnInit(): void {
     this.sidebarService.getIsOpen().subscribe((isOpen) => {
       this.isNavbarOpen = isOpen;
@@ -60,15 +58,13 @@ export class IncomeStatementsComponent {
           console.log(data);
           this.incomeStatements = data.data!;
           this.incomeStatementsDetail = this.incomeStatements.reportData.financialStatementDetails;
-           this.ingresos = this.transformData(this.incomeStatementsDetail);
-            console.log(this.ingresos);
-          if (this.incomeStatementsDetail.length == 0) {
+          if(this.incomeStatementsDetail.length == 0){
             this.message = 'No se encontraron movimientos en este rango de fechas, por favor intente con otro intérvalo.';
-            this.incomeStatementsDetail = this.incomeStatements.reportData.financialStatementDetails;
-           
+          this.incomeStatementsDetail = this.incomeStatements.reportData.financialStatementDetails;
+            
             this.isLoading = true;
             this.emptyTable = true;
-          } else {
+          }else{
             this.isLoading = false;
           }
 
@@ -88,26 +84,5 @@ export class IncomeStatementsComponent {
     // });
   }
 
-  transformData(data: any): any[] {
-    return data.map((item: any) => {
-      const transformedItem: TableAccountExpandDto = {
-        data: {
-          accountId: item.accountGroupId || item.accountSubgroupId || item.accountId || item.subaccountId || item.accountCategoryId,
-          accountCode: item.accountGroupCode || item.accountSubgroupCode || item.accountCode || item.subaccountCode || item.accountCategoryCode,
-          accountName: item.accountCategoryName || item.accountGroupName || item.accountSubgroupName || item.accountName || item.subaccountName,
-          totalAmountBs: item.totalAmountBs
-        },
-        children: [],
-        expanded: true
-      };
-
-      if (item.accountGroups || item.accountSubgroups || item.accounts || item.subaccounts) {
-        transformedItem.children = this.transformData(
-          item.accountGroups || item.accountSubgroups || item.accounts || item.subaccounts,
-        );
-      }
-      return transformedItem;
-    });
-  }
-
+  
 }

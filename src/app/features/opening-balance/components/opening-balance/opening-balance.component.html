@@ -5,9 +5,9 @@
         <p-toast></p-toast>
         <div class="flex card-container overflow-hidden">
             <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0">
-                <i class="pi pi-box"
+                <i class="pi pi-map-marker"
                     style="color: var(--color-green); font-size: 2.5rem; z-index: 2 !important;"></i>
-                <p class="text-2xl md:text-3xl" style="z-index:2;">&nbsp;&nbsp;&nbsp;Estado de resultados</p>
+                <p class="text-2xl md:text-3xl" style="z-index:2;">&nbsp;&nbsp;&nbsp;Balance de apertura</p>
             </div>
             <div class="flex-none flex align-items-center justify-content-center font-bold m-2 px-5 py-3">
                 <app-navbar></app-navbar>
@@ -15,18 +15,11 @@
         </div>
     </div>
     <div class="col-12 xl:col-12 px-8 pb-3">
-        <h4 style="color: #8c8c8c;">Rango de fechas para el reporte</h4>
         <div class="flex justify-content-between">
             <div class="flex flex-row flex-wrap mb-3">
                 <div class="flex flex-column justify-content-start mr-2">
-                    <p>Fecha inicial</p>
+                    <p>Fecha de apertura</p>
                     <p-calendar class="datepicker" [(ngModel)]="startDate" [showButtonBar]="true" [showIcon]="true"
-                        dateFormat="dd/mm/yy" inputId="icon" placeholder="Seleccione una fecha"
-                        [readonlyInput]="true"></p-calendar>
-                </div>
-                <div class="flex flex-column justify-content-start mr-2">
-                    <p>Fecha final</p>
-                    <p-calendar class="datepicker" [(ngModel)]="endDate" [showButtonBar]="true" [showIcon]="true"
                         dateFormat="dd/mm/yy" inputId="icon" placeholder="Seleccione una fecha"
                         [readonlyInput]="true"></p-calendar>
                 </div>
@@ -44,12 +37,8 @@
         <br>
         <div class="flex flex-row justify-content-between">
             <div style="width: 70%;">
-                <div class="flex flex-row align-items-center justify-content-center gap-3">
-                    <p>INGRESOS</p>
-                    <p-divider class="flex-grow-1 mt-1"></p-divider>
-                    <p>Total: Bs. {{totalIngresos | currency:' '}}</p>
-                </div>
-        <!-- <p-table [value]="ingresos" [tableStyle]="{ 'min-width': '70%' }">
+        <p>ACTIVO</p>
+        <p-table [value]="activos" [tableStyle]="{ 'min-width': '70%' }">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Código de la cuenta</th>
@@ -59,55 +48,48 @@
             </ng-template>
             <ng-template pTemplate="body" let-product>
                 <tr>
-                    <td>{{ ingresos.code }}</td>
-                    <td>{{ ingresos.name }}</td>
-                    <td>{{ ingresos.category }}</td>
-                </tr>
-            </ng-template>
-        </p-table> -->
-        <p-treeTable [value]="ingresos" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th style="width: 25%;">Código</th>
-                    <th style="width: 40%;">Nombre</th>
-                    <th style="width: 5%;">Total</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-                <tr [ttRow]="rowNode">
-                    <td style="width: 40%;">
-                        <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
-                        {{ rowData.accountName }}
-                    </td>
-                    <td style="width: 25%;">{{ rowData.accountCode }}</td>
-                    <td style="width: 5%;">{{ rowData.total }}
-                    </td>
-                </tr>
-            </ng-template>
-        </p-treeTable>
-        <div class="flex flex-row align-items-center justify-content-center gap-3">
-            <p>EGRESOS - COSTOS Y GASTOS</p>
-            <p-divider class="flex-grow-1 mt-1"></p-divider>
-            <p>Total: Bs. {{totalEgresos | currency:' '}}</p>
-        </div>
-        <p-table [value]="egresos" [tableStyle]="{ 'min-width': '70%' }">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>Código de la cuenta</th>
-                    <th>Nombre</th>
-                    <th>Total</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-product>
-                <tr>
-                    <td>{{ egresos.code }}</td>
-                    <td>{{ egresos.name }}</td>
-                    <td>{{ egresos.category }}</td>
+                    <td>{{ activos.code }}</td>
+                    <td>{{ activos.name }}</td>
+                    <td>{{ activos.category }}</td>
                 </tr>
             </ng-template>
         </p-table>
 
-        
+        <p>PASIVO</p>
+        <p-table [value]="pasivos" [tableStyle]="{ 'min-width': '70%' }">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Código de la cuenta</th>
+                    <th>Nombre</th>
+                    <th>Total</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td>{{ pasivos.code }}</td>
+                    <td>{{ pasivos.name }}</td>
+                    <td>{{ pasivos.category }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+        <p>PATRIMONIO</p>
+        <p-table [value]="patrimonio" [tableStyle]="{ 'min-width': '70%' }">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Código de la cuenta</th>
+                    <th>Nombre</th>
+                    <th>Total</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td>{{ patrimonio.code }}</td>
+                    <td>{{ patrimonio.name }}</td>
+                    <td>{{ patrimonio.category }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
         </div>
         <div id="results-container">
             <div class="flex flex-row justify-content-between align-items-center">
@@ -115,12 +97,16 @@
                 <i id="icon-results" class="pi pi-info-circle"></i>
             </div>
             <ul>
-                <li>Total ingresos (Utilidad bruta): </li>
-                <li>Total egresos (Utilidad operacional): </li>
+                <li>Total activos: </li>
+                <li>Total pasivos: </li>
+                <li>Total patrimonio: </li>
+                <li>Total pasivos y patrimonio: </li>
             </ul>
 
         </div>
     </div>
+        <!-- <div class="flex justify-content-center p-4">
+            <p style="font-size: medium;">{{message}}</p>
+        </div> -->
     </div>
 </div>
-
