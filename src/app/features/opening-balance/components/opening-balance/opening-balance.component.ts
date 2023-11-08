@@ -1,22 +1,19 @@
 import { Component } from '@angular/core';
 import { FinancialStatementDetailsDto } from '../../../financial-statements/models/financial-statements-details.dto';
-import { ReportService } from 'src/app/core/services/report.service';
 import { SidebarService } from 'src/app/core/services/sidebar/sidebar.service';
 import { MessageService } from 'primeng/api';
 import { format } from 'date-fns';
 import { OpeningBalaceService } from 'src/app/core/services/opening-balance.service';
-import { AccountCategoryIsDto } from 'src/app/features/financial-statements/models/account-category-is.dto';
-import { TableAccountExpandDto } from 'src/app/features/financial-statements/models/table-account-expand.dto';
 import { TableAccountExpandLevelDto } from '../../models/table-account-expand.dto';
 
 @Component({
   selector: 'app-opening-balance',
   templateUrl: './opening-balance.component.html',
-  styleUrls: ['./opening-balance.component.css']
+  styleUrls: ['./opening-balance.component.css'],
+  providers: [MessageService]
 })
 export class OpeningBalanceComponent {
   startDate: Date | undefined;  // Variable para la fecha de inicio
-  endDate: Date | undefined;
   companyId = Number(localStorage.getItem('companyId'));
 
   isNavbarOpen: boolean = false;
@@ -25,7 +22,7 @@ export class OpeningBalanceComponent {
   emptyTable: boolean = true;
 
   incomeStatementsDetail!: FinancialStatementDetailsDto[];
-  
+
   //TODO: Rellenar arreglos
   activos: any = [];
   pasivos: any = [];
@@ -35,7 +32,7 @@ export class OpeningBalanceComponent {
   totalPatrimonio: number = 0;
 
   constructor(private openingBalanceService: OpeningBalaceService, private sidebarService: SidebarService, private messageService: MessageService) {
-    
+
   }
 
   ngOnInit(): void {
@@ -54,106 +51,112 @@ export class OpeningBalanceComponent {
   generateReport() {
     this.isLoading = true;
     this.message = '';
-    
-      this.openingBalanceService.getOpeningBalance(this.companyId).subscribe({
-        next: (data) => {
-          console.log(data);
-          this.incomeStatementsDetail = data.data!;
-          this.activos = this.transformData(this.incomeStatementsDetail[0].accountCategory.accountGroups,2);
-          this.pasivos = this.transformData(this.incomeStatementsDetail[1].accountCategory.accountGroups,2);
-          this.patrimonio = this.transformData(this.incomeStatementsDetail[2].accountCategory.accountGroups,2);
-          console.log(this.activos);
-          console.log(this.pasivos);
-          console.log(this.patrimonio);
-          this.totalActivos = this.incomeStatementsDetail[0].totalAmountBs;
-          this.totalPasivos = this.incomeStatementsDetail[1].totalAmountBs;
-          this.totalPatrimonio = this.incomeStatementsDetail[2].totalAmountBs;
+    this.openingBalanceService.getOpeningBalance(this.companyId).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.incomeStatementsDetail = data.data!;
+        this.activos = this.transformData(this.incomeStatementsDetail[0].accountCategory.accountGroups, 2);
+        this.pasivos = this.transformData(this.incomeStatementsDetail[1].accountCategory.accountGroups, 2);
+        this.patrimonio = this.transformData(this.incomeStatementsDetail[2].accountCategory.accountGroups, 2);
 
-          if(this.incomeStatementsDetail.length == 0){
-            this.message = 'No se encontraron movimientos en este rango de fechas, por favor intente con otro intérvalo.';
-          // this.incomeStatementsDetail = this.incomeStatements.reportData.financialStatementDetails;
-            
-            this.isLoading = true;
-            this.emptyTable = true;
-          }else{
-            this.isLoading = false;
-          }
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
 
-        },
-        error: (error) => {
-          console.log(error);
-        }
-      });
-  
   }
   // Función recursiva para actualizar los valores de los padres
   updateParentTotal(node: TableAccountExpandLevelDto) {
+    
     if (node && node.parent) {
       const parent = node.parent;
       if (parent) {
-        // parent.data.totalAmountBs = parent.children.reduce((total, child) => total + child.data.totalAmountBs, 0);
-        //Obtener todos los totalamount de los hijos
-        console.log(parent);
         parent.data.totalAmountBs = parent.children.reduce((total, child) => total + child.data.totalAmountBs, 0);
         this.updateParentTotal(parent); // Llamada recursiva para actualizar a lo largo de la jerarquía
-        
+
       }
     }
   }
 
   // Función para manejar la edición del inputNumber
   updateTotalAmountBs(node: TableAccountExpandLevelDto, listNumber: number) {
-    
+    console.log(node);
+    if(node.node.data.totalAmountBs == null){
+      node.node.data.totalAmountBs = 0;
+    }
+
     // Lógica de actualización
     this.updateParentTotal(node);
-    if(listNumber==0){
+    if (listNumber == 0) {
       this.calculateActivos();
-    }else if(listNumber==1){
+    } else if (listNumber == 1) {
       this.calculatePasivos();
-    }else{
+    } else {
       this.calculatePatrimonio();
     }
   }
 
-  // updateDefaultValue(index: number, value: any, column: number) {
-  //   // console.log(index);
-  //   // console.log(value);
-  //   // console.log(column);
-  //   if(column==0){
-  //     //Actualizamos el padre
-  //     this.totalActivos = this.calculateActivos();
-  //   }else if(column==1){
-  //     this.totalPasivos = this.calculatePasivos();
-  //   }else{
-  //     this.totalPatrimonio = this.calculatePatrimonio();
-  //   }
+  sendData() {
+    var data: FinancialStatementDetailsDto[] = [];
+    var categories = [this.activos, this.pasivos, this.patrimonio]
+    for (let i = 0; i < categories.length; i++) {
+      data.push({
+        accountCategory: {
+          accountCategoryId: this.incomeStatementsDetail[i].accountCategory.accountCategoryId,
+          accountCategoryCode: this.incomeStatementsDetail[i].accountCategory.accountCategoryCode,
+          accountCategoryName: this.incomeStatementsDetail[i].accountCategory.accountCategoryName,
+          accountGroups: this.transformDataToDto(categories[i]),
+          //Condicion, si i es 1 entonces this.totalActivos, si i es 2 entonces this.totalPasivos, si i es 3 entonces this.totalPatrimonio
+          totalAmountBs: i == 0 ? this.totalActivos : i == 1 ? this.totalPasivos : this.totalPatrimonio
+        },
+        description: this.incomeStatementsDetail[i].description,
+        totalAmountBs: i == 0 ? this.totalActivos : i == 1 ? this.totalPasivos : this.totalPatrimonio,
+      });
+    }
+    console.log(data);
+    //Validamos que se haya añadido una fecha
+    if (this.startDate == undefined) { //TODO: Determinar que hacer con la fecha
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: '💡 Seleccione una fecha de apertura' });
+      return;
+    }
+    //Validamos que el activo sea igual al pasivo + patrimonio
+    if (this.totalActivos == (this.totalPasivos + this.totalPatrimonio)) {
+      this.openingBalanceService.createOpeningBalance(this.companyId, data).subscribe({
+        next: (data) => {
+          console.log(data);
+          this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Balance de apertura registrado correctamente.' });
+        },
+        error: (error) => {
+          console.log(error);
+          if(error.error.code == "409-08"){
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ya existe un balance de apertura registrado.' });
+          }else{
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al registrar el balance de apertura.' });
+          }
+        }
+      });
+    } else {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'El activo debe ser igual a la suma del pasivo y patrimonio.' });
+    }
+  }
 
-  //   // if (value == null) {
-  //   //   if (column == 0) {
-  //   //     this.transactionDetails[index].debe = 0;
-  //   //   } else {
-  //   //     this.transactionDetails[index].haber = 0;
-  //   //   }
-
-  //   // }
-  // }
-  calculateActivos(){
-    console.log(this.activos)
-    let total : number = 0;
+  calculateActivos() {
+    let total: number = 0;
     for (let transaction of this.activos) {
       total += transaction.data.totalAmountBs;
     }
     this.totalActivos = total;
   }
-  calculatePasivos(){
-    let total : number = 0;
+  calculatePasivos() {
+    let total: number = 0;
     for (let transaction of this.pasivos) {
       total += transaction.data.totalAmountBs;
     }
     this.totalPasivos = total;
   }
-  calculatePatrimonio(){
-    let total : number = 0;
+  calculatePatrimonio() {
+    let total: number = 0;
     for (let transaction of this.patrimonio) {
       total += transaction.data.totalAmountBs;
     }
@@ -166,7 +169,7 @@ export class OpeningBalanceComponent {
     //   }
     // });
   }
-  
+
   transformData(data: any, level: number): any[] {
     return data.map((item: any) => {
       const transformedItem: TableAccountExpandLevelDto = {
@@ -191,6 +194,43 @@ export class OpeningBalanceComponent {
     });
   }
 
+  transformDataToDto(inputData: TableAccountExpandLevelDto[]): any[] {
+    return inputData.map((item) => {
+      return {
+        accountGroupCode: item.data.accountCode,
+        accountGroupId: item.data.accountId,
+        accountGroupName: item.data.accountName,
+        accountSubgroups: item.children.map((subgroup) => {
+          return {
+            accountSubgroupCode: subgroup.data.accountCode,
+            accountSubgroupId: subgroup.data.accountId,
+            accountSubgroupName: subgroup.data.accountName,
+            accounts: subgroup.children.map((account) => {
+              return {
+                accountCode: account.data.accountCode,
+                accountId: account.data.accountId,
+                accountName: account.data.accountName,
+                subaccounts: account.children.map((subaccount) => {
+                  return {
+                    subaccountCode: subaccount.data.accountCode,
+                    subaccountId: subaccount.data.accountId,
+                    subaccountName: subaccount.data.accountName,
+                    totalAmountBs: subaccount.data.totalAmountBs,
+                  };
+                }),
+                totalAmountBs: account.data.totalAmountBs,
+              };
+            }),
+            totalAmountBs: subgroup.data.totalAmountBs,
+          };
+        }),
+        totalAmountBs: item.data.totalAmountBs,
+      };
+    });
+  }
 
-  
+
+
+
+
 }
