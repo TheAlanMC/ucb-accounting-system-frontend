@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {Router} from "@angular/router";
-import {debounceTime, Subject} from "rxjs";
+import { Router } from "@angular/router";
+import { debounceTime, Subject } from "rxjs";
 import { GeneratedReportsListService } from 'src/app/core/services/generated-reports-list.service';
 import { SidebarService } from 'src/app/core/services/sidebar/sidebar.service';
 import { ReportData } from 'src/app/features/reports/models/generated-reports.dto';
@@ -21,7 +21,7 @@ interface Reporte {
 })
 
 export class ReportListComponent {
-  
+
   companyId = Number(localStorage.getItem('companyId'));
   startDate: Date | undefined;  // Variable para la fecha de inicio
   endDate: Date | undefined;
@@ -80,7 +80,7 @@ export class ReportListComponent {
   statuses!: any[];
   loading: boolean = true;
   activityValues: number[] = [0, 100];
-  isNavbarOpen : boolean = false;
+  isNavbarOpen: boolean = false;
   searchTerm: string = '';
 
 
@@ -90,6 +90,8 @@ export class ReportListComponent {
   page: number = 0;
   size: number = 10;
   totalElements: number = 0;
+
+  actuallyReportId: number = 0;
 
   private searchSubject = new Subject<string>();
   onNavbarToggle(isOpen: boolean) {
@@ -113,14 +115,14 @@ export class ReportListComponent {
     });*/
   }
 
-  generateList(){
+  generateList() {
     this.getAllReportsGenerated();
   }
 
   getSeverity(status: boolean) {
     return status ? 'success' : 'warn';
   }
-  getEventValue($event:any) :string {
+  getEventValue($event: any): string {
     return $event.target.value;
   }
 
@@ -137,12 +139,13 @@ export class ReportListComponent {
     this.getAllReportsGenerated()
   }
 
-  getAllReportsGenerated(){
-    this.generatedReportsListService.getGeneratedReports(this.companyId, format(this.startDate!, 'yyyy-MM-dd'), format(this.endDate!, 'yyyy-MM-dd'), this.sortBy, this.sortType,this.page, this.size).subscribe({
+  getAllReportsGenerated() {
+    this.generatedReportsListService.getGeneratedReports(this.companyId, format(this.startDate!, 'yyyy-MM-dd'), format(this.endDate!, 'yyyy-MM-dd'), this.sortBy, this.sortType, this.page, this.size).subscribe({
       next: (data) => {
         this.transactions = data.data!;
         console.log(data);
         this.totalElements = data.totalElements!;
+        this.actuallyReportId = 1;
       },
       error: (error) => {
         console.log(error);
@@ -161,9 +164,22 @@ export class ReportListComponent {
     })*/
   }
 
-  onViewDetail(reportId: number){
-  //   router
-    this.router.navigate([`/transactions/${reportId}`]);
+  onViewDetail(reportId: number) {
+    //   router
+    //this.router.navigate([`/transactions/${reportId}`]);
+    this.generatedReportsListService.getGeneratedReportsbyId(this.companyId, reportId).subscribe({
+      next: (data) => {
+        const fileUrl = data.data?.fileUrl;
+        if (fileUrl) {
+          window.open(fileUrl, '_blank');
+        } else {
+          console.log('El enlace no está disponible.');
+        }
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
   }
 
   onSearch(event: any) {

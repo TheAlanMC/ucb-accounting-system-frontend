@@ -4,6 +4,7 @@ import { ReportData } from 'src/app/features/reports/models/generated-reports.dt
 import { ResponseDto } from '../models/reponse.dto';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AttachmentDownloadDto } from '../models/attachment-download.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,10 @@ export class GeneratedReportsListService {
 
   public getGeneratedReports(companyId: number, dateFrom: string, dateTo: String, sortBy: string, sortType: string, page: number, size: number): Observable<ResponseDto<ReportData[]>>{
     return this.http.get<ResponseDto<ReportData[]>>(`${this.baseUrl}/${companyId}/pdf?dateFrom=${dateFrom}&dateTo=${dateTo}&page=${page}&size=${size}&sortType=${sortType}&sortBy=${sortBy}`);
+  }
+
+  public getGeneratedReportsbyId(companyId: number, reportId: number): Observable<ResponseDto<AttachmentDownloadDto>>{
+    return this.http.get<ResponseDto<AttachmentDownloadDto>>(`${this.baseUrl}/${companyId}/pdf/${reportId}`);
   }
   
 
