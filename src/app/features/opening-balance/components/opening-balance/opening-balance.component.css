@@ -82,3 +82,17 @@
     font-weight: 500;
     line-height: 16px;
 }
+
+.lapiz{
+  color: var(--color-green);
+  font-size: 15px;
+  font-weight: bold;
+  margin-left: 3px;
+  padding: 5px;
+  /* border: 1.5px solid var(--color-green);
+  border-radius: 50%; */
+}
+
+::ng-deep .input-number-amount input{
+  font-size: small;
+}
