@@ -15,18 +15,21 @@
         </div>
     </div>
     <div class="col-12 xl:col-12 px-8 pb-3">
-        <div class="flex justify-content-between">
-            <div class="flex flex-row flex-wrap mb-3">
+        <div class="flex justify-content-between" style="margin-top: -30px;">
+            <div class="flex flex-column flex-wrap mb-3" >
+                
                 <div class="flex flex-column justify-content-start mr-2">
                     <p>Fecha de apertura</p>
                     <p-calendar class="datepicker" [(ngModel)]="startDate" [showButtonBar]="true" [showIcon]="true"
                         dateFormat="dd/mm/yy" inputId="icon" placeholder="Seleccione una fecha"
                         [readonlyInput]="true"></p-calendar>
                 </div>
+                <br>
+                <p style="margin-bottom: 0;">Por favor, edite los valores de las cuentas que tienen el ícono <i class="pi pi-pencil lapiz"></i></p>
             </div>
             <div class="flex flex-column justify-content-end flex-wrap mb-3">
                 <div class="flex justify-content-between  card-container ">
-                    <p-button label="Registrar" class="green-button" (onClick)="generateReport()"
+                    <p-button label="Registrar" class="green-button" (onClick)="sendData()"
                         id="generate-button" icon="pi pi-book" iconPos="right"></p-button>
                     <!-- <span class="ml-2"></span>
                     <p-button label="Exportar" class="green-button" id="export-button" icon="pi pi-file-export"
@@ -34,77 +37,159 @@
                 </div>
             </div>
         </div>
-        <br>
+        
         <div class="flex flex-row justify-content-between">
             <div style="width: 70%;">
-        <p>ACTIVO</p>
-        <p-table [value]="activos" [tableStyle]="{ 'min-width': '70%' }">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>Código de la cuenta</th>
-                    <th>Nombre</th>
-                    <th>Total</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-product>
-                <tr>
-                    <td>{{ activos.code }}</td>
-                    <td>{{ activos.name }}</td>
-                    <td>{{ activos.category }}</td>
-                </tr>
-            </ng-template>
-        </p-table>
+                <div class="flex flex-row align-items-center justify-content-center gap-3">
+                    <p> <strong>ACTIVOS</strong></p>
+                    <p-divider class="flex-grow-1 mt-1"></p-divider>
+                    <p><strong>Total: Bs. {{totalActivos | currency:' '}}</strong></p>
+                </div>
 
-        <p>PASIVO</p>
-        <p-table [value]="pasivos" [tableStyle]="{ 'min-width': '70%' }">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>Código de la cuenta</th>
-                    <th>Nombre</th>
-                    <th>Total</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-product>
-                <tr>
-                    <td>{{ pasivos.code }}</td>
-                    <td>{{ pasivos.name }}</td>
-                    <td>{{ pasivos.category }}</td>
-                </tr>
-            </ng-template>
-        </p-table>
+                <p-treeTable [value]="activos" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 35%;">Código de cuenta</th>
+                            <th style="width: 40%;">Nombre</th>
+                            <th style="width: 25%;">Total</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-index="rowIndex">
+                        <tr [ttRow]="rowNode">
+                            <td style="width: 35%;">
+                                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                                {{ rowData.accountCode }}
+                            </td>
+                            <td style="width: 40%;">{{ rowData.accountName }}</td>
+                            <!-- Si rowData.level es 5 debe mostrarse un input editable en vez de un campo estatico -->
+                            <ng-container *ngIf="rowData.level == 5; else elseBlock">
+                                <td ttEditableColumn style="width: 25%;">
+                                  <p-treeTableCellEditor>
+                                    <ng-template pTemplate="input">
+                                      <!-- <input class="input-table" pInputText [(ngModel)]="rowData.totalAmountBs" type="number" min="0"
+                                        value="0" (input)="updateDefaultValue(index, rowData.totalAmountBs, 0)" /> -->
+                                        <p-inputNumber class="input-number-amount" (onInput)="updateTotalAmountBs(rowNode, 0)" [(ngModel)]="rowData.totalAmountBs" inputId="locale-us" mode="decimal" locale="en-US" [minFractionDigits]="2">
+                                        </p-inputNumber>
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                      {{ rowData.totalAmountBs | currency: 'Bs. ' }}
+                                      <i class="pi pi-pencil lapiz"></i>
+                                    </ng-template>
+                                  </p-treeTableCellEditor>
+                                </td>
+                              </ng-container>
+                              
+                              <ng-template #elseBlock>
+                                <td>Bs. {{ rowData.totalAmountBs | currency:' '}}</td>
+                              </ng-template>
+                        </tr>
+                    </ng-template>
+                </p-treeTable>
 
-        <p>PATRIMONIO</p>
-        <p-table [value]="patrimonio" [tableStyle]="{ 'min-width': '70%' }">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>Código de la cuenta</th>
-                    <th>Nombre</th>
-                    <th>Total</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-product>
-                <tr>
-                    <td>{{ patrimonio.code }}</td>
-                    <td>{{ patrimonio.name }}</td>
-                    <td>{{ patrimonio.category }}</td>
-                </tr>
-            </ng-template>
-        </p-table>
-        </div>
-        <div id="results-container">
-            <div class="flex flex-row justify-content-between align-items-center">
-                <p id="title-results">Resultados</p>
-                <i id="icon-results" class="pi pi-info-circle"></i>
+                <div class="flex flex-row align-items-center justify-content-center gap-3">
+                    <p><strong>PASIVOS</strong></p>
+                    <p-divider class="flex-grow-1 mt-1"></p-divider>
+                    <p><strong>Total: Bs. {{totalPasivos | currency:' '}}</strong></p>
+                </div>
+                <p-treeTable [value]="pasivos" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 35%;">Código de cuenta</th>
+                            <th style="width: 40%;">Nombre</th>
+                            <th style="width: 25%;">Total</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-index="rowIndex">
+                        <tr [ttRow]="rowNode">
+                            <td style="width: 35%;">
+                                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                                {{ rowData.accountCode }}
+                            </td>
+                            <td style="width: 40%;">{{ rowData.accountName }}</td>
+                            <!-- Si rowData.level es 5 debe mostrarse un input editable en vez de un campo estatico -->
+                            <ng-container *ngIf="rowData.level == 5; else elseBlock">
+                                <td ttEditableColumn style="width: 25%;">
+                                  <p-treeTableCellEditor>
+                                    <ng-template pTemplate="input">
+                                        <p-inputNumber class="input-number-amount" (onInput)="updateTotalAmountBs(rowNode, 1)" [(ngModel)]="rowData.totalAmountBs" inputId="locale-us" mode="decimal" locale="en-US" [minFractionDigits]="2">
+                                        </p-inputNumber>
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                      {{ rowData.totalAmountBs | currency: 'Bs. ' }}
+                                      <i class="pi pi-pencil lapiz"></i>
+                                    </ng-template>
+                                  </p-treeTableCellEditor>
+                                </td>
+                              </ng-container>
+                              
+                              <ng-template #elseBlock>
+                                <td>Bs. {{ rowData.totalAmountBs | currency:' '}}</td>
+                              </ng-template>
+                        </tr>
+                    </ng-template>
+                </p-treeTable>
+
+                <!-- Patrimonio -->
+                <div class="flex flex-row align-items-center justify-content-center gap-3">
+                    <p><strong>PATRIMONIO</strong></p>
+                    <p-divider class="flex-grow-1 mt-1"></p-divider>
+                    <p><strong>Total: Bs. {{totalPatrimonio | currency:' '}}</strong></p>
+                </div>
+                <p-treeTable [value]="patrimonio" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 35%;">Código de cuenta</th>
+                            <th style="width: 40%;">Nombre</th>
+                            <th style="width: 25%;">Total</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-index="rowIndex">
+                        <tr [ttRow]="rowNode">
+                            <td style="width: 35%;">
+                                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                                {{ rowData.accountCode }}
+                            </td>
+                            <td style="width: 40%;">{{ rowData.accountName }}</td>
+                            <!-- Si rowData.level es 5 debe mostrarse un input editable en vez de un campo estatico -->
+                            <ng-container *ngIf="rowData.level == 5; else elseBlock">
+                                <td ttEditableColumn style="width: 25%;">
+                                  <p-treeTableCellEditor>
+                                    <ng-template pTemplate="input">
+                                      <!-- <input class="input-table" pInputText [(ngModel)]="rowData.totalAmountBs" type="number" min="0"
+                                        value="0" (input)="updateDefaultValue(index, rowData.totalAmountBs, 0)" /> -->
+                                        <p-inputNumber class="input-number-amount" (onInput)="updateTotalAmountBs(rowNode, 2)" [(ngModel)]="rowData.totalAmountBs" inputId="locale-us" mode="decimal" locale="en-US" [minFractionDigits]="2">
+                                        </p-inputNumber>
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                      {{ rowData.totalAmountBs | currency: 'Bs. ' }}
+                                      <i class="pi pi-pencil lapiz"></i>
+                                    </ng-template>
+                                  </p-treeTableCellEditor>
+                                </td>
+                              </ng-container>
+                              
+                              <ng-template #elseBlock>
+                                <td>Bs. {{ rowData.totalAmountBs | currency:' '}}</td>
+                              </ng-template>
+
+                        </tr>
+                    </ng-template>
+                </p-treeTable>
             </div>
-            <ul>
-                <li>Total activos: </li>
-                <li>Total pasivos: </li>
-                <li>Total patrimonio: </li>
-                <li>Total pasivos y patrimonio: </li>
-            </ul>
+            <div id="results-container">
+                <div class="flex flex-row justify-content-between align-items-center">
+                    <p id="title-results">Resultados</p>
+                    <i id="icon-results" class="pi pi-info-circle"></i>
+                </div>
+                <ul>
+                    <li>Total activos: Bs. {{totalActivos | currency: ' '}}</li><br>
+                    <li>Total pasivos: Bs. {{totalPasivos | currency: ' '}}</li><br>
+                    <li>Total patrimonio: Bs. {{totalPatrimonio | currency: ' '}}</li><br>
+                    <li>Total pasivos y patrimonio: Bs. {{totalPasivos + totalPatrimonio | currency: ' '}}</li>
+                </ul>
 
+            </div>
         </div>
-    </div>
         <!-- <div class="flex justify-content-center p-4">
             <p style="font-size: medium;">{{message}}</p>
         </div> -->
