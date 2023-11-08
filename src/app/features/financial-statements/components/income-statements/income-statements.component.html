@@ -118,8 +118,9 @@
                 <i id="icon-results" class="pi pi-info-circle"></i>
             </div>
             <ul>
-                <li>Total ingresos (Utilidad bruta): Bs. {{totalIngresos | currency: ' '}}</li>
-                <li>Total egresos (Utilidad operacional): Bs. {{totalEgresos | currency: ' '}}</li>
+                <li>Total ingresos (Utilidad bruta): Bs. {{totalIngresos | currency: ' '}}</li><br>
+                <li>Total egresos (Utilidad operacional): Bs. {{totalEgresos | currency: ' '}}</li><br>
+                <li>Utilidad neta: Bs. {{totalIngresos - totalEgresos | currency: ' '}}</li>
             </ul>
 
         </div>
