@@ -20,6 +20,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ChartModule } from 'primeng/chart';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { FormsModule } from '@angular/forms';
     SharedModule,
     ChartModule,
     DropdownModule,
-    FormsModule
+    FormsModule,
+    ToastModule,
   ],
   // exports: [HomePageComponent],
   // providers: [CarouselService],

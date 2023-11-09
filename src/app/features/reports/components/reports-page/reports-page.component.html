@@ -13,6 +13,12 @@
     </div>
   </div>
   <div class="col-12 xl:col-12 px-8 py-3">
+    <br>
+    <div class="flex justify-content-end">
+      <a [routerLink]="'list'">Reportes generados</a>
+    </div>
+    
+    <br>
     <!-- <a [routerLink]="['ledgerbook']" >Libro mayor</a> -->
     <!-- <a (click)="visible = true" >Libro mayor</a> -->
 
@@ -80,7 +86,7 @@
     </div>
     <div class="flex flex-row flex-wrap">
       <div class="report-item">
-        <a [routerLink]="['worksheet']" class="report-item-link">
+        <a [routerLink]="['balancesheet']" class="report-item-link">
           <div class="report-item-bg" style="background-color: #44be95;"></div>
           <div class="report-item-tittle mb-3">
             Balance General

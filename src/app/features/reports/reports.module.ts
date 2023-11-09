@@ -27,7 +27,7 @@ import { LedgerBookModule } from '../ledger-book/ledger-book.module';
 import { SidebarModule } from 'primeng/sidebar';
 import { Divider, DividerModule } from 'primeng/divider';
 import { SkeletonModule } from 'primeng/skeleton';
-import { BalanceSheetsComponent } from './components/balance-sheets/balance-sheets.component';
+import { BalanceSheetsComponent } from '../financial-statements/components/balance-sheets/balance-sheets.component';
 import { TreeTableModule } from 'primeng/treetable';
 
 import { ReportListComponent } from './components/report-list/report-list.component';

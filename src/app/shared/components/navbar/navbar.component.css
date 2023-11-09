@@ -1,7 +1,7 @@
 /* Toolbar */
 ::ng-deep .p-toolbar {
-  background-color: #fff;
   border: 0;
+  background-color: var(--color-navbar);
 }
 
 /* Botones */

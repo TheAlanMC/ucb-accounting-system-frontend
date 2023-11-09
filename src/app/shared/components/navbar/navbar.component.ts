@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { MenuItem } from 'primeng/api';
 import { MessageService } from 'primeng/api';
+import { SidebarService } from 'src/app/core/services/sidebar/sidebar.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { ValuesService } from 'src/app/core/services/values/values.service';
 @Component({
@@ -11,12 +12,22 @@ import { ValuesService } from 'src/app/core/services/values/values.service';
     providers: [MessageService]
 })
 export class NavbarComponent {
+    backgroundColor: string = '';
     items: MenuItem[] | undefined;
     pfpUrl: string = '';
 
-    constructor(private messageService: MessageService, private valuesService: ValuesService, private keycloakService: KeycloakService, private userService: UserService) { }
+    constructor(private sidebarService: SidebarService, private valuesService: ValuesService, private keycloakService: KeycloakService, private userService: UserService) { 
+    }
 
     ngOnInit() {
+        
+        this.backgroundColor = this.sidebarService.getBackgroundColor();
+        if(this.backgroundColor == 'white'){
+            this.backgroundColor = '#F3F6F6';
+        }else{
+            this.backgroundColor = 'white';
+        }
+        document.documentElement.style.setProperty('--color-navbar', this.backgroundColor);
         this.items = [
             {
                 label: 'Su empresa',

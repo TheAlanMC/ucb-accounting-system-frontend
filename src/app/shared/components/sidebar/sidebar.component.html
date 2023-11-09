@@ -1,4 +1,4 @@
-<div #sidebar [ngClass]="{ 'sidebar': !isOpen, 'sidebar open': isOpen }" id="sidebar">
+<div #sidebar [ngClass]="{ 'sidebar': !isOpen, 'sidebar open': isOpen }" id="sidebar" [style.backgroundColor]="backgroundColor">
   <div class="logo-details">
     <i class='bx bxl-c-plus-plus icon'></i>
     <i #btn class="pi pi-bars" id="btn" (click)="expandir()"></i>

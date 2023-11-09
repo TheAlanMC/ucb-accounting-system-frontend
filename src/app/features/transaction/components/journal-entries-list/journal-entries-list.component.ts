@@ -39,6 +39,8 @@ export class JournalEntriesListComponent implements OnInit {
 
   }
   constructor(private sidebarService: SidebarService, private journalEntryService: JournalEntryService, private router: Router) {
+    const bgColor = '#F3F6F6;'; // Cambiamos el color
+    this.sidebarService.setBackgroundColor(bgColor);
     this.sidebarService.getIsOpen().subscribe((isOpen) => {
       this.isNavbarOpen = isOpen;
       console.log(this.isNavbarOpen);

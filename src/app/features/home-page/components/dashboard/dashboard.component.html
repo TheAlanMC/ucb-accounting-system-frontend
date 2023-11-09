@@ -1,41 +1,90 @@
-<div class="header">
-    <i class="pi pi-ellipsis-v" style="color: rgb(139, 212, 128); font-size: 35px;"></i>
-    <h1 class="titulo">Dashboards</h1>
-    <div style="position: absolute; top: 0; right: 0;" class="flex-none flex align-items-center justify-content-center font-bold m-2 px-5 py-3">
-        <p-button class="help-icon" icon="pi pi-question-circle" styleClass="p-button-success"></p-button>
-    </div>
-</div>
-<div class="flex justify-between" style="gap: 50px;">
+<app-sidebar (navbarToggle)="onNavbarToggle($event)"></app-sidebar>
+<div class="home-section" [class.navbar-opened]="isNavbarOpen">
     <div class="card">
-        <h2>Gastos</h2>
-        <p-dropdown [options]="itemsExpenses" placeholder="Select an Item" (onChange)="onSelectedExpenses($event)" [(ngModel)]="selectedExpense" styleClass="dropdown"></p-dropdown>
-        <h3>Total: {{totalGastos}}</h3> 
-        <div *ngFor="let item of data.labels; let i = index" class="item">
-            {{item}}: {{data.datasets[0].data[i]}}
-        </div>
-        <div style="width: 200px; height: 200px; margin: auto;">
-            <p-chart type="pie" [data]="data" [options]="options"></p-chart>
-        </div>
-    </div>
-    <div class="card">
-        <h2>Ventas</h2>
-        <p-dropdown [options]="itemsSales" placeholder="Select an Item" (onChange)="onSelectedSales($event)" [(ngModel)]="selectedSale" styleClass="dropdown"></p-dropdown>
-        <h3>Total: {{totalVentas}}</h3> 
-        <div *ngFor="let item of dataVentas.labels; let i = index" class="item">
-            {{item}}: {{dataVentas.datasets[0].data[i]}}
-        </div>
-        <div style="width: 200px; height: 200px; margin: auto;">
-            <p-chart type="pie" [data]="dataVentas" [options]="optionsVentas"></p-chart>
+        <p-toast></p-toast>
+        <div class="flex card-container overflow-hidden">
+            <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-8 py-0">
+                <!-- <i class="pi pi-chart-pie" style="color: var(--color-green); font-size: 2.5rem; z-index: 2 !important;"></i> -->
+                <p class="text-3xl md:text-4xl" style="z-index:2;">Bienvenido, {{username}}!</p>
+            </div>
+            <div class="flex-none flex align-items-center justify-content-center font-bold m-2 px-5 py-3">
+                <app-navbar></app-navbar>
+            </div>
         </div>
     </div>
-</div>
-<div class="flex justify-between" style="gap: 50px;">
-    <div class="card">
-        <h2>Gastos Bar Chart</h2>
-        <div style="width: 400px; height: 400px; margin: auto;">
-            <p-chart type="bar" [data]="barDataGastos"></p-chart>
+
+
+    <div class="px-8">
+        <div class="grid p-fluid">
+            <div class="col-12 lg:col-8">
+                <div class="card card-graph">
+                    <div class="flex flex-row align-items-center gap-4  header-graph">
+                        <i class="pi pi-arrow-right-arrow-left" style="font-size: 1.5rem"></i>
+                        <h2 class="text-2xl m-0" >Ventas / Gastos</h2>
+                    </div>
+                    <p-chart type="bar" [data]="barDataGastos" [options]="barOptions" height="33vh"></p-chart>
+                </div>
+            </div>
+            <div class="col-12 lg:col-4">
+                <div class="card">
+                    <h5>*Pendiente*</h5>
+                    <p-chart type="line"></p-chart>
+                </div>
+
+            </div>
         </div>
-    </div>
-    <div>
+        <div class="grid p-fluid">
+            
+            <div class="col-12 lg:col-4">
+                <div class="card-graph">
+                    <div class="flex flex-row align-items-center gap-4  header-graph">
+                        <i>
+                            <img class="local-icon" src="/assets/ventas.svg" alt="" width="25px">
+                          </i>
+                        <h2 class="text-2xl m-0" >Ventas</h2>
+                    </div>
+                    <br>
+                    <p-dropdown [options]="itemsSales" placeholder="Select an Item" (onChange)="onSelectedSales($event)"
+                        [(ngModel)]="selectedSale" styleClass="dropdown"  optionLabel="label"></p-dropdown>
+                    <h3>Total: {{totalVentas}}</h3>
+                    <!-- <div *ngFor="let item of dataVentas.labels; let i = index" class="item">
+                        {{item}}: {{dataVentas.datasets[0].data[i]}}
+                    </div> -->
+                    <div>
+                        <p-chart type="pie" [data]="dataVentas" [options]="optionsVentas" height="25vh"></p-chart>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-12 lg:col-4">
+                <div class="card-graph">
+                    <div class="flex flex-row align-items-center gap-4  header-graph">
+                        <i>
+                            <img class="local-icon" src="/assets/gastos.svg" alt="" width="25px">
+                          </i>
+                        <h2 class="text-2xl m-0" >Gastos</h2>
+                    </div>
+                    <br>
+                    <p-dropdown [options]="itemsExpenses" placeholder="Select an Item"
+                        (onChange)="onSelectedExpenses($event)" [(ngModel)]="selectedExpense"
+                        styleClass="dropdown" optionLabel="label"></p-dropdown>
+                    <h3>Total: {{totalGastos}}</h3>
+                    <!-- <div *ngFor="let item of data.labels; let i = index" class="item">
+                        {{item}}: {{data.datasets[0].data[i]}}
+                    </div> -->
+                    <p-chart type="doughnut" [data]="data" [options]="pieOptions"  height="25vh"></p-chart>
+                </div>
+            </div>
+            <div class="col-12 lg:col-4">
+                <div class="card">
+                    <h5>*Pendiente*</h5>
+                    <p-chart type="line"></p-chart>
+                </div>
+
+            </div>
+        </div>
+
+
+        
     </div>
 </div>

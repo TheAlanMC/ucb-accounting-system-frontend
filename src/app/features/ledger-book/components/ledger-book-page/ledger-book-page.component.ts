@@ -61,6 +61,8 @@ export class LedgerBookPageComponent {
   }
 
   ngOnInit(): void {
+    const bgColor = '#F3F6F6;'; // Cambiamos el color
+    this.sidebarService.setBackgroundColor(bgColor);
     this.sidebarService.getIsOpen().subscribe((isOpen) => {
       this.isNavbarOpen = isOpen;
     });

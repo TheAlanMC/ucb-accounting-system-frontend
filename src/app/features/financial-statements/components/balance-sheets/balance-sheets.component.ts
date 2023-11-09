@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ReportService } from 'src/app/core/services/report.service';
 import { SidebarService } from 'src/app/core/services/sidebar/sidebar.service';
-import { BalanceSheetsDto, FinancialStatementDetail } from '../../models/balance-sheets.dto';
+import { BalanceSheetsDto, FinancialStatementDetail } from '../../../reports/models/balance-sheets.dto';
 import { format } from 'date-fns';
-import { TableAccountExpandDto } from '../../models/table-account-expand.dto';
+import { TableAccountExpandDto } from '../../../reports/models/table-account-expand.dto';
 
 @Component({
   selector: 'app-balance-sheets',
@@ -36,6 +36,8 @@ export class BalanceSheetsComponent {
 
   }
   ngOnInit(): void {
+    const bgColor = '#F3F6F6;'; // Cambiamos el color
+    this.sidebarService.setBackgroundColor(bgColor);
     this.sidebarService.getIsOpen().subscribe((isOpen) => {
       this.isNavbarOpen = isOpen;
     });

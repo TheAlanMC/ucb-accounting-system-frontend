@@ -101,6 +101,8 @@ export class ReportListComponent {
 
   }
   constructor(private sidebarService: SidebarService, private router: Router, private generatedReportsListService: GeneratedReportsListService) {
+    const bgColor = '#F3F6F6;'; // Cambiamos el color
+    this.sidebarService.setBackgroundColor(bgColor);
     this.sidebarService.getIsOpen().subscribe((isOpen) => {
       this.isNavbarOpen = isOpen;
       console.log(this.isNavbarOpen);

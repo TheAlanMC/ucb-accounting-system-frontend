@@ -5,9 +5,9 @@
         <p-toast></p-toast>
         <div class="flex card-container overflow-hidden">
             <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0">
-                <i class="pi pi-box"
+                <i class="pi pi-ellipsis-h"
                     style="color: var(--color-green); font-size: 2.5rem; z-index: 2 !important;"></i>
-                <p class="text-2xl md:text-3xl" style="z-index:2;">&nbsp;&nbsp;&nbsp;Estado Financiero - Balance General</p>
+                <p class="text-2xl md:text-3xl" style="z-index:2;">&nbsp;&nbsp;&nbsp;Balance General</p>
             </div>
             <div class="flex-none flex align-items-center justify-content-center font-bold m-2 px-5 py-3">
                 <app-navbar></app-navbar>
@@ -45,9 +45,9 @@
         <div class="flex flex-row justify-content-between">
             <div style="width: 70%;">
                 <div class="flex flex-row align-items-center justify-content-center gap-3">
-                    <p>ACTIVO</p>
+                    <p><strong>ACTIVO</strong></p>
                     <p-divider class="flex-grow-1 mt-1"></p-divider>
-                    <p>Total: Bs. {{totalActivo | currency:' '}}</p>
+                    <p><strong>Total: Bs. {{totalActivo | currency:' '}}</strong></p>
                 </div>
         
         <p-treeTable [value]="activo" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
@@ -71,9 +71,9 @@
         </p-treeTable>
         <br>
         <div class="flex flex-row align-items-center justify-content-center gap-3">
-            <p>PASIVO</p>
+            <p><strong>PASIVO</strong></p>
             <p-divider class="flex-grow-1 mt-1"></p-divider>
-            <p>Total: Bs. {{totalPasivo | currency:' '}}</p>
+            <p><strong>Total: Bs. {{totalPasivo | currency:' '}}</strong></p>
         </div>
         <p-treeTable [value]="pasivo" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
             <ng-template pTemplate="header">
@@ -96,9 +96,9 @@
         </p-treeTable>
         <br>
         <div class="flex flex-row align-items-center justify-content-center gap-3">
-            <p>PATRIMONIO</p>
+            <p><strong>PATRIMONIO</strong></p>
             <p-divider class="flex-grow-1 mt-1"></p-divider>
-            <p>Total: Bs. {{totalPatrimonio | currency:' '}}</p>
+            <p><strong>Total: Bs. {{totalPatrimonio | currency:' '}}</strong></p>
         </div>
         <p-treeTable [value]="patrimonio" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
             <ng-template pTemplate="header">
@@ -128,9 +128,9 @@
                 <i id="icon-results" class="pi pi-info-circle"></i>
             </div>
             <ul>
-                <li>Total Activo: Bs. {{totalActivo | currency: ' '}}</li>
-                <li>Total Pasivo: Bs. {{totalPasivo | currency: ' '}}</li>
-                <li>Total Patrimonio: Bs. {{totalPatrimonio | currency: ' '}}</li>
+                <li>Total Activo: Bs. {{totalActivo | currency: ' '}}</li><br>
+                <li>Total Pasivo: Bs. {{totalPasivo | currency: ' '}}</li><br>
+                <li>Total Patrimonio: Bs. {{totalPatrimonio | currency: ' '}}</li><br>
                 <li>Total Pasivo + Patrimonio: Bs. {{totalActivo | currency: ' '}}</li>
             </ul>
 
