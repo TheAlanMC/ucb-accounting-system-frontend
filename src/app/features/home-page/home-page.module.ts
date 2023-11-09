@@ -17,6 +17,9 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { TableModule } from 'primeng/table';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ChartModule } from 'primeng/chart';
+import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -39,6 +42,9 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     FieldsetModule,
     TableModule,
     SharedModule,
+    ChartModule,
+    DropdownModule,
+    FormsModule
   ],
   // exports: [HomePageComponent],
   // providers: [CarouselService],
