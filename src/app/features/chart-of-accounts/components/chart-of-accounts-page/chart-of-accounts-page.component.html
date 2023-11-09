@@ -17,8 +17,8 @@
 
             <div class="flex flex-column justify-content-start">
                 <span class="p-input-icon-left">
-                    <i class="pi pi-search" *ngIf="!searchValue"></i>
-                    <input type="text" (input)="applyFilterGlobal($event, 'contains')" pInputText [(ngModel)]="searchValue"/>
+                    <i class="pi pi-search"></i>
+                    <input class="right-search-input" type="text" (input)="applyFilterGlobal($event, 'contains')" pInputText [(ngModel)]="searchValue"/>
                 </span>
             </div>
             <div class="flex flex-column justify-content-start">
@@ -72,21 +72,14 @@
                 </div>
             </ng-template>
             <div class="card" *ngIf="isEditing">
-                <!-- <div class="field col-12 md:col-6 p-0">
-                    <label for="account-number">Nivel de la cuenta</label>
-                    <p-dropdown id="account-number"
-                    class="dropdown text-base text-color surface-overlay border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary"
-                    optionLabel="name" placeholder="Seleccione un tipo de documento" [required]="true"
-                    [style]="{'width':'100%'}"></p-dropdown>
-                </div> -->
                 <div class="formgrid grid">
                     <div class="field col-12 md:col-6">
                         <label for="name">Nombre de la cuenta</label>
-                        <input id="name" pInputText type="text" [(ngModel)]="accountNameInput" class="input w-full" required>
+                        <input id="name" pInputText type="text" [(ngModel)]="accountNameInput" class="input w-full ca-input" required>
                     </div>
                     <div class="field col-12 md:col-6">
                         <label for="lastname">Código de la cuenta</label>
-                        <input id="lastname" type="text" pInputText [(ngModel)]="accountCodeInput" class="input w-full" required>
+                        <input id="lastname" type="text" pInputText [(ngModel)]="accountCodeInput" class="input w-full ca-input" required>
                     </div>
                 </div>
             </div>
@@ -150,11 +143,11 @@
                 <div class="formgrid grid">
                     <div class="field col-12 md:col-6">
                         <label for="name">Nombre de la cuenta</label>
-                        <input id="name" pInputText type="text" [(ngModel)]="accountNameInput" class="input w-full" required>
+                        <input id="name" pInputText type="text" [(ngModel)]="accountNameInput" class="input w-full ca-input" required>
                     </div>
                     <div class="field col-12 md:col-6">
                         <label for="lastname">Código de la cuenta</label>
-                        <input id="lastname" type="text" pInputText [(ngModel)]="accountCodeInput" class="input w-full" required>
+                        <input id="lastname" type="text" pInputText [(ngModel)]="accountCodeInput" class="input w-full ca-input" required>
                     </div>
                 </div>
             </div>

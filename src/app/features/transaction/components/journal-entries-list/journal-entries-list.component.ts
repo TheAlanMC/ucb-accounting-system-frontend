@@ -29,6 +29,7 @@ export class JournalEntriesListComponent implements OnInit {
   page: number = 0;
   size: number = 10;
   totalElements: number = 0;
+  isLoading: boolean = true;
 
   private searchSubject = new Subject<string>();
   onNavbarToggle(isOpen: boolean) {
@@ -60,8 +61,10 @@ export class JournalEntriesListComponent implements OnInit {
   }
 
   onPageChange(event: any) {
-    this.page = event.page;
-    this.size = event.rows;
+    var first = event.first;
+    var rows = event.rows;
+    this.page = Math.floor(first / rows);
+    this.size = rows;
     // console.log(event);
     this.getAllTransactions();
   }
@@ -73,11 +76,13 @@ export class JournalEntriesListComponent implements OnInit {
   }
 
   getAllTransactions(){
+    this.isLoading = true;
     this.journalEntryService.getAllTransactions(this.companyId, this.sortBy, this.sortType,this.page, this.size, this.searchTerm ).subscribe({
       next: (data) => {
         this.transactions = data.data!;
         // console.log(data);
         this.totalElements = data.totalElements!;
+        this.isLoading = false;
       },
       error: (error) => {
         console.log(error);

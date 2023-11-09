@@ -16,8 +16,8 @@
 
         <div class="flex flex-column justify-content-start">
             <span class="p-input-icon-left">
-                <i class="pi pi-search" *ngIf="!searchTerm"></i>
-                <input type="text" pInputText class="input w-full" [(ngModel)]="searchTerm" (input)="onSearch($event)">
+                <i class="pi pi-search"></i>
+                <input type="text" pInputText class="input w-full right-search-input" [(ngModel)]="searchTerm" (input)="onSearch($event)">
             </span>
         </div>
         <div class="flex flex-column justify-content-start">
@@ -28,7 +28,10 @@
         </div>
     </div>
     <br>
-        <p-table [value]="users" [lazy]="true" (onSort)="onSortChange($event)" [customSort]="true">"
+        <p-table [value]="users" [lazy]="true" (onSort)="onSortChange($event)" [customSort]="true" [rows]="10" [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10, 25, 50, 100]" [paginator]="true" [totalRecords]="totalElements" [loading]="isLoading"
+        (onPage)="onPageChange($event)"
+        currentPageReportTemplate="Mostrando los registros del {first} al {last} de un total de {totalRecords}">"
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="kcUser.firstName" style="width:20%">Nombre <p-sortIcon field="firstName"></p-sortIcon></th>
@@ -47,8 +50,13 @@
                     <td>{{ user.creationDate | date: 'dd-MM-yyyy' }}</td>
                 </tr>
             </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="5">No se encontraron usuarios.</td>
+                </tr>
+            </ng-template>
         </p-table>
-        <p-paginator (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements" [rowsPerPageOptions]="[10, 25, 50, 100] "></p-paginator>
+        <!-- <p-paginator (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements" [rowsPerPageOptions]="[10, 25, 50, 100] "></p-paginator> -->
     </div>
 </div>
 <hr style="margin-top: -15px;">
@@ -90,16 +98,16 @@
         <div class="card">
             <div class="field col-12 md:col-6 p-0">
                 <label for="prefix">Nombre</label>
-                <input id="prefix" type="text" [(ngModel)]="name" pInputText class="input w-full">
+                <input id="prefix" type="text" [(ngModel)]="name" pInputText class="input w-full ul-input">
             </div>
             <div class="formgrid grid">
                 <div class="field col-12 md:col-6 pr-0">
                     <label for="lastname">Apellido</label>
-                    <input id="lastname" type="text" pInputText [(ngModel)]="lastName" class="input w-full">
+                    <input id="lastname" type="text" pInputText [(ngModel)]="lastName" class="input w-full ul-input">
                 </div>
                 <div class="field col-12 md:col-12">
                     <label for="display-name">Correo electrónico</label>
-                    <input id="lastname" type="text" pInputText [(ngModel)]="email" class="input w-full">
+                    <input id="lastname" type="text" pInputText [(ngModel)]="email" class="input w-full ul-input">
                 </div>
             </div>
         </div>

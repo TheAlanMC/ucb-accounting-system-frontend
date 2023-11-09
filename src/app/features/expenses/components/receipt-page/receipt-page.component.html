@@ -18,13 +18,13 @@
                     <div class="flex flex-column justify-content-start mr-5">
                         <p>Proveedor</p>
                         <p-dropdown id="document-type" [options]="suppliers" [(ngModel)]="selectedSupplier" optionLabel="name"
-                                    placeholder="Seleccione un proveedor" [style]="{'width':'250px'}" [required]="true" ></p-dropdown>
+                                    placeholder="Seleccione un proveedor" [style]="{'width':'250px'}" [required]="true" [filter]="true" filterBy="name"></p-dropdown>
                     </div>
                 </div>
                 <div class="flex align-items-center justify-content-start" style="min-width: 250px;">
                     <div class="flex flex-column justify-content-start">
                         <p>Nº de referencia</p>
-                        <input id="reference-number" type="text" pInputText [(ngModel)]="referenceNumber" class="input" [style]="{'width':'250px'}">
+                        <input id="reference-number" type="text" pInputText [(ngModel)]="referenceNumber" class="input rp-input" [style]="{'width':'250px'}">
                     </div>
                 </div>
                 <div  class="flex align-items-center justify-content-start" style="min-width: 250px;">
@@ -44,14 +44,14 @@
                 <div class="flex align-items-center justify-content-start" style="min-width: 250px;">
                     <div class="flex flex-column justify-content-start mr-5">
                         <p>Importe pagado</p>
-                        <p-inputNumber [(ngModel)]="importeRecibido" inputId="locale-user" [minFractionDigits]="2" [style]="{'width':'250px'}"></p-inputNumber>
+                        <p-inputNumber [(ngModel)]="importeRecibido" inputId="locale-user" [minFractionDigits]="2" [style]="{'width':'250px'}" class="rp-input-number"></p-inputNumber>
                     </div>
                 </div>
                 <div class="flex align-items-center justify-content-start" style="min-width: 250px;">
                     <div class="flex flex-column justify-content-start mr-5">
                         <p>Cuenta de pago</p>
                         <p-dropdown id="document-type" [options]="paymentSubaccounts" [(ngModel)]="selectedPaymentSubaccount" optionLabel="name"
-                                    placeholder="Seleccione una cuenta" [style]="{'width':'250px'}" [required]="true" ></p-dropdown>
+                                    placeholder="Seleccione una cuenta" [style]="{'width':'250px'}" [required]="true" [filter]="true" filterBy="name"></p-dropdown>
                     </div>
                 </div>
             </div>
@@ -65,7 +65,7 @@
 
                 <p class="ml-2" style="color: #666666 ;"> IMPORTE RECIBIDO</p>
             </div>
-            <p class="text-right font-semibold text-base my-2">Bs. {{importeRecibido}}</p>
+            <p class="text-right font-semibold text-base my-2">{{importeRecibido | currency: 'Bs. '}}</p>
             <div>
                 <hr>
             </div>
@@ -86,7 +86,7 @@
     <div class="flex flex-column">
         <div class="col-6">
             <p class="text-xl font-semibold">Notas</p>
-            <textarea rows="5" cols="50" pInputTextarea [(ngModel)]="description" id="description-text-area"></textarea>
+            <textarea rows="5" cols="50" pInputTextarea [(ngModel)]="description" id="description-text-area" style="font-size: small;"></textarea>
         </div>
         <div class="col-6">
             <p class="text-xl font-semibold">Archivos adjuntos</p>

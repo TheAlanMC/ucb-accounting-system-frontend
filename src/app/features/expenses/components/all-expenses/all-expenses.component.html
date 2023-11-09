@@ -35,15 +35,15 @@
 </div>
 <br>
 <p-table [value]="expenses" [(selection)]="selectedExpenses" dataKey="code" [tableStyle]="{'min-width': '50rem'}"
-  [lazy]="true" (onSort)="onSortChange($event)" [customSort]="true">
+  [lazy]="true" (onSort)="onSortChange($event)" [customSort]="true" [rows]="10" [showCurrentPageReport]="true"
+  [rowsPerPageOptions]="[10, 25, 50, 100]" [paginator]="true" [totalRecords]="totalElements" [loading]="isLoading"
+  (onPage)="onPageChange($event)"
+  currentPageReportTemplate="Mostrando los registros del {first} al {last} de un total de {totalRecords}">
   <ng-template pTemplate="header">
     <tr>
-      <th style="width: 4rem">
-        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-      </th>
-      <th pSortableColumn="expenseTransactionDate">Fecha <p-sortIcon field="expenseTransactionDate"></p-sortIcon></th>
-      <th pSortableColumn="transactionTypeName">Tipo <p-sortIcon field="transactionTypeName"></p-sortIcon></th>
-      <th pSortableColumn="expenseTransactionNumber">Nº <p-sortIcon field="expenseTransactionNumber"></p-sortIcon></th>
+      <th pSortableColumn="expenseTransactionDate" style="width: 8%;">Fecha <p-sortIcon field="expenseTransactionDate" ></p-sortIcon></th>
+      <th pSortableColumn="transactionTypeName" style="width: 8%;">Tipo <p-sortIcon field="transactionTypeName"></p-sortIcon></th>
+      <th pSortableColumn="expenseTransactionNumber" style="width: 8%;">Nº <p-sortIcon field="expenseTransactionNumber"></p-sortIcon></th>
       <th pSortableColumn="displayName">Proveedor <p-sortIcon field="displayName"></p-sortIcon></th>
       <th pSortableColumn="gloss">Descripción <p-sortIcon field="gloss" style="font-size: 1rem;"></p-sortIcon></th>
       <th>Importe </th>
@@ -53,12 +53,9 @@
   </ng-template>
   <ng-template pTemplate="body" let-expense>
     <tr>
-      <td>
-        <p-tableCheckbox [value]="expense"></p-tableCheckbox>
-      </td>
-      <td>{{expense.expenseTransactionDate | date:'dd-MM-yyyy'}}</td>
-      <td>{{expense.transactionType.transactionTypeName}}</td>
-      <td>{{expense.expenseTransactionNumber}}</td>
+      <td style="width: 8%;">{{expense.expenseTransactionDate | date:'dd-MM-yyyy'}}</td>
+      <td style="width: 8%;">{{expense.transactionType.transactionTypeName}}</td>
+      <td style="width: 8%;">{{expense.expenseTransactionNumber}}</td>
       <td>{{expense.supplier.displayName}}</td>
       <td>{{expense.gloss}}</td>
       <td>{{expense.totalAmountBs | currency: 'Bs. '}}</td>
@@ -67,6 +64,11 @@
           [value]="expense.expenseTransactionAccepted ? 'ACEPTADO' : 'EN REVISIÓN'"></p-tag></td>
     </tr>
   </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+        <td colspan="7">No se encontraron registros de compras/gastos.</td>
+    </tr>
+</ng-template>
 </p-table>
-<p-paginator id="paginator" (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements"
-  [rowsPerPageOptions]="[10, 25, 50, 100] "></p-paginator>
+<!-- <p-paginator id="paginator" (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements"
+  [rowsPerPageOptions]="[10, 25, 50, 100] "></p-paginator> -->

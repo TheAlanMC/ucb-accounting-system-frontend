@@ -2,9 +2,9 @@
     <div class="p-toolbar-group-start">
     </div>
     <div  class="p-toolbar-group-end">
-        <div #mydiv class="card flex justify-content-center">
+        <div class="card flex justify-content-center">
             <p-toast></p-toast>
-            <p-menu #menu [model]="items" [popup]="true" [appendTo]="mydiv"></p-menu>
+            <p-menu #menu [model]="items" [popup]="true" ></p-menu>
             <p-button  icon="pi pi-cog"  styleClass="mr-3" class="toolbar-button"  (click)="menu.toggle($event)"></p-button>
         </div>
         <!-- <button pButton type="button" (click)="menu.toggle($event)" icon="pi pi-bars" label="Show"></button> -->

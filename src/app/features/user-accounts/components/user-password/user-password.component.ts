@@ -32,22 +32,23 @@ export class UserPasswordComponent {
     // update messageService z-index
     if (!this.checkPassword()) {
       // console.log('Contraseñas no coinciden');
-      this.messageService.add({ severity: 'error', summary: 'ERROR', detail: 'Verifica tus datos' });
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Verifica tus datos' });
     } else {
-      this.userService.updateUserPassword(this.passwordData).subscribe(
-        (response) => {
-          if (response.code.startsWith('200')) {
-            this.messageService.add({ severity: 'success', summary: 'EXITO', detail: 'La contraseña se actualizó correctamente' });
-          } else {
-            this.messageService.add({ severity: 'error', summary: 'ERROR', detail: 'Hubo un error. La contraseña no se actualizó' });
-          }
-          // console.log('Respuesta:', response);
+      this.userService.updateUserPassword(this.passwordData).subscribe({
+        next: (response) => {
+          // console.log(response);
+          this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Contraseña actualizada' });
+          this.passwordData = {
+            currentPassword: '',
+            newPassword: '',
+            confirmNewPassword: ''
+          };
         },
-        (error) => {
-
-          console.error('Error al actualizar la contraseña:', error);
+        error: (error) => {
+          // console.log(error);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Verifica que la contraseña sea correcta' });
         }
-      );
+      });
     }
   }
 

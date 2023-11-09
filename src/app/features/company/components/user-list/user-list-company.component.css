@@ -64,10 +64,15 @@
 }
 
 /* Input */
-::ng-deep .p-inputtext{
+::ng-deep .ul-input{
     width: 100%;
     font-size: small;
     padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+}
+::ng-deep .right-search-input {
+    width: 100%;
+    font-size: small;
+    padding: 0.25rem 0.5rem 0.25rem 2rem;
 }
 
 /* Dropdown */
@@ -79,3 +84,17 @@
     font-size: small;
     padding:0.25rem 0.5rem 0.25rem 0.5rem;
 }
+
+/* Paginator */
+::ng-deep .p-paginator .p-dropdown-label{
+    width: 100%;
+    font-size: small;
+    padding: 0.5rem;
+  }
+  ::ng-deep .p-paginator{
+    font-size: small;
+    justify-content: end;
+  }
+  ::ng-deep .p-paginator-pages button{
+      font-size: small;
+  }

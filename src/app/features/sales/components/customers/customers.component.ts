@@ -33,6 +33,7 @@ export class CustomersComponent {
   companyAddress: string = '';
   editMode: boolean = false;
   editCustomerId!: number;
+  isLoading: boolean = true;
 
   // Pagination variables
   sortBy: string = 'customerId';
@@ -55,8 +56,10 @@ export class CustomersComponent {
   }
 
   onPageChange(event: any) {
-    this.page = event.page;
-    this.size = event.rows;
+    var first = event.first;
+    var rows = event.rows;
+    this.page = Math.floor(first / rows);
+    this.size = rows;
     // console.log(event);
     this.getAllCustomers();
   }
@@ -68,11 +71,13 @@ export class CustomersComponent {
   }
 
   getAllCustomers(){
+    this.isLoading = true;
     this.customerService.getAllCustomers(this.companyId, this.sortBy, this.sortType,this.page, this.size, this.searchTerm ).subscribe({
       next: (data) => {
         this.customers = data.data!;
         // console.log(data);
         this.totalElements = data.totalElements!;
+        this.isLoading = false;
       },
       error: (error) => {
         console.log(error);

@@ -10,6 +10,7 @@ import {AttachmentDto} from "../../features/transaction/models/attachment.dto";
 import {TrialBalanceReportDto} from "../../features/reports/models/trial-balance-report.dto";
 import {WorksheetReportDto} from "../../features/reports/models/worksheet-report.dto";
 import { BalanceSheetsDto } from "src/app/features/reports/models/balance-sheets.dto";
+import { IncomeStatementsReportDto } from "src/app/features/financial-statements/models/income-statements-report.dto";
 
 @Injectable({
     providedIn: 'root'
@@ -73,6 +74,12 @@ export class ReportService {
 
   public getBalanceSheetsReport(companyId: number, dateFrom: string, dateTo: String):  Observable<ResponseDto<BalanceSheetsDto>>{
     return this.http.get<ResponseDto<BalanceSheetsDto>>(`${this.baseUrl}/balance-sheets/companies/${companyId}?dateFrom=${dateFrom}&dateTo=${dateTo}`);
+  }
+  //======================================INCOME STATEMENTS=========================================
+  // Get income statements
+  public getIncomeStatements(companyId: number, dateFrom: string, dateTo: String):  Observable<ResponseDto<IncomeStatementsReportDto>>{
+    // console.log(`${this.baseUrl}?dateFrom=${dateFrom}&dateTo=${dateTo}`);
+    return this.http.get<ResponseDto<IncomeStatementsReportDto>>(`${this.baseUrl}/income-statements/companies/${companyId}?dateFrom=${dateFrom}&dateTo=${dateTo}`);
   }
 
 }

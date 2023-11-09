@@ -49,8 +49,15 @@
 }
 
 /* Paginator */
-::ng-deep #paginator .p-dropdown-label{
-  width: 100%;
-  font-size: small;
-  padding: 0.5rem;
-}
+::ng-deep .p-paginator .p-dropdown-label{
+    width: 100%;
+    font-size: small;
+    padding: 0.5rem;
+  }
+  ::ng-deep .p-paginator{
+    font-size: small;
+    justify-content: end;
+  }
+  ::ng-deep .p-paginator-pages button{
+      font-size: small;
+  }
