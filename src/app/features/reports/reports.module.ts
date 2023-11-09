@@ -30,6 +30,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { BalanceSheetsComponent } from './components/balance-sheets/balance-sheets.component';
 import { TreeTableModule } from 'primeng/treetable';
 
+import { ReportListComponent } from './components/report-list/report-list.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { TreeTableModule } from 'primeng/treetable';
     JournalBookReportComponent,
     WorksheetReportComponent,
     TrialBalanceComponent,
-    BalanceSheetsComponent
+    BalanceSheetsComponent,
+    ReportListComponent
   ],
   imports: [
     CommonModule,
