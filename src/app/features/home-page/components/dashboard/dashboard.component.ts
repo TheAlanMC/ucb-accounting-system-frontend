@@ -6,6 +6,7 @@ import { ExpensesSalesDashboardService } from 'src/app/core/services/expenses-sa
 import { SalesDashboardService } from 'src/app/core/services/sale-dashboard.service';
 import { SidebarService } from 'src/app/core/services/sidebar/sidebar.service';
 import { ValuesService } from 'src/app/core/services/values/values.service';
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-dashboard',
@@ -13,8 +14,9 @@ import { ValuesService } from 'src/app/core/services/values/values.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
+  companyId = Number(localStorage.getItem('companyId'));
   username: string = ' ';
-  fechaInicial: Date | undefined;
+  dateFrom: Date | undefined;
   itemsExpenses: any[] = [
     { label: 'Proovedor', value: '1' },
     { label: 'Subcuenta', value: '2' },
@@ -25,12 +27,7 @@ export class DashboardComponent {
     { label: 'Subcuenta', value: '2' },
     // Agrega más elementos aquí...
   ];
-  fechaFinal: Date | undefined;
-  transaction = {
-    trialBalanceDetails: [
-      // Aquí van los detalles de las transacciones
-    ]
-  };
+  dateTo: Date | undefined;
   data: any;
   dataVentas: any; // New data for ventas
   options: any;
@@ -75,10 +72,10 @@ export class DashboardComponent {
   }
 
 
-  constructor(private valuesService: ValuesService, private sidebarService: SidebarService, private expensesSalesService: ExpensesSalesDashboardService, private expenseDashboarService: ExpenseDashboardService, private salesDashboardService: SalesDashboardService) {
+  constructor(private valuesService: ValuesService, private sidebarService: SidebarService, private expensesSalesService: ExpensesSalesDashboardService, private expenseDashboarService: ExpenseDashboardService, private salesDashboardService: SalesDashboardService, private messageService: MessageService) {
     this.valuesService.getUserInfo().subscribe({
       next: (response) => {
-        console.log(response);
+        // console.log(response);
         this.username = response.firstName + ' ' + response.lastName;
       },
       error: (error) => {
@@ -88,8 +85,8 @@ export class DashboardComponent {
   }
 
   onSelectedExpenses(event: any) {
-    console.log(event);
-    if (event.value === '1') {
+    // console.log(event);
+    if (event.value.value === '1') {
       this.getExpensesSupplierInfo();
     } else {
       this.getExpensesSubaccountInfo();
@@ -97,8 +94,8 @@ export class DashboardComponent {
   }
 
   onSelectedSales(event: any) {
-    console.log(event);
-    if (event.value === '1') {
+    // console.log(event);
+    if (event.value.value === '1') {
       this.getSalesClientInfo();
     } else {
       this.getSalesSubaccountInfo();
@@ -107,15 +104,19 @@ export class DashboardComponent {
 
   ngOnInit(): void {
     const bgColor = 'white'; // Define el nuevo estilo aquí
+    // fecha por default
+    this.dateFrom = new Date();
+    this.dateTo = new Date();
+    this.dateFrom.setDate(this.dateFrom.getDate() - 365); // Restamos 30 días a la fecha actual
     this.sidebarService.setBackgroundColor(bgColor);
     this.sidebarService.getIsOpen().subscribe((isOpen) => {
       this.isNavbarOpen = isOpen;
     });
-    this.selectedExpense = this.itemsExpenses[1];
+    this.selectedExpense = this.itemsExpenses[0];
     this.selectedSale = this.itemsSales[0];
-    this.getExpensesSubaccountInfo();
-    this.getSalesClientInfo();
     this.getExpensesSalesInfo();
+    this.getSalesClientInfo();
+    this.getExpensesSupplierInfo();
   }
 
 
@@ -125,9 +126,9 @@ export class DashboardComponent {
 
   getSalesSubaccountInfo() {
     // Aquí va el código para obtener la información de ventas por subcuenta
-    this.salesDashboardService.getSaleDashboardDataBySubaccount(1, '2023-12-25', '2023-12-31').subscribe({
+    this.salesDashboardService.getSaleDashboardDataBySubaccount(this.companyId, format(this.dateFrom!, 'yyyy-MM-dd'), format(this.dateTo!, 'yyyy-MM-dd')).subscribe({
       next: (response) => {
-        console.log(response);
+        // console.log(response);
         const documentStyle = getComputedStyle(document.documentElement);
         const textColor = documentStyle.getPropertyValue('--text-color');
 
@@ -162,9 +163,9 @@ export class DashboardComponent {
 
   getSalesClientInfo() {
     // Aquí va el código para obtener la información de ventas por cliente
-    this.salesDashboardService.getSaleDashboardDataByClient(1, '2023-12-28', '2023-12-31').subscribe({
+    this.salesDashboardService.getSaleDashboardDataByClient(this.companyId, format(this.dateFrom!, 'yyyy-MM-dd'), format(this.dateTo!, 'yyyy-MM-dd')).subscribe({
       next: (response) => {
-        console.log(response);
+        // console.log(response);
         const documentStyle = getComputedStyle(document.documentElement);
         const textColor = documentStyle.getPropertyValue('--text-color');
 
@@ -198,9 +199,9 @@ export class DashboardComponent {
   }
 
   getExpensesSubaccountInfo() {
-    this.expenseDashboarService.getExpenseDashboardDataBySubaccount(1, '2021-12-01', '2021-12-31').subscribe({
+    this.expenseDashboarService.getExpenseDashboardDataBySubaccount(this.companyId, format(this.dateFrom!, 'yyyy-MM-dd'), format(this.dateTo!, 'yyyy-MM-dd')).subscribe({
       next: (response) => {
-        console.log(response);
+        // console.log(response);
         const documentStyle = getComputedStyle(document.documentElement);
         const textColor = documentStyle.getPropertyValue('--text-color');
 
@@ -210,7 +211,7 @@ export class DashboardComponent {
             {
               data: response.data?.info.map((subaccount) => subaccount.total),
               backgroundColor: ['#f9635c','#F4BBBB', '#ff7c70','#ff9e8f',],
-              
+
               hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400')]
             }
           ]
@@ -235,9 +236,9 @@ export class DashboardComponent {
   }
 
   getExpensesSupplierInfo() {
-    this.expenseDashboarService.getExpenseDashboardDataBySupplier(1, '2021-12-01', '2021-12-31').subscribe({
+    this.expenseDashboarService.getExpenseDashboardDataBySupplier(this.companyId, format(this.dateFrom!, 'yyyy-MM-dd'), format(this.dateTo!, 'yyyy-MM-dd')).subscribe({
       next: (response) => {
-        console.log(response);
+        // console.log(response);
         const documentStyle = getComputedStyle(document.documentElement);
         const textColor = documentStyle.getPropertyValue('--text-color');
 
@@ -272,9 +273,9 @@ export class DashboardComponent {
 
   getExpensesSalesInfo() {
     // Aquí va el código para obtener la información de gastos y ventas
-    this.expensesSalesService.getExpensesSales(1, '2023-01-01', '2023-12-31').subscribe({
+    this.expensesSalesService.getExpensesSales(this.companyId, format(this.dateFrom!, 'yyyy-MM-dd'), format(this.dateTo!, 'yyyy-MM-dd')).subscribe({
       next: (response) => {
-        console.log(response);
+        // console.log(response);
         const documentStyle = getComputedStyle(document.documentElement);
         const textColor = documentStyle.getPropertyValue('--text-color');
         const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
@@ -293,7 +294,6 @@ export class DashboardComponent {
                 backgroundColor: '#78D1D2',
                 borderRadius: 5,
                 data: response.data?.info.map((expense) => expense.sales)
-
               },
               {
                 label: 'Gastos',
@@ -394,5 +394,31 @@ export class DashboardComponent {
     return months;
   }
 
+  onDateFromChange(event: Date) {
+    this.dateFrom = event;
+    if (this.dateFrom > this.dateTo!) {
+      this.messageService.add({severity:'error', summary: 'Error', detail: 'La fecha de inicio no puede ser mayor a la fecha final'});
+      return;
+    }
+    this.getExpensesSalesInfo();
+    this.getExpensesSupplierInfo();
+    this.getExpensesSubaccountInfo();
+    this.getSalesClientInfo();
+    this.getSalesSubaccountInfo();
+  }
+
+  onDateToChange(event: Date) {
+    // console.log(event);
+    this.dateTo = event;
+    if (this.dateFrom! > this.dateTo) {
+      this.messageService.add({severity:'error', summary: 'Error', detail: 'La fecha de inicio no puede ser mayor a la fecha final'});
+      return;
+    }
+    this.getExpensesSalesInfo();
+    this.getExpensesSupplierInfo();
+    this.getExpensesSubaccountInfo();
+    this.getSalesClientInfo();
+    this.getSalesSubaccountInfo();
+  }
 
 }

@@ -41,6 +41,7 @@ export class TrialBalanceComponent {
   totalCreditor: number = 0;
   totalCredit: number = 0;
   totalDebit: number = 0;
+  loading = false;
 
 
   constructor(private reportService: ReportService, private sidebarService: SidebarService, private messageService: MessageService) { }
@@ -109,9 +110,46 @@ export class TrialBalanceComponent {
   }
 
   exportPdf() {
+    this.loading = true;
     this.reportService.getTrialBalancesPdf(this.companyid, format(this.fechaInicial!, 'yyyy-MM-dd'), format(this.fechaFinal!, 'yyyy-MM-dd')).subscribe({
       next: (data) => {
         window.open(data.data!.fileUrl, '_blank');
+      },
+      error: (error) => {
+        console.log(error);
+      },
+      complete: () => {
+        this.loading = false;
+      }
+    });
+  }
+
+  exportExcel() {
+    this.loading = true;
+    this.reportService.getTrialBalancesExcel(this.companyid, format(this.fechaInicial!, 'yyyy-MM-dd'), format(this.fechaFinal!, 'yyyy-MM-dd')).subscribe({
+      next: (data) => {
+        // window.open(data.data!.fileUrl, '_blank');
+        fetch(data.data!.fileUrl).then(res => res.blob()).then(blob => {
+            // Create a new blob object using the response data of the onload object
+            const blobData = new Blob([blob], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            // Create a link element
+            const anchor = document.createElement('a');
+            // Create a reference to the object URL
+            anchor.href = window.URL.createObjectURL(blobData);
+            // Set the filename that will be downloaded
+            anchor.download = `BALANCE DE SUMAS Y SALDOS ${format(this.fechaInicial!, 'dd-MM-yyyy')} - ${format(this.fechaFinal!, 'dd-MM-yyyy')}.xlsx`;
+            // Trigger the download by simulating click
+            anchor.click();
+            // Revoking the object URL to free up memory
+            window.URL.revokeObjectURL(anchor.href);
+          }
+        );
+      },
+      error: (error) => {
+        console.log(error);
+      },
+      complete: () => {
+        this.loading = false;
       }
     });
   }

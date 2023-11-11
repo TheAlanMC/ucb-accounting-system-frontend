@@ -20,6 +20,7 @@ import { TreeTableModule } from 'primeng/treetable';
 import { SkeletonModule } from 'primeng/skeleton';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { DropdownModule } from 'primeng/dropdown';
+import {ProgressBarModule} from "primeng/progressbar";
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { DropdownModule } from 'primeng/dropdown';
         TreeTableModule,
         SkeletonModule,
         ScrollPanelModule,
-        DropdownModule
+        DropdownModule,
+        ProgressBarModule
     ],
   exports: [
     DateModalComponent,

@@ -31,6 +31,7 @@ import { BalanceSheetsComponent } from '../financial-statements/components/balan
 import { TreeTableModule } from 'primeng/treetable';
 
 import { ReportListComponent } from './components/report-list/report-list.component';
+import {ProgressBarModule} from "primeng/progressbar";
 
 
 @NgModule({
@@ -42,35 +43,36 @@ import { ReportListComponent } from './components/report-list/report-list.compon
     BalanceSheetsComponent,
     ReportListComponent
   ],
-  imports: [
-    CommonModule,
-    ReportsRoutingModule,
-    TableModule,
-    FormsModule,
-    ReactiveFormsModule,
-    InputTextModule,
-    ButtonModule,
-    CalendarModule,
-    ToastModule,
-    InputNumberModule,
-    TabViewModule,
-    SplitButtonModule,
-    SharedModule,
-    PaginatorModule,
-    MultiSelectModule,
-    ListboxModule,
-    DropdownModule,
-    ToastModule,
-    CalendarModule,
-    DropdownModule,
-    DialogModule,
-    LedgerBookModule,
-    SidebarModule,
-    TableModule,
-    ToastModule,
-    DividerModule,
-    SkeletonModule,
-    TreeTableModule
-  ]
+    imports: [
+        CommonModule,
+        ReportsRoutingModule,
+        TableModule,
+        FormsModule,
+        ReactiveFormsModule,
+        InputTextModule,
+        ButtonModule,
+        CalendarModule,
+        ToastModule,
+        InputNumberModule,
+        TabViewModule,
+        SplitButtonModule,
+        SharedModule,
+        PaginatorModule,
+        MultiSelectModule,
+        ListboxModule,
+        DropdownModule,
+        ToastModule,
+        CalendarModule,
+        DropdownModule,
+        DialogModule,
+        LedgerBookModule,
+        SidebarModule,
+        TableModule,
+        ToastModule,
+        DividerModule,
+        SkeletonModule,
+        TreeTableModule,
+        ProgressBarModule
+    ]
 })
 export class ReportsModule { }

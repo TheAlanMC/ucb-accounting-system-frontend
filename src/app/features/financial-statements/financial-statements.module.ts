@@ -12,24 +12,26 @@ import { TableModule } from 'primeng/table';
 import { FormsModule } from '@angular/forms';
 import { DividerModule } from 'primeng/divider';
 import { TreeTableModule } from 'primeng/treetable';
+import {ProgressBarModule} from "primeng/progressbar";
 
 
 @NgModule({
   declarations: [
     IncomeStatementsComponent
   ],
-  imports: [
-    CommonModule,
-    FinancialStatementsRoutingModule,
-    CalendarModule,
-    SkeletonModule,
-    SidebarModule,
-    SharedModule,
-    ToastModule,
-    TableModule,
-    FormsModule,
-    DividerModule,
-    TreeTableModule
-  ]
+    imports: [
+        CommonModule,
+        FinancialStatementsRoutingModule,
+        CalendarModule,
+        SkeletonModule,
+        SidebarModule,
+        SharedModule,
+        ToastModule,
+        TableModule,
+        FormsModule,
+        DividerModule,
+        TreeTableModule,
+        ProgressBarModule
+    ]
 })
 export class FinancialStatementsModule { }

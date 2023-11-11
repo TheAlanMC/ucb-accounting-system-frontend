@@ -31,6 +31,7 @@ export class IncomeStatementsComponent {
   egresos: any = [];
   totalIngresos: number = 0;
   totalEgresos: number = 0;
+  loading: boolean = false;
 
   constructor(private reportService: ReportService, private sidebarService: SidebarService, private messageService: MessageService) {
 
@@ -85,11 +86,18 @@ export class IncomeStatementsComponent {
   }
 
   exportPdf() {
-    // this.reportService.getWorksheetReportPdf(this.companyId, format(this.startDate!, 'yyyy-MM-dd'), format(this.endDate!, 'yyyy-MM-dd')).subscribe({
-    //   next: (data) => {
-    //     window.open(data.data!.fileUrl, '_blank');
-    //   }
-    // });
+    this.loading = true;
+    this.reportService.getIncomeStatementsPdf(this.companyId, format(this.startDate!, 'yyyy-MM-dd'), format(this.endDate!, 'yyyy-MM-dd')).subscribe({
+      next: (data) => {
+        window.open(data.data!.fileUrl, '_blank');
+      },
+      error: (error) => {
+        console.log(error);
+      },
+      complete: () => {
+        this.loading = false;
+      }
+    });
   }
 
   transformData(data: any): any[] {

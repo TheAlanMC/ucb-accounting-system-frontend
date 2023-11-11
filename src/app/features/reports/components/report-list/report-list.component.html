@@ -30,30 +30,30 @@
                 <div class="flex justify-content-between  card-container ">
                     <p-button label="Generar Lista" class="green-button" (onClick)="generateList()" id="generate-button"
                         icon="pi pi-sync" iconPos="right"></p-button>
-                    <span class="ml-2"></span>
-                    <p-button label="Ver PDF" class="green-button" id="export-button"
-                        icon="pi pi-file-export" iconPos="right"></p-button>
+<!--                    <span class="ml-2"></span>-->
+<!--                    <p-button label="Ver PDF" class="green-button" id="export-button"-->
+<!--                        icon="pi pi-file-export" iconPos="right"></p-button>-->
                 </div>
             </div>
         </div>
     </div>
-    
+
 
     <div class="col-12 xl:col-12 px-8 py-3">
         <p-table [value]="transactions" [tableStyle]="{'min-width': '60rem'}" [lazy]="true"
             (onSort)="onSortChange($event)" [customSort]="true">
             <ng-template pTemplate="header">
                 <tr>
-                    <th pSortableColumn="dateTime">Fecha de Creación <p-sortIcon field="dateTime"></p-sortIcon>
+                    <th pSortableColumn="txDate">Fecha de Creación <p-sortIcon field="txDate"></p-sortIcon>
                     </th>
-                    <th pSortableColumn="reportDescription">Nombre del Reporte <p-sortIcon field="reportDescription"></p-sortIcon>
+                    <th pSortableColumn="description">Nombre del Reporte <p-sortIcon field="description"></p-sortIcon>
                     </th>
-                    <th pSortableColumn="reportType">Tipo de Reporte <p-sortIcon
-                            field="reportType"></p-sortIcon></th>
-                    <th pSortableColumn="user">Usuario <p-sortIcon
-                            field="user"></p-sortIcon></th>
-                    
-                    <th>Ver Detalle</th>
+                    <th pSortableColumn="reportType.reportName">Tipo de Reporte <p-sortIcon
+                            field="reportType.reportName"></p-sortIcon></th>
+                    <th pSortableColumn="txUser">Usuario <p-sortIcon
+                            field="txUser"></p-sortIcon></th>
+
+                    <th>Descargar Reporte</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-transactions>
@@ -62,11 +62,11 @@
                     <td>{{transactions.reportDescription}}</td>
                     <td>{{transactions.reportType.reportName}}</td>
                     <td>{{transactions.user.email}}</td>
-                    
+
                     <td id="but-hover">
                         <button type="button" class="p-button-rounded" id="button-custom-rounded"
-                            (click)="onViewDetail(transactions.reportId)">
-                            <i class="pi pi-eye"></i>
+                            (click)="onViewDetail(transactions.reportId, transactions.reportDescription)">
+                            <i class="pi pi-download"></i>
                         </button>
                     </td>
                 </tr>

@@ -5,6 +5,7 @@ import { MessageService } from 'primeng/api';
 import { format } from 'date-fns';
 import { OpeningBalaceService } from 'src/app/core/services/opening-balance.service';
 import { TableAccountExpandLevelDto } from '../../models/table-account-expand.dto';
+import {OpeningBalanceDto} from "../../models/opening-balance.dto";
 
 @Component({
   selector: 'app-opening-balance',
@@ -58,7 +59,6 @@ export class OpeningBalanceComponent {
         this.activos = this.transformData(this.incomeStatementsDetail[0].accountCategory.accountGroups, 2);
         this.pasivos = this.transformData(this.incomeStatementsDetail[1].accountCategory.accountGroups, 2);
         this.patrimonio = this.transformData(this.incomeStatementsDetail[2].accountCategory.accountGroups, 2);
-
       },
       error: (error) => {
         console.log(error);
@@ -68,7 +68,7 @@ export class OpeningBalanceComponent {
   }
   // Función recursiva para actualizar los valores de los padres
   updateParentTotal(node: TableAccountExpandLevelDto) {
-    
+
     if (node && node.parent) {
       const parent = node.parent;
       if (parent) {
@@ -122,7 +122,11 @@ export class OpeningBalanceComponent {
     }
     //Validamos que el activo sea igual al pasivo + patrimonio
     if (this.totalActivos == (this.totalPasivos + this.totalPatrimonio)) {
-      this.openingBalanceService.createOpeningBalance(this.companyId, data).subscribe({
+      var openingBalanceData :OpeningBalanceDto = {
+        openingBalanceDate: this.startDate,
+        financialStatementReports: data
+      }
+      this.openingBalanceService.createOpeningBalance(this.companyId, openingBalanceData).subscribe({
         next: (data) => {
           console.log(data);
           this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Balance de apertura registrado correctamente.' });

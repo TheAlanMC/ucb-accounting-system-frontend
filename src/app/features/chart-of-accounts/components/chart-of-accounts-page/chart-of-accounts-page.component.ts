@@ -6,8 +6,9 @@ import { AccountGroupPartialDto } from '../../models/account-group-partial.dto';
 import { AccountSubgroupPartialDto } from '../../models/account-subgroup-partial.dto';
 import { AccountPartialDto } from '../../models/account-partial.dto';
 import { SubaccountPartialDto } from '../../models/subaccount-partial.dto';
-import { MessageService } from 'primeng/api';
+import {MessageService, TreeNode} from 'primeng/api';
 import { SidebarService } from 'src/app/core/services/sidebar/sidebar.service';
+import {TreeTable} from "primeng/treetable";
 
 @Component({
   selector: 'app-chart-of-accounts-page',
@@ -16,7 +17,7 @@ import { SidebarService } from 'src/app/core/services/sidebar/sidebar.service';
   providers: [MessageService]
 })
 export class ChartOfAccountsPageComponent {
-  @ViewChild('dt', { static: false }) dt: any;
+  @ViewChild('dt', { static: false }) dt!: TreeTable;
   companyId = Number(localStorage.getItem('companyId'));
   searchValue: string = '';
   isNavbarOpen: boolean = false;
@@ -60,8 +61,8 @@ export class ChartOfAccountsPageComponent {
     this.getGroups();
     this.getSubgroups();
     this.getAccounts();
-
   }
+
 
   agregarNuevaCuenta() {
     this.accountCodeInput = '';
@@ -414,8 +415,10 @@ export class ChartOfAccountsPageComponent {
   //Filter the table
   applyFilterGlobal(event: Event, stringVal: string) {
     const inputValue = (event.target as HTMLInputElement).value;
+    // console.log(inputValue);
     this.dt.filterGlobal(inputValue, stringVal);
   }
+
 
   onNavbarToggle(isOpen: boolean) {
     this.isNavbarOpen = isOpen;

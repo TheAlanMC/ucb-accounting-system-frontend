@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { th } from 'date-fns/locale';
+import {da, th} from 'date-fns/locale';
 import { Table } from 'primeng/table';
 import { ReportJournalbookService } from 'src/app/core/services/report-journalbook.service';
 import { ReportData } from 'src/app/features/reports/models/journal-book-report.dto';
@@ -38,7 +38,7 @@ export class JournalBookReportComponent {
   totalDebit: number = 0;
   totalCredit: number = 0;
   message: string = 'Seleccione un rango de fechas para generar su reporte.';
-
+  loading = false;
 
   constructor(private messageService: MessageService, private reportService: ReportService, private sidebarService: SidebarService) {
   }
@@ -144,13 +144,49 @@ export class JournalBookReportComponent {
   }
 
   exportPdf() {
+    this.loading = true;
     this.reportService.getJournalBookReportPdf(this.companyId, format(this.startDate!, 'yyyy-MM-dd'), format(this.endDate!, 'yyyy-MM-dd')).subscribe({
       next: (data) => {
         window.open(data.data!.fileUrl, '_blank');
+      },
+      error: (error) => {
+        console.log(error);
+      },
+      complete: () => {
+        this.loading = false;
       }
     });
   }
 
+  exportExcel() {
+    this.loading = true;
+    this.reportService.getJournalBookReportExcel(this.companyId, format(this.startDate!, 'yyyy-MM-dd'), format(this.endDate!, 'yyyy-MM-dd')).subscribe({
+      next: (data) => {
+        // window.open(data.data!.fileUrl, '_blank');
+        fetch(data.data!.fileUrl).then(res => res.blob()).then(blob => {
+          // Create a new blob object using the response data of the onload object
+          const blobData = new Blob([blob], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+          // Create a link element
+          const anchor = document.createElement('a');
+          // Create a reference to the object URL
+          anchor.href = window.URL.createObjectURL(blobData);
+          // Set the filename that will be downloaded
+          anchor.download = `LIBRO DIARIO ${format(this.startDate!, 'dd-MM-yyyy')} - ${format(this.endDate!, 'dd-MM-yyyy')}.xlsx`;
+          // Trigger the download by simulating click
+          anchor.click();
+          // Revoking the object URL to free up memory
+          window.URL.revokeObjectURL(anchor.href);
+        }
+        );
+      },
+      error: (error) => {
+        console.log(error);
+      },
+      complete: () => {
+        this.loading = false;
+      }
+    });
+  }
   calculateSum(transactionDetails: any[], type: string) {
     let suma = 0;
     for (const transaction of transactionDetails) {

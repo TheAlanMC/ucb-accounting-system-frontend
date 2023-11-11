@@ -29,7 +29,7 @@
             </div>
         </div>
         <br>
-        <p-treeTable [value]="cuentas" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+        <p-treeTable #dt [value]="cuentas" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}" [globalFilterFields]="['accountName','accountCode']" >
             <ng-template pTemplate="header">
                 <tr>
                     <th style="width: 40%;">Nombre</th>

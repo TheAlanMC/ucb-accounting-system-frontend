@@ -5,6 +5,7 @@ import { SidebarService } from 'src/app/core/services/sidebar/sidebar.service';
 import { BalanceSheetsDto, FinancialStatementDetail } from '../../../reports/models/balance-sheets.dto';
 import { format } from 'date-fns';
 import { TableAccountExpandDto } from '../../../reports/models/table-account-expand.dto';
+import {th} from "date-fns/locale";
 
 @Component({
   selector: 'app-balance-sheets',
@@ -24,13 +25,14 @@ export class BalanceSheetsComponent {
   BalanceSheetsReport!: BalanceSheetsDto;
   BalanceSheetsDetail!: FinancialStatementDetail[];
 
-  
+
   activo: any = [];
   pasivo: any = [];
   patrimonio: any = [];
   totalActivo: number = 0;
   totalPasivo: number = 0;
   totalPatrimonio: number = 0;
+  loading: boolean = false;
 
   constructor(private reportService: ReportService, private sidebarService: SidebarService, private messageService: MessageService) {
 
@@ -86,11 +88,22 @@ export class BalanceSheetsComponent {
         }
       });
     }
-    
+
   }
 
   exportPdf() {
-    
+    this.loading = true;
+    this.reportService.getBalanceSheetsReportPdf(this.companyId, format(this.startDate!, 'yyyy-MM-dd'), format(this.endDate!, 'yyyy-MM-dd')).subscribe({
+      next: (data) => {
+        window.open(data.data!.fileUrl, '_blank');
+      },
+      error: (error) => {
+        console.log(error);
+      },
+      complete: () => {
+        this.loading = false;
+      }
+    });
   }
 
   transformData(data: any): any[] {

@@ -1,4 +1,5 @@
 <app-sidebar (navbarToggle)="onNavbarToggle($event)"></app-sidebar>
+<p-progressBar mode="indeterminate" *ngIf="loading"></p-progressBar>
 <p-toast></p-toast>
 <div class="home-section" [class.navbar-opened]="isNavbarOpen">
     <div class="card">
@@ -36,7 +37,11 @@
                         id="generate-button" icon="pi pi-sync" iconPos="right"></p-button>
                     <span class="ml-2"></span>
                     <p-button label="Exportar" class="green-button" id="export-button" icon="pi pi-file-export"
+                        iconPos="right" [disabled]="emptyTable" (onClick)="exportExcel()"></p-button>
+                    <span class="ml-2"></span>
+                    <p-button label="Imprimir" class="green-button" id="print-button" icon="pi pi-print"
                         iconPos="right" [disabled]="emptyTable" (onClick)="exportPdf()"></p-button>
+
                 </div>
             </div>
         </div>

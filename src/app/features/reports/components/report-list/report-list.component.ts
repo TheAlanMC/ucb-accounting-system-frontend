@@ -166,14 +166,28 @@ export class ReportListComponent {
     })*/
   }
 
-  onViewDetail(reportId: number) {
+  onViewDetail(reportId: number, description: string) {
     //   router
     //this.router.navigate([`/transactions/${reportId}`]);
     this.generatedReportsListService.getGeneratedReportsbyId(this.companyId, reportId).subscribe({
       next: (data) => {
         const fileUrl = data.data?.fileUrl;
         if (fileUrl) {
-          window.open(fileUrl, '_blank');
+          fetch(data.data!.fileUrl).then(res => res.blob()).then(blob => {
+              // Create a new blob object using the response data of the onload object
+              const blobData = new Blob([blob], { type: data.data!.contentType });
+              // Create a link element
+              const anchor = document.createElement('a');
+              // Create a reference to the object URL
+              anchor.href = window.URL.createObjectURL(blobData);
+              // Set the filename that will be downloaded
+              anchor.download = `${description}.${data.data!.filename.split('.')[1]}`;
+              // Trigger the download by simulating click
+              anchor.click();
+              // Revoking the object URL to free up memory
+              window.URL.revokeObjectURL(anchor.href);
+            }
+          );
         } else {
           console.log('El enlace no está disponible.');
         }
