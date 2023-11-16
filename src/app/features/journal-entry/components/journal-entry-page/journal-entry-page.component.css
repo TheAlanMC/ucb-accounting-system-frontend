@@ -1,0 +1,122 @@
+* {
+    color: #666666;
+    font-size: small;
+}
+
+::ng-deep .help-icon button{
+    background: var(--color-green) !important;
+    border-color: var(--color-green) !important;
+}
+::ng-deep #save-je-buttons button {
+    background: var(--color-green);
+    border-color: var(--color-green);
+}
+
+::ng-deep .help-icon span {
+    font-size: 1.3rem;
+}
+
+::ng-deep .edit-table table {
+    font-size: small;
+}
+
+::ng-deep .input-table {
+    font-size: small;
+}
+
+/* datepicker */
+::ng-deep .datepicker span input {
+    height: 30px !important;
+    font-size: small;
+}
+
+::ng-deep .datepicker span .p-datepicker-trigger {
+    background: var(--color-green) !important;
+    border-color: var(--color-green) !important;
+    height: 30px !important;
+}
+
+::ng-deep .p-datepicker table td {
+    padding: 0.2rem !important;
+}
+
+::ng-deep .p-datepicker table td>span {
+    width: 1.7rem;
+    height: 1.7rem;
+}
+
+::ng-deep .p-datepicker table {
+    font-size: 10pt;
+    margin: -0.143rem 0;
+}
+
+::ng-deep .p-datepicker .p-datepicker-header {
+    padding: 0.2rem;
+}
+
+#save-je-buttons {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background-color: #4b4b4b;
+    width: 100vw;
+    z-index: 100;
+}
+
+.page-title {
+    color: #797979;
+}
+
+::ng-deep .cyan-button button {
+    background: var(--color-cyan-green) !important;
+    border-color: var(--color-cyan-green) !important;
+}
+
+::ng-deep .blue-button button {
+    background: var(--color-blue) !important;
+    border-color: var(--color-blue) !important;
+}
+
+::ng-deep .cyan-button button,
+::ng-deep .blue-button button {
+    height: 33px;
+    font-size: small;
+}
+
+/* Dropdown */
+::ng-deep #document-type .p-dropdown {
+    height: 30px !important;
+}
+
+::ng-deep #document-type .p-dropdown span {
+    font-size: small;
+    padding:0.25rem 0.5rem 0.25rem 0.5rem;
+}
+
+/* Botones */
+
+::ng-deep .cyan-button button {
+    background: var(--color-cyan-green) !important;
+    border-color: var(--color-cyan-green) !important;
+}
+
+::ng-deep .blue-button button {
+    background: var(--color-blue) !important;
+    border-color: var(--color-blue) !important;
+}
+
+::ng-deep .cyan-button button,
+::ng-deep .blue-button button {
+    height: 33px;
+    font-size: small;
+}
+
+/* Rojo */
+::ng-deep .red-button button {
+    background: #F77 !important;
+    border-color: #F77  !important;
+    font-size: medium;
+}
+
+
+

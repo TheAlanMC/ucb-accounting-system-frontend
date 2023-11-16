@@ -1,0 +1,105 @@
+*{
+  font-size: small;
+}
+
+/* datepicker */
+::ng-deep .datepicker span input {
+  height: 30px !important;
+  font-size: small;
+}
+
+::ng-deep .datepicker span .p-datepicker-trigger {
+  background: var(--color-green) !important;
+  border-color: var(--color-green) !important;
+  height: 30px !important;
+}
+
+::ng-deep .p-datepicker table td {
+  padding: 0.2rem !important;
+}
+
+::ng-deep .p-datepicker table td>span {
+  width: 1.7rem;
+  height: 1.7rem;
+}
+
+::ng-deep .p-datepicker table {
+  font-size: 10pt;
+  margin: -0.143rem 0;
+}
+
+::ng-deep .p-datepicker .p-datepicker-header {
+  padding: 0.2rem;
+}
+
+#save-buttons {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background-color: #4b4b4b;
+  width: 100vw;
+  z-index: 100;
+}
+/* Dropdown */
+::ng-deep #document-type .p-dropdown {
+  height: 30px !important;
+}
+
+::ng-deep #document-type .p-dropdown span {
+  font-size: small;
+  padding:0.25rem 0.5rem 0.25rem 0.5rem;
+}
+
+/* Botones */
+/* Verde */
+::ng-deep .green-button button {
+  background: var(--color-green) !important;
+  border-color: var(--color-green) !important;
+  font-size: small;
+}
+/* Rojo */
+::ng-deep .red-button button {
+  background: #F77 !important;
+  border-color: #F77  !important;
+  font-size: small;
+}
+
+/* Multiselect */
+::ng-deep #supplier .p-multiselect {
+  height: 30px;
+}
+::ng-deep #supplier .p-multiselect .p-multiselect-label-container .p-multiselect-label {
+  font-size: small;
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+}
+::ng-deep .p-multiselect-items{
+  font-size: small;
+}
+
+/* Split button */
+::ng-deep.p-tieredmenu-root-list{
+  font-size: small;
+}
+
+/* ------- */
+::ng-deep .p-multiselect-filter{
+  width: 100%;
+  height: 30px;
+  font-size: small;
+  padding: 0.25rem 2rem 0.25rem 0.5rem;
+}
+
+
+/* Paginator */
+::ng-deep .p-paginator .p-dropdown-label{
+  width: 100%;
+  font-size: small;
+  padding: 0.5rem;
+}
+::ng-deep .p-paginator{
+  font-size: small;
+  justify-content: end;
+}
+::ng-deep .p-paginator-pages button{
+    font-size: small;
+}

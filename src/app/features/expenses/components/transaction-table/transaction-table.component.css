@@ -1,0 +1,25 @@
+
+/* Dropdown */
+::ng-deep #subaccount-dropdown .p-dropdown {
+  height: 30px !important;
+}
+
+::ng-deep #subaccount-dropdown .p-dropdown span {
+  font-size: small;
+  padding:0.25rem 0.5rem 0.25rem 0.5rem;
+}
+
+/* Input */
+/* Remove buttons from input type number */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0; /* Opcional: ajusta el margen si es necesario */
+}
+
+/* Dropdown */
+::ng-deep .p-dropdown-items{
+  font-size: small;
+
+}

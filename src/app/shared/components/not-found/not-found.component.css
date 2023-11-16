@@ -1,0 +1,104 @@
+.content {
+  position: absolute;
+  left: 25vw;
+  width: 30%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: var(--color-blue);
+}
+
+.error-number {
+  background: rgb(0, 222, 163);
+  background: linear-gradient(90deg, rgba(0, 222, 163, 1) 0%, rgba(0, 91, 255, 1) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 30vh;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+#sw-js-blob-svg {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  height: 145vh;
+  top: -35vh;
+  left: -20%
+}
+
+
+#back,
+#kc-register-button {
+  outline: none !important;
+  border: none;
+  background: transparent;
+  text-align: center;
+}
+
+#back:hover,
+#kc-register-button:hover {
+  cursor: pointer;
+}
+
+
+.button-back {
+  font-size: 17px;
+  color: #fff;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  width: 100%;
+  height: 50px;
+}
+
+#form-buttons {
+  width: 50%;
+  display: block;
+  position: relative;
+  z-index: 1;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.form-bgbtn {
+  position: absolute;
+  z-index: -1;
+  width: 300%;
+  height: 100%;
+  background: linear-gradient(to right, #3dd6af, #10bce3, #3dd6af, #10bce3) !important;
+  top: 0;
+  left: -100%;
+  transition: all 0.4s;
+}
+
+#form-buttons:hover .form-bgbtn {
+  left: 0;
+}
+
+
+/* logo */
+
+.logo {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px 10px;
+  border-radius: 100%;
+  background-color: var(--color-green);
+  width: 50px;
+  height: 50px;
+  font-size: 13px;
+}

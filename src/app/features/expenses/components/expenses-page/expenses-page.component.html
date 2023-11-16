@@ -1,0 +1,29 @@
+<app-sidebar (navbarToggle)="onNavbarToggle($event)" ></app-sidebar>
+<div class="home-section" [class.navbar-opened]="isNavbarOpen">
+  <div class="card" >
+    <p-toast></p-toast>
+    <div class="flex card-container overflow-hidden">
+      <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0">
+        <i class="pi pi-money-bill" style="color: var(--color-green); font-size: 2.5rem; z-index: 2 !important;"></i>
+        <p class="text-2xl md:text-3xl" style="z-index:2;" >&nbsp;&nbsp;&nbsp;Compras</p>
+      </div>
+      <div class="flex-none flex align-items-center justify-content-center font-bold m-2 px-5 py-3">
+        <!-- <p-button class="help-icon" icon="pi pi-question-circle" styleClass="p-button-success"></p-button> -->
+        <app-navbar></app-navbar>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-12 xl:col-12 px-8 py-3">
+    <p-tabView [activeIndex]="activeTabIndex">
+      <p-tabPanel header="Todas las compras">
+        <app-all-expenses></app-all-expenses>
+      </p-tabPanel>
+      <p-tabPanel header="Proveedores">
+        <app-suppliers style="position: static;"></app-suppliers>
+      </p-tabPanel>
+    </p-tabView>
+
+    <br>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="sidebar">
+    <form [formGroup]="nuevaCompraForm" (ngSubmit)="onSubmit()">
+      <div class="field">
+        <label>Fecha de Creación</label>
+        <input type="date" formControlName="Fecha_de_Creacion">
+      </div>
+      <div class="field">
+        <label>Proveedor</label>
+        <input type="text" formControlName="Proveedor">
+      </div>
+      <div class="field">
+        <label>Tipo de Documento</label>
+        <input type="text" formControlName="Tipo_de_documento">
+      </div>
+      <div class="field">
+        <label>Importe Total</label>
+        <input type="number" formControlName="Importe_total">
+      </div>
+      <div class="field">
+        <label>Nota</label>
+        <textarea formControlName="Nota" style="font-size: small;"></textarea>
+      </div>
+      <div class="field">
+        <label>Productos</label>
+        <input type="text" formControlName="Productos">
+      </div>
+      <div class="field">
+        <label>Cantidad</label>
+        <input type="number" formControlName="Cantidad">
+      </div>
+      <div class="field">
+        <label>Precio Unitario</label>
+        <input type="number" formControlName="Precio_Unitario">
+      </div>
+      <button type="submit" pButton label="Guardar"></button>
+      <button type="button" pButton label="Descartar" (click)="descartar()"></button>
+    </form>
+  </div>

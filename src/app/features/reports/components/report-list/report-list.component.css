@@ -1,0 +1,96 @@
+*{
+    color: #666666;
+    font-size: small;
+}
+::ng-deep #save-buttons button{
+    background: var(--color-green) !important;
+    border-color: var(--color-green) !important;
+}
+
+#button-custom-rounded{
+    border-radius: 50% !important;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #D9D9D9 !important;
+    background: #D9D9D9;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    padding: 5px 10px !important;
+    margin: 0px 5px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#but-hover :hover{
+    background: var(--color-green) !important;
+    border-color: var(--color-green) !important;
+    color: #fff !important;
+    cursor: pointer;
+}
+
+
+
+
+/* Sidebar configuration */
+.home-section {
+    position: absolute;
+    min-height: 100vh;
+    top: 0;
+    left: 70px;
+    width: calc(100% - 78px);
+    transition: all 0.5s ease;
+    z-index: 2;
+}
+
+.navbar-opened {
+    left: 250px;
+    width: calc(100% - 250px);
+}
+
+/* Paginator */
+::ng-deep #paginator .p-dropdown-label{
+  width: 100%;
+  font-size: small;
+  padding: 0.5rem;
+}
+
+/* datepicker */
+::ng-deep .datepicker span input {
+  height: 30px !important;
+  font-size: small;
+}
+
+::ng-deep .datepicker span .p-datepicker-trigger {
+  background: var(--color-green) !important;
+  border-color: var(--color-green) !important;
+  height: 30px !important;
+}
+
+::ng-deep .p-datepicker table td {
+  padding: 0.2rem !important;
+}
+
+::ng-deep .p-datepicker table td>span {
+  width: 1.7rem;
+  height: 1.7rem;
+}
+
+::ng-deep .p-datepicker table {
+  font-size: 10pt;
+  margin: -0.143rem 0;
+}
+
+::ng-deep .p-datepicker .p-datepicker-header {
+  padding: 0.2rem;
+}
+
+/* Buttons */
+::ng-deep #generate-button button{
+  background-color: var(--color-green);
+  border-color: var(--color-green);
+  color: white;
+  font-size: small;
+  font-weight: 500;
+  height: 30px;
+}

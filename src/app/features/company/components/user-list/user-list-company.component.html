@@ -1,0 +1,121 @@
+<app-sidebar (navbarToggle)="onNavbarToggle($event)"></app-sidebar>
+<div class="home-section" [class.navbar-opened]="isNavbarOpen">
+    <div class="card">
+        <div class="flex card-container overflow-hidden">
+            <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0">
+                <i class="pi pi-users" style="color: var(--color-green); font-size: 2.5rem; z-index: 2 !important;"></i>
+                <p class="text-2xl md:text-3xl" style="z-index:2;" >&nbsp;&nbsp;&nbsp;Lista de usuarios</p>
+            </div>
+            <div class="flex-none flex align-items-center justify-content-center font-bold m-2 px-5 py-3">
+               <app-navbar></app-navbar>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 xl:col-12 px-8 py-3">
+    <div class="flex justify-content-between my-4">
+
+        <div class="flex flex-column justify-content-start">
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input type="text" pInputText class="input w-full right-search-input" [(ngModel)]="searchTerm" (input)="onSearch($event)">
+            </span>
+        </div>
+        <div class="flex flex-column justify-content-start">
+            <div class="flex justify-content-between flex-wrap card-container purple-container">
+                <!-- <p-button label="Eliminar cliente" class="mx-2 red-button" icon="pi pi-user-minus"></p-button> -->
+                <p-button label="Añadir usuario" class="ml-2 green-button" icon="pi pi-user-plus" (click)="addNewAccountVisible = true"></p-button>
+            </div>
+        </div>
+    </div>
+    <br>
+        <p-table [value]="users" [lazy]="true" (onSort)="onSortChange($event)" [customSort]="true" [rows]="10" [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10, 25, 50, 100]" [paginator]="true" [totalRecords]="totalElements" [loading]="isLoading"
+        (onPage)="onPageChange($event)"
+        currentPageReportTemplate="Mostrando los registros del {first} al {last} de un total de {totalRecords}">"
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="kcUser.firstName" style="width:20%">Nombre <p-sortIcon field="firstName"></p-sortIcon></th>
+                    <th pSortableColumn="kcUser.lastName" style="width:20%">Apellido <p-sortIcon field="lastName"></p-sortIcon></th>
+                    <th pSortableColumn="kcUser.email" style="width:20%">Correo electrónico <p-sortIcon field="email"></p-sortIcon></th>
+                    <th pSortableColumn="kcGroup.groupName" style="width:20%">Grupo <p-sortIcon field="kcGroup.groupName"></p-sortIcon> </th>
+                    <th pSortableColumn="kcUser.txDate" style="width:20%">Fecha de creacion <p-sortIcon field="txDate"></p-sortIcon></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-user>
+                <tr>
+                    <td>{{ user.firstName }}</td>
+                    <td>{{ user.lastName }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.kcGroupName }}</td>
+                    <td>{{ user.creationDate | date: 'dd-MM-yyyy' }}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="5">No se encontraron usuarios.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <!-- <p-paginator (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements" [rowsPerPageOptions]="[10, 25, 50, 100] "></p-paginator> -->
+    </div>
+</div>
+<hr style="margin-top: -15px;">
+<p-sidebar [(visible)]="addNewAccountVisible" position="right" styleClass="w-4" [modal]="false" >
+    <p-toast [style]="{'z-index':'3000'}"></p-toast>
+    <div class="page-title flex-grow-1 flex align-items-center justify-content-start font-bold mb-2" >
+        <i class="pi pi-user-plus"
+           style="color: var(--color-green); font-size: 2rem;"></i>
+        <p class="text-1xl md:text-2xl">&nbsp;&nbsp;&nbsp;Crear nueva cuenta</p>
+    </div>
+    <!-- Cuenta -->
+    <p-fieldset>
+        <ng-template pTemplate="header">
+            <div class="flex align-items-center text-primary">
+                <span class="pi pi-th-large mr-2"></span>
+                <span class="font-bold text-lg">Tipo de cuenta</span>
+            </div>
+        </ng-template>
+        <div class="formgrid grid">
+            <div class="field col-12">
+                <label for="account-number">Seleccione un tipo de cuenta</label>
+                <p-dropdown id="account-number"
+                            class="dropdown text-base text-color surface-overlay border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary"
+                            optionLabel="name" placeholder="Tipo de cuenta" [options]="accountstype"
+                            [(ngModel)]="selectedAccount" [required]="true"
+                            [style]="{'width':'100%'}"></p-dropdown>
+            </div>
+        </div>
+    </p-fieldset>
+    <br>
+    <!-- Nombre -->
+    <p-fieldset>
+        <ng-template pTemplate="header">
+            <div class="flex align-items-center text-primary">
+                <span class="pi pi-info-circle mr-2"></span>
+                <span class="font-bold text-lg">Información</span>
+            </div>
+        </ng-template>
+        <div class="card">
+            <div class="field col-12 md:col-6 p-0">
+                <label for="prefix">Nombre</label>
+                <input id="prefix" type="text" [(ngModel)]="name" pInputText class="input w-full ul-input">
+            </div>
+            <div class="formgrid grid">
+                <div class="field col-12 md:col-6 pr-0">
+                    <label for="lastname">Apellido</label>
+                    <input id="lastname" type="text" pInputText [(ngModel)]="lastName" class="input w-full ul-input">
+                </div>
+                <div class="field col-12 md:col-12">
+                    <label for="display-name">Correo electrónico</label>
+                    <input id="lastname" type="text" pInputText [(ngModel)]="email" class="input w-full ul-input">
+                </div>
+            </div>
+        </div>
+    </p-fieldset>
+    <br>
+    <div class="flex justify-content-between flex-wrap card-container purple-container mt-4">
+        <p-button label="Cancelar" class="mx-2 red-button" icon="pi pi-times-circle" (click)="addNewAccountVisible = false"></p-button>
+        <p-button label="Guardar" class="ml-2 green-button" icon="pi pi-save"
+                  (click)="createAccount()"></p-button>
+    </div>
+</p-sidebar>

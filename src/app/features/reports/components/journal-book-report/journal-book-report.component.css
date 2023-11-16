@@ -1,0 +1,91 @@
+* {
+  color: #666666;
+  font-size: small;
+}
+
+
+#bordernone{
+  border: none;
+}
+#borderblack{
+  border-color: rgb(175, 175, 175);
+}
+#total-row{
+  background-color: #F8F9FA;
+}
+#total-row td{
+  font-weight: bold;
+}
+
+::ng-deep .help-icon button{
+  background: var(--color-green) !important;
+  border-color: var(--color-green) !important;
+}
+::ng-deep #save-buttons button {
+  background: var(--color-green);
+  border-color: var(--color-green);
+}
+
+::ng-deep .help-icon span {
+  font-size: 1.3rem;
+}
+
+/* Sidebar configuration */
+.home-section {
+  position: absolute;
+  min-height: 100vh;
+  top: 0;
+  left: 70px;
+  width: calc(100% - 78px);
+  transition: all 0.5s ease;
+  z-index: 2;
+}
+
+.navbar-opened {
+  left: 250px;
+  width: calc(100% - 250px);
+}
+
+/* datepicker */
+::ng-deep .datepicker span input {
+  height: 30px !important;
+  font-size: small;
+}
+
+::ng-deep .datepicker span .p-datepicker-trigger {
+  background: var(--color-green) !important;
+  border-color: var(--color-green) !important;
+  height: 30px !important;
+}
+
+::ng-deep .p-datepicker table td {
+  padding: 0.2rem !important;
+}
+
+::ng-deep .p-datepicker table td>span {
+  width: 1.7rem;
+  height: 1.7rem;
+}
+
+::ng-deep .p-datepicker table {
+  font-size: 10pt;
+  margin: -0.143rem 0;
+}
+
+::ng-deep .p-datepicker .p-datepicker-header {
+  padding: 0.2rem;
+}
+
+/* Buttons */
+::ng-deep #export-button button,
+::ng-deep #generate-button button,
+::ng-deep #print-button button{
+  background-color: var(--color-green);
+  border-color: var(--color-green);
+  color: white;
+  font-size: small;
+  font-weight: 500;
+  height: 30px;
+}
+
+

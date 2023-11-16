@@ -1,0 +1,19 @@
+{
+    "data": [
+        {
+            "imagen": "assets/carousel/1.jpg",
+            "titulo": "Usa ProfitWave para tu negocio local!",
+            "descripcion": "De simple uso online en cualquier navegador!"
+        },
+        {
+            "imagen": "assets/carousel/2.jpg",
+            "titulo": "Usa ProfitWave para educación!",
+            "descripcion": "Desarrollado para su uso y para el aprendizaje de los alumnos!"
+        },
+        {
+            "imagen": "assets/carousel/3.jpg",
+            "titulo": "Usa ProfitWave para tu negocio online!",
+            "descripcion": "Toda la información contable de tu negocio en un solo lugar!"
+        }       
+    ]
+}

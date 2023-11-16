@@ -1,0 +1,158 @@
+<div class="flex justify-content-between my-4">
+
+    <div class="flex flex-column justify-content-start">
+        <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input type="text" pInputText  class="input w-full right-search-input" [(ngModel)]="searchTerm"
+                (input)="onSearch($event)">
+        </span>
+    </div>
+    <div class="flex flex-column justify-content-start">
+        <div class="flex justify-content-between flex-wrap card-container purple-container">
+            <!--            <p-button label="Eliminar proveedor" class="mx-2 red-button" icon="pi pi-user-minus"></p-button>-->
+            <p-button label="Añadir proveedor" class="ml-2 green-button" icon="pi pi-user-plus"
+                (click)="addSupplier()"></p-button>
+        </div>
+    </div>
+</div>
+<br>
+<p-table [value]="suppliers" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-sm" [lazy]="true"
+    (onSort)="onSortChange($event)" [customSort]="true" [rows]="10" [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 25, 50, 100]" [paginator]="true" [totalRecords]="totalElements" [loading]="isLoading"
+    (onPage)="onPageChange($event)"
+    currentPageReportTemplate="Mostrando los registros del {first} al {last} de un total de {totalRecords}">
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="displayName">Nombre <p-sortIcon field="displayName"></p-sortIcon></th>
+            <th pSortableColumn="companyName">Nombre de la compañia <p-sortIcon field="companyName"></p-sortIcon></th>
+            <th pSortableColumn="companyPhoneNumber">Teléfono de la compañia <p-sortIcon
+                    field="companyPhoneNumber"></p-sortIcon></th>
+            <th pSortableColumn="txDate">Fecha de creación <p-sortIcon field="txDate"></p-sortIcon></th>
+            <th style="width:5%; height: 50px"> </th>
+            
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-supplier>
+        <tr>
+            <td>{{supplier.displayName}}</td>
+            <td>{{supplier.companyName}}</td>
+            <td>{{supplier.companyPhoneNumber}}</td>
+            <td>{{supplier.creationDate | date:'dd-MM-yyyy' }}</td>
+            <td>
+                <p-button icon="pi pi-pencil" styleClass="p-button-rounded p-button-secondary"
+                    (click)="editSupplier(supplier.supplierId)" (click)="addSupplierVisible= true"></p-button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="5">No se encontraron proveedores.</td>
+        </tr>
+    </ng-template>
+</p-table>
+<!-- <p-paginator id="paginator" (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements"
+    [rowsPerPageOptions]="[10, 25, 50, 100] "></p-paginator> -->
+
+<!-- ================== SIDEBAR ===============  -->
+
+<p-sidebar [(visible)]="addSupplierVisible" position="right" styleClass="w-4" [modal]="false">
+    <p-toast [style]="{'z-index':'3000'}"></p-toast>
+    <div class="page-title flex-grow-1 flex align-items-center justify-content-start font-bold mb-2">
+        <i [ngClass]="editMode ? 'pi pi-user-edit' : 'pi pi-user-plus'"
+            style="color: var(--color-green); font-size: 2rem;"></i>
+        <p class="text-1xl md:text-2xl">&nbsp;&nbsp;&nbsp;{{ editMode ? 'Editar proveedor' : 'Añadir proveedor' }}</p>
+    </div>
+    <!-- Nombre -->
+    <p-fieldset>
+        <ng-template pTemplate="header">
+            <div class="flex align-items-center text-primary">
+                <span class="pi pi-info-circle mr-2"></span>
+                <span class="font-bold text-lg">Nombre</span>
+            </div>
+        </ng-template>
+        <div class="card">
+            <div class="field col-12 md:col-6 pl-0">
+                <label for="prefix">Prefijo</label>
+                <input id="prefix" type="text" [(ngModel)]="prefix" pInputText class="input w-full sup-input"
+                    (change)="onChange($event)">
+            </div>
+            <div class="formgrid grid">
+                <div class="field col-12 md:col-6">
+                    <label for="name">Nombre</label>
+                    <input id="name" pInputText type="text" [(ngModel)]="firstName" class="input w-full sup-input"
+                        (change)="onChange($event)">
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label for="lastname">Apellido</label>
+                    <input id="lastname" type="text" pInputText [(ngModel)]="lastName" class="input w-full sup-input"
+                        (change)="onChange($event)">
+                </div>
+                <div class="field col-12 md:col-12">
+                    <label for="display-name">Nombre a mostrar</label>
+                    <input id="display-name" type="text" pInputText [(ngModel)]="displayName" class="input w-full sup-input"
+                        [value]="prefix+' '+firstName + ' '+ lastName">
+                </div>
+            </div>
+        </div>
+
+    </p-fieldset>
+    <br>
+    <!-- Cuenta -->
+    <p-fieldset>
+        <ng-template pTemplate="header">
+            <div class="flex align-items-center text-primary">
+                <span class="pi pi-th-large mr-2"></span>
+                <span class="font-bold text-lg">Cuenta</span>
+            </div>
+        </ng-template>
+        <div class="formgrid grid">
+            <div class="field col-12">
+                <label for="account-number">Número de cuenta al que está vinculado</label>
+                <p-dropdown id="account-number"
+                    class="dropdown text-base text-color surface-overlay border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary"
+                    optionLabel="name" placeholder="Seleccione un tipo de documento" [required]="true"
+                    [style]="{'width':'100%'}"></p-dropdown>
+            </div>
+        </div>
+    </p-fieldset>
+    <br>
+    <!-- Contacto -->
+    <p-fieldset>
+        <ng-template pTemplate="header">
+            <div class="flex align-items-center text-primary">
+                <span class="pi pi-id-card mr-2"></span>
+                <span class="font-bold text-lg">Contacto</span>
+            </div>
+        </ng-template>
+        <div class="formgrid grid">
+
+            <div class="field col-12 md:col-12">
+                <label for="companyName">Nombre de la compañía</label>
+                <input id="companyName" type="text" [(ngModel)]="companyName" class="w-full sup-input" pInputText>
+            </div>
+            <div class="field col-12 md:col-6">
+                <label for="email">Correo electrónico</label>
+                <input id="email" type="text" [(ngModel)]="companyEmail" class="w-full sup-input" pInputText>
+            </div>
+            <div class="field col-12 md:col-6">
+                <label for="phone">Teléfono</label>
+                <input id="phone" type="text" [(ngModel)]="companyPhoneNumber" class="w-full sup-input" pInputText>
+            </div>
+            <div class="field col-12">
+                <label for="address">Dirección</label>
+                <textarea id="address" pInputTextarea [(ngModel)]="companyAddress" type="text" rows="5" class="w-full"
+                    style="height: 100%; font-size: small;"></textarea>
+            </div>
+
+        </div>
+
+    </p-fieldset>
+    <div class="flex justify-content-between flex-wrap card-container purple-container mt-4">
+        <p-button label="Cancelar" class="mx-2 red-button" icon="pi pi-times-circle"
+            (click)="addSupplierVisible = false"></p-button>
+        <p-button label="Guardar" class="ml-2 green-button" icon="pi pi-save"
+            (click)="editMode ? saveSupplierChanges() : createSupplier()"></p-button>
+    </div>
+
+
+</p-sidebar>

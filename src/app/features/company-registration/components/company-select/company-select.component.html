@@ -1,0 +1,9 @@
+<div id="main-container">
+  <p-card class="card">
+    <h5 class="card-header">Selecciona una compañía</h5>
+    <p-dropdown [style]="{'width':'250px'}" [options]="companies" [(ngModel)]="selectedCompany" optionLabel="name" placeholder="Selecciona una compañía"></p-dropdown>
+    <div id="buttons">
+      <p-button label="Continuar" id="green-button" (onClick)="selectCompany()" icon="pi pi-chevron-right" class="mt-2"></p-button>
+    </div>
+  </p-card>
+</div>

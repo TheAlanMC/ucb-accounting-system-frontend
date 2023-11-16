@@ -1,0 +1,79 @@
+<app-sidebar (navbarToggle)="onNavbarToggle($event)"></app-sidebar>
+<div class="home-section" [class.navbar-opened]="isNavbarOpen">
+    <p-toast></p-toast>
+    <div class="flex card-container overflow-hidden">
+        <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0">
+            <i class="pi pi-book" style="color: var(--color-green); font-size: 2.5rem; z-index: 2 !important;"></i>
+            <p class="text-2xl md:text-3xl" style="z-index:2;">&nbsp;&nbsp;&nbsp;Lista de transacciones</p>
+        </div>
+        <div class="flex-none flex align-items-center justify-content-center font-bold m-2 px-5 py-3">
+            <app-navbar></app-navbar>
+        </div>
+    </div>
+
+    <div class="col-12 xl:col-12 px-8 py-3">
+        <p-table [value]="transactions" [tableStyle]="{'min-width': '60rem'}" [lazy]="true"
+            (onSort)="onSortChange($event)" [customSort]="true" [rows]="10" [showCurrentPageReport]="true"
+            [rowsPerPageOptions]="[10, 25, 50, 100]" [paginator]="true" [totalRecords]="totalElements" [loading]="isLoading"
+            (onPage)="onPageChange($event)"
+            currentPageReportTemplate="Mostrando los registros del {first} al {last} de un total de {totalRecords}">
+
+            <ng-template pTemplate="caption">
+                <div class="flex">
+                    <span class="p-input-icon-left ml-auto">
+                        <span class="p-input-icon-left ml-auto">
+                            <i class="pi pi-search"></i>
+                            <input pInputText="" type="text" [(ngModel)]="searchTerm" (input)="onSearch($event)"
+                                 class="p-inputtext p-component p-element"></span>
+                    </span>
+                </div>
+            </ng-template>
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="displayName" style="width: 15%;">Cliente/Proveedor <p-sortIcon field="displayName"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="journalEntryAccepted" style="width: 8%;">Estado <p-sortIcon
+                            field="journalEntryAccepted"></p-sortIcon></th>
+                    <th pSortableColumn="documentTypeName" style="width: 12%;">Tipo de Documento <p-sortIcon
+                            field="documentType.documentTypeName"></p-sortIcon></th>
+                    <th pSortableColumn="transactionTypeName">Tipo de Transaccion <p-sortIcon
+                            field="transactionType.transactionTypeName"></p-sortIcon></th>
+                    <th>Importe Total</th>
+                    <th pSortableColumn="creationDate">Fecha de Creación <p-sortIcon field="creationDate"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="description">Nota <p-sortIcon field="description"></p-sortIcon></th>
+                    <th style="width: 7%;">Ver Detalle</th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-transaction>
+                <tr>
+                    <td style="width: 15%;">{{transaction.client.displayName}}</td>
+                    <td  style="width: 8%;"><p-tag
+                            [style]="transaction.transactionAccepted ? { 'background': '#55d0bd85' , 'color':'#1f7f7c'}: { 'background': '#eee55885' , 'color':'#938d3c'}"
+                            [value]="transaction.transactionAccepted ? 'ACEPTADO' : 'EN REVISIÓN'"></p-tag></td>
+                    <td style="width: 12%;">{{transaction.documentType.documentTypeName}}</td>
+                    <td>{{transaction.transactionType.transactionTypeName}}</td>
+                    <td>{{transaction.totalAmountBs | currency:'Bs. '}}</td>
+                    <td>{{transaction.creationDate}}</td>
+                    <td>{{transaction. description}}</td>
+                    <td style="width: 7%;" id="but-hover">
+                        <button type="button" class="p-button-rounded" id="button-custom-rounded"
+                            (click)="onViewDetail(transaction.journalEntryId)">
+                            <i class="pi pi-eye"></i>
+                        </button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="8">No se encontraron registros.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <!-- <p-paginator id="paginator" (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements"
+            [rowsPerPageOptions]="[10, 25, 50, 100] "></p-paginator> -->
+
+    </div>
+</div>

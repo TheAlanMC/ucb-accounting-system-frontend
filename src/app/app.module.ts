@@ -6,18 +6,19 @@ import { AppComponent } from './app.component';
 import { initializeKeycloak } from './core/init/keycloak-init.factory';
 import { KeycloakAngularModule, KeycloakService } from "keycloak-angular";
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
-
 import { ErrorInterceptor } from "./core/interceptors/error-interceptor";
-
 import { ChartOfAccountsModule } from './features/chart-of-accounts/chart-of-accounts.module';
-import { DashboardModule } from './features/dashboard/dashboard.module';
 import { FinancialStatementsModule } from './features/financial-statements/financial-statements.module';
-import { JournalBookModule } from './features/journal-book/journal-book.module';
+import { TransactionModule } from './features/transaction/transaction.module';
 import { JournalEntryModule } from './features/journal-entry/journal-entry.module';
 import { LedgerBookModule } from './features/ledger-book/ledger-book.module';
 import { SupportModule } from './features/support/support.module';
 import { UserAccountsModule } from './features/user-accounts/user-accounts.module';
-
+import {CompanyRegistrationModule} from "./features/company-registration/company-registration.module";
+import {TaxesModule} from "./features/taxes/taxes.module";
+import { SalesModule } from './features/sales/sales.module';
+import { MessageService } from 'primeng/api';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent
@@ -26,18 +27,22 @@ import { UserAccountsModule } from './features/user-accounts/user-accounts.modul
     BrowserModule,
     AppRoutingModule,
     ChartOfAccountsModule,
-    DashboardModule,
     FinancialStatementsModule,
-    JournalBookModule,
+    TransactionModule,
     JournalEntryModule,
     LedgerBookModule,
     SupportModule,
     UserAccountsModule,
     KeycloakAngularModule,
-    HttpClientModule
+    CompanyRegistrationModule,
+    TaxesModule,
+    HttpClientModule,
+    SalesModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {
+
       provide: APP_INITIALIZER,
       useFactory: initializeKeycloak,
       multi: true,
@@ -47,6 +52,10 @@ import { UserAccountsModule } from './features/user-accounts/user-accounts.modul
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
       multi: true,
+    },
+    {
+      provide: MessageService,
+      useClass: MessageService
     },
   ],
   bootstrap: [AppComponent]

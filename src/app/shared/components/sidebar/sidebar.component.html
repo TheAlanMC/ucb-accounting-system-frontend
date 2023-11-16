@@ -1,0 +1,96 @@
+<div #sidebar [ngClass]="{ 'sidebar': !isOpen, 'sidebar open': isOpen }" id="sidebar" [style.backgroundColor]="backgroundColor">
+  <div class="logo-details">
+    <i class='bx bxl-c-plus-plus icon'></i>
+    <i #btn class="pi pi-bars" id="btn" (click)="expandir()"></i>
+  </div>
+  <ul class="nav-list">
+    <div class="flex justify-content-center flex-wrap">
+      <a [routerLink]="['/home']">
+        <img id="logo-img" src="assets/logo/logo-PW.svg" alt="" width="60%" style="margin: 0 auto;">
+      </a>
+    </div>
+    <br>
+    <li>
+      <a routerLink="/dashboard">
+        <i class='pi pi-chart-pie'></i>
+        <span class="links_name">Dashboard</span>
+        <i class='pi pi-chevron-right right-arrow' style="font-size: 0.6rem"></i>
+      </a>
+      <span class="tooltip">Dashboard</span>
+    </li>
+    <li>
+      <a routerLink="/sales">
+        <i>
+          <img class="local-icon" src="/assets/ventas.svg" alt="" width="23px">
+        </i>
+        <span class="links_name">Ventas</span>
+      </a>
+      <i class='pi pi-chevron-right right-arrow' style="font-size: 0.6rem;"></i>
+      <ul class="sub-menu">
+        <li><a routerLink="/sales" (click)="changeTab(0)">Todas las ventas</a></li>
+        <li><a routerLink="/sales/invoice">Nueva factura</a></li>
+        <li><a routerLink="/sales/receipt">Nuevo recibo de venta</a></li>
+        <li><a routerLink="/sales" (click)="changeTab(1)">Clientes</a></li>
+      </ul>
+      <span class="tooltip">Ventas</span>
+    </li>
+    <li>
+      <a routerLink="/expenses">
+        <i>
+          <img class="local-icon" src="/assets/gastos.svg" alt="" width="23px">
+        </i>
+        <span class="links_name">Compras</span>
+      </a>
+      <i class='pi pi-chevron-right right-arrow' style="font-size: 0.6rem;"></i>
+      <ul class="sub-menu">
+        <li><a routerLink="/expenses" (click)="changeTab(0)">Todos las compras</a></li>
+        <li><a routerLink="/expenses/invoice">Nueva factura a proveedores</a></li>
+        <li><a routerLink="/expenses/receipt">Nuevo recibo de abono</a></li>
+        <li><a routerLink="/expenses" (click)="changeTab(1)">Proveedores</a></li>
+      </ul>
+      <span class="tooltip">Compras</span>
+    </li>
+
+    <li *ngIf="isAccountant">
+      <a routerLink="/transactions">
+        <i class='pi pi-book'></i>
+        <span class="links_name">Contabilidad</span>
+        <i class='pi pi-chevron-right right-arrow' style="font-size: 0.6rem"></i>
+      </a>
+      <ul class="sub-menu">
+        <li><a routerLink="/transactions">Todas las transacciones</a></li>
+        <!--        <li><a routerLink="/journal">Asiento diario</a></li>-->
+        <li><a routerLink="/journal">Comprobante de diario</a></li>
+        <li><a routerLink="/openingbalance">Balance de apertura</a></li>
+        <li><a routerLink="/taxes">Impuestos</a></li>
+      </ul>
+      <span class="tooltip">Contabilidad</span>
+    </li>
+    <li>
+      <a routerLink="/chartofaccounts">
+        <i class='pi pi-th-large'></i>
+        <span class="links_name">Plan de cuentas</span>
+        <i class='pi pi-chevron-right right-arrow' style="font-size: 0.6rem"></i>
+      </a>
+      <span class="tooltip">Plan de cuentas</span>
+    </li>
+    <li>
+      <a routerLink="/reports">
+        <i class='pi pi-file'></i>
+        <span class="links_name">Reportes</span>
+        <i class='pi pi-chevron-right right-arrow' style="font-size: 0.6rem"></i>
+      </a>
+      <span class="tooltip">Reportes</span>
+    </li>
+    <li class="profile" (click)="confirm($event)" style="cursor: pointer;">
+      <div class="profile-details">
+        <div class="name_job">
+          <i class='pi pi-sign-out' id="log_out"></i>
+          <div class="logout-tag">Cerrar sesión</div>
+        </div>
+      </div>
+    </li>
+    <p-toast></p-toast>
+    <p-confirmPopup></p-confirmPopup>
+  </ul>
+</div>

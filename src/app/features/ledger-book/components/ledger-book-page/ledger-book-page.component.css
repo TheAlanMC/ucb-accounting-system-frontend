@@ -1,0 +1,64 @@
+* {
+  color: #666666;
+  font-size: small;
+}
+
+
+/* Sidebar configuration */
+.home-section {
+  position: absolute;
+  min-height: 100vh;
+  top: 0;
+  left: 70px;
+  width: calc(100% - 78px);
+  transition: all 0.5s ease;
+  z-index: 2;
+}
+
+.navbar-opened {
+  left: 250px;
+  width: calc(100% - 250px);
+}
+
+#account-name{
+  font-size: 20px;
+  font-weight: 500;
+  color: #666666;
+}
+
+.pass-icon{
+  color: #29ABAC;
+  cursor: pointer;
+  /* Transicion */
+  transition: color 0.5s ease;
+}
+
+.pass-icon:hover{
+  color: #22d4d4;
+}
+
+/* Dropdown */
+::ng-deep #account-number .p-dropdown .p-dropdown-items .p-dropdown-item span {
+  font-size: small !important;
+  font-weight: normal !important;
+}
+
+::ng-deep #account-number .p-dropdown span {
+  font-size: 20px;
+  font-weight: 500;
+  color: #666666;
+  padding:0.25rem 0.5rem 0.25rem 0.5rem;
+}
+
+/* Buttons */
+::ng-deep #export-button button,
+::ng-deep #print-button button{
+  background-color: var(--color-green);
+  border-color: var(--color-green);
+  color: white;
+  font-size: small;
+  font-weight: 500;
+  height: 30px;
+}
+
+

@@ -1,0 +1,59 @@
+<p-toast></p-toast>
+<div class="flex card-container overflow-hidden">
+    <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0">
+        <i class="pi pi-building" style="color: var(--color-green); font-size: 2.5rem; z-index: 2 !important;"></i>
+        <p class="text-2xl md:text-3xl" style="z-index:2;">&nbsp;&nbsp;&nbsp;Información de la empresa</p>
+    </div>
+    <div class="flex-none flex align-items-center justify-content-center font-bold m-2 px-5 py-3">
+        <p-button icon="pi pi-times" styleClass="p-button-rounded p-button-secondary p-button-text" (click)="goBack()"></p-button>
+        <!-- <i class="pi pi-times" ></i> -->
+    </div>
+</div>
+<hr style="margin-top: -15px;">
+<div class="mx-8 my-5 tarjeta-info" *ngIf="companyData">
+    <div class="w-11rem h-11rem pl-4">
+        <img width="150px" height="150px" class="shadow-4" style="border-radius:100%;" [src]="companyData.companyLogo"
+            alt="Gaming Set">
+        <div class="custom-file-upload">
+            <input type="file" id="fileInput" (change)="onFileSelected2($event)" accept="image/*" />
+            <label for="fileInput">
+                <span class="custom-button">
+                    <i class="pi pi-pencil" style="color: white;"></i>
+                </span>
+            </label>
+        </div>
+    </div>
+
+    <div class="grid h-24rem">
+        <div class="col-12 md:col-6">
+            <div class="card p-fluid pr-8 pl-4">
+                <h3 style="color: #B1B1B1;">Actualiza la información de la empresa</h3>
+                <div class="field pr-8"><label htmlfor="name1">Nombre:</label><input
+                        [(ngModel)]="companyData.companyName" pInputText="" id="name" type="text"
+                        class="p-inputtext p-component p-element h-2rem"></div>
+                <div class="field pr-8"><label htmlfor="name1">Numero de identificación tributaria:</label><input
+                        [(ngModel)]="companyData.companyNit" pInputText="" id="nofiscal" type="text"
+                        class="p-inputtext p-component p-element h-2rem"></div>
+                <div class="field pr-8"><label htmlfor="name1">Dirección:</label><input
+                        [(ngModel)]="companyData.companyAddress" pInputText="" id="direccion" type="text"
+                        class="p-inputtext p-component p-element h-2rem"></div>
+                <div class="field pr-8"><label htmlfor="name1">Numero de telefono:</label><input
+                        [(ngModel)]="companyData.phoneNumber" pInputText="" id="fiscal" type="text"
+                        class="p-inputtext p-component p-element h-2rem"></div>
+
+                <div class="field pr-8"><label htmlfor="name1">Tipo de negocio:</label>
+                  <p-dropdown [options]="businessEntities" [(ngModel)]="selectedBusinessEntity"
+                              optionLabel="name" placeholder="Seleccione un tipo de negocio" [style]="{'width':'auto'}"></p-dropdown>
+                </div>
+                <div class="field pr-8"><label htmlfor="name1">Industria:</label>
+                  <p-dropdown [options]="industries" [(ngModel)]="selectedIndustry"
+                              optionLabel="name" placeholder="Seleccione una industria" [style]="{'width':'auto'}"></p-dropdown>
+                </div>
+                <div class="col-6 mt-8" id="save-buttons">
+                    <p-button (click)="save()" icon="pi pi-save" label="Guardar cambios"
+                        styleClass="p-button-success"></p-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

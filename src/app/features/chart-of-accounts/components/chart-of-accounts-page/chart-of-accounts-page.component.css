@@ -1,0 +1,95 @@
+* {
+    color: #666666;
+    font-size: small;
+}
+/* Fieldset */
+::ng-deep .p-element .p-fieldset .p-fieldset-legend{
+    padding: 7px 12px ;
+    background-color: var(--color-green);
+    border-radius: 5px;
+}
+::ng-deep .p-element .p-fieldset .p-fieldset-legend div span{
+    font-size: small;
+    color: white;
+}
+
+::ng-deep .p-sidebar{
+    background-color: #F3F6F6;
+    z-index: 1200 !important;
+}
+::ng-deep .p-sidebar .p-sidebar-content{
+    padding: 0 30px;
+}
+
+::ng-deep .p-element .p-fieldset{
+    border-radius: 11px;
+    border: 1px solid rgba(187, 187, 187, 0.60);
+    background: #FFF;
+    box-shadow: 2px 2px 12px -1px rgba(0, 0, 0, 0.25);
+}
+
+/* Botones */
+/* Verde */
+::ng-deep .green-button button {
+    background: var(--color-green) !important;
+    border-color: var(--color-green) !important;
+    font-size: small;
+}
+/* Rojo */
+::ng-deep .red-button button {
+    background: #F77 !important;
+    border-color: #F77  !important;
+    font-size: small;
+}
+
+/* Tabla */
+::ng-deep .p-datatable{
+    font-size: small;
+}
+
+/* Input */
+::ng-deep .ca-input{
+    width: 100%;
+    font-size: small;
+    padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+}
+::ng-deep .right-search-input {
+    width: 100%;
+    font-size: small;
+    padding: 0.25rem 0.5rem 0.25rem 2rem;
+}
+
+
+/* Aumenta la especificidad utilizando un selector más específico */
+:host ::ng-deep .boton-editar .p-button {
+    background-color: #808080 !important; /* Cambia el color de fondo del botón Editar a plomo */
+    color: white !important; /* Cambia el color del texto del botón Editar a blanco */
+}
+
+/* Sidebar configuration */
+.home-section {
+    position: absolute;
+    min-height: 100vh;
+    top: 0;
+    left: 70px;
+    width: calc(100% - 78px);
+    transition: all 0.5s ease;
+    z-index: 2;
+}
+
+.navbar-opened {
+    left: 250px;
+    width: calc(100% - 250px);
+}
+
+/* Dropdown */
+::ng-deep #account-number .p-dropdown {
+    height: 30px !important;
+}
+
+::ng-deep #account-number .p-dropdown span {
+    font-size: small;
+    padding:0.25rem 0.5rem 0.25rem 0.5rem;
+}
+
+

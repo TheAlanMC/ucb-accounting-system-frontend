@@ -1,0 +1,23 @@
+/* Table */
+::ng-deep #accounts-table .p-datatable-table{
+    font-size: small;
+}
+::ng-deep #accounts-table{
+    width: 100%;
+}
+
+/* Input */
+::ng-deep .accm-input{
+    width: 50%;
+    font-size: small;
+    padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+}
+
+/* Spinner */
+::ng-deep #spinner{
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

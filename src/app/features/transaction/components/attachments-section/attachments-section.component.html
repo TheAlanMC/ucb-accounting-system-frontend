@@ -1,0 +1,21 @@
+<p-table [value]="attachmentsList" *ngIf="attachmentsList.length > 0 else noAttachments">
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width:10%">Archivo</th>
+      <th style="width:10%">Descargar</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-attachment>
+    <tr>
+      <td>{{ attachment.filename }}</td>
+      <td>
+        <button pButton type="button" icon="pi pi-download" (click)="downloadFile(attachment.fileUrl, attachment.filename, attachment.contentType)"></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<ng-template #noAttachments>
+  <p>No hay archivos adjuntos</p>
+</ng-template>
+

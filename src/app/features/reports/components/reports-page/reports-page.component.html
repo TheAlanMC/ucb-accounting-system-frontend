@@ -1,0 +1,159 @@
+<app-sidebar (navbarToggle)="onNavbarToggle($event)"></app-sidebar>
+<div class="home-section" [class.navbar-opened]="isNavbarOpen">
+  <div class="card">
+    <p-toast [style]="{'z-index':'2000'}"></p-toast>
+    <div class="flex card-container overflow-hidden">
+      <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0">
+        <i class="pi pi-file" style="color: var(--color-green); font-size: 2.5rem; z-index: 2 !important;"></i>
+        <p class="text-2xl md:text-3xl" style="z-index:2;">&nbsp;&nbsp;&nbsp;Reportes</p>
+      </div>
+      <div class="flex-none flex align-items-center justify-content-center font-bold m-2 px-5 py-3">
+        <app-navbar></app-navbar>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 xl:col-12 px-8 py-3">
+    <br>
+    <div class="flex justify-content-end">
+      <a [routerLink]="'list'">Reportes generados</a>
+    </div>
+
+    <br>
+    <!-- <a [routerLink]="['ledgerbook']" >Libro mayor</a> -->
+    <!-- <a (click)="visible = true" >Libro mayor</a> -->
+
+    <!-- Cards -->
+    <div class="flex flex-row flex-wrap">
+      <div class="report-item">
+        <a [routerLink]="['journalbook']" class="report-item-link">
+          <div class="report-item-bg"></div>
+          <div class="report-item-tittle mb-3">
+            Libro diario
+          </div>
+          <span class="report-item-button">
+            Generar
+            <i class="pi pi-chevron-right"></i>
+          </span>
+          <i class="pi pi-book icon"></i>
+        </a>
+      </div>
+
+      <div class="report-item">
+        <a (click)="visible=true" class="report-item-link">
+          <div class="report-item-bg"></div>
+          <div class="report-item-tittle mb-3">
+            Libro mayor
+          </div>
+          <span class="report-item-button">
+            Generar
+            <i class="pi pi-chevron-right"></i>
+          </span>
+          <i class="pi pi-database icon"></i>
+        </a>
+      </div>
+
+      <div class="report-item">
+        <a [routerLink]="['trialbalance']" class="report-item-link">
+          <div class="report-item-bg"></div>
+          <div class="report-item-tittle mb-3">
+            Balance de sumas y saldos
+          </div>
+          <span class="report-item-button">
+            Generar
+            <i class="pi pi-chevron-right"></i>
+          </span>
+          <i class="pi pi-plus-circle icon"></i>
+        </a>
+      </div>
+
+      <div class="report-item">
+        <a [routerLink]="['worksheet']" class="report-item-link">
+          <div class="report-item-bg"></div>
+          <div class="report-item-tittle mb-3">
+            Hoja de trabajo
+          </div>
+          <span class="report-item-button">
+            Generar
+            <i class="pi pi-chevron-right"></i>
+          </span>
+          <i class="pi pi-table icon"></i>
+        </a>
+      </div>
+    </div>
+    <div class="flex flex-row align-items-center justify-content-between ml-3 mb-3">
+      <p style="font-size: 18px; font-weight: bold; color: rgb(170, 170, 170);">Estados financieros</p>
+      <p-divider id="divider"></p-divider>
+    </div>
+    <div class="flex flex-row flex-wrap">
+      <div class="report-item">
+        <a [routerLink]="['incomestatements']" class="report-item-link">
+          <div class="report-item-bg" style="background-color: #705e9f;"></div>
+          <div class="report-item-tittle mb-3">
+            Estado de resultados
+          </div>
+          <span class="report-item-button">
+            Generar
+            <i class="pi pi-chevron-right"></i>
+          </span>
+          <i class="pi pi-box icon"></i>
+        </a>
+      </div>
+      <div class="report-item">
+        <a [routerLink]="['balancesheet']" class="report-item-link">
+          <div class="report-item-bg" style="background-color: #44be95;"></div>
+          <div class="report-item-tittle mb-3">
+            Balance General
+          </div>
+          <span class="report-item-button">
+            Generar
+            <i class="pi pi-chevron-right"></i>
+          </span>
+          <i class="pi pi-ellipsis-h icon"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Modal ledger book -->
+<div class="card flex justify-content-center">
+  <p-dialog id="ledgerbook-dialog" header={{title}} [(visible)]="visible" [modal]="true" [style]="{ width: '30vw' }"
+    [draggable]="false" [resizable]="false" (onHide)="ocultar()">
+    <app-date-modal *ngIf="ledgerBookDate"></app-date-modal>
+    <app-account-modal *ngIf="!ledgerBookDate" (sidebarOpen)="retrieveState($event)"
+      (listOfAccounts)="retrieveAccounts($event)" [subaccountDto]="selectedSubaccount"></app-account-modal>
+    <ng-template pTemplate="footer">
+      <div *ngIf="!ledgerBookDate" class="flex justify-content-between">
+        <p-button id="back-button" label="Atrás" icon="pi pi-angle-left" (click)="goBack()"></p-button>
+        <p-button id="next-button" label="Siguiente" (click)="selectAccounts()" icon="pi pi-angle-right"
+          iconPos="right"></p-button>
+      </div>
+      <p-button *ngIf="ledgerBookDate" id="next-button" label="Siguiente" (click)="selectAccounts()" icon="pi pi-angle-right" iconPos="right"></p-button>
+      <!-- <button type="button" " (click)="selectAccounts()" label="Siguiente" ></button> -->
+    </ng-template>
+  </p-dialog>
+</div>
+
+<p-sidebar [(visible)]="sidebarVisible2" position="right">
+  <ng-template pTemplate="header">
+    <h1>Selector de cuentas</h1>
+  </ng-template>
+  <!-- p-table -->
+  <p-table [value]="accounts" [scrollable]="true" [tableStyle]="{'min-width':'100%'}">
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 10%;">Código</th>
+        <th style="width: 40%;">Nombre</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-account let-rowIndex="rowIndex">
+      <tr>
+        <td (click)=onAccountSelected(rowIndex)>{{account.subaccountCode}}</td>
+        <td (click)=onAccountSelected(rowIndex)>{{account.subaccountName}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-sidebar>

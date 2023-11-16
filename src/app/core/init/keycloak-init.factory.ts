@@ -10,8 +10,9 @@ export function initializeKeycloak(keycloak: KeycloakService) {
         clientId: environment.KEYCLOAK_CLIENT_ID,
       },
       initOptions: {
-        onLoad: 'login-required',
+        onLoad: "login-required",
         checkLoginIframe: false,
-        }
+        },
+        // bearerExcludedUrls: ['invoice']
     });
 }

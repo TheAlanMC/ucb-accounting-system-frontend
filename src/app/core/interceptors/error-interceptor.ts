@@ -12,7 +12,6 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
         //this.showMessage(`Error: ${error.status} - ${error.error.message}`);
-        //TODO: crear las rutas de los errores 404 y 403
         if (error.status === 404) {
           this.router.navigate(['/404']).then(r => console.log('redirect to 404 page'));
         }
