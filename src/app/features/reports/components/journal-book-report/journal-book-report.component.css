@@ -78,7 +78,8 @@
 
 /* Buttons */
 ::ng-deep #export-button button,
-::ng-deep #generate-button button{
+::ng-deep #generate-button button,
+::ng-deep #print-button button{
   background-color: var(--color-green);
   border-color: var(--color-green);
   color: white;

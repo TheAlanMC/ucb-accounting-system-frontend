@@ -24,6 +24,7 @@ export class SidebarComponent {
   homeUrl = environment.ANGULAR_URL;
   isAccountant = false;
   isOpen:boolean = false;
+  backgroundColor: string = '';
 
   @Output() navbarToggle = new EventEmitter<boolean>();
 
@@ -35,6 +36,7 @@ export class SidebarComponent {
     this.sidebarService.getIsOpen().subscribe((isOpen) => {
       this.isOpen = isOpen;
     });
+    this.backgroundColor = this.sidebarService.getBackgroundColor();
     this.determineRole();
   }
 

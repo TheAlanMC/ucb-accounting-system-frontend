@@ -1,4 +1,4 @@
-<div #sidebar [ngClass]="{ 'sidebar': !isOpen, 'sidebar open': isOpen }" id="sidebar">
+<div #sidebar [ngClass]="{ 'sidebar': !isOpen, 'sidebar open': isOpen }" id="sidebar" [style.backgroundColor]="backgroundColor">
   <div class="logo-details">
     <i class='bx bxl-c-plus-plus icon'></i>
     <i #btn class="pi pi-bars" id="btn" (click)="expandir()"></i>
@@ -61,6 +61,7 @@
         <li><a routerLink="/transactions">Todas las transacciones</a></li>
         <!--        <li><a routerLink="/journal">Asiento diario</a></li>-->
         <li><a routerLink="/journal">Comprobante de diario</a></li>
+        <li><a routerLink="/openingbalance">Balance de apertura</a></li>
         <li><a routerLink="/taxes">Impuestos</a></li>
       </ul>
       <span class="tooltip">Contabilidad</span>

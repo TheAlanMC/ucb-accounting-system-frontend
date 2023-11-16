@@ -6,11 +6,8 @@ import { AppComponent } from './app.component';
 import { initializeKeycloak } from './core/init/keycloak-init.factory';
 import { KeycloakAngularModule, KeycloakService } from "keycloak-angular";
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
-
 import { ErrorInterceptor } from "./core/interceptors/error-interceptor";
-
 import { ChartOfAccountsModule } from './features/chart-of-accounts/chart-of-accounts.module';
-import { DashboardModule } from './features/dashboard/dashboard.module';
 import { FinancialStatementsModule } from './features/financial-statements/financial-statements.module';
 import { TransactionModule } from './features/transaction/transaction.module';
 import { JournalEntryModule } from './features/journal-entry/journal-entry.module';
@@ -30,7 +27,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     AppRoutingModule,
     ChartOfAccountsModule,
-    DashboardModule,
     FinancialStatementsModule,
     TransactionModule,
     JournalEntryModule,

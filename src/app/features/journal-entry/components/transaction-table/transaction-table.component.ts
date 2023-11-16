@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import { JournalEntryDto } from '../../models/journal-entry.dto';
 import { TransactionDetailDto } from '../../models/transaction-detail.dto';
 import {AccountPlanService} from "../../../../core/services/account-plan.service";
@@ -13,6 +13,8 @@ import {PartnerService} from "../../../../core/services/partner.service";
 })
 
 export class TransactionTableComponent {
+  @ViewChild('dt', { static: false }) dt: any;
+
   //Object emmited to the parent component
   @Output() transactionDetailsEmmited = new EventEmitter<TransactionDetailDto[]>();
   @Output() glossAndTotalEmmited = new EventEmitter<string[]>();
@@ -22,6 +24,8 @@ export class TransactionTableComponent {
   companyId = Number(localStorage.getItem('companyId'));
   totalDebitAmount: number = 0;
   totalCreditAmount: number = 0;
+  searchValue: string = '';
+
   transactions: TransactionDetailDto[] = [];
 
   accountCategory: AccountCategoryDto[] = []
@@ -41,6 +45,14 @@ export class TransactionTableComponent {
     this.getAccountingPlan();
     this.getClients();
   }
+
+  applyFilterGlobal(event: Event, stringVal: string) {
+    const inputValue = (event.target as HTMLInputElement).value;
+    // console.log(inputValue);
+    this.dt.filterGlobal(inputValue, stringVal);
+    // this.expandAll();
+  }
+
 
 /*   onRowSelect(event: any) {
     this.messageService.add({ severity: 'info', summary: 'Product Selected', detail: event.data.name });

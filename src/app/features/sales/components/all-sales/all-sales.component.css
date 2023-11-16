@@ -50,6 +50,8 @@
     padding:0.25rem 0.5rem 0.25rem 0.5rem;
 }
 
+
+
 /* Botones */
 /* Verde */
 ::ng-deep .green-button button {
@@ -82,8 +84,23 @@
 }
 
 /* Paginator */
-::ng-deep #paginator .p-dropdown-label{
+::ng-deep .p-paginator .p-dropdown-label{
   width: 100%;
   font-size: small;
   padding: 0.5rem;
+}
+::ng-deep .p-paginator{
+  font-size: small;
+  justify-content: end;
+}
+::ng-deep .p-paginator-pages button{
+    font-size: small;
+}
+
+/* ------- */
+::ng-deep .p-multiselect-filter{
+    width: 100%;
+    height: 30px;
+    font-size: small;
+    padding: 0.25rem 2rem 0.25rem 0.5rem;
 }

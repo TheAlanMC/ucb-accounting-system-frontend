@@ -35,15 +35,18 @@
 </div>
 <br>
 <p-table #dt2 [value]="sales" [(selection)]="selectedSales" dataKey="code" [tableStyle]="{'min-width': '50rem'}"
-    [lazy]="true" (onSort)="onSortChange($event)" [customSort]="true">
+    [lazy]="true" (onSort)="onSortChange($event)" [customSort]="true" [rows]="10" [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 25, 50, 100]" [paginator]="true" [totalRecords]="totalElements" [loading]="isLoading"
+    (onPage)="onPageChange($event)"
+    currentPageReportTemplate="Mostrando los registros del {first} al {last} de un total de {totalRecords}">
     <ng-template pTemplate="header">
         <tr>
-            <th style="width: 4rem">
+            <!-- <th style="width: 4rem">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-            </th>
-            <th pSortableColumn="saleTransactionDate">Fecha <p-sortIcon field="saleTransactionDate"></p-sortIcon></th>
-            <th pSortableColumn="transactionTypeName">Tipo <p-sortIcon field="transactionTypeName"></p-sortIcon></th>
-            <th pSortableColumn="saleTransactionNumber">Nº <p-sortIcon field="saleTransactionNumber"></p-sortIcon></th>
+            </th> -->
+            <th pSortableColumn="saleTransactionDate">Fecha <p-sortIcon field="saleTransactionDate" style="width: 8%;"></p-sortIcon></th>
+            <th pSortableColumn="transactionTypeName">Tipo <p-sortIcon field="transactionTypeName" style="width: 8%;"></p-sortIcon></th>
+            <th pSortableColumn="saleTransactionNumber">Nº <p-sortIcon field="saleTransactionNumber" style="width: 8%;"></p-sortIcon></th>
             <th pSortableColumn="displayName">Cliente <p-sortIcon field="displayName"></p-sortIcon></th>
             <th pSortableColumn="gloss">Descripción <p-sortIcon field="gloss" style="font-size: 1rem;"></p-sortIcon>
             </th>
@@ -54,12 +57,12 @@
     </ng-template>
     <ng-template pTemplate="body" let-sale>
         <tr>
-            <td>
+            <!-- <td>
                 <p-tableCheckbox [value]="sale"></p-tableCheckbox>
-            </td>
-            <td>{{sale.saleTransactionDate | date:'dd-MM-yyyy'}}</td>
-            <td>{{sale.transactionType.transactionTypeName}}</td>
-            <td>{{sale.saleTransactionNumber}}</td>
+            </td> -->
+            <td  style="width: 8%;">{{sale.saleTransactionDate | date:'dd-MM-yyyy'}}</td>
+            <td style="width: 8%;">{{sale.transactionType.transactionTypeName}}</td>
+            <td style="width: 8%;">{{sale.saleTransactionNumber}}</td>
             <td>{{sale.customer.displayName}}</td>
             <td>{{sale.gloss}}</td>
             <td>{{sale.totalAmountBs | currency: 'Bs. '}}</td>
@@ -68,6 +71,21 @@
                     [value]="sale.saleTransactionAccepted ? 'ACEPTADO' : 'EN REVISIÓN'"></p-tag></td>
         </tr>
     </ng-template>
-</p-table>
-<p-paginator (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements"
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="7">No se encontraron registros de ventas/ingresos.</td>
+        </tr>
+    </ng-template>
+    <!-- <ng-template pTemplate="footer">
+        <tr ><div class="flex flex-row justify-content-between">
+    
+
+            <p-paginator (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements"
     [rowsPerPageOptions]="[10, 25, 50, 100]" id="paginator"></p-paginator>
+    <p>Mostrando {{sales.length}} elementos de un total de {{totalElements}} registros</p>
+        
+</div>
+        </tr>
+
+    </ng-template> -->
+</p-table>

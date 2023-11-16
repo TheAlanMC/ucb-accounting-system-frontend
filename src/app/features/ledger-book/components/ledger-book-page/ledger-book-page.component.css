@@ -29,7 +29,7 @@
 .pass-icon{
   color: #29ABAC;
   cursor: pointer;
-  /* Transiciom */
+  /* Transicion */
   transition: color 0.5s ease;
 }
 
@@ -51,7 +51,8 @@
 }
 
 /* Buttons */
-::ng-deep #export-button button{
+::ng-deep #export-button button,
+::ng-deep #print-button button{
   background-color: var(--color-green);
   border-color: var(--color-green);
   color: white;

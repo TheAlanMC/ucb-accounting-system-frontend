@@ -32,9 +32,9 @@
     <!-- Buttons - save, save and register a new journay entry -->
     <div class="flex justify-content-between flex-wrap" id="journal-save-buttons">
         <div class="flex justify-content-between flex-wrap card-container purple-container mx-3">
-            <p-button label="Cancelar" class="red-button m-2 ml-5" routerLink="/transactions" [style]="{'font-size': 'medium','height':'100%'}"></p-button>
+            <p-button label="Atras" class="red-button m-2 ml-5" routerLink="/transactions" [style]="{'font-size': 'medium','height':'100%'}"></p-button>
         </div>
-        <div class="flex">
+        <div class="flex" *ngIf="!transactionJournalEntry.transactionAccepted">
             <div class="flex"><p-button label="Aprobar" (click)="approveJournalEntry()" class="m-2 mr-5"></p-button></div>
         </div>
     </div>
@@ -43,7 +43,7 @@
     <div class="flex flex-column">
         <div class="col-6">
             <p class="text-xl font-semibold">Notas</p>
-            <textarea rows="5" cols="50" pInputTextarea [(ngModel)]="description" [disabled]="true"></textarea>
+            <textarea rows="5" cols="50" pInputTextarea [(ngModel)]="description" [disabled]="true" style="font-size: small;"></textarea>
         </div>
         <div class="col-6 p-0">
             <p class="text-xl font-semibold">Archivos adjuntos</p>

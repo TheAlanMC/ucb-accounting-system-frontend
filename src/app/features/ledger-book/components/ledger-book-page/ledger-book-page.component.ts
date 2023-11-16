@@ -50,6 +50,7 @@ export class LedgerBookPageComponent {
   isLoading: boolean = true;
   cuentasDropdown: any = [];
   selectedAccount: any;
+  loading = false;
 
 
   onNavbarToggle(isOpen: boolean) {
@@ -61,6 +62,8 @@ export class LedgerBookPageComponent {
   }
 
   ngOnInit(): void {
+    const bgColor = '#F3F6F6;'; // Cambiamos el color
+    this.sidebarService.setBackgroundColor(bgColor);
     this.sidebarService.getIsOpen().subscribe((isOpen) => {
       this.isNavbarOpen = isOpen;
     });
@@ -129,12 +132,48 @@ export class LedgerBookPageComponent {
   }
 
   exportPdf() {
+    this.loading = true;
     this.reportService.getGeneralLedgersPdf(this.companyId, this.dateFrom, this.dateTo, '', 'asc', this.subaccountIds).subscribe({
       next: (response) => {
         window.open(response.data!.fileUrl, '_blank');
       },
       error: (error) => {
         console.log(error);
+      },
+      complete: () => {
+        this.loading = false;
+      }
+    });
+  }
+
+  exportExcel() {
+    this.loading = true;
+    this.reportService.getGeneralLedgersExcel(this.companyId, this.dateFrom, this.dateTo, '', 'asc', this.subaccountIds).subscribe({
+      next: (data) => {
+        // window.open(data.data!.fileUrl, '_blank');
+        fetch(data.data!.fileUrl).then(res => res.blob()).then(blob => {
+            const newDateFrom = Date.parse(this.dateFrom + 'T04:00:00');
+            const newDateTo = Date.parse(this.dateTo + 'T04:00:00');
+            // Create a new blob object using the response data of the onload object
+            const blobData = new Blob([blob], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            // Create a link element
+            const anchor = document.createElement('a');
+            // Create a reference to the object URL
+            anchor.href = window.URL.createObjectURL(blobData);
+            // Set the filename that will be downloaded
+            anchor.download = `LIBRO MAYOR ${format(newDateFrom, 'dd-MM-yyyy')} - ${format(newDateTo, 'dd-MM-yyyy')}.xlsx`;
+            // Trigger the download by simulating click
+            anchor.click();
+            // Revoking the object URL to free up memory
+            window.URL.revokeObjectURL(anchor.href);
+          }
+        );
+      },
+      error: (error) => {
+        console.log(error);
+      },
+      complete: () => {
+        this.loading = false;
       }
     });
   }

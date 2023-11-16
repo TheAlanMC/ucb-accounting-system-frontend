@@ -24,7 +24,8 @@ export class SalesPageComponent {
     this.communicationService.getActiveTabIndex().subscribe((index) => {
       this.activeTabIndex = index;
     });
-
+    const bgColor = '#F3F6F6;'; // Cambiamos el color
+    this.sidebarService.setBackgroundColor(bgColor);
     this.sidebarService.getIsOpen().subscribe((isOpen) => {
       this.isNavbarOpen = isOpen;
     });

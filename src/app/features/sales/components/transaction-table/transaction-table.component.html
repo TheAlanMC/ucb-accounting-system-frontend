@@ -4,13 +4,13 @@
             <tr>
                 <th style="width:1%"></th>
                 <th style="width:2%">#</th>
-                <th style="width:15%">Producto/Servicio</th>
-                <th style="width:20%">Descripción</th>
-                <th style="width:20%">Cantidad</th>
-                <th style="width:25%">Precio unitario</th>
+                <th style="width:25%">Producto/Servicio</th>
+                <th style="width:25%">Descripción</th>
+                <th style="width:15%">Cantidad</th>
+                <th style="width:15%">Precio unitario</th>
                 <th style="width:15%">Importe</th>
                 <th style="width:5%"></th>
-            </tr>
+              </tr>
         </ng-template>
         <ng-template pTemplate="body" let-transaction let-editing="editing" let-index="rowIndex">
             <tr [pReorderableRow]="index">
@@ -19,12 +19,12 @@
                 </td>
                 <td>{{index+1}}</td>
                 <td [pEditableColumn]="transaction.subaccountId" pEditableColumnField="subaccountId" [pEditableColumnRowIndex]="index" style="position: relative;">
-                    <p-dropdown id="subaccount-dropdown" appendTo="body" [options]="subaccounts" optionLabel="name" (onChange)="onSelectSubaccount($event, index)" placeholder="Seleccione una cuenta" [style]="{'width':'100%'}"></p-dropdown>
+                    <p-dropdown id="subaccount-dropdown" appendTo="body" [options]="subaccounts" optionLabel="name" (onChange)="onSelectSubaccount($event, index)" placeholder="Seleccione una cuenta" [style]="{'width':'100%'}" [filter]="true" filterBy="name"></p-dropdown>
                 </td>
                 <td [pEditableColumn]="transaction.descripcion" pEditableColumnField="descripcion" [pEditableColumnRowIndex]="index">
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input class="input-table" pInputText type="text" [(ngModel)]="transaction.descripcion"/>
+                            <input class="input-table w-full" pInputText type="text" [(ngModel)]="transaction.descripcion"/>
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{ transaction.descripcion}}
@@ -78,8 +78,8 @@
             </div>
             <!-- Columna 2 -->
             <div class="flex flex-column flex-wrap mx-2">
-                <p>Bs. {{totalAmount}}</p>
-                <p>Bs. {{saldoAmount}}</p>
+                <p>{{totalAmount | currency: 'Bs. '}}</p>
+                <p>{{saldoAmount | currency: 'Bs. '}}</p>
             </div>
         </div>
     </div>

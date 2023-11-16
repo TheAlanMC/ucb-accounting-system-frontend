@@ -17,6 +17,11 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { TableModule } from 'primeng/table';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ChartModule } from 'primeng/chart';
+import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule } from '@angular/forms';
+import { ToastModule } from 'primeng/toast';
+import {CalendarModule} from "primeng/calendar";
 
 @NgModule({
   declarations: [
@@ -28,18 +33,23 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     InfoCardComponent,
     DashboardComponent,
   ],
-  imports: [
-    CommonModule,
-    HomePageRoutingModule,
-    CardModule,
-    ButtonModule,
-    PanelModule,
-    DividerModule,
-    CarouselModule,
-    FieldsetModule,
-    TableModule,
-    SharedModule,
-  ],
+    imports: [
+        CommonModule,
+        HomePageRoutingModule,
+        CardModule,
+        ButtonModule,
+        PanelModule,
+        DividerModule,
+        CarouselModule,
+        FieldsetModule,
+        TableModule,
+        SharedModule,
+        ChartModule,
+        DropdownModule,
+        FormsModule,
+        ToastModule,
+        CalendarModule,
+    ],
   // exports: [HomePageComponent],
   // providers: [CarouselService],
 })

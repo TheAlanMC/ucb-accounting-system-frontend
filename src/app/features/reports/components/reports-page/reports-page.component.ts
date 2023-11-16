@@ -33,6 +33,8 @@ export class ReportsPageComponent {
   constructor(private messageService: MessageService, private sidebarService: SidebarService, private router: Router, private ledgerBookService: LedgerBookService) {}
 
   ngOnInit(): void {
+    const bgColor = '#F3F6F6;'; // Cambiamos el color
+    this.sidebarService.setBackgroundColor(bgColor);
     this.sidebarService.getIsOpen().subscribe((isOpen) => {
       this.isNavbarOpen = isOpen;
     });

@@ -1,9 +1,9 @@
-import {Component, ViewChild} from '@angular/core';
-import {MessageService} from "primeng/api";
-import {SupplierService} from "../../../../core/services/supplier.service";
-import {SupplierAbstractDto} from "../../models/supplier-abstract.dto";
-import {SupplierDto} from "../../models/supplier.dto";
-import {debounceTime, Subject} from "rxjs";
+import { Component, ViewChild } from '@angular/core';
+import { MessageService } from "primeng/api";
+import { SupplierService } from "../../../../core/services/supplier.service";
+import { SupplierAbstractDto } from "../../models/supplier-abstract.dto";
+import { SupplierDto } from "../../models/supplier.dto";
+import { debounceTime, Subject } from "rxjs";
 
 @Component({
   selector: 'app-suppliers',
@@ -20,7 +20,7 @@ export class SuppliersComponent {
   selectedProducts!: String;
   searchValue: string = '';
   addSupplierVisible: boolean = false;
-  suppliers : SupplierAbstractDto[] = [];
+  suppliers: SupplierAbstractDto[] = [];
   newSupplier!: SupplierDto;
   subaccountId: number = 1; //TODO: Get the subaccount id from the service
   prefix: string = '';
@@ -40,6 +40,7 @@ export class SuppliersComponent {
   page: number = 0;
   size: number = 10;
   totalElements: number = 0;
+  isLoading: boolean = true;
 
   searchTerm: string = '';
 
@@ -54,8 +55,10 @@ export class SuppliersComponent {
   }
 
   onPageChange(event: any) {
-    this.page = event.page;
-    this.size = event.rows;
+    var first = event.first;
+    var rows = event.rows;
+    this.page = Math.floor(first / rows);
+    this.size = rows;
     // console.log(event);
     this.getAllSuppliers();
   }
@@ -66,19 +69,21 @@ export class SuppliersComponent {
     this.getAllSuppliers();
   }
 
-  getAllSuppliers(){
-    this.supplierService.getAllSuppliers(this.companyId, this.sortBy, this.sortType,this.page, this.size, this.searchTerm ).subscribe({
+  getAllSuppliers() {
+    this.isLoading = true;
+    this.supplierService.getAllSuppliers(this.companyId, this.sortBy, this.sortType, this.page, this.size, this.searchTerm).subscribe({
       next: (data) => {
         this.suppliers = data.data!;
         // console.log(data);
         this.totalElements = data.totalElements!;
+        this.isLoading = false;
       },
       error: (error) => {
         console.log(error);
       }
     })
   }
-  addSupplier(){
+  addSupplier() {
     this.addSupplierVisible = true;
     this.prefix = '';
     this.firstName = '';
@@ -91,7 +96,7 @@ export class SuppliersComponent {
     this.editMode = false;
   }
 
-  createSupplier(){
+  createSupplier() {
     //Get all the data
     this.newSupplier = {
       subaccountId: this.subaccountId,
@@ -106,7 +111,7 @@ export class SuppliersComponent {
     }
 
     //Validate empty fields
-    if(this.prefix == '' || this.firstName == '' || this.lastName == '' || this.companyName == '' || this.companyEmail == '' || this.companyPhoneNumber == '' || this.companyAddress == ''){
+    if (this.prefix == '' || this.firstName == '' || this.lastName == '' || this.companyName == '' || this.companyEmail == '' || this.companyPhoneNumber == '' || this.companyAddress == '') {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor llene todos los campos' });
       return;
     }
@@ -128,7 +133,7 @@ export class SuppliersComponent {
     })
   }
 
-  editSupplier(supplierId: number){
+  editSupplier(supplierId: number) {
     this.editMode = true;
     // console.log(supplierId);
     //Get the supplier data
@@ -151,7 +156,7 @@ export class SuppliersComponent {
     })
   }
 
-  saveSupplierChanges(){
+  saveSupplierChanges() {
     //Get all the data
     this.newSupplier = {
       subaccountId: this.subaccountId,

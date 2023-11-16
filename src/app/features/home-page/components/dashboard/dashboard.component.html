@@ -1,1 +1,113 @@
-<p>dashboard works!</p>
+<app-sidebar (navbarToggle)="onNavbarToggle($event)"></app-sidebar>
+<p-toast [style]="{'z-index':'3000'}"></p-toast>
+
+<div class="home-section" [class.navbar-opened]="isNavbarOpen">
+    <div class="card">
+        <p-toast></p-toast>
+        <div class="flex card-container overflow-hidden">
+            <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-8 py-0">
+                <!-- <i class="pi pi-chart-pie" style="color: var(--color-green); font-size: 2.5rem; z-index: 2 !important;"></i> -->
+                <p class="text-3xl md:text-4xl" style="z-index:2;">Bienvenido, {{username}}!</p>
+            </div>
+            <div class="flex-none flex align-items-center justify-content-center font-bold m-2 px-5 py-3">
+                <app-navbar></app-navbar>
+            </div>
+        </div>
+    </div>
+
+
+  <div class="col-12 xl:col-12 px-8 pb-3">
+    <h4 style="color: #8c8c8c;">Rango de fechas para los dashboards</h4>
+    <div class="flex justify-content-between">
+      <div class="flex flex-row flex-wrap mb-3">
+        <div class="flex flex-column justify-content-start mr-2">
+          <p>Fecha inicial</p>
+          <p-calendar class="datepicker" [(ngModel)]="dateFrom" [showButtonBar]="true" [showIcon]="true"
+                      dateFormat="dd/mm/yy" inputId="icon" placeholder="Seleccione una fecha"
+                      [readonlyInput]="true" (ngModelChange)="onDateFromChange($event)"
+          ></p-calendar>
+        </div>
+        <div class="flex flex-column justify-content-start mr-2">
+          <p>Fecha final</p>
+          <p-calendar class="datepicker" [(ngModel)]="dateTo" [showButtonBar]="true" [showIcon]="true"
+                      dateFormat="dd/mm/yy" inputId="icon" placeholder="Seleccione una fecha"
+                      [readonlyInput]="true" (ngModelChange)="onDateToChange($event)"
+          ></p-calendar>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="px-8">
+        <div class="grid p-fluid">
+            <div class="col-12 lg:col-12">
+                <div class="card card-graph">
+                    <div class="flex flex-row align-items-center gap-4  header-graph">
+                        <i class="pi pi-arrow-right-arrow-left" style="font-size: 1.5rem"></i>
+                        <h2 class="text-2xl m-0" >Ventas / Gastos (Bs.)</h2>
+                    </div>
+                    <p-chart type="bar" [data]="barDataGastos" [options]="barOptions" height="35vh"></p-chart>
+                </div>
+            </div>
+<!--            <div class="col-12 lg:col-4">-->
+<!--                <div class="card">-->
+<!--                    <h5>*Pendiente*</h5>-->
+<!--                    <p-chart type="line"></p-chart>-->
+<!--                </div>-->
+
+<!--            </div>-->
+        </div>
+        <div class="grid p-fluid">
+
+            <div class="col-12 lg:col-6">
+                <div class="card-graph">
+                    <div class="flex flex-row align-items-center gap-4  header-graph">
+                        <i>
+                            <img class="local-icon" src="/assets/ventas.svg" alt="" width="25px">
+                          </i>
+                        <h2 class="text-2xl m-0" >Ventas (Bs.)</h2>
+                    </div>
+                    <br>
+                    <p-dropdown [options]="itemsSales" placeholder="Select an Item" (onChange)="onSelectedSales($event)"
+                        [(ngModel)]="selectedSale" styleClass="dropdown"  optionLabel="label"></p-dropdown>
+                    <h3>Total: {{totalVentas | number:'1.2-2'}} Bs.</h3>
+                    <!-- <div *ngFor="let item of dataVentas.labels; let i = index" class="item">
+                        {{item}}: {{dataVentas.datasets[0].data[i]}}
+                    </div> -->
+                    <div>
+                        <p-chart type="pie" [data]="dataVentas" [options]="optionsVentas" height="35vh"></p-chart>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-12 lg:col-6">
+                <div class="card-graph">
+                    <div class="flex flex-row align-items-center gap-4  header-graph">
+                        <i>
+                            <img class="local-icon" src="/assets/gastos.svg" alt="" width="25px">
+                          </i>
+                        <h2 class="text-2xl m-0" >Gastos (Bs.)</h2>
+                    </div>
+                    <br>
+                    <p-dropdown [options]="itemsExpenses" placeholder="Select an Item"
+                        (onChange)="onSelectedExpenses($event)" [(ngModel)]="selectedExpense"
+                        styleClass="dropdown" optionLabel="label"></p-dropdown>
+                    <h3>Total: {{totalGastos | number:'1.2-2'}} Bs.</h3>
+                    <!-- <div *ngFor="let item of data.labels; let i = index" class="item">
+                        {{item}}: {{data.datasets[0].data[i]}}
+                    </div> -->
+                    <p-chart type="doughnut" [data]="data" [options]="pieOptions"  height="35vh"></p-chart>
+                </div>
+            </div>
+<!--            <div class="col-12 lg:col-4">-->
+<!--                <div class="card">-->
+<!--                    <h5>*Pendiente*</h5>-->
+<!--                    <p-chart type="line"></p-chart>-->
+<!--                </div>-->
+
+<!--            </div>-->
+        </div>
+
+
+
+    </div>
+</div>

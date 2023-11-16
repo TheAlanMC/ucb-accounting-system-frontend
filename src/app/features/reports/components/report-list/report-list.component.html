@@ -1,0 +1,79 @@
+<app-sidebar (navbarToggle)="onNavbarToggle($event)"></app-sidebar>
+<div class="home-section" [class.navbar-opened]="isNavbarOpen">
+    <p-toast></p-toast>
+    <div class="flex card-container overflow-hidden">
+        <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0">
+            <i class="pi pi-list" style="color: var(--color-green); font-size: 2.5rem; z-index: 2 !important;"></i>
+            <p class="text-2xl md:text-3xl" style="z-index:2;">&nbsp;&nbsp;&nbsp;Lista de Reportes Generados</p>
+        </div>
+        <div class="flex-none flex align-items-center justify-content-center font-bold m-2 px-5 py-3">
+            <app-navbar></app-navbar>
+        </div>
+    </div>
+    <div class="col-12 xl:col-12 px-8 py-3">
+        <div class="flex justify-content-between">
+            <div class="flex flex-row flex-wrap mb-3">
+                <div class="flex flex-column justify-content-start mr-2">
+                    <p>Fecha inicial</p>
+                    <p-calendar class="datepicker" [(ngModel)]="startDate" [showButtonBar]="true" [showIcon]="true"
+                        dateFormat="dd/mm/yy" inputId="icon" placeholder="Seleccione una fecha"
+                        [readonlyInput]="true"></p-calendar>
+                </div>
+                <div class="flex flex-column justify-content-start mr-2">
+                    <p>Fecha final</p>
+                    <p-calendar class="datepicker" [(ngModel)]="endDate" [showButtonBar]="true" [showIcon]="true"
+                        dateFormat="dd/mm/yy" inputId="icon" placeholder="Seleccione una fecha"
+                        [readonlyInput]="true"></p-calendar>
+                </div>
+            </div>
+            <div class="flex flex-column justify-content-end flex-wrap mb-3">
+                <div class="flex justify-content-between  card-container ">
+                    <p-button label="Generar Lista" class="green-button" (onClick)="generateList()" id="generate-button"
+                        icon="pi pi-sync" iconPos="right"></p-button>
+<!--                    <span class="ml-2"></span>-->
+<!--                    <p-button label="Ver PDF" class="green-button" id="export-button"-->
+<!--                        icon="pi pi-file-export" iconPos="right"></p-button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-12 xl:col-12 px-8 py-3">
+        <p-table [value]="transactions" [tableStyle]="{'min-width': '60rem'}" [lazy]="true"
+            (onSort)="onSortChange($event)" [customSort]="true">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="txDate">Fecha de Creación <p-sortIcon field="txDate"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="description">Nombre del Reporte <p-sortIcon field="description"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="reportType.reportName">Tipo de Reporte <p-sortIcon
+                            field="reportType.reportName"></p-sortIcon></th>
+                    <th pSortableColumn="txUser">Usuario <p-sortIcon
+                            field="txUser"></p-sortIcon></th>
+
+                    <th>Descargar Reporte</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-transactions>
+                <tr>
+                    <td>{{transactions.dateTime | date:'yyyy-MM-dd HH:mm'}}</td>
+                    <td>{{transactions.reportDescription}}</td>
+                    <td>{{transactions.reportType.reportName}}</td>
+                    <td>{{transactions.user.email}}</td>
+
+                    <td id="but-hover">
+                        <button type="button" class="p-button-rounded" id="button-custom-rounded"
+                            (click)="onViewDetail(transactions.reportId, transactions.reportDescription)">
+                            <i class="pi pi-download"></i>
+                        </button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <p-paginator id="paginator" (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements"
+            [rowsPerPageOptions]="[10, 25, 50, 100] "></p-paginator>
+
+    </div>
+</div>

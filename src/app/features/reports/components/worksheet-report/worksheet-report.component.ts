@@ -50,6 +50,7 @@ export class WorksheetReportComponent {
   isLoading: boolean = true;
   message: string = 'Seleccione un rango de fechas para generar su reporte.';
   emptyTable: boolean = true;
+  loading = false;
 
   constructor(private reportService: ReportService, private sidebarService: SidebarService, private messageService: MessageService) {
 
@@ -88,6 +89,8 @@ export class WorksheetReportComponent {
   ];
 
   ngOnInit(): void {
+    const bgColor = '#F3F6F6;'; // Cambiamos el color
+    this.sidebarService.setBackgroundColor(bgColor);
     this.sidebarService.getIsOpen().subscribe((isOpen) => {
       this.isNavbarOpen = isOpen;
     });
@@ -174,9 +177,46 @@ export class WorksheetReportComponent {
   }
 
   exportPdf() {
+    this.loading = true;
     this.reportService.getWorksheetReportPdf(this.companyId, format(this.startDate!, 'yyyy-MM-dd'), format(this.endDate!, 'yyyy-MM-dd')).subscribe({
       next: (data) => {
         window.open(data.data!.fileUrl, '_blank');
+      },
+      error: (error) => {
+        console.log(error);
+      },
+      complete: () => {
+        this.loading = false;
+      }
+    });
+  }
+
+  exportExcel() {
+    this.loading = true;
+    this.reportService.getWorksheetReportExcel(this.companyId, format(this.startDate!, 'yyyy-MM-dd'), format(this.endDate!, 'yyyy-MM-dd')).subscribe({
+      next: (data) => {
+        // window.open(data.data!.fileUrl, '_blank');
+        fetch(data.data!.fileUrl).then(res => res.blob()).then(blob => {
+            // Create a new blob object using the response data of the onload object
+            const blobData = new Blob([blob], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            // Create a link element
+            const anchor = document.createElement('a');
+            // Create a reference to the object URL
+            anchor.href = window.URL.createObjectURL(blobData);
+            // Set the filename that will be downloaded
+            anchor.download = `HOJA DE TRABAJO ${format(this.startDate!, 'dd-MM-yyyy')} - ${format(this.endDate!, 'dd-MM-yyyy')}.xlsx`;
+            // Trigger the download by simulating click
+            anchor.click();
+            // Revoking the object URL to free up memory
+            window.URL.revokeObjectURL(anchor.href);
+          }
+        );
+      },
+      error: (error) => {
+        console.log(error);
+      },
+      complete: () => {
+        this.loading = false;
       }
     });
   }

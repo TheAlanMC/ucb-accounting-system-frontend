@@ -22,6 +22,8 @@ export class HomePageComponent {
   constructor(private userService: UserService, private valuesService: ValuesService, private sidebarService: SidebarService, private router: Router) { }
 
   ngOnInit(): void {
+    const bgColor = '#F3F6F6;'; // Cambiamos el color
+    this.sidebarService.setBackgroundColor(bgColor);
     this.sidebarService.getIsOpen().subscribe((isOpen) => {
       this.isNavbarOpen = isOpen;
     });

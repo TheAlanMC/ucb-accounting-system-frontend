@@ -27,6 +27,11 @@ import { LedgerBookModule } from '../ledger-book/ledger-book.module';
 import { SidebarModule } from 'primeng/sidebar';
 import { Divider, DividerModule } from 'primeng/divider';
 import { SkeletonModule } from 'primeng/skeleton';
+import { BalanceSheetsComponent } from '../financial-statements/components/balance-sheets/balance-sheets.component';
+import { TreeTableModule } from 'primeng/treetable';
+
+import { ReportListComponent } from './components/report-list/report-list.component';
+import {ProgressBarModule} from "primeng/progressbar";
 
 
 @NgModule({
@@ -34,36 +39,40 @@ import { SkeletonModule } from 'primeng/skeleton';
     ReportsPageComponent,
     JournalBookReportComponent,
     WorksheetReportComponent,
-    TrialBalanceComponent
+    TrialBalanceComponent,
+    BalanceSheetsComponent,
+    ReportListComponent
   ],
-  imports: [
-    CommonModule,
-    ReportsRoutingModule,
-    TableModule,
-    FormsModule,
-    ReactiveFormsModule,
-    InputTextModule,
-    ButtonModule,
-    CalendarModule,
-    ToastModule,
-    InputNumberModule,
-    TabViewModule,
-    SplitButtonModule,
-    SharedModule,
-    PaginatorModule,
-    MultiSelectModule,
-    ListboxModule,
-    DropdownModule,
-    ToastModule,
-    CalendarModule,
-    DropdownModule,
-    DialogModule,
-    LedgerBookModule,
-    SidebarModule,
-    TableModule,
-    ToastModule,
-    DividerModule,
-    SkeletonModule,
-  ]
+    imports: [
+        CommonModule,
+        ReportsRoutingModule,
+        TableModule,
+        FormsModule,
+        ReactiveFormsModule,
+        InputTextModule,
+        ButtonModule,
+        CalendarModule,
+        ToastModule,
+        InputNumberModule,
+        TabViewModule,
+        SplitButtonModule,
+        SharedModule,
+        PaginatorModule,
+        MultiSelectModule,
+        ListboxModule,
+        DropdownModule,
+        ToastModule,
+        CalendarModule,
+        DropdownModule,
+        DialogModule,
+        LedgerBookModule,
+        SidebarModule,
+        TableModule,
+        ToastModule,
+        DividerModule,
+        SkeletonModule,
+        TreeTableModule,
+        ProgressBarModule
+    ]
 })
 export class ReportsModule { }

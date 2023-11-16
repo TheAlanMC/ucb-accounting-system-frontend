@@ -48,11 +48,17 @@
 }
 
 /* Input */
-::ng-deep .p-inputtext{
+::ng-deep .ca-input{
     width: 100%;
     font-size: small;
     padding: 0.25rem 0.5rem 0.25rem 0.5rem;
 }
+::ng-deep .right-search-input {
+    width: 100%;
+    font-size: small;
+    padding: 0.25rem 0.5rem 0.25rem 2rem;
+}
+
 
 /* Aumenta la especificidad utilizando un selector más específico */
 :host ::ng-deep .boton-editar .p-button {

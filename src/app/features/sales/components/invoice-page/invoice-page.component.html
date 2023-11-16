@@ -21,7 +21,7 @@
                 <div class="flex flex-column justify-content-start mx-2">
                     <p>Cliente</p>
                     <p-dropdown id="document-type" [options]="customers" [(ngModel)]="selectedCustomer" optionLabel="name"
-                        placeholder="Seleccione un cliente" [style]="{'width':'250px'}" [required]="true" ></p-dropdown>
+                        placeholder="Seleccione un cliente" [style]="{'width':'250px'}" [required]="true" [filter]="true" filterBy="name"></p-dropdown>
                 </div>
                 <div class="flex flex-column justify-content-start mx-2">
                     <p>Método de pago</p>
@@ -39,7 +39,7 @@
 
                 <p class="ml-2" style="color: #666666 ;"> SALDO PENDIENTE</p>
             </div>
-            <p class="text-right font-semibold text-base my-2">Bs. {{saldoAmount}}</p>
+            <p class="text-right font-semibold text-base my-2">{{saldoAmount | currency: 'Bs. '}}</p>
             <div>
                 <hr>
             </div>
@@ -61,7 +61,7 @@
     <div class="flex flex-column">
         <div class="col-6">
             <p class="text-xl font-semibold">Notas</p>
-            <textarea rows="5" cols="50" pInputTextarea [(ngModel)]="description"></textarea>
+            <textarea rows="5" cols="50" pInputTextarea [(ngModel)]="description" style="font-size: small;"></textarea>
         </div>
         <div class="col-6 p-0">
             <p class="text-xl font-semibold">Archivos adjuntos</p>

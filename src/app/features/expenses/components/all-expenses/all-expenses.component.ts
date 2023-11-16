@@ -1,11 +1,11 @@
-import {Component, ViewChild} from '@angular/core';
-import {Table} from "primeng/table";
-import {ExpenseAbstractDto} from "../../models/expense-abstract.dto";
-import {ExpensesService} from "../../../../core/services/expenses.service";
-import {TransactionTypeService} from "../../../../core/services/transaction-type.service";
-import {SupplierService} from "../../../../core/services/supplier.service";
-import {filter} from "rxjs";
-import {el} from "date-fns/locale";
+import { Component, ViewChild } from '@angular/core';
+import { Table } from "primeng/table";
+import { ExpenseAbstractDto } from "../../models/expense-abstract.dto";
+import { ExpensesService } from "../../../../core/services/expenses.service";
+import { TransactionTypeService } from "../../../../core/services/transaction-type.service";
+import { SupplierService } from "../../../../core/services/supplier.service";
+import { filter } from "rxjs";
+import { el } from "date-fns/locale";
 
 @Component({
   selector: 'app-all-expenses',
@@ -24,6 +24,7 @@ export class AllExpensesComponent {
   page: number = 0;
   size: number = 10;
   totalElements: number = 0;
+  isLoading: boolean = true;
 
   // Filter variables
   filterDate: string = '';
@@ -64,7 +65,7 @@ export class AllExpensesComponent {
           code: documentType.transactionTypeId
         }));
         // add the default option
-        this.types.unshift({name: 'Todos', code: ''});
+        this.types.unshift({ name: 'Todos', code: '' });
         // console.log(this.types);
       },
       error: (error) => {
@@ -74,9 +75,9 @@ export class AllExpensesComponent {
     this.supplierService.getAllSuppliers(this.companyId).subscribe({
       next: (data) => {
         this.suppliers = data.data!.map((customer) => ({
-            name: customer.displayName,
-            code: customer.supplierId
-          }
+          name: customer.displayName,
+          code: customer.supplierId
+        }
         ));
       },
       error: (error) => {
@@ -97,9 +98,10 @@ export class AllExpensesComponent {
   }
 
   onPageChange(event: any) {
-    this.page = event.page;
-    this.size = event.rows;
-    // console.log(event);
+    var first = event.first;
+    var rows = event.rows;
+    this.page = Math.floor(first / rows);
+    this.size = rows;
     this.getAllExpenses();
   }
 
@@ -109,11 +111,13 @@ export class AllExpensesComponent {
     this.getAllExpenses();
   }
 
-  getAllExpenses(){
-    this.expensesService.getAllExpenses(this.companyId, this.sortBy, this.sortType,this.page, this.size, this.filterDate, this.filterSupplier, this.filterDocumentType).subscribe({
+  getAllExpenses() {
+    this.isLoading = true;
+    this.expensesService.getAllExpenses(this.companyId, this.sortBy, this.sortType, this.page, this.size, this.filterDate, this.filterSupplier, this.filterDocumentType).subscribe({
       next: (data) => {
         this.expenses = data.data!;
         this.totalElements = data.totalElements!;
+        this.isLoading = false;
         // console.log(data);
         // this.getSupplierFromData();
       },
@@ -123,7 +127,7 @@ export class AllExpensesComponent {
     })
   }
 
-  getSupplierFromData(){
+  getSupplierFromData() {
     //Get suppliers display name from expenses
     this.suppliers = this.expenses.map((expense) => ({
       code: expense.supplier.supplierId,
@@ -132,9 +136,9 @@ export class AllExpensesComponent {
 
     //Remove duplicates
     this.suppliers = this.suppliers.filter((supplier: any, index: any, self: any) =>
-        index === self.findIndex((t: any) => (
-          t.code === supplier.code && t.name === supplier.name
-        ))
+      index === self.findIndex((t: any) => (
+        t.code === supplier.code && t.name === supplier.name
+      ))
     )
 
   }

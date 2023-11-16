@@ -9,6 +9,8 @@ import {JournalBookDto} from "../../features/reports/components/journal-book-rep
 import {AttachmentDto} from "../../features/transaction/models/attachment.dto";
 import {TrialBalanceReportDto} from "../../features/reports/models/trial-balance-report.dto";
 import {WorksheetReportDto} from "../../features/reports/models/worksheet-report.dto";
+import { BalanceSheetsDto } from "src/app/features/reports/models/balance-sheets.dto";
+import { IncomeStatementsReportDto } from "src/app/features/financial-statements/models/income-statements-report.dto";
 
 @Injectable({
     providedIn: 'root'
@@ -31,6 +33,10 @@ export class ReportService {
       return this.http.get<ResponseDto<AttachmentDto>>(`${this.baseUrl}/journal-books/companies/${companyId}/pdf?dateFrom=${dateFrom}&dateTo=${dateTo}`);
     }
 
+    public getJournalBookReportExcel(companyId: number, dateFrom: string, dateTo: String):  Observable<ResponseDto<AttachmentDto>>{
+      return this.http.get<ResponseDto<AttachmentDto>>(`${this.baseUrl}/journal-books/companies/${companyId}/excel?dateFrom=${dateFrom}&dateTo=${dateTo}`);
+    }
+
 
     // ================================LEDGER BOOK=========================================
 
@@ -42,6 +48,10 @@ export class ReportService {
     public getGeneralLedgersPdf(companyId: number,dateFrom: string, dateTo: string, sortBy: string, sortType: string, subaccountIds: string[]  ): Observable<ResponseDto<AttachmentDto>> {
       // const subaccountIdsParam = subaccountIds.join(','); // Convierte la lista en una cadena separada por comas
       return this.http.get<ResponseDto<AttachmentDto>>(`${this.baseUrl}/general-ledgers/companies/${companyId}/pdf?dateFrom=${dateFrom}&dateTo=${dateTo}&sortBy=${sortBy}&sortType=${sortType}&subaccountIds=${subaccountIds}`);
+    }
+
+    public getGeneralLedgersExcel(companyId: number,dateFrom: string, dateTo: string, sortBy: string, sortType: string, subaccountIds: string[]  ): Observable<ResponseDto<AttachmentDto>> {
+        return this.http.get<ResponseDto<AttachmentDto>>(`${this.baseUrl}/general-ledgers/companies/${companyId}/excel?dateFrom=${dateFrom}&dateTo=${dateTo}&sortBy=${sortBy}&sortType=${sortType}&subaccountIds=${subaccountIds}`);
     }
 
     // Get avaliable subaccounts
@@ -59,6 +69,10 @@ export class ReportService {
       return this.http.get<ResponseDto<AttachmentDto>>(`${this.baseUrl}/trial-balances/companies/${companyId}/pdf?dateFrom=${dateFrom}&dateTo=${dateTo}`);
     }
 
+    public getTrialBalancesExcel(companyId: number, dateFrom: string, dateTo: string): Observable<ResponseDto<AttachmentDto>>{
+      return this.http.get<ResponseDto<AttachmentDto>>(`${this.baseUrl}/trial-balances/companies/${companyId}/excel?dateFrom=${dateFrom}&dateTo=${dateTo}`);
+    }
+
     // ================================WORKSHEET=========================================
     // Get worksheet
   public getWorksheetReport(companyId: number, dateFrom: string, dateTo: String):  Observable<ResponseDto<WorksheetReportDto>>{
@@ -68,6 +82,30 @@ export class ReportService {
 
   public getWorksheetReportPdf(companyId: number, dateFrom: string, dateTo: String):  Observable<ResponseDto<AttachmentDto>>{
     return this.http.get<ResponseDto<AttachmentDto>>(`${this.baseUrl}/worksheets/companies/${companyId}/pdf?dateFrom=${dateFrom}&dateTo=${dateTo}`);
+  }
+
+  public getWorksheetReportExcel(companyId: number, dateFrom: string, dateTo: String):  Observable<ResponseDto<AttachmentDto>>{
+    return this.http.get<ResponseDto<AttachmentDto>>(`${this.baseUrl}/worksheets/companies/${companyId}/excel?dateFrom=${dateFrom}&dateTo=${dateTo}`);
+  }
+
+  //======================================BALANCE SHEETS=========================================
+  public getBalanceSheetsReport(companyId: number, dateFrom: string, dateTo: String):  Observable<ResponseDto<BalanceSheetsDto>>{
+    return this.http.get<ResponseDto<BalanceSheetsDto>>(`${this.baseUrl}/balance-sheets/companies/${companyId}?dateFrom=${dateFrom}&dateTo=${dateTo}`);
+  }
+
+  public getBalanceSheetsReportPdf(companyId: number, dateFrom: string, dateTo: String):  Observable<ResponseDto<AttachmentDto>>{
+    return this.http.get<ResponseDto<AttachmentDto>>(`${this.baseUrl}/balance-sheets/companies/${companyId}/pdf?dateFrom=${dateFrom}&dateTo=${dateTo}`);
+  }
+
+  //======================================INCOME STATEMENTS=========================================
+  // Get income statements
+  public getIncomeStatements(companyId: number, dateFrom: string, dateTo: String):  Observable<ResponseDto<IncomeStatementsReportDto>>{
+    // console.log(`${this.baseUrl}?dateFrom=${dateFrom}&dateTo=${dateTo}`);
+    return this.http.get<ResponseDto<IncomeStatementsReportDto>>(`${this.baseUrl}/income-statements/companies/${companyId}?dateFrom=${dateFrom}&dateTo=${dateTo}`);
+  }
+
+  public getIncomeStatementsPdf(companyId: number, dateFrom: string, dateTo: String):  Observable<ResponseDto<AttachmentDto>>{
+    return this.http.get<ResponseDto<AttachmentDto>>(`${this.baseUrl}/income-statements/companies/${companyId}/pdf?dateFrom=${dateFrom}&dateTo=${dateTo}`);
   }
 
 }

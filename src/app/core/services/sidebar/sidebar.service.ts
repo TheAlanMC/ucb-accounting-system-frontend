@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SidebarService {
   private isOpenSubject = new BehaviorSubject<boolean>(false);
+  private backgroundColor: any = { color: '#F3F6F6' };
   
   constructor() { }
 
@@ -15,5 +16,13 @@ export class SidebarService {
 
   setIsOpen(isOpen: boolean) {
     this.isOpenSubject.next(isOpen);
+  }
+
+  getBackgroundColor() {
+    return this.backgroundColor;
+  }
+
+  setBackgroundColor(color: any) {
+    this.backgroundColor = color;
   }
 }
