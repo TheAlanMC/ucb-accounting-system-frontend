@@ -17,6 +17,7 @@ import { PasswordModule } from 'primeng/password';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DialogModule } from 'primeng/dialog';
 import {MessageService} from "primeng/api";
+import { DividerModule } from 'primeng/divider';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {MessageService} from "primeng/api";
     FormsModule,
     ImageModule,
     SharedModule,
-    DialogModule
+    DialogModule,
+    DividerModule
   ],
 })
 

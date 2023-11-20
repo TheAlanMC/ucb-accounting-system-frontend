@@ -57,3 +57,19 @@
   font-size: small;
   padding:0.25rem 0.5rem 0.25rem 0.5rem;
 }
+
+/* Sidebar configuration */
+.home-section {
+  position: absolute;
+  min-height: 100vh;
+  top: 0;
+  left: 70px;
+  width: calc(100% - 78px);
+  transition: all 0.5s ease;
+  z-index: 2;
+}
+
+.navbar-opened {
+  left: 250px;
+  width: calc(100% - 250px);
+}

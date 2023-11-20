@@ -1,0 +1,33 @@
+<div #sidebar class="sidebar open" id="sidebar" style="z-index: 0;">
+  <div class="logo-details">
+    <i #btn class="pi pi-arrow-left" id="btn" routerLink="/home"></i>
+  </div>
+  <ul class="nav-list">  
+    <li>
+      <a routerLink="/profile">
+        <i class='pi pi-user'></i>
+        <span class="links_name">Mi perfil</span>
+        <i class='pi pi-chevron-right right-arrow' style="font-size: 0.6rem"></i>
+      </a>
+      <span class="tooltip">Mi perfil</span>
+    </li>
+    <li>
+      <a routerLink="/company">
+        <i class='pi pi-building'></i>
+        <span class="links_name">Mi empresa</span>
+        <i class='pi pi-chevron-right right-arrow' style="font-size: 0.6rem"></i>
+      </a>
+      <span class="tooltip">Mi empresa</span>
+    </li>
+    <li>
+      <a routerLink="/company/users">
+        <i class='pi pi-users'></i>
+        <span class="links_name">Usuarios</span>
+        <i class='pi pi-chevron-right right-arrow' style="font-size: 0.6rem"></i>
+      </a>
+      <span class="tooltip">Usuarios</span>
+    </li>
+    <p-toast></p-toast>
+    <p-confirmPopup></p-confirmPopup>
+  </ul>
+</div>

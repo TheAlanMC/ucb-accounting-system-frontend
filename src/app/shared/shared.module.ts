@@ -11,6 +11,7 @@ import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { SidebarProfileComponent } from './components/sidebar-profile/sidebar-profile.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
     ForbiddenComponent,
     NotFoundComponent,
     NavbarComponent,
+    SidebarProfileComponent,
 
   ],
   imports: [
@@ -36,6 +38,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
     ForbiddenComponent,
     NotFoundComponent,
     NavbarComponent,
+    SidebarProfileComponent,
   ]
 })
 export class SharedModule { }
