@@ -1,60 +1,1519 @@
+<svg id="sw-js-blob-svg" viewBox="0 0 100 100"
+	xmlns="http://www.w3.org/2000/svg" version="1.1">
+	<defs>
+		<linearGradient id="sw-gradient" x1="0" x2="1" y1="1" y2="0">
+			<stop id="stop1" stop-color="rgba(188.686, 255, 226.921, 0.23)" offset="0%"></stop>
+			<stop id="stop2" stop-color="rgba(148.24, 224.299, 223.011, 0.46)" offset="100%"></stop>
+		</linearGradient>
+	</defs>
+	<path fill="url(#sw-gradient)"
+		d="M20.8,-23.3C29,-17.9,39.1,-13.3,41.6,-6.3C44.2,0.8,39.1,10.2,33.4,18.5C27.6,26.8,21.3,33.9,13,37.7C4.8,41.6,-5.4,42.2,-13.7,38.7C-22,35.2,-28.4,27.7,-31.6,19.5C-34.8,11.4,-34.6,2.7,-33.7,-6.5C-32.7,-15.6,-30.8,-25.1,-25.1,-30.8C-19.3,-36.6,-9.7,-38.7,-1.7,-36.7C6.3,-34.7,12.6,-28.6,20.8,-23.3Z"
+		width="100%" height="100%" transform="translate(50 50)" stroke-width="0" style="transition: all 0.3s ease 0s;"
+		stroke="url(#sw-gradient)"></path>
+</svg>
 <p-toast></p-toast>
 <app-sidebar-profile></app-sidebar-profile>
 <div class="home-section" [class.navbar-opened]=true>
     <div class="card">
         <div class="flex card-container overflow-hidden">
             <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0">
-                <i class="pi pi-building" style="color: var(--color-green); font-size: 2.5rem; z-index: 2 !important;"></i>
+                <i class="pi pi-building"
+                    style="color: var(--color-green); font-size: 2.5rem; z-index: 2 !important;"></i>
                 <p class="text-2xl md:text-3xl" style="z-index:2;">&nbsp;&nbsp;&nbsp;Información de la empresa</p>
             </div>
         </div>
     </div>
     <p-divider></p-divider>
-<div class="mx-8 my-5 tarjeta-info" *ngIf="companyData">
-    <div class="w-11rem h-11rem pl-4">
-        <img width="150px" height="150px" class="shadow-4" style="border-radius:100%;" [src]="companyData.companyLogo"
-            alt="Gaming Set">
-        <div class="custom-file-upload">
-            <input type="file" id="fileInput" (change)="onFileSelected2($event)" accept="image/*" />
-            <label for="fileInput">
-                <span class="custom-button">
-                    <i class="pi pi-pencil" style="color: white;"></i>
-                </span>
-            </label>
-        </div>
-    </div>
-
-    <div class="grid h-24rem">
-        <div class="col-12 md:col-6">
-            <div class="card p-fluid pr-8 pl-4">
-                <h3 style="color: #B1B1B1;">Actualiza la información de la empresa</h3>
-                <div class="field pr-8"><label htmlfor="name1">Nombre:</label><input
-                        [(ngModel)]="companyData.companyName" pInputText="" id="name" type="text"
-                        class="p-inputtext p-component p-element h-2rem"></div>
-                <div class="field pr-8"><label htmlfor="name1">Numero de identificación tributaria:</label><input
-                        [(ngModel)]="companyData.companyNit" pInputText="" id="nofiscal" type="text"
-                        class="p-inputtext p-component p-element h-2rem"></div>
-                <div class="field pr-8"><label htmlfor="name1">Dirección:</label><input
-                        [(ngModel)]="companyData.companyAddress" pInputText="" id="direccion" type="text"
-                        class="p-inputtext p-component p-element h-2rem"></div>
-                <div class="field pr-8"><label htmlfor="name1">Numero de telefono:</label><input
-                        [(ngModel)]="companyData.phoneNumber" pInputText="" id="fiscal" type="text"
-                        class="p-inputtext p-component p-element h-2rem"></div>
-
-                <div class="field pr-8"><label htmlfor="name1">Tipo de negocio:</label>
-                  <p-dropdown [options]="businessEntities" [(ngModel)]="selectedBusinessEntity"
-                              optionLabel="name" placeholder="Seleccione un tipo de negocio" [style]="{'width':'auto'}"></p-dropdown>
+    <div class="mx-8 flex align-items-center justify-content-between" *ngIf="companyData">
+        <div class="flex flex-column col-12 md:col-5 tarjeta-info">
+            <div class="flex flex-row align-items-center">
+                <div class="w-11rem h-11rem">
+                    <img width="150px" height="150px" class="shadow-4" style="border-radius:100%;"
+                        [src]="companyData.companyLogo" alt="Enterprise picture">
+                    <div class="custom-file-upload">
+                        <input type="file" id="fileInput" (change)="onFileSelected2($event)" accept="image/*" />
+                        <label for="fileInput">
+                            <span class="custom-button">
+                                <i class="pi pi-pencil" style="color: white;"></i>
+                            </span>
+                        </label>
+                    </div>
                 </div>
-                <div class="field pr-8"><label htmlfor="name1">Industria:</label>
-                  <p-dropdown [options]="industries" [(ngModel)]="selectedIndustry"
-                              optionLabel="name" placeholder="Seleccione una industria" [style]="{'width':'auto'}"></p-dropdown>
+                <div>
+                    <strong>
+                        <p class="m-0" style="font-size: 20px;">{{companyData.companyName}}</p>
+                    </strong>
                 </div>
-                <div class="col-6 mt-8" id="save-buttons">
-                    <p-button (click)="save()" icon="pi pi-save" label="Guardar cambios"
-                        styleClass="p-button-success"></p-button>
+            </div>
+            <div class="grid">
+                <div class="card p-fluid" style="width: 100%; padding: 20px;">
+                    <h3 style="color: #797979; font-size: medium;">Datos de la empresa</h3> <p-divider></p-divider>
+                    <div class="field"><label htmlfor="name1">Nombre:</label><input
+                            [(ngModel)]="companyData.companyName" pInputText="" id="name" type="text"
+                            class="p-inputtext p-component p-element h-2rem"></div>
+                    <div class="field"><label htmlfor="name1">Numero de identificación tributaria:</label><input
+                            [(ngModel)]="companyData.companyNit" pInputText="" id="nofiscal" type="text"
+                            class="p-inputtext p-component p-element h-2rem"></div>
+                    <div class="field"><label htmlfor="name1">Dirección:</label><input
+                            [(ngModel)]="companyData.companyAddress" pInputText="" id="direccion" type="text"
+                            class="p-inputtext p-component p-element h-2rem"></div>
+                    <div class="field"><label htmlfor="name1">Numero de telefono:</label><input
+                            [(ngModel)]="companyData.phoneNumber" pInputText="" id="fiscal" type="text"
+                            class="p-inputtext p-component p-element h-2rem"></div>
+
+                    <div class="field"><label htmlfor="name1">Tipo de negocio:</label>
+                        <p-dropdown [options]="businessEntities" [(ngModel)]="selectedBusinessEntity" optionLabel="name"
+                            placeholder="Seleccione un tipo de negocio" [style]="{'width':'auto'}"></p-dropdown>
+                    </div>
+                    <div class="field"><label htmlfor="name1">Industria:</label>
+                        <p-dropdown [options]="industries" [(ngModel)]="selectedIndustry" optionLabel="name"
+                            placeholder="Seleccione una industria" [style]="{'width':'auto'}"></p-dropdown>
+                    </div>
+                    <div class="mt-5" id="save-button">
+                        <p-button (click)="save()" icon="pi pi-save" label="Guardar cambios"
+                            styleClass="p-button-success"></p-button>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="col-12 md:col-5">
+            <svg class="animated" id="freepik_stories-building" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"
+                version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs">
+                <style>
+                    svg#freepik_stories-building:not(.animated) .animable {
+                        opacity: 0;
+                    }
+
+                    svg#freepik_stories-building.animated #freepik--Birds--inject-6 {
+                        animation: 1s 1 forwards cubic-bezier(.36, -0.01, .5, 1.38) slideRight;
+                        animation-delay: 0s;
+                    }
+
+                    svg#freepik_stories-building.animated #freepik--background-complete--inject-6 {
+                        animation: 1s 1 forwards cubic-bezier(.36, -0.01, .5, 1.38) fadeIn;
+                        animation-delay: 0s;
+                    }
+
+                    svg#freepik_stories-building.animated #freepik--buildings-2--inject-6 {
+                        animation: 1s 1 forwards cubic-bezier(.36, -0.01, .5, 1.38) slideLeft;
+                        animation-delay: 0s;
+                    }
+
+                    svg#freepik_stories-building.animated #freepik--buildings-1--inject-6 {
+                        animation: 1s 1 forwards cubic-bezier(.36, -0.01, .5, 1.38) fadeIn;
+                        animation-delay: 0s;
+                    }
+
+                    svg#freepik_stories-building.animated #freepik--Street--inject-6 {
+                        animation: 1s 1 forwards cubic-bezier(.36, -0.01, .5, 1.38) zoomOut;
+                        animation-delay: 0s;
+                    }
+
+                    @keyframes slideRight {
+                        0% {
+                            opacity: 0;
+                            transform: translateX(30px);
+                        }
+
+                        100% {
+                            opacity: 1;
+                            transform: translateX(0);
+                        }
+                    }
+
+                    @keyframes fadeIn {
+                        0% {
+                            opacity: 0;
+                        }
+
+                        100% {
+                            opacity: 1;
+                        }
+                    }
+
+                    @keyframes slideLeft {
+                        0% {
+                            opacity: 0;
+                            transform: translateX(-30px);
+                        }
+
+                        100% {
+                            opacity: 1;
+                            transform: translateX(0);
+                        }
+                    }
+
+                    @keyframes zoomOut {
+                        0% {
+                            opacity: 0;
+                            transform: scale(1.5);
+                        }
+
+                        100% {
+                            opacity: 1;
+                            transform: scale(1);
+                        }
+                    }
+                </style>
+                <g id="freepik--Birds--inject-6" class="animable" style="transform-origin: 346.475px 155.57px;">
+                    <path
+                        d="M355,163.89a16.6,16.6,0,0,1,8.48,9.13s-.68-10.28,4.08-14.37c0,0-4.31,3.41-5.22,8.41A13.28,13.28,0,0,0,355,163.89Z"
+                        style="fill: rgb(38, 50, 56); transform-origin: 361.28px 165.835px;" id="elod1velo7s3j"
+                        class="animable"></path>
+                    <path
+                        d="M333.83,138.12s7.9,6.14,10.06,11.8c0,0,1.21-6.07,6.93-7.89a8.34,8.34,0,0,0-6.93,3.52A19.94,19.94,0,0,0,333.83,138.12Z"
+                        style="fill: rgb(38, 50, 56); transform-origin: 342.325px 144.02px;" id="el3c9015hfyi"
+                        class="animable"></path>
+                    <path
+                        d="M325.39,164.83s6.47-1,9.57,2.94c0,0-1.92-5.88,0-9.86,0,0-2.56,1.64-1.67,7.55C333.29,165.46,330.83,162.92,325.39,164.83Z"
+                        style="fill: rgb(38, 50, 56); transform-origin: 330.175px 162.84px;" id="elxel2irov9ph"
+                        class="animable"></path>
+                </g>
+                <g id="freepik--background-complete--inject-6" class="animable"
+                    style="transform-origin: 250px 226.81px;">
+                    <rect y="382.4" width="500" height="0.25"
+                        style="fill: rgb(235, 235, 235); transform-origin: 250px 382.525px;" id="elo6ahld01ovi"
+                        class="animable"></rect>
+                    <rect x="104.54" y="389.21" width="33.12" height="0.25"
+                        style="fill: rgb(235, 235, 235); transform-origin: 121.1px 389.335px;" id="el3x5nltwvivs"
+                        class="animable"></rect>
+                    <rect x="171.14" y="398.37" width="40.75" height="0.25"
+                        style="fill: rgb(235, 235, 235); transform-origin: 191.515px 398.495px;" id="ellyv2271w4rg"
+                        class="animable"></rect>
+                    <rect x="52.46" y="395.24" width="51.08" height="0.25"
+                        style="fill: rgb(235, 235, 235); transform-origin: 78px 395.365px;" id="eljsu16flwg9h"
+                        class="animable"></rect>
+                    <rect x="356.76" y="390.89" width="93.14" height="0.25"
+                        style="fill: rgb(235, 235, 235); transform-origin: 403.33px 391.015px;" id="elwj5wim62m9"
+                        class="animable"></rect>
+                    <rect x="277.21" y="395.11" width="42.23" height="0.25"
+                        style="fill: rgb(235, 235, 235); transform-origin: 298.325px 395.235px;" id="elch83319tcp"
+                        class="animable"></rect>
+                    <path
+                        d="M237,337.8H43.91a5.71,5.71,0,0,1-5.7-5.71V60.66A5.71,5.71,0,0,1,43.91,55H237a5.71,5.71,0,0,1,5.71,5.71h0V332.09A5.71,5.71,0,0,1,237,337.8ZM43.91,55.2a5.46,5.46,0,0,0-5.45,5.46V332.09a5.46,5.46,0,0,0,5.45,5.46H237a5.48,5.48,0,0,0,5.46-5.46V60.66A5.48,5.48,0,0,0,237,55.2Z"
+                        style="fill: rgb(235, 235, 235); transform-origin: 140.46px 196.4px;" id="elkz6dp3ucxlk"
+                        class="animable"></path>
+                    <path
+                        d="M453.31,337.8H260.21a5.73,5.73,0,0,1-5.71-5.71V60.66A5.72,5.72,0,0,1,260.21,55h193.1A5.71,5.71,0,0,1,459,60.66V332.09A5.7,5.7,0,0,1,453.31,337.8ZM260.21,55.2a5.48,5.48,0,0,0-5.46,5.46V332.09a5.48,5.48,0,0,0,5.46,5.46h193.1a5.48,5.48,0,0,0,5.46-5.46V60.66a5.48,5.48,0,0,0-5.46-5.46Z"
+                        style="fill: rgb(235, 235, 235); transform-origin: 356.75px 196.4px;" id="elinpnx31zai"
+                        class="animable"></path>
+                    <path
+                        d="M214.72,108.25h80.06s-4.86-7.62-13.17-3.81c0,0-1.56-8-6.93-8.14a7.62,7.62,0,0,0-7.28,4s-6.24-9.7-15.77-7.62a13,13,0,0,0-10.4,10.91S227,96.3,214.72,108.25Z"
+                        style="fill: rgb(250, 250, 250); transform-origin: 254.75px 100.319px;" id="eldzo1ijylsor"
+                        class="animable"></path>
+                    <path
+                        d="M68.4,219.71h80s-4.85-7.63-13.17-3.82c0,0-1.56-8-6.93-8.14a7.66,7.66,0,0,0-7.28,4s-6.23-9.71-15.76-7.63A13,13,0,0,0,94.91,215S80.7,207.75,68.4,219.71Z"
+                        style="fill: rgb(250, 250, 250); transform-origin: 108.4px 211.769px;" id="elece3bptgoy"
+                        class="animable"></path>
+                    <path
+                        d="M372.55,165.81H452.6s-4.85-7.62-13.17-3.81c0,0-1.55-8-6.93-8.14a7.62,7.62,0,0,0-7.27,4s-6.24-9.7-15.77-7.62a13,13,0,0,0-10.4,10.91S384.85,153.86,372.55,165.81Z"
+                        style="fill: rgb(250, 250, 250); transform-origin: 412.575px 157.879px;" id="elyq93bin26s"
+                        class="animable"></path>
+                    <g id="elspq3hwtuiq">
+                        <circle cx="359.72" cy="116.36" r="8.11"
+                            style="fill: rgb(240, 240, 240); transform-origin: 359.72px 116.36px; transform: rotate(-76.67deg);"
+                            class="animable"></circle>
+                    </g>
+                    <path
+                        d="M60.75,165.81H140.8S136,158.19,127.63,162c0,0-1.56-8-6.93-8.14a7.62,7.62,0,0,0-7.27,4s-6.24-9.7-15.77-7.62a13,13,0,0,0-10.4,10.91S73.05,153.86,60.75,165.81Z"
+                        style="fill: rgb(250, 250, 250); transform-origin: 100.775px 157.879px;" id="ele9pcyynpusj"
+                        class="animable"></path>
+                </g>
+                <g id="freepik--buildings-2--inject-6" class="animable" style="transform-origin: 253.965px 269.05px;">
+                    <rect x="119.4" y="190.07" width="84.88" height="165.65"
+                        style="fill: rgb(230, 230, 230); transform-origin: 161.84px 272.895px;" id="eli6fnu5iywz"
+                        class="animable"></rect>
+                    <rect x="119.4" y="190.07" width="69.45" height="165.65"
+                        style="fill: rgb(240, 240, 240); transform-origin: 154.125px 272.895px;" id="el41xcwdu0hue"
+                        class="animable"></rect>
+                    <rect x="117.57" y="190.07" width="87.71" height="2.7"
+                        style="fill: rgb(224, 224, 224); transform-origin: 161.425px 191.42px;" id="elb1fh3kuus7b"
+                        class="animable"></rect>
+                    <rect x="117.57" y="184.66" width="87.71" height="2.7"
+                        style="fill: rgb(224, 224, 224); transform-origin: 161.425px 186.01px;" id="eln0szh673ne"
+                        class="animable"></rect>
+                    <rect x="119.4" y="187.36" width="84.04" height="2.7"
+                        style="fill: rgb(240, 240, 240); transform-origin: 161.42px 188.71px;" id="elke94kqvucac"
+                        class="animable"></rect>
+                    <rect x="125.99" y="199.82" width="13.04" height="13.04"
+                        style="fill: rgb(230, 230, 230); transform-origin: 132.51px 206.34px;" id="elruux3jk43cq"
+                        class="animable"></rect>
+                    <rect x="127.14" y="199.82" width="11.89" height="13.04"
+                        style="fill: rgb(245, 245, 245); transform-origin: 133.085px 206.34px;" id="elpu51dy7qeaq"
+                        class="animable"></rect>
+                    <rect x="145.75" y="199.82" width="13.04" height="13.04"
+                        style="fill: rgb(230, 230, 230); transform-origin: 152.27px 206.34px;" id="elhrnkm3tfd78"
+                        class="animable"></rect>
+                    <rect x="146.9" y="199.82" width="11.89" height="13.04"
+                        style="fill: rgb(245, 245, 245); transform-origin: 152.845px 206.34px;" id="elp3bzxa24npk"
+                        class="animable"></rect>
+                    <rect x="165.5" y="199.82" width="13.04" height="13.04"
+                        style="fill: rgb(230, 230, 230); transform-origin: 172.02px 206.34px;" id="elchcic93psul"
+                        class="animable"></rect>
+                    <rect x="166.65" y="199.82" width="11.89" height="13.04"
+                        style="fill: rgb(245, 245, 245); transform-origin: 172.595px 206.34px;" id="elicufuw3blf"
+                        class="animable"></rect>
+                    <rect x="125.99" y="219.03" width="13.04" height="13.04"
+                        style="fill: rgb(230, 230, 230); transform-origin: 132.51px 225.55px;" id="elrapho60yeyk"
+                        class="animable"></rect>
+                    <rect x="127.14" y="219.03" width="11.89" height="13.04"
+                        style="fill: rgb(245, 245, 245); transform-origin: 133.085px 225.55px;" id="elt4z5fic5ht"
+                        class="animable"></rect>
+                    <rect x="145.75" y="219.03" width="13.04" height="13.04"
+                        style="fill: rgb(230, 230, 230); transform-origin: 152.27px 225.55px;" id="elwhv9m2i4tn8"
+                        class="animable"></rect>
+                    <rect x="146.9" y="219.03" width="11.89" height="13.04"
+                        style="fill: rgb(245, 245, 245); transform-origin: 152.845px 225.55px;" id="el9c1b9z3bk6k"
+                        class="animable"></rect>
+                    <rect x="165.5" y="219.03" width="13.04" height="13.04"
+                        style="fill: rgb(230, 230, 230); transform-origin: 172.02px 225.55px;" id="ell8u6tq1ykg7"
+                        class="animable"></rect>
+                    <rect x="166.65" y="219.03" width="11.89" height="13.04"
+                        style="fill: rgb(245, 245, 245); transform-origin: 172.595px 225.55px;" id="el92tugaextac"
+                        class="animable"></rect>
+                    <rect x="125.99" y="254.2" width="13.04" height="13.04"
+                        style="fill: rgb(230, 230, 230); transform-origin: 132.51px 260.72px;" id="elckqfvwy8zr9"
+                        class="animable"></rect>
+                    <rect x="127.14" y="254.2" width="11.89" height="13.04"
+                        style="fill: rgb(245, 245, 245); transform-origin: 133.085px 260.72px;" id="el91qr0nbm51"
+                        class="animable"></rect>
+                    <rect x="145.75" y="254.2" width="13.04" height="13.04"
+                        style="fill: rgb(230, 230, 230); transform-origin: 152.27px 260.72px;" id="elpz0vvm5a7p8"
+                        class="animable"></rect>
+                    <rect x="146.9" y="254.2" width="11.89" height="13.04"
+                        style="fill: rgb(245, 245, 245); transform-origin: 152.845px 260.72px;" id="elyr25q05yy8m"
+                        class="animable"></rect>
+                    <rect x="165.5" y="254.2" width="13.04" height="13.04"
+                        style="fill: rgb(230, 230, 230); transform-origin: 172.02px 260.72px;" id="eloi8sdll8hzm"
+                        class="animable"></rect>
+                    <rect x="166.65" y="254.2" width="11.89" height="13.04"
+                        style="fill: rgb(245, 245, 245); transform-origin: 172.595px 260.72px;" id="elhf68s8j1uxs"
+                        class="animable"></rect>
+                    <rect x="125.99" y="273.41" width="13.04" height="13.04"
+                        style="fill: rgb(230, 230, 230); transform-origin: 132.51px 279.93px;" id="elp2q3mbj9kj"
+                        class="animable"></rect>
+                    <rect x="127.14" y="273.41" width="11.89" height="13.04"
+                        style="fill: rgb(245, 245, 245); transform-origin: 133.085px 279.93px;" id="eltoxziykoeeg"
+                        class="animable"></rect>
+                    <rect x="145.75" y="273.41" width="13.04" height="13.04"
+                        style="fill: rgb(230, 230, 230); transform-origin: 152.27px 279.93px;" id="el7v7atzsp7ch"
+                        class="animable"></rect>
+                    <rect x="146.9" y="273.41" width="11.89" height="13.04"
+                        style="fill: rgb(245, 245, 245); transform-origin: 152.845px 279.93px;" id="elk8nssdr1kir"
+                        class="animable"></rect>
+                    <rect x="165.5" y="273.41" width="13.04" height="13.04"
+                        style="fill: rgb(230, 230, 230); transform-origin: 172.02px 279.93px;" id="eltgtqq00cmld"
+                        class="animable"></rect>
+                    <rect x="166.65" y="273.41" width="11.89" height="13.04"
+                        style="fill: rgb(245, 245, 245); transform-origin: 172.595px 279.93px;" id="elxuf3c1kwpla"
+                        class="animable"></rect>
+                    <rect x="125.99" y="312.5" width="13.04" height="13.04"
+                        style="fill: rgb(230, 230, 230); transform-origin: 132.51px 319.02px;" id="elj58x0wdir0h"
+                        class="animable"></rect>
+                    <rect x="127.14" y="312.5" width="11.89" height="13.04"
+                        style="fill: rgb(245, 245, 245); transform-origin: 133.085px 319.02px;" id="eljufeaha1nnj"
+                        class="animable"></rect>
+                    <rect x="145.75" y="312.5" width="13.04" height="13.04"
+                        style="fill: rgb(230, 230, 230); transform-origin: 152.27px 319.02px;" id="elmj23h4nc5zs"
+                        class="animable"></rect>
+                    <rect x="146.9" y="312.5" width="11.89" height="13.04"
+                        style="fill: rgb(245, 245, 245); transform-origin: 152.845px 319.02px;" id="elzw59xj5aaim"
+                        class="animable"></rect>
+                    <rect x="165.5" y="312.5" width="13.04" height="13.04"
+                        style="fill: rgb(230, 230, 230); transform-origin: 172.02px 319.02px;" id="el0ahot3i81dj9"
+                        class="animable"></rect>
+                    <rect x="166.65" y="312.5" width="11.89" height="13.04"
+                        style="fill: rgb(245, 245, 245); transform-origin: 172.595px 319.02px;" id="elcbjqhak6mgq"
+                        class="animable"></rect>
+                    <rect x="125.99" y="331.71" width="13.04" height="13.04"
+                        style="fill: rgb(230, 230, 230); transform-origin: 132.51px 338.23px;" id="el6o0xcjkzgjp"
+                        class="animable"></rect>
+                    <rect x="127.14" y="331.71" width="11.89" height="13.04"
+                        style="fill: rgb(245, 245, 245); transform-origin: 133.085px 338.23px;" id="elpj523e83kxs"
+                        class="animable"></rect>
+                    <rect x="145.75" y="331.71" width="13.04" height="13.04"
+                        style="fill: rgb(230, 230, 230); transform-origin: 152.27px 338.23px;" id="elhgr8uo94tpu"
+                        class="animable"></rect>
+                    <rect x="146.9" y="331.71" width="11.89" height="13.04"
+                        style="fill: rgb(245, 245, 245); transform-origin: 152.845px 338.23px;" id="el39goo8yk2rm"
+                        class="animable"></rect>
+                    <rect x="165.5" y="331.71" width="13.04" height="13.04"
+                        style="fill: rgb(230, 230, 230); transform-origin: 172.02px 338.23px;" id="elst0q1txbm4g"
+                        class="animable"></rect>
+                    <rect x="166.65" y="331.71" width="11.89" height="13.04"
+                        style="fill: rgb(245, 245, 245); transform-origin: 172.595px 338.23px;" id="elypju4idksq"
+                        class="animable"></rect>
+                    <rect x="119.4" y="241.24" width="84.88" height="1.21"
+                        style="fill: rgb(224, 224, 224); transform-origin: 161.84px 241.845px;" id="elcts42o6zmhv"
+                        class="animable"></rect>
+                    <rect x="119.4" y="301.37" width="84.88" height="1.21"
+                        style="fill: rgb(224, 224, 224); transform-origin: 161.84px 301.975px;" id="eld1o5px1jxm"
+                        class="animable"></rect>
+                    <rect x="46.36" y="239.67" width="58.71" height="142.86"
+                        style="fill: rgb(224, 224, 224); transform-origin: 75.715px 311.1px;" id="elze5r9tp8azr"
+                        class="animable"></rect>
+                    <rect x="46.36" y="239.67" width="41.99" height="142.86"
+                        style="fill: rgb(240, 240, 240); transform-origin: 67.355px 311.1px;" id="elew0lgzp9qe"
+                        class="animable"></rect>
+                    <rect x="50.68" y="251.41" width="15.63" height="7.59"
+                        style="fill: rgb(230, 230, 230); transform-origin: 58.495px 255.205px;" id="el211s3m6p866"
+                        class="animable"></rect>
+                    <rect x="51.72" y="251.41" width="14.59" height="7.59"
+                        style="fill: rgb(245, 245, 245); transform-origin: 59.015px 255.205px;" id="eln55z0j1ztao"
+                        class="animable"></rect>
+                    <rect x="68.76" y="251.41" width="15.63" height="7.59"
+                        style="fill: rgb(230, 230, 230); transform-origin: 76.575px 255.205px;" id="el4y74l1s7itp"
+                        class="animable"></rect>
+                    <rect x="69.8" y="251.41" width="14.58" height="7.59"
+                        style="fill: rgb(245, 245, 245); transform-origin: 77.09px 255.205px;" id="el2exh6ohdaoi"
+                        class="animable"></rect>
+                    <rect x="50.68" y="265.69" width="15.63" height="7.59"
+                        style="fill: rgb(230, 230, 230); transform-origin: 58.495px 269.485px;" id="elvzoc01acr9k"
+                        class="animable"></rect>
+                    <rect x="51.72" y="265.69" width="14.59" height="7.59"
+                        style="fill: rgb(245, 245, 245); transform-origin: 59.015px 269.485px;" id="elltjeq6k318"
+                        class="animable"></rect>
+                    <rect x="68.76" y="265.69" width="15.63" height="7.59"
+                        style="fill: rgb(230, 230, 230); transform-origin: 76.575px 269.485px;" id="ell4lxzo52blb"
+                        class="animable"></rect>
+                    <rect x="69.8" y="265.69" width="14.58" height="7.59"
+                        style="fill: rgb(245, 245, 245); transform-origin: 77.09px 269.485px;" id="eltwmux1qx6tn"
+                        class="animable"></rect>
+                    <rect x="50.68" y="283.94" width="15.63" height="7.59"
+                        style="fill: rgb(230, 230, 230); transform-origin: 58.495px 287.735px;" id="el6kj183xz4e5"
+                        class="animable"></rect>
+                    <rect x="51.72" y="283.94" width="14.59" height="7.59"
+                        style="fill: rgb(245, 245, 245); transform-origin: 59.015px 287.735px;" id="el5dy0o0g4x79"
+                        class="animable"></rect>
+                    <rect x="68.76" y="283.94" width="15.63" height="7.59"
+                        style="fill: rgb(230, 230, 230); transform-origin: 76.575px 287.735px;" id="elvv5v8242a1"
+                        class="animable"></rect>
+                    <rect x="69.8" y="283.94" width="14.58" height="7.59"
+                        style="fill: rgb(245, 245, 245); transform-origin: 77.09px 287.735px;" id="elcxtmfbyusto"
+                        class="animable"></rect>
+                    <rect x="50.68" y="294.42" width="15.63" height="7.59"
+                        style="fill: rgb(230, 230, 230); transform-origin: 58.495px 298.215px;" id="elm8oi7bg5omb"
+                        class="animable"></rect>
+                    <rect x="51.72" y="294.42" width="14.59" height="7.59"
+                        style="fill: rgb(245, 245, 245); transform-origin: 59.015px 298.215px;" id="el4myr8h0k31p"
+                        class="animable"></rect>
+                    <rect x="68.76" y="294.42" width="15.63" height="7.59"
+                        style="fill: rgb(230, 230, 230); transform-origin: 76.575px 298.215px;" id="el6a6y5arqc5b"
+                        class="animable"></rect>
+                    <rect x="69.8" y="294.42" width="14.58" height="7.59"
+                        style="fill: rgb(245, 245, 245); transform-origin: 77.09px 298.215px;" id="elvzz9va8v6f"
+                        class="animable"></rect>
+                    <rect x="50.68" y="311.65" width="15.63" height="7.59"
+                        style="fill: rgb(230, 230, 230); transform-origin: 58.495px 315.445px;" id="elgie46o8xqah"
+                        class="animable"></rect>
+                    <rect x="51.72" y="311.65" width="14.59" height="7.59"
+                        style="fill: rgb(245, 245, 245); transform-origin: 59.015px 315.445px;" id="elyjplg11z0mc"
+                        class="animable"></rect>
+                    <rect x="68.76" y="311.65" width="15.63" height="7.59"
+                        style="fill: rgb(230, 230, 230); transform-origin: 76.575px 315.445px;" id="elk1i9nq6dzle"
+                        class="animable"></rect>
+                    <rect x="69.8" y="311.65" width="14.58" height="7.59"
+                        style="fill: rgb(245, 245, 245); transform-origin: 77.09px 315.445px;" id="eljowt11duhb8"
+                        class="animable"></rect>
+                    <rect x="50.68" y="322.13" width="15.63" height="7.59"
+                        style="fill: rgb(230, 230, 230); transform-origin: 58.495px 325.925px;" id="ele8r5sebxrf8"
+                        class="animable"></rect>
+                    <rect x="51.72" y="322.13" width="14.59" height="7.59"
+                        style="fill: rgb(245, 245, 245); transform-origin: 59.015px 325.925px;" id="elzkdmkz1ax2n"
+                        class="animable"></rect>
+                    <rect x="68.76" y="322.13" width="15.63" height="7.59"
+                        style="fill: rgb(230, 230, 230); transform-origin: 76.575px 325.925px;" id="elv7aw7stnsq"
+                        class="animable"></rect>
+                    <rect x="69.8" y="322.13" width="14.58" height="7.59"
+                        style="fill: rgb(245, 245, 245); transform-origin: 77.09px 325.925px;" id="eld5tkammut0b"
+                        class="animable"></rect>
+                    <rect x="50.68" y="340.88" width="15.63" height="7.59"
+                        style="fill: rgb(230, 230, 230); transform-origin: 58.495px 344.675px;" id="elq3bohdang4"
+                        class="animable"></rect>
+                    <rect x="51.72" y="340.88" width="14.59" height="7.59"
+                        style="fill: rgb(245, 245, 245); transform-origin: 59.015px 344.675px;" id="elvb3s60v2yc"
+                        class="animable"></rect>
+                    <rect x="68.76" y="340.88" width="15.63" height="7.59"
+                        style="fill: rgb(230, 230, 230); transform-origin: 76.575px 344.675px;" id="el0hiia1xsnx0d"
+                        class="animable"></rect>
+                    <rect x="69.8" y="340.88" width="14.58" height="7.59"
+                        style="fill: rgb(245, 245, 245); transform-origin: 77.09px 344.675px;" id="eljctpfnxc87"
+                        class="animable"></rect>
+                    <rect x="50.68" y="354.72" width="15.63" height="7.59"
+                        style="fill: rgb(230, 230, 230); transform-origin: 58.495px 358.515px;" id="elanc3on2z22j"
+                        class="animable"></rect>
+                    <rect x="51.72" y="354.72" width="14.59" height="7.59"
+                        style="fill: rgb(245, 245, 245); transform-origin: 59.015px 358.515px;" id="el6uu3spbijve"
+                        class="animable"></rect>
+                    <rect x="68.76" y="354.72" width="15.63" height="7.59"
+                        style="fill: rgb(230, 230, 230); transform-origin: 76.575px 358.515px;" id="el1qca0od116w"
+                        class="animable"></rect>
+                    <rect x="69.8" y="354.72" width="14.58" height="7.59"
+                        style="fill: rgb(245, 245, 245); transform-origin: 77.09px 358.515px;" id="elmr4zhbajen"
+                        class="animable"></rect>
+                    <g id="el7mtc0y7lxhq">
+                        <rect x="46.36" y="277.95" width="58.71" height="1.31"
+                            style="opacity: 0.05; transform-origin: 75.715px 278.605px;" class="animable"></rect>
+                    </g>
+                    <g id="elrj86rrf60u">
+                        <rect x="46.36" y="306.17" width="58.71" height="1.31"
+                            style="opacity: 0.05; transform-origin: 75.715px 306.825px;" class="animable"></rect>
+                    </g>
+                    <g id="elwr9lzodgjxn">
+                        <rect x="46.36" y="334.64" width="58.71" height="1.3"
+                            style="opacity: 0.05; transform-origin: 75.715px 335.29px;" class="animable"></rect>
+                    </g>
+                    <rect x="43.59" y="235.44" width="61.47" height="4.56"
+                        style="fill: rgb(224, 224, 224); transform-origin: 74.325px 237.72px;" id="elkclu0nmrww"
+                        class="animable"></rect>
+                    <g id="elxelnsl3yqjp">
+                        <rect x="91.02" y="235.44" width="14.05" height="4.56"
+                            style="opacity: 0.05; transform-origin: 98.045px 237.72px;" class="animable"></rect>
+                    </g>
+                    <rect x="239.36" y="165.26" width="68.94" height="179.17"
+                        style="fill: rgb(230, 230, 230); transform-origin: 273.83px 254.845px;" id="elwni7l4e2ap"
+                        class="animable"></rect>
+                    <rect x="213.84" y="165.26" width="68.94" height="179.17"
+                        style="fill: rgb(240, 240, 240); transform-origin: 248.31px 254.845px;" id="ely0cb8vd6d7"
+                        class="animable"></rect>
+                    <rect x="219.86" y="177.42" width="56.91" height="9.13"
+                        style="fill: rgb(230, 230, 230); transform-origin: 248.315px 181.985px;" id="elg53eopemd3p"
+                        class="animable"></rect>
+                    <rect x="222.06" y="177.42" width="54.7" height="9.13"
+                        style="fill: rgb(245, 245, 245); transform-origin: 249.41px 181.985px;" id="elqm4hytgcv4c"
+                        class="animable"></rect>
+                    <rect x="219.86" y="192.79" width="56.91" height="9.13"
+                        style="fill: rgb(230, 230, 230); transform-origin: 248.315px 197.355px;" id="elkt7mezj71ln"
+                        class="animable"></rect>
+                    <rect x="222.06" y="192.79" width="54.7" height="9.13"
+                        style="fill: rgb(245, 245, 245); transform-origin: 249.41px 197.355px;" id="elquget45yu5a"
+                        class="animable"></rect>
+                    <rect x="219.86" y="208.75" width="56.91" height="9.13"
+                        style="fill: rgb(230, 230, 230); transform-origin: 248.315px 213.315px;" id="el7rsalass3e"
+                        class="animable"></rect>
+                    <rect x="222.06" y="208.75" width="54.7" height="9.13"
+                        style="fill: rgb(245, 245, 245); transform-origin: 249.41px 213.315px;" id="elmknyj0uanq"
+                        class="animable"></rect>
+                    <rect x="219.86" y="224.72" width="56.91" height="9.13"
+                        style="fill: rgb(230, 230, 230); transform-origin: 248.315px 229.285px;" id="eldc3pc4wos47"
+                        class="animable"></rect>
+                    <rect x="222.06" y="224.72" width="54.7" height="9.13"
+                        style="fill: rgb(245, 245, 245); transform-origin: 249.41px 229.285px;" id="el5enz48h0nc"
+                        class="animable"></rect>
+                    <rect x="219.86" y="240.68" width="56.91" height="9.13"
+                        style="fill: rgb(230, 230, 230); transform-origin: 248.315px 245.245px;" id="elh8ojvbud1he"
+                        class="animable"></rect>
+                    <rect x="222.06" y="240.68" width="54.7" height="9.13"
+                        style="fill: rgb(245, 245, 245); transform-origin: 249.41px 245.245px;" id="elk4ukp4y52kj"
+                        class="animable"></rect>
+                    <rect x="219.86" y="256.65" width="56.91" height="9.13"
+                        style="fill: rgb(230, 230, 230); transform-origin: 248.315px 261.215px;" id="elnp4lihw02bc"
+                        class="animable"></rect>
+                    <rect x="222.06" y="256.65" width="54.7" height="9.13"
+                        style="fill: rgb(245, 245, 245); transform-origin: 249.41px 261.215px;" id="elrytlh5jj64d"
+                        class="animable"></rect>
+                    <rect x="219.86" y="274.24" width="56.91" height="9.13"
+                        style="fill: rgb(230, 230, 230); transform-origin: 248.315px 278.805px;" id="el9pfglrxgwfv"
+                        class="animable"></rect>
+                    <rect x="222.06" y="274.24" width="54.7" height="9.13"
+                        style="fill: rgb(245, 245, 245); transform-origin: 249.41px 278.805px;" id="elfgkgqkdb2gl"
+                        class="animable"></rect>
+                    <rect x="219.86" y="291.84" width="56.91" height="9.13"
+                        style="fill: rgb(230, 230, 230); transform-origin: 248.315px 296.405px;" id="eljar1nwn4fzc"
+                        class="animable"></rect>
+                    <rect x="222.06" y="291.84" width="54.7" height="9.13"
+                        style="fill: rgb(245, 245, 245); transform-origin: 249.41px 296.405px;" id="elmz53411ei6"
+                        class="animable"></rect>
+                    <rect x="219.86" y="309.44" width="56.91" height="9.13"
+                        style="fill: rgb(230, 230, 230); transform-origin: 248.315px 314.005px;" id="ellbs71egcqk"
+                        class="animable"></rect>
+                    <rect x="222.06" y="309.44" width="54.7" height="9.13"
+                        style="fill: rgb(245, 245, 245); transform-origin: 249.41px 314.005px;" id="elhy6vm4q2auc"
+                        class="animable"></rect>
+                    <rect x="219.86" y="327.03" width="56.91" height="9.13"
+                        style="fill: rgb(230, 230, 230); transform-origin: 248.315px 331.595px;" id="elpfh9usl766"
+                        class="animable"></rect>
+                    <rect x="222.06" y="327.03" width="54.7" height="9.13"
+                        style="fill: rgb(245, 245, 245); transform-origin: 249.41px 331.595px;" id="ellq5kllgw9j"
+                        class="animable"></rect>
+                    <rect x="211.89" y="163.46" width="98.2" height="4.37"
+                        style="fill: rgb(224, 224, 224); transform-origin: 260.99px 165.645px;" id="el1lvu743w7fw"
+                        class="animable"></rect>
+                    <rect x="211.89" y="155.57" width="98.2" height="4.37"
+                        style="fill: rgb(224, 224, 224); transform-origin: 260.99px 157.755px;" id="elragp5rkr8y"
+                        class="animable"></rect>
+                    <rect x="213.84" y="159.08" width="92.99" height="4.37"
+                        style="fill: rgb(240, 240, 240); transform-origin: 260.335px 161.265px;" id="el1ecx5taoput"
+                        class="animable"></rect>
+                    <rect x="289.09" y="177.42" width="19.21" height="9.13"
+                        style="fill: rgb(224, 224, 224); transform-origin: 298.695px 181.985px;" id="elsat70z7qq8"
+                        class="animable"></rect>
+                    <rect x="289.09" y="192.44" width="19.21" height="9.13"
+                        style="fill: rgb(224, 224, 224); transform-origin: 298.695px 197.005px;" id="elcu01fwev77i"
+                        class="animable"></rect>
+                    <rect x="289.09" y="207.47" width="19.21" height="9.13"
+                        style="fill: rgb(224, 224, 224); transform-origin: 298.695px 212.035px;" id="el1ddhozn2o5g"
+                        class="animable"></rect>
+                    <rect x="289.09" y="224.71" width="19.21" height="9.13"
+                        style="fill: rgb(224, 224, 224); transform-origin: 298.695px 229.275px;" id="el27lxu8xf9bu"
+                        class="animable"></rect>
+                    <rect x="289.09" y="240.68" width="19.21" height="9.13"
+                        style="fill: rgb(224, 224, 224); transform-origin: 298.695px 245.245px;" id="elkvrbkxl1g9"
+                        class="animable"></rect>
+                    <rect x="289.09" y="256.65" width="19.21" height="9.13"
+                        style="fill: rgb(224, 224, 224); transform-origin: 298.695px 261.215px;" id="elfdgt7liltiu"
+                        class="animable"></rect>
+                    <rect x="289.09" y="274.24" width="19.21" height="9.13"
+                        style="fill: rgb(224, 224, 224); transform-origin: 298.695px 278.805px;" id="elsi4q5ylagki"
+                        class="animable"></rect>
+                    <rect x="289.09" y="291.84" width="19.21" height="9.13"
+                        style="fill: rgb(224, 224, 224); transform-origin: 298.695px 296.405px;" id="elkm430d0ljs"
+                        class="animable"></rect>
+                    <rect x="289.09" y="309.43" width="19.21" height="9.13"
+                        style="fill: rgb(224, 224, 224); transform-origin: 298.695px 313.995px;" id="elx0p5hsqrdpr"
+                        class="animable"></rect>
+                    <rect x="289.09" y="327.03" width="19.21" height="9.13"
+                        style="fill: rgb(224, 224, 224); transform-origin: 298.695px 331.595px;" id="elmi7ih2dkxhd"
+                        class="animable"></rect>
+                    <rect x="458.81" y="302.69" width="5.53" height="8.65"
+                        style="fill: rgb(224, 224, 224); transform-origin: 461.575px 307.015px;" id="elhst6j5dd2mo"
+                        class="animable"></rect>
+                    <rect x="458.81" y="316.85" width="5.53" height="8.65"
+                        style="fill: rgb(224, 224, 224); transform-origin: 461.575px 321.175px;" id="el1z3pp2m8fd9"
+                        class="animable"></rect>
+                    <rect x="458.81" y="330.6" width="5.53" height="8.65"
+                        style="fill: rgb(224, 224, 224); transform-origin: 461.575px 334.925px;" id="elz75mjomk37"
+                        class="animable"></rect>
+                    <rect x="458.81" y="345.15" width="5.53" height="8.65"
+                        style="fill: rgb(224, 224, 224); transform-origin: 461.575px 349.475px;" id="elnimy7w88t9"
+                        class="animable"></rect>
+                    <rect x="458.81" y="359.3" width="5.53" height="8.65"
+                        style="fill: rgb(224, 224, 224); transform-origin: 461.575px 363.625px;" id="el56xhqie664"
+                        class="animable"></rect>
+                    <rect x="406.17" y="294" width="58.17" height="88.47"
+                        style="fill: rgb(230, 230, 230); transform-origin: 435.255px 338.235px;" id="elvzf855h2mu"
+                        class="animable"></rect>
+                    <rect x="406.18" y="294" width="48.34" height="88.47"
+                        style="fill: rgb(240, 240, 240); transform-origin: 430.35px 338.235px;" id="elbosq7i3m12"
+                        class="animable"></rect>
+                    <rect x="410.53" y="302.69" width="39.31" height="8.65"
+                        style="fill: rgb(235, 235, 235); transform-origin: 430.185px 307.015px;" id="el0hw2w4ovsql6"
+                        class="animable"></rect>
+                    <rect x="410.53" y="316.85" width="39.31" height="8.65"
+                        style="fill: rgb(235, 235, 235); transform-origin: 430.185px 321.175px;" id="elnb9lyzpataq"
+                        class="animable"></rect>
+                    <rect x="410.53" y="331" width="39.31" height="8.65"
+                        style="fill: rgb(235, 235, 235); transform-origin: 430.185px 335.325px;" id="elsf50fpfo6wf"
+                        class="animable"></rect>
+                    <rect x="410.53" y="345.15" width="39.31" height="8.65"
+                        style="fill: rgb(235, 235, 235); transform-origin: 430.185px 349.475px;" id="eliehdye58qup"
+                        class="animable"></rect>
+                    <rect x="410.53" y="359.3" width="39.31" height="8.65"
+                        style="fill: rgb(235, 235, 235); transform-origin: 430.185px 363.625px;" id="el0v8lbo2acmj"
+                        class="animable"></rect>
+                    <rect x="411.97" y="302.69" width="37.86" height="8.65"
+                        style="fill: rgb(245, 245, 245); transform-origin: 430.9px 307.015px;" id="el38b4q5mudls"
+                        class="animable"></rect>
+                    <rect x="411.97" y="316.85" width="37.86" height="8.65"
+                        style="fill: rgb(245, 245, 245); transform-origin: 430.9px 321.175px;" id="elj3qm07oemo"
+                        class="animable"></rect>
+                    <rect x="411.97" y="331" width="37.86" height="8.65"
+                        style="fill: rgb(245, 245, 245); transform-origin: 430.9px 335.325px;" id="elpcegwuzy5h"
+                        class="animable"></rect>
+                    <rect x="411.97" y="345.15" width="37.86" height="8.65"
+                        style="fill: rgb(245, 245, 245); transform-origin: 430.9px 349.475px;" id="elgmj0xv4bomj"
+                        class="animable"></rect>
+                    <rect x="411.97" y="359.3" width="37.86" height="8.65"
+                        style="fill: rgb(245, 245, 245); transform-origin: 430.9px 363.625px;" id="elihs88vt3je"
+                        class="animable"></rect>
+                </g>
+                <g id="freepik--buildings-1--inject-6" class="animable" style="transform-origin: 250px 302.61px;">
+                    <rect x="119.27" y="219.52" width="99.03" height="193.26"
+                        style="fill: rgb(123, 203, 233); transform-origin: 168.785px 316.15px;" id="elavq553nk275"
+                        class="animable"></rect>
+                    <g id="elqyc8nu21ilj">
+                        <rect x="119.27" y="219.52" width="81.03" height="193.26"
+                            style="fill: rgb(255, 255, 255); opacity: 0.4; transform-origin: 159.785px 316.15px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="117.14" y="219.52" width="102.33" height="3.15"
+                        style="fill: rgb(123, 203, 233); transform-origin: 168.305px 221.095px;" id="elulpg8acja1"
+                        class="animable"></rect>
+                    <rect x="117.14" y="213.21" width="102.33" height="3.16"
+                        style="fill: rgb(123, 203, 233); transform-origin: 168.305px 214.79px;" id="eljed0eh12g4l"
+                        class="animable"></rect>
+                    <rect x="119.27" y="216.37" width="98.05" height="3.15"
+                        style="fill: rgb(240, 240, 240); transform-origin: 168.295px 217.945px;" id="elyd64c1rozcd"
+                        class="animable"></rect>
+                    <rect x="126.96" y="230.9" width="15.22" height="15.22"
+                        style="fill: rgb(123, 203, 233); transform-origin: 134.57px 238.51px;" id="el3epeubenro"
+                        class="animable"></rect>
+                    <g id="elutzwyhrm848">
+                        <rect x="128.3" y="230.9" width="13.88" height="15.22"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 135.24px 238.51px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="150.01" y="230.9" width="15.22" height="15.22"
+                        style="fill: rgb(123, 203, 233); transform-origin: 157.62px 238.51px;" id="elht7mfbqv5cn"
+                        class="animable"></rect>
+                    <g id="elsanqvzubwm">
+                        <rect x="151.35" y="230.9" width="13.88" height="15.22"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 158.29px 238.51px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="173.05" y="230.9" width="15.22" height="15.22"
+                        style="fill: rgb(123, 203, 233); transform-origin: 180.66px 238.51px;" id="elhzneufrelk"
+                        class="animable"></rect>
+                    <g id="elirs08sh0k9i">
+                        <rect x="174.39" y="230.9" width="13.88" height="15.22"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 181.33px 238.51px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="126.96" y="253.31" width="15.22" height="15.22"
+                        style="fill: rgb(123, 203, 233); transform-origin: 134.57px 260.92px;" id="elasolhpcv1sp"
+                        class="animable"></rect>
+                    <g id="el2k30df3glqk">
+                        <rect x="128.3" y="253.31" width="13.88" height="15.22"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 135.24px 260.92px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="150.01" y="253.31" width="15.22" height="15.22"
+                        style="fill: rgb(123, 203, 233); transform-origin: 157.62px 260.92px;" id="elcpju0ocob2"
+                        class="animable"></rect>
+                    <g id="el4mitoy7yshq">
+                        <rect x="151.35" y="253.31" width="13.88" height="15.22"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 158.29px 260.92px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="173.05" y="253.31" width="15.22" height="15.22"
+                        style="fill: rgb(123, 203, 233); transform-origin: 180.66px 260.92px;" id="elxz0p13sgia"
+                        class="animable"></rect>
+                    <g id="elqc7ap4d1cyo">
+                        <rect x="174.39" y="253.31" width="13.88" height="15.22"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 181.33px 260.92px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="126.96" y="294.34" width="15.22" height="15.22"
+                        style="fill: rgb(123, 203, 233); transform-origin: 134.57px 301.95px;" id="elfb305wl8djp"
+                        class="animable"></rect>
+                    <g id="elxk7sj1mb25">
+                        <rect x="128.3" y="294.34" width="13.88" height="15.22"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 135.24px 301.95px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="150.01" y="294.34" width="15.22" height="15.22"
+                        style="fill: rgb(123, 203, 233); transform-origin: 157.62px 301.95px;" id="elvzty53xpxek"
+                        class="animable"></rect>
+                    <g id="el35bfgl3g0in">
+                        <rect x="151.35" y="294.34" width="13.88" height="15.22"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 158.29px 301.95px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="173.05" y="294.34" width="15.22" height="15.22"
+                        style="fill: rgb(123, 203, 233); transform-origin: 180.66px 301.95px;" id="elvaz05t8lw1e"
+                        class="animable"></rect>
+                    <g id="elxyws0a7ad0g">
+                        <rect x="174.39" y="294.34" width="13.88" height="15.22"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 181.33px 301.95px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="126.96" y="316.75" width="15.22" height="15.22"
+                        style="fill: rgb(123, 203, 233); transform-origin: 134.57px 324.36px;" id="eldtcm1unns2e"
+                        class="animable"></rect>
+                    <g id="el3wk2kabrjey">
+                        <rect x="128.3" y="316.75" width="13.88" height="15.22"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 135.24px 324.36px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="150.01" y="316.75" width="15.22" height="15.22"
+                        style="fill: rgb(123, 203, 233); transform-origin: 157.62px 324.36px;" id="el0vd053ayj6"
+                        class="animable"></rect>
+                    <g id="elcu8rxhfbujw">
+                        <rect x="151.35" y="316.75" width="13.88" height="15.22"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 158.29px 324.36px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="173.05" y="316.75" width="15.22" height="15.22"
+                        style="fill: rgb(123, 203, 233); transform-origin: 180.66px 324.36px;" id="eldr7t4bk1h58"
+                        class="animable"></rect>
+                    <g id="elfy15c666o0n">
+                        <rect x="174.39" y="316.75" width="13.88" height="15.22"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 181.33px 324.36px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="126.96" y="362.36" width="15.22" height="15.22"
+                        style="fill: rgb(123, 203, 233); transform-origin: 134.57px 369.97px;" id="elmk1mbsb43o"
+                        class="animable"></rect>
+                    <g id="el33rnqao1eia">
+                        <rect x="128.3" y="362.36" width="13.88" height="15.22"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 135.24px 369.97px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="150.01" y="362.36" width="15.22" height="15.22"
+                        style="fill: rgb(123, 203, 233); transform-origin: 157.62px 369.97px;" id="elwkihrdpxmm8"
+                        class="animable"></rect>
+                    <g id="el4n1pcajqs7a">
+                        <rect x="151.35" y="362.36" width="13.88" height="15.22"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 158.29px 369.97px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="173.05" y="362.36" width="15.22" height="15.22"
+                        style="fill: rgb(123, 203, 233); transform-origin: 180.66px 369.97px;" id="eldit1065f4vg"
+                        class="animable"></rect>
+                    <g id="elj4yu1je5p1k">
+                        <rect x="174.39" y="362.36" width="13.88" height="15.22"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 181.33px 369.97px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="126.96" y="384.77" width="15.22" height="15.22"
+                        style="fill: rgb(123, 203, 233); transform-origin: 134.57px 392.38px;" id="el60lokdkne92"
+                        class="animable"></rect>
+                    <g id="elaw93yd80nj">
+                        <rect x="128.3" y="384.77" width="13.88" height="15.22"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 135.24px 392.38px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="150.01" y="384.77" width="15.22" height="15.22"
+                        style="fill: rgb(123, 203, 233); transform-origin: 157.62px 392.38px;" id="elamvqpbr0fvs"
+                        class="animable"></rect>
+                    <g id="eloyhk36nvivm">
+                        <rect x="151.35" y="384.77" width="13.88" height="15.22"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 158.29px 392.38px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="173.05" y="384.77" width="15.22" height="15.22"
+                        style="fill: rgb(123, 203, 233); transform-origin: 180.66px 392.38px;" id="el1gwt4ok49ve"
+                        class="animable"></rect>
+                    <g id="elwg07dowm16">
+                        <rect x="174.39" y="384.77" width="13.88" height="15.22"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 181.33px 392.38px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="elreu3x7xy6bb">
+                        <rect x="119.27" y="279.23" width="99.03" height="1.41"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 168.785px 279.935px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="elmum6qvda5qp">
+                        <rect x="119.27" y="349.37" width="99.03" height="1.41"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 168.785px 350.075px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="286.16" y="246.12" width="68.49" height="166.66"
+                        style="fill: rgb(123, 203, 233); transform-origin: 320.405px 329.45px;" id="el74bhj6wb9mo"
+                        class="animable"></rect>
+                    <g id="eld3iwswhr4b7">
+                        <rect x="286.16" y="246.12" width="52.1" height="166.66"
+                            style="fill: rgb(255, 255, 255); opacity: 0.4; transform-origin: 312.21px 329.45px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="291.21" y="259.81" width="18.23" height="8.85"
+                        style="fill: rgb(123, 203, 233); transform-origin: 300.325px 264.235px;" id="el06asam3hq7n6"
+                        class="animable"></rect>
+                    <g id="elbw1twffcn2">
+                        <rect x="292.42" y="259.81" width="17.02" height="8.85"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 300.93px 264.235px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="312.3" y="259.81" width="18.23" height="8.85"
+                        style="fill: rgb(123, 203, 233); transform-origin: 321.415px 264.235px;" id="elv418w5hi99e"
+                        class="animable"></rect>
+                    <g id="elekkpkm6m0uh">
+                        <rect x="313.51" y="259.81" width="17.02" height="8.85"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 322.02px 264.235px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="291.21" y="276.47" width="18.23" height="8.85"
+                        style="fill: rgb(123, 203, 233); transform-origin: 300.325px 280.895px;" id="elya8ckhpdpm"
+                        class="animable"></rect>
+                    <g id="eljilhtvpsac">
+                        <rect x="292.42" y="276.47" width="17.02" height="8.85"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 300.93px 280.895px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="312.3" y="276.47" width="18.23" height="8.85"
+                        style="fill: rgb(123, 203, 233); transform-origin: 321.415px 280.895px;" id="eler668q6tq5a"
+                        class="animable"></rect>
+                    <g id="elqiudlguhu1k">
+                        <rect x="313.51" y="276.47" width="17.02" height="8.85"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 322.02px 280.895px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="291.21" y="297.76" width="18.23" height="8.85"
+                        style="fill: rgb(123, 203, 233); transform-origin: 300.325px 302.185px;" id="elafdvmvg489u"
+                        class="animable"></rect>
+                    <g id="el02en3zjiozq7">
+                        <rect x="292.42" y="297.76" width="17.02" height="8.85"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 300.93px 302.185px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="312.3" y="297.76" width="18.23" height="8.85"
+                        style="fill: rgb(123, 203, 233); transform-origin: 321.415px 302.185px;" id="el3e16n5mprno"
+                        class="animable"></rect>
+                    <g id="ele2s9voafst">
+                        <rect x="313.51" y="297.76" width="17.02" height="8.85"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 322.02px 302.185px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="291.21" y="309.99" width="18.23" height="8.85"
+                        style="fill: rgb(123, 203, 233); transform-origin: 300.325px 314.415px;" id="elochdjjppaw"
+                        class="animable"></rect>
+                    <g id="eln16iir3d70n">
+                        <rect x="292.42" y="309.99" width="17.02" height="8.85"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 300.93px 314.415px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="312.3" y="309.99" width="18.23" height="8.85"
+                        style="fill: rgb(123, 203, 233); transform-origin: 321.415px 314.415px;" id="el2lp0z8yeloh"
+                        class="animable"></rect>
+                    <g id="el7prvc3vwyl6">
+                        <rect x="313.51" y="309.99" width="17.02" height="8.85"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 322.02px 314.415px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="291.21" y="330.09" width="18.23" height="8.85"
+                        style="fill: rgb(123, 203, 233); transform-origin: 300.325px 334.515px;" id="elwcoz0muxd4g"
+                        class="animable"></rect>
+                    <g id="el6d0jr8egb2m">
+                        <rect x="292.42" y="330.09" width="17.02" height="8.85"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 300.93px 334.515px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="312.3" y="330.09" width="18.23" height="8.85"
+                        style="fill: rgb(123, 203, 233); transform-origin: 321.415px 334.515px;" id="elpnhqskl76zf"
+                        class="animable"></rect>
+                    <g id="elnxl4ueyvsu">
+                        <rect x="313.51" y="330.09" width="17.02" height="8.85"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 322.02px 334.515px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="291.21" y="342.32" width="18.23" height="8.85"
+                        style="fill: rgb(123, 203, 233); transform-origin: 300.325px 346.745px;" id="el5vxg838wn99"
+                        class="animable"></rect>
+                    <g id="elrevl7475uh">
+                        <rect x="292.42" y="342.32" width="17.02" height="8.85"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 300.93px 346.745px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="312.3" y="342.32" width="18.23" height="8.85"
+                        style="fill: rgb(123, 203, 233); transform-origin: 321.415px 346.745px;" id="elcstuqtcwpif"
+                        class="animable"></rect>
+                    <g id="elvx0a8epbvpg">
+                        <rect x="313.51" y="342.32" width="17.02" height="8.85"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 322.02px 346.745px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="291.21" y="364.19" width="18.23" height="8.85"
+                        style="fill: rgb(123, 203, 233); transform-origin: 300.325px 368.615px;" id="elkjx1e5d88g"
+                        class="animable"></rect>
+                    <g id="elccav2ugf9mc">
+                        <rect x="292.42" y="364.19" width="17.02" height="8.85"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 300.93px 368.615px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="312.3" y="364.19" width="18.23" height="8.85"
+                        style="fill: rgb(123, 203, 233); transform-origin: 321.415px 368.615px;" id="elti9zz6oo07"
+                        class="animable"></rect>
+                    <g id="elpdwoq38xl27">
+                        <rect x="313.51" y="364.19" width="17.02" height="8.85"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 322.02px 368.615px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="291.21" y="380.35" width="18.23" height="8.85"
+                        style="fill: rgb(123, 203, 233); transform-origin: 300.325px 384.775px;" id="elacvjofz0o1u"
+                        class="animable"></rect>
+                    <g id="elm6p6yhfk39b">
+                        <rect x="292.42" y="380.35" width="17.02" height="8.85"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 300.93px 384.775px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="312.3" y="380.35" width="18.23" height="8.85"
+                        style="fill: rgb(123, 203, 233); transform-origin: 321.415px 384.775px;" id="el2ui5l0ixjq9"
+                        class="animable"></rect>
+                    <g id="el09h4cushjfj7">
+                        <rect x="313.51" y="380.35" width="17.02" height="8.85"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 322.02px 384.775px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="282.94" y="241.19" width="71.72" height="5.32"
+                        style="fill: rgb(123, 203, 233); transform-origin: 318.8px 243.85px;" id="elg7vjqyjq22w"
+                        class="animable"></rect>
+                    <g id="els23omx6webe">
+                        <rect x="338.27" y="241.19" width="16.39" height="5.32"
+                            style="opacity: 0.2; transform-origin: 346.465px 243.85px;" class="animable"></rect>
+                    </g>
+                    <rect x="279.71" y="319.71" width="6.45" height="10.09"
+                        style="fill: rgb(224, 224, 224); transform-origin: 282.935px 324.755px;" id="el2hyv8l63aze"
+                        class="animable"></rect>
+                    <rect x="279.71" y="336.22" width="6.45" height="10.09"
+                        style="fill: rgb(224, 224, 224); transform-origin: 282.935px 341.265px;" id="el3bvbd9v3996"
+                        class="animable"></rect>
+                    <rect x="279.71" y="352.27" width="6.45" height="10.09"
+                        style="fill: rgb(224, 224, 224); transform-origin: 282.935px 357.315px;" id="elz4ugnt3ucw"
+                        class="animable"></rect>
+                    <rect x="279.71" y="369.24" width="6.45" height="10.09"
+                        style="fill: rgb(224, 224, 224); transform-origin: 282.935px 374.285px;" id="elrk4k1ziu2ad"
+                        class="animable"></rect>
+                    <rect x="279.71" y="385.75" width="6.45" height="10.09"
+                        style="fill: rgb(224, 224, 224); transform-origin: 282.935px 390.795px;" id="elalpu20l3q3"
+                        class="animable"></rect>
+                    <rect x="218.3" y="309.57" width="67.86" height="103.21"
+                        style="fill: rgb(123, 203, 233); transform-origin: 252.23px 361.175px;" id="elauwgcgqdq57"
+                        class="animable"></rect>
+                    <g id="elz9c20qhuvkk">
+                        <rect x="218.3" y="309.56" width="56.4" height="103.22"
+                            style="fill: rgb(255, 255, 255); opacity: 0.3; transform-origin: 246.5px 361.17px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="223.37" y="319.71" width="45.86" height="10.09"
+                        style="fill: rgb(123, 203, 233); transform-origin: 246.3px 324.755px;" id="els18fwxor5"
+                        class="animable"></rect>
+                    <rect x="223.37" y="336.22" width="45.86" height="10.09"
+                        style="fill: rgb(123, 203, 233); transform-origin: 246.3px 341.265px;" id="elhuy028ymifj"
+                        class="animable"></rect>
+                    <rect x="223.37" y="352.73" width="45.86" height="10.09"
+                        style="fill: rgb(123, 203, 233); transform-origin: 246.3px 357.775px;" id="elyz2cgmsy4h"
+                        class="animable"></rect>
+                    <rect x="223.37" y="369.24" width="45.86" height="10.09"
+                        style="fill: rgb(123, 203, 233); transform-origin: 246.3px 374.285px;" id="el80ygbq226zm"
+                        class="animable"></rect>
+                    <rect x="223.37" y="385.75" width="45.86" height="10.09"
+                        style="fill: rgb(123, 203, 233); transform-origin: 246.3px 390.795px;" id="ele5mn9nm4n3h"
+                        class="animable"></rect>
+                    <g id="elye1x8a476l">
+                        <g style="opacity: 0.1; transform-origin: 247.145px 357.775px;" class="animable">
+                            <rect x="225.06" y="319.71" width="44.17" height="10.09"
+                                style="fill: rgb(255, 255, 255); transform-origin: 247.145px 324.755px;"
+                                id="elip85ag8g15i" class="animable"></rect>
+                            <rect x="225.06" y="336.22" width="44.17" height="10.09"
+                                style="fill: rgb(255, 255, 255); transform-origin: 247.145px 341.265px;"
+                                id="eleb3xyti1mz6" class="animable"></rect>
+                            <rect x="225.06" y="352.73" width="44.17" height="10.09"
+                                style="fill: rgb(255, 255, 255); transform-origin: 247.145px 357.775px;"
+                                id="elw0bhdnq7qn8" class="animable"></rect>
+                            <rect x="225.06" y="369.24" width="44.17" height="10.09"
+                                style="fill: rgb(255, 255, 255); transform-origin: 247.145px 374.285px;"
+                                id="elek86956041d" class="animable"></rect>
+                            <rect x="225.06" y="385.75" width="44.17" height="10.09"
+                                style="fill: rgb(255, 255, 255); transform-origin: 247.145px 390.795px;"
+                                id="elhx5dtvk2uv" class="animable"></rect>
+                        </g>
+                    </g>
+                    <polygon
+                        points="78.58 341.27 33.05 341.27 33.05 412.78 105.71 412.78 105.71 341.27 105.71 309.56 78.58 341.27"
+                        style="fill: rgb(123, 203, 233); transform-origin: 69.38px 361.17px;" id="el9co2ct6nozc"
+                        class="animable"></polygon>
+                    <rect x="105.71" y="309.56" width="13.56" height="103.22"
+                        style="fill: rgb(123, 203, 233); transform-origin: 112.49px 361.17px;" id="elujw9coimr7d"
+                        class="animable"></rect>
+                    <g id="elap7x2001mwb">
+                        <rect x="105.71" y="309.56" width="13.56" height="103.22"
+                            style="fill: rgb(255, 255, 255); opacity: 0.7; transform-origin: 112.49px 361.17px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="elv6svhkyzeu">
+                        <rect x="200.29" y="222.67" width="18.01" height="190.11"
+                            style="fill: rgb(255, 255, 255); opacity: 0.7; transform-origin: 209.295px 317.725px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="ellvky1e86arj">
+                        <rect x="274.7" y="309.56" width="11.46" height="103.22"
+                            style="fill: rgb(255, 255, 255); opacity: 0.6; transform-origin: 280.43px 361.17px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="elognigjx9m9">
+                        <rect x="338.27" y="246.51" width="16.39" height="166.27"
+                            style="fill: rgb(255, 255, 255); opacity: 0.7; transform-origin: 346.465px 329.645px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="eljqemke8dtvp">
+                        <rect x="361.67" y="217.94" width="2.58" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.5; transform-origin: 362.96px 223.265px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="elkg627sdvku8">
+                        <rect x="361.67" y="235.86" width="2.58" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.5; transform-origin: 362.96px 241.185px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="elhlypk3q8x9i">
+                        <rect x="361.67" y="254.49" width="2.58" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.5; transform-origin: 362.96px 259.815px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="elm5ho7cf66ot">
+                        <rect x="361.67" y="273.12" width="2.58" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.5; transform-origin: 362.96px 278.445px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="el0rekmys6mu5">
+                        <rect x="361.67" y="291.74" width="2.58" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.5; transform-origin: 362.96px 297.065px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="eld6jdstdtjpa">
+                        <rect x="361.67" y="310.37" width="2.58" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.5; transform-origin: 362.96px 315.695px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="elwol0zfupb4r">
+                        <rect x="361.67" y="330.9" width="2.58" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.5; transform-origin: 362.96px 336.225px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="el7qq2pz1t4hm">
+                        <rect x="361.67" y="351.43" width="2.58" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.5; transform-origin: 362.96px 356.755px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="elaidmsxy4xcr">
+                        <rect x="361.67" y="371.95" width="2.58" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.5; transform-origin: 362.96px 377.275px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="elcjm8yyzdu7i">
+                        <rect x="361.67" y="392.48" width="2.58" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.5; transform-origin: 362.96px 397.805px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="384.43" y="203.75" width="80.43" height="209.03"
+                        style="fill: rgb(123, 203, 233); transform-origin: 424.645px 308.265px;" id="elgfaizmjfai8"
+                        class="animable"></rect>
+                    <rect x="354.65" y="203.75" width="80.43" height="209.03"
+                        style="fill: rgb(123, 203, 233); transform-origin: 394.865px 308.265px;" id="el3xu2ypm3gkg"
+                        class="animable"></rect>
+                    <g id="elq9uscig2fim">
+                        <rect x="435.09" y="206.75" width="29.77" height="206.03"
+                            style="fill: rgb(255, 255, 255); opacity: 0.7; transform-origin: 449.975px 309.765px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="442.45" y="217.94" width="22.41" height="10.65"
+                        style="fill: rgb(123, 203, 233); transform-origin: 453.655px 223.265px;" id="elzfm32mwlor"
+                        class="animable"></rect>
+                    <rect x="442.45" y="235.46" width="22.41" height="10.65"
+                        style="fill: rgb(123, 203, 233); transform-origin: 453.655px 240.785px;" id="eleftkva5ilrp"
+                        class="animable"></rect>
+                    <rect x="442.45" y="252.99" width="22.41" height="10.65"
+                        style="fill: rgb(123, 203, 233); transform-origin: 453.655px 258.315px;" id="el2z34mzl9o1m"
+                        class="animable"></rect>
+                    <rect x="442.45" y="273.11" width="22.41" height="10.65"
+                        style="fill: rgb(123, 203, 233); transform-origin: 453.655px 278.435px;" id="el88c07s3nswh"
+                        class="animable"></rect>
+                    <rect x="442.45" y="291.74" width="22.41" height="10.65"
+                        style="fill: rgb(123, 203, 233); transform-origin: 453.655px 297.065px;" id="elp239xnzb4ti"
+                        class="animable"></rect>
+                    <rect x="442.45" y="310.37" width="22.41" height="10.65"
+                        style="fill: rgb(123, 203, 233); transform-origin: 453.655px 315.695px;" id="elfweioyf1ayo"
+                        class="animable"></rect>
+                    <rect x="442.45" y="330.89" width="22.41" height="10.65"
+                        style="fill: rgb(123, 203, 233); transform-origin: 453.655px 336.215px;" id="elwehzxo2bd2"
+                        class="animable"></rect>
+                    <rect x="442.45" y="351.42" width="22.41" height="10.65"
+                        style="fill: rgb(123, 203, 233); transform-origin: 453.655px 356.745px;" id="elyfiyj1r1za"
+                        class="animable"></rect>
+                    <rect x="442.45" y="371.95" width="22.41" height="10.65"
+                        style="fill: rgb(123, 203, 233); transform-origin: 453.655px 377.275px;" id="el4eokd0dz3di"
+                        class="animable"></rect>
+                    <rect x="442.45" y="392.48" width="22.41" height="10.65"
+                        style="fill: rgb(123, 203, 233); transform-origin: 453.655px 397.805px;" id="elao8j6bes4ni"
+                        class="animable"></rect>
+                    <g id="el4vowb02jyt3">
+                        <rect x="442.45" y="217.94" width="22.41" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.3; transform-origin: 453.655px 223.265px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="el81dkgbh1zr">
+                        <rect x="442.45" y="235.46" width="22.41" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.3; transform-origin: 453.655px 240.785px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="elmbc1rei9ldn">
+                        <rect x="442.45" y="252.99" width="22.41" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.3; transform-origin: 453.655px 258.315px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="elz67cbhxrgi">
+                        <rect x="442.45" y="273.11" width="22.41" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.3; transform-origin: 453.655px 278.435px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="el4daa06tqdl3">
+                        <rect x="442.45" y="291.74" width="22.41" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.3; transform-origin: 453.655px 297.065px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="elcr51358hrm7">
+                        <rect x="442.45" y="310.37" width="22.41" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.3; transform-origin: 453.655px 315.695px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="elt21j4zqht9t">
+                        <rect x="442.45" y="330.89" width="22.41" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.3; transform-origin: 453.655px 336.215px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="elvcbnk7kagwp">
+                        <rect x="442.45" y="351.42" width="22.41" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.3; transform-origin: 453.655px 356.745px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="elha0ob0a5suc">
+                        <rect x="442.45" y="371.95" width="22.41" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.3; transform-origin: 453.655px 377.275px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="elk4y9bdkc6yn">
+                        <rect x="442.45" y="392.48" width="22.41" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.3; transform-origin: 453.655px 397.805px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="el8gqv0hwnkx">
+                        <rect x="354.65" y="203.75" width="80.43" height="209.03"
+                            style="fill: rgb(255, 255, 255); opacity: 0.4; transform-origin: 394.865px 308.265px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="361.67" y="217.94" width="66.4" height="10.65"
+                        style="fill: rgb(123, 203, 233); transform-origin: 394.87px 223.265px;" id="els2jxugyt0yt"
+                        class="animable"></rect>
+                    <g id="elzwlpmzl6c1o">
+                        <rect x="364.25" y="217.94" width="63.82" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 396.16px 223.265px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="361.67" y="235.86" width="66.4" height="10.65"
+                        style="fill: rgb(123, 203, 233); transform-origin: 394.87px 241.185px;" id="elnh8htugbgie"
+                        class="animable"></rect>
+                    <g id="eldblsghva78">
+                        <rect x="364.25" y="235.86" width="63.82" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 396.16px 241.185px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="361.67" y="254.49" width="66.4" height="10.65"
+                        style="fill: rgb(123, 203, 233); transform-origin: 394.87px 259.815px;" id="elc3fzu5dyqni"
+                        class="animable"></rect>
+                    <g id="elaamblhstbg">
+                        <rect x="364.25" y="254.49" width="63.82" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 396.16px 259.815px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="361.67" y="273.12" width="66.4" height="10.65"
+                        style="fill: rgb(123, 203, 233); transform-origin: 394.87px 278.445px;" id="elnuzlju64vyp"
+                        class="animable"></rect>
+                    <g id="elb8ekv82ycbc">
+                        <rect x="364.25" y="273.12" width="63.82" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 396.16px 278.445px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="361.67" y="291.74" width="66.4" height="10.65"
+                        style="fill: rgb(123, 203, 233); transform-origin: 394.87px 297.065px;" id="elspchwm3ctx"
+                        class="animable"></rect>
+                    <g id="eltujwz1nt71j">
+                        <rect x="364.25" y="291.74" width="63.82" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 396.16px 297.065px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="361.67" y="310.37" width="66.4" height="10.65"
+                        style="fill: rgb(123, 203, 233); transform-origin: 394.87px 315.695px;" id="elqb3dirrlp19"
+                        class="animable"></rect>
+                    <g id="elq8qzc12zboh">
+                        <rect x="364.25" y="310.37" width="63.82" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 396.16px 315.695px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="361.67" y="330.9" width="66.4" height="10.65"
+                        style="fill: rgb(123, 203, 233); transform-origin: 394.87px 336.225px;" id="el62xy2grz85v"
+                        class="animable"></rect>
+                    <g id="elnf7nshecf68">
+                        <rect x="364.25" y="330.9" width="63.82" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 396.16px 336.225px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="361.67" y="351.43" width="66.4" height="10.65"
+                        style="fill: rgb(123, 203, 233); transform-origin: 394.87px 356.755px;" id="el8dh47u20r0f"
+                        class="animable"></rect>
+                    <g id="el6uzzs61hii">
+                        <rect x="364.25" y="351.43" width="63.82" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 396.16px 356.755px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="361.67" y="371.95" width="66.4" height="10.65"
+                        style="fill: rgb(123, 203, 233); transform-origin: 394.87px 377.275px;" id="elcp0fovcmfdv"
+                        class="animable"></rect>
+                    <g id="elnjxv0pljiwp">
+                        <rect x="364.25" y="371.95" width="63.82" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 396.16px 377.275px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="361.67" y="392.48" width="66.4" height="10.65"
+                        style="fill: rgb(123, 203, 233); transform-origin: 394.87px 397.805px;" id="eljw6lcpgig2"
+                        class="animable"></rect>
+                    <g id="elpv4r6ohoh8">
+                        <rect x="364.25" y="392.48" width="63.82" height="10.65"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 396.16px 397.805px;"
+                            class="animable"></rect>
+                    </g>
+                    <rect x="435.09" y="197.54" width="28.05" height="4.1"
+                        style="fill: rgb(123, 203, 233); transform-origin: 449.115px 199.59px;" id="elautikdjb917"
+                        class="animable"></rect>
+                    <rect x="354.65" y="196.54" width="108.49" height="5.1"
+                        style="fill: rgb(240, 240, 240); transform-origin: 408.895px 199.09px;" id="el8ou3mxjvfn7"
+                        class="animable"></rect>
+                    <rect x="352.38" y="201.65" width="114.57" height="5.1"
+                        style="fill: rgb(123, 203, 233); transform-origin: 409.665px 204.2px;" id="eldvt6sva3egp"
+                        class="animable"></rect>
+                    <rect x="352.38" y="192.44" width="114.57" height="5.1"
+                        style="fill: rgb(123, 203, 233); transform-origin: 409.665px 194.99px;" id="el524pbme7zmh"
+                        class="animable"></rect>
+                    <g id="elml28fpfsa3f">
+                        <rect x="352.38" y="201.65" width="114.57" height="5.1"
+                            style="opacity: 0.05; transform-origin: 409.665px 204.2px;" class="animable"></rect>
+                    </g>
+                    <g id="ele1u25fpkqrm">
+                        <rect x="352.38" y="192.44" width="114.57" height="5.1"
+                            style="opacity: 0.05; transform-origin: 409.665px 194.99px;" class="animable"></rect>
+                    </g>
+                    <g id="elw68dnhyaxu">
+                        <rect x="286.16" y="290.53" width="68.49" height="1.52"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 320.405px 291.29px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="el9aqxv5dw486">
+                        <rect x="286.16" y="323.46" width="68.49" height="1.52"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 320.405px 324.22px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="elgud5i67mmvs">
+                        <rect x="286.16" y="356.67" width="68.49" height="1.52"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 320.405px 357.43px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="elyqzz68spoik">
+                        <rect x="200.29" y="219.52" width="19.17" height="3.15"
+                            style="opacity: 0.2; transform-origin: 209.875px 221.095px;" class="animable"></rect>
+                    </g>
+                    <g id="elwbv9c6n4f7">
+                        <rect x="200.29" y="213.21" width="19.17" height="3.15"
+                            style="opacity: 0.2; transform-origin: 209.875px 214.785px;" class="animable"></rect>
+                    </g>
+                    <g id="ellomxzinwbob">
+                        <rect x="435.09" y="201.65" width="31.86" height="5.1"
+                            style="opacity: 0.2; transform-origin: 451.02px 204.2px;" class="animable"></rect>
+                    </g>
+                    <g id="elarkkd3t7u89">
+                        <rect x="435.09" y="192.44" width="31.86" height="5.1"
+                            style="opacity: 0.2; transform-origin: 451.02px 194.99px;" class="animable"></rect>
+                    </g>
+                    <g id="elj3tivb7y6hg">
+                        <polygon
+                            points="78.58 341.27 33.05 341.27 33.05 412.78 105.71 412.78 105.71 341.27 105.71 309.56 78.58 341.27"
+                            style="fill: rgb(255, 255, 255); opacity: 0.4; transform-origin: 69.38px 361.17px;"
+                            class="animable"></polygon>
+                    </g>
+                    <rect x="39.64" y="355.77" width="10.81" height="10.81"
+                        style="fill: rgb(123, 203, 233); transform-origin: 45.045px 361.175px;" id="elgpl7phtsjz5"
+                        class="animable"></rect>
+                    <rect x="61.64" y="355.77" width="10.81" height="10.81"
+                        style="fill: rgb(123, 203, 233); transform-origin: 67.045px 361.175px;" id="elozxdarz8ahn"
+                        class="animable"></rect>
+                    <rect x="83.64" y="355.77" width="10.81" height="10.81"
+                        style="fill: rgb(123, 203, 233); transform-origin: 89.045px 361.175px;" id="el0z2wmojs6q5a"
+                        class="animable"></rect>
+                    <rect x="39.64" y="373.96" width="10.81" height="10.81"
+                        style="fill: rgb(123, 203, 233); transform-origin: 45.045px 379.365px;" id="el8oe8jn56v3y"
+                        class="animable"></rect>
+                    <rect x="61.64" y="373.96" width="10.81" height="10.81"
+                        style="fill: rgb(123, 203, 233); transform-origin: 67.045px 379.365px;" id="elrza5kjypqde"
+                        class="animable"></rect>
+                    <rect x="83.64" y="373.96" width="10.81" height="10.81"
+                        style="fill: rgb(123, 203, 233); transform-origin: 89.045px 379.365px;" id="ely09t5u5qtz"
+                        class="animable"></rect>
+                    <rect x="39.64" y="392.15" width="10.81" height="10.81"
+                        style="fill: rgb(123, 203, 233); transform-origin: 45.045px 397.555px;" id="el14v2zavq90l"
+                        class="animable"></rect>
+                    <rect x="61.64" y="392.15" width="10.81" height="10.81"
+                        style="fill: rgb(123, 203, 233); transform-origin: 67.045px 397.555px;" id="elc76d3doqtut"
+                        class="animable"></rect>
+                    <rect x="83.64" y="392.15" width="10.81" height="10.81"
+                        style="fill: rgb(123, 203, 233); transform-origin: 89.045px 397.555px;" id="elxd5k3nwovp"
+                        class="animable"></rect>
+                    <g id="elxonjmwwo2yc">
+                        <rect x="40.84" y="355.77" width="10.81" height="10.81"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 46.245px 361.175px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="elq7n4w61o82n">
+                        <rect x="62.83" y="355.77" width="10.81" height="10.81"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 68.235px 361.175px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="elx18z3wwsmdd">
+                        <rect x="84.83" y="355.77" width="10.81" height="10.81"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 90.235px 361.175px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="elkqfj8eahf1m">
+                        <rect x="40.84" y="373.96" width="10.81" height="10.81"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 46.245px 379.365px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="el00yypqa5ov5kd">
+                        <rect x="62.83" y="373.96" width="10.81" height="10.81"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 68.235px 379.365px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="el632jyryaeff">
+                        <rect x="84.83" y="373.96" width="10.81" height="10.81"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 90.235px 379.365px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="elpwhnyobn3mi">
+                        <rect x="40.84" y="392.15" width="10.81" height="10.81"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 46.245px 397.555px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="eltptf8d9cka8">
+                        <rect x="62.83" y="392.15" width="10.81" height="10.81"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 68.235px 397.555px;"
+                            class="animable"></rect>
+                    </g>
+                    <g id="elqx7qht0dem">
+                        <rect x="84.83" y="392.15" width="10.81" height="10.81"
+                            style="fill: rgb(255, 255, 255); opacity: 0.2; transform-origin: 90.235px 397.555px;"
+                            class="animable"></rect>
+                    </g>
+                </g>
+                <g id="freepik--Street--inject-6" class="animable" style="transform-origin: 250.021px 388.172px;">
+                    <polygon points="244.1 421.07 237.84 452.83 258.85 452.83 256.72 421.07 244.1 421.07"
+                        style="fill: rgb(123, 203, 233); transform-origin: 248.345px 436.95px;" id="elyze7t5a8jg"
+                        class="animable"></polygon>
+                    <polygon points="263.74 421.07 272.74 452.83 286.82 452.83 275.28 421.07 263.74 421.07"
+                        style="fill: rgb(123, 203, 233); transform-origin: 275.28px 436.95px;" id="elz1qhv40s54j"
+                        class="animable"></polygon>
+                    <polygon points="283.2 421.07 301.72 452.83 317.7 452.83 293.63 421.07 283.2 421.07"
+                        style="fill: rgb(123, 203, 233); transform-origin: 300.45px 436.95px;" id="eliyeqsws53zk"
+                        class="animable"></polygon>
+                    <polygon points="301.99 421.07 332.68 452.83 351.79 452.83 313.44 421.07 301.99 421.07"
+                        style="fill: rgb(123, 203, 233); transform-origin: 326.89px 436.95px;" id="el32p53dp0vpz"
+                        class="animable"></polygon>
+                    <polygon points="236.26 421.07 227.26 452.83 213.18 452.83 224.72 421.07 236.26 421.07"
+                        style="fill: rgb(123, 203, 233); transform-origin: 224.72px 436.95px;" id="elpnvup4gpg3a"
+                        class="animable"></polygon>
+                    <polygon points="216.8 421.07 198.28 452.83 182.3 452.83 206.37 421.07 216.8 421.07"
+                        style="fill: rgb(123, 203, 233); transform-origin: 199.55px 436.95px;" id="elbsb6ex9xi8h"
+                        class="animable"></polygon>
+                    <polygon points="198.01 421.07 167.32 452.83 148.21 452.83 186.56 421.07 198.01 421.07"
+                        style="fill: rgb(123, 203, 233); transform-origin: 173.11px 436.95px;" id="elyrmbxyrfr5m"
+                        class="animable"></polygon>
+                    <g id="el7y1k8mzd08">
+                        <polygon points="244.1 421.07 237.84 452.83 258.85 452.83 256.72 421.07 244.1 421.07"
+                            style="fill: rgb(255, 255, 255); opacity: 0.4; transform-origin: 248.345px 436.95px;"
+                            class="animable"></polygon>
+                    </g>
+                    <g id="elb3msnmhl3h">
+                        <polygon points="263.74 421.07 272.74 452.83 286.82 452.83 275.28 421.07 263.74 421.07"
+                            style="fill: rgb(255, 255, 255); opacity: 0.4; transform-origin: 275.28px 436.95px;"
+                            class="animable"></polygon>
+                    </g>
+                    <g id="eloiixdqu1nel">
+                        <polygon points="283.2 421.07 301.72 452.83 317.7 452.83 293.63 421.07 283.2 421.07"
+                            style="fill: rgb(255, 255, 255); opacity: 0.4; transform-origin: 300.45px 436.95px;"
+                            class="animable"></polygon>
+                    </g>
+                    <g id="elpz3wxz7hw7">
+                        <polygon points="301.99 421.07 332.68 452.83 351.79 452.83 313.44 421.07 301.99 421.07"
+                            style="fill: rgb(255, 255, 255); opacity: 0.4; transform-origin: 326.89px 436.95px;"
+                            class="animable"></polygon>
+                    </g>
+                    <g id="el14dpu7zi47p">
+                        <polygon points="236.26 421.07 227.26 452.83 213.18 452.83 224.72 421.07 236.26 421.07"
+                            style="fill: rgb(255, 255, 255); opacity: 0.4; transform-origin: 224.72px 436.95px;"
+                            class="animable"></polygon>
+                    </g>
+                    <g id="ele3ez9xobya8">
+                        <polygon points="216.8 421.07 198.28 452.83 182.3 452.83 206.37 421.07 216.8 421.07"
+                            style="fill: rgb(255, 255, 255); opacity: 0.4; transform-origin: 199.55px 436.95px;"
+                            class="animable"></polygon>
+                    </g>
+                    <g id="elug2aoz9yzhm">
+                        <polygon points="198.01 421.07 167.32 452.83 148.21 452.83 186.56 421.07 198.01 421.07"
+                            style="fill: rgb(255, 255, 255); opacity: 0.4; transform-origin: 173.11px 436.95px;"
+                            class="animable"></polygon>
+                    </g>
+                    <path
+                        d="M100.66,409.11A26.49,26.49,0,0,0,126,379.29c-.66-5.21-2.84-10.08-4.38-15.1-2.91-9.49-3.84-20.2-10.52-27.55a22,22,0,0,0-32.51,0c-4.33,4.75-6.38,11.17-7.27,17.54S70.55,367,70,373.37c-.5,5.31-1.51,10.61-1.29,15.94s1.82,10.88,5.73,14.51A27.52,27.52,0,0,0,81.06,408a24.23,24.23,0,0,0,7.4,2.66,8.82,8.82,0,0,0,7.35-2.05A16.78,16.78,0,0,0,100.66,409.11Z"
+                        style="fill: rgb(123, 203, 233); transform-origin: 97.4457px 370.13px;" id="el1jx7vy1sh7p"
+                        class="animable"></path>
+                    <g id="elrffvs7q5gf">
+                        <path
+                            d="M100.66,409.11A26.49,26.49,0,0,0,126,379.29c-.66-5.21-2.84-10.08-4.38-15.1-2.91-9.49-3.84-20.2-10.52-27.55a22,22,0,0,0-32.51,0c-4.33,4.75-6.38,11.17-7.27,17.54S70.55,367,70,373.37c-.5,5.31-1.51,10.61-1.29,15.94s1.82,10.88,5.73,14.51A27.52,27.52,0,0,0,81.06,408a24.23,24.23,0,0,0,7.4,2.66,8.82,8.82,0,0,0,7.35-2.05A16.78,16.78,0,0,0,100.66,409.11Z"
+                            style="fill: rgb(255, 255, 255); opacity: 0.7; transform-origin: 97.4457px 370.13px;"
+                            class="animable"></path>
+                    </g>
+                    <path
+                        d="M88.43,428.5v-1.33l2.21-1.87s2.64-27,3.09-34.82,1-20.14-1.88-29.08a83.21,83.21,0,0,1,5.41,19s3.42-12.3,9.49-20.13c0,0-7.4,18.9-6.4,36.48a198.35,198.35,0,0,0,3.75,29.73l1.32.88.11,1.11Z"
+                        style="fill: rgb(123, 203, 233); transform-origin: 97.59px 394.385px;" id="elje7du5qg6k"
+                        class="animable"></path>
+                    <path d="M95.18,385.12s-1.92-8.52-7.09-12.74c0,0,4.33,6,5.75,16.08s2.93,3.68,2.93,3.68Z"
+                        style="fill: rgb(123, 203, 233); transform-origin: 92.43px 383.262px;" id="eljuhmjne9ue"
+                        class="animable"></path>
+                    <path d="M92.92,408.17a8.71,8.71,0,0,0-3.86-5s2,1.92,2.92,8.07S95.2,414,95.2,414l.18-3.39Z"
+                        style="fill: rgb(123, 203, 233); transform-origin: 92.22px 409.051px;" id="eltu7i5ww17a"
+                        class="animable"></path>
+                    <g id="elev2a5lc2f5l">
+                        <path
+                            d="M92,411.23c-1-6.15-2.92-8.07-2.92-8.07a9,9,0,0,1,3.32,3.63c.6-6.55,1.16-13.08,1.35-16.31,0-.64.07-1.32.1-2-1.42-10.12-5.74-16.08-5.74-16.08,3,2.45,4.91,6.36,6,9.2.09-6.66-.3-14.18-2.22-20.18a83.21,83.21,0,0,1,5.41,19s3.42-12.3,9.49-20.13c0,0-7.4,18.9-6.4,36.48a198.35,198.35,0,0,0,3.75,29.73l1.32.88.11,1.11H88.43v-1.33l2.21-1.87S91.27,418.78,92,411.23Z"
+                            style="opacity: 0.2; transform-origin: 97.45px 394.39px;" class="animable"></path>
+                    </g>
+                    <path
+                        d="M395.22,413.39a29.92,29.92,0,0,1-28.61-33.67c.75-5.88,3.21-11.38,4.95-17,3.29-10.72,4.34-22.81,11.88-31.1a24.81,24.81,0,0,1,36.69,0c4.89,5.35,7.21,12.61,8.22,19.79s.85,14.47,1.52,21.7c.56,6,1.7,12,1.46,18s-2.06,12.28-6.47,16.39a31.18,31.18,0,0,1-7.52,4.73,27.29,27.29,0,0,1-8.36,3,9.94,9.94,0,0,1-8.3-2.32A18.86,18.86,0,0,1,395.22,413.39Z"
+                        style="fill: rgb(123, 203, 233); transform-origin: 398.867px 369.448px;" id="ely6pjf9xrci"
+                        class="animable"></path>
+                    <g id="el0zuz53ck8map">
+                        <path
+                            d="M395.22,413.39a29.92,29.92,0,0,1-28.61-33.67c.75-5.88,3.21-11.38,4.95-17,3.29-10.72,4.34-22.81,11.88-31.1a24.81,24.81,0,0,1,36.69,0c4.89,5.35,7.21,12.61,8.22,19.79s.85,14.47,1.52,21.7c.56,6,1.7,12,1.46,18s-2.06,12.28-6.47,16.39a31.18,31.18,0,0,1-7.52,4.73,27.29,27.29,0,0,1-8.36,3,9.94,9.94,0,0,1-8.3-2.32A18.86,18.86,0,0,1,395.22,413.39Z"
+                            style="fill: rgb(255, 255, 255); opacity: 0.7; transform-origin: 398.867px 369.448px;"
+                            class="animable"></path>
+                    </g>
+                    <path
+                        d="M409,435.27v-1.49l-2.49-2.12s-3-30.51-3.49-39.3-1.12-22.74,2.12-32.83A93.62,93.62,0,0,0,399.05,381s-3.86-13.88-10.71-22.73c0,0,8.35,21.34,7.23,41.19A225.17,225.17,0,0,1,391.33,433l-1.49,1-.13,1.24Z"
+                        style="fill: rgb(123, 203, 233); transform-origin: 398.67px 396.77px;" id="elipdk6k1tp4h"
+                        class="animable"></path>
+                    <path d="M401.4,386.31s2.16-9.62,8-14.39c0,0-4.89,6.73-6.49,18.16s-3.32,4.14-3.32,4.14Z"
+                        style="fill: rgb(123, 203, 233); transform-origin: 404.495px 384.215px;" id="eliyftcequo4k"
+                        class="animable"></path>
+                    <path d="M404,412.33a9.84,9.84,0,0,1,4.36-5.66s-2.23,2.17-3.29,9.11-3.65,3.08-3.65,3.08l-.19-3.82Z"
+                        style="fill: rgb(123, 203, 233); transform-origin: 404.795px 413.3px;" id="eli8d7qd18a8"
+                        class="animable"></path>
+                    <g id="ells16d6ejlt">
+                        <path
+                            d="M405,415.78c1.06-6.94,3.29-9.11,3.29-9.11a10.06,10.06,0,0,0-3.76,4.1c-.67-7.39-1.3-14.77-1.51-18.41,0-.73-.08-1.5-.12-2.29,1.6-11.42,6.49-18.15,6.49-18.15-3.4,2.77-5.55,7.18-6.76,10.39-.1-7.52.34-16,2.51-22.78A93.62,93.62,0,0,0,399.05,381s-3.86-13.88-10.71-22.73c0,0,8.35,21.34,7.23,41.19A225.17,225.17,0,0,1,391.33,433l-1.49,1-.13,1.24H409v-1.49l-2.49-2.12S405.81,424.31,405,415.78Z"
+                            style="opacity: 0.2; transform-origin: 398.865px 396.755px;" class="animable"></path>
+                    </g>
+                </g>
+                <defs>
+                    <filter id="active" height="200%">
+                        <feMorphology in="SourceAlpha" result="DILATED" operator="dilate" radius="2"></feMorphology>
+                        <feFlood flood-color="#32DFEC" flood-opacity="1" result="PINK"></feFlood>
+                        <feComposite in="PINK" in2="DILATED" operator="in" result="OUTLINE"></feComposite>
+                        <feMerge>
+                            <feMergeNode in="OUTLINE"></feMergeNode>
+                            <feMergeNode in="SourceGraphic"></feMergeNode>
+                        </feMerge>
+                    </filter>
+                    <filter id="hover" height="200%">
+                        <feMorphology in="SourceAlpha" result="DILATED" operator="dilate" radius="2"></feMorphology>
+                        <feFlood flood-color="#ff0000" flood-opacity="0.5" result="PINK"></feFlood>
+                        <feComposite in="PINK" in2="DILATED" operator="in" result="OUTLINE"></feComposite>
+                        <feMerge>
+                            <feMergeNode in="OUTLINE"></feMergeNode>
+                            <feMergeNode in="SourceGraphic"></feMergeNode>
+                        </feMerge>
+                        <feColorMatrix type="matrix"
+                            values="0   0   0   0   0                0   1   0   0   0                0   0   0   0   0                0   0   0   1   0 ">
+                        </feColorMatrix>
+                    </filter>
+                </defs>
+            </svg>
+        </div>
     </div>
-</div>
 </div>
