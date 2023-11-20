@@ -7,7 +7,9 @@ import { BehaviorSubject } from 'rxjs';
 export class SidebarService {
   private isOpenSubject = new BehaviorSubject<boolean>(false);
   private backgroundColor: any = { color: '#F3F6F6' };
-  
+  private opcionSeleccionadaSource = new BehaviorSubject<string>('');
+  opcionSeleccionada$ = this.opcionSeleccionadaSource.asObservable();
+
   constructor() { }
 
   getIsOpen() {
@@ -24,5 +26,9 @@ export class SidebarService {
 
   setBackgroundColor(color: any) {
     this.backgroundColor = color;
+  }
+  
+  seleccionarOpcion(opcion: string) {
+    this.opcionSeleccionadaSource.next(opcion);
   }
 }

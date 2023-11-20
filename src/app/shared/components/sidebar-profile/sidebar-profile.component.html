@@ -3,24 +3,24 @@
     <i #btn class="pi pi-arrow-left" id="btn" routerLink="/home"></i>
   </div>
   <ul class="nav-list">  
-    <li>
-      <a routerLink="/profile">
+    <li [class.selected]="opcionSeleccionada === 'perfil'">
+      <a routerLink="/profile" (click)="seleccionarOpcion('perfil')">
         <i class='pi pi-user'></i>
         <span class="links_name">Mi perfil</span>
         <i class='pi pi-chevron-right right-arrow' style="font-size: 0.6rem"></i>
       </a>
       <span class="tooltip">Mi perfil</span>
     </li>
-    <li>
-      <a routerLink="/company">
+    <li [class.selected]="opcionSeleccionada === 'empresa'">
+      <a routerLink="/company" (click)="seleccionarOpcion('empresa')">
         <i class='pi pi-building'></i>
         <span class="links_name">Mi empresa</span>
         <i class='pi pi-chevron-right right-arrow' style="font-size: 0.6rem"></i>
       </a>
       <span class="tooltip">Mi empresa</span>
     </li>
-    <li>
-      <a routerLink="/company/users">
+    <li [class.selected]="opcionSeleccionada === 'usuarios'">
+      <a routerLink="/company/users" (click)="seleccionarOpcion('usuarios')">
         <i class='pi pi-users'></i>
         <span class="links_name">Usuarios</span>
         <i class='pi pi-chevron-right right-arrow' style="font-size: 0.6rem"></i>

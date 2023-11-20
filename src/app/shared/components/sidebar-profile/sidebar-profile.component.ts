@@ -5,6 +5,7 @@ import { CommunicationService } from 'src/app/core/services/tabview/communicatio
 import { environment } from 'src/environments/environment';
 import { SidebarService } from 'src/app/core/services/sidebar/sidebar.service';
 import { Location } from '@angular/common';
+import { SidebarProfileService } from 'src/app/core/services/sidebar-profile/sidebar-profile.service';
 // import * as jwt_decode from "jwt-decode";
 
 
@@ -25,21 +26,31 @@ export class SidebarProfileComponent {
   isAccountant = false;
   isOpen:boolean = false;
   backgroundColor: string = '';
+  opcionSeleccionada: string = '';
 
   @Output() navbarToggle = new EventEmitter<boolean>();
 
-  constructor(private communicationService: CommunicationService, private confirmationService: ConfirmationService, private keycloakService: KeycloakService, private sidebarService: SidebarService, private location: Location) {
+  constructor(private communicationService: CommunicationService, 
+    private confirmationService: ConfirmationService,
+    private keycloakService: KeycloakService, 
+    private sidebarService: SidebarProfileService, 
+    private location: Location) {
 
   }
+
+
+  seleccionarOpcion(opcion: string) {
+    this.sidebarService.seleccionarOpcion(opcion);
+  }
+
   goBack(): void {
     this.location.back();
   }
 
   ngOnInit() {
-    this.sidebarService.getIsOpen().subscribe((isOpen) => {
-      this.isOpen = isOpen;
+    this.sidebarService.opcionSeleccionada$.subscribe((opcion) => {
+      this.opcionSeleccionada = opcion;
     });
-    // this.backgroundColor = this.sidebarService.getBackgroundColor();
     this.determineRole();
   }
 
@@ -58,21 +69,6 @@ export class SidebarProfileComponent {
   // Función para cambiar la pestaña activa
   changeTab(tabIndex: number) {
     this.communicationService.setActiveTabIndex(tabIndex);
-  }
-
-  toggleSidebar() {
-    if (this.sidebar) {
-      // this.sidebar.nativeElement.classList.toggle("open");
-      this.isNavbarOpen = !this.isNavbarOpen;
-      this.navbarToggle.emit(this.isNavbarOpen); // Raise event
-      this.sidebarService.setIsOpen(this.isNavbarOpen);
-
-    }
-  }
-
-  expandir() {
-    this.toggleSidebar();
-    //this.menuBtnChange(); // calling the function (optional)
   }
 
   determineRole(){

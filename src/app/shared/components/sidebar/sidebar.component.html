@@ -10,16 +10,16 @@
       </a>
     </div>
     <br>
-    <li>
-      <a routerLink="/dashboard">
+    <li [class.selected]="opcionSeleccionada === 'dashboard'">
+      <a routerLink="/dashboard" (click)="seleccionarOpcion('dashboard')" class="option-content">
         <i class='pi pi-chart-pie'></i>
         <span class="links_name">Dashboard</span>
         <i class='pi pi-chevron-right right-arrow' style="font-size: 0.6rem"></i>
       </a>
       <span class="tooltip">Dashboard</span>
     </li>
-    <li>
-      <a routerLink="/sales">
+    <li [class.selected]="opcionSeleccionada === 'ventas'">
+      <a routerLink="/sales" (click)="seleccionarOpcion('ventas')" class="option-content">
         <i>
           <img class="local-icon" src="/assets/ventas.svg" alt="" width="23px">
         </i>
@@ -34,8 +34,8 @@
       </ul>
       <span class="tooltip">Ventas</span>
     </li>
-    <li>
-      <a routerLink="/expenses">
+    <li [class.selected]="opcionSeleccionada === 'gastos'">
+      <a routerLink="/expenses" (click)="seleccionarOpcion('gastos')" class="option-content">
         <i>
           <img class="local-icon" src="/assets/gastos.svg" alt="" width="23px">
         </i>
@@ -51,8 +51,8 @@
       <span class="tooltip">Compras</span>
     </li>
 
-    <li *ngIf="isAccountant">
-      <a routerLink="/transactions">
+    <li *ngIf="isAccountant" [class.selected]="opcionSeleccionada === 'contabilidad'">
+      <a routerLink="/transactions" (click)="seleccionarOpcion('contabilidad')" class="option-content">
         <i class='pi pi-book'></i>
         <span class="links_name">Contabilidad</span>
         <i class='pi pi-chevron-right right-arrow' style="font-size: 0.6rem"></i>
@@ -66,16 +66,16 @@
       </ul>
       <span class="tooltip">Contabilidad</span>
     </li>
-    <li>
-      <a routerLink="/chartofaccounts">
+    <li [class.selected]="opcionSeleccionada === 'plan'">
+      <a routerLink="/chartofaccounts" (click)="seleccionarOpcion('plan')" class="option-content">
         <i class='pi pi-th-large'></i>
         <span class="links_name">Plan de cuentas</span>
         <i class='pi pi-chevron-right right-arrow' style="font-size: 0.6rem"></i>
       </a>
       <span class="tooltip">Plan de cuentas</span>
     </li>
-    <li>
-      <a routerLink="/reports">
+    <li [class.selected]="opcionSeleccionada === 'reportes'">
+      <a routerLink="/reports" (click)="seleccionarOpcion('reportes')" class="option-content">
         <i class='pi pi-file'></i>
         <span class="links_name">Reportes</span>
         <i class='pi pi-chevron-right right-arrow' style="font-size: 0.6rem"></i>

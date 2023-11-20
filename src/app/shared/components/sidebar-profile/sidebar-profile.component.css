@@ -122,6 +122,7 @@
 #sidebar li a:hover{
   background: var(--color-green);
 }
+
 #sidebar li a .links_name{
   color: #666666;
   font-size: 15px;
@@ -308,10 +309,6 @@ ul{
   z-index: -1;
 }
 
-/* .sub-menu li:hover{
-  background: var(--color-green);
-  border-radius: 0;
-} */
 .sub-menu li:hover a{
   background: var(--color-green) !important;
   border-radius: 5px;
@@ -321,4 +318,13 @@ ul{
 .sub-menu li a{
   width: 100%;
   padding: 15px;
+}
+
+/* Selected class */
+.selected a{
+  background: var(--color-green);
+}
+.selected a .links_name,
+.selected a i{
+  color: #fff !important;
 }

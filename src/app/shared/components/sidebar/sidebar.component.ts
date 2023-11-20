@@ -25,16 +25,27 @@ export class SidebarComponent {
   isAccountant = false;
   isOpen:boolean = false;
   backgroundColor: string = '';
+  opcionSeleccionada: string = '';
 
   @Output() navbarToggle = new EventEmitter<boolean>();
 
-  constructor(private communicationService: CommunicationService, private confirmationService: ConfirmationService, private keycloakService: KeycloakService, private sidebarService: SidebarService) {
+  constructor(private communicationService: CommunicationService, 
+    private confirmationService: ConfirmationService, 
+    private keycloakService: KeycloakService, 
+    private sidebarService: SidebarService) {
 
   }
+  seleccionarOpcion(opcion: string) {
+    this.sidebarService.seleccionarOpcion(opcion);
+  }
+
 
   ngOnInit() {
     this.sidebarService.getIsOpen().subscribe((isOpen) => {
       this.isOpen = isOpen;
+    });
+    this.sidebarService.opcionSeleccionada$.subscribe((opcion) => {
+      this.opcionSeleccionada = opcion;
     });
     this.backgroundColor = this.sidebarService.getBackgroundColor();
     this.determineRole();

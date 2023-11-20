@@ -2,6 +2,7 @@ import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { MenuItem } from 'primeng/api';
 import { MessageService } from 'primeng/api';
+import { SidebarProfileService } from 'src/app/core/services/sidebar-profile/sidebar-profile.service';
 import { SidebarService } from 'src/app/core/services/sidebar/sidebar.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { ValuesService } from 'src/app/core/services/values/values.service';
@@ -16,9 +17,17 @@ export class NavbarComponent {
     items: MenuItem[] | undefined;
     pfpUrl: string = '';
 
-    constructor(private sidebarService: SidebarService, private valuesService: ValuesService, private keycloakService: KeycloakService, private userService: UserService) { 
+    constructor(private sidebarProfileService: SidebarProfileService, 
+        private sidebarService: SidebarService,
+        private valuesService: ValuesService,
+         private keycloakService: KeycloakService, 
+         private userService: UserService) { 
     }
 
+    updateSidebarState(){
+        this.sidebarProfileService.seleccionarOpcion('perfil');
+    }
+    
     ngOnInit() {
         
         this.backgroundColor = this.sidebarService.getBackgroundColor();
@@ -28,23 +37,23 @@ export class NavbarComponent {
             this.backgroundColor = 'white';
         }
         document.documentElement.style.setProperty('--color-navbar', this.backgroundColor);
-        this.items = [
-            {
-                label: 'Su empresa',
-                items: [
-                    {
-                        label: 'Información de la empresa',
-                        icon: 'pi pi-info-circle',
-                        routerLink: ['/company']
-                    },
-                    {
-                        label: 'Usuarios',
-                        icon: 'pi pi-users',
-                        routerLink: ['/company/users']
-                    }
-                ]
-            },
-        ];
+        // this.items = [
+        //     {
+        //         label: 'Su empresa',
+        //         items: [
+        //             {
+        //                 label: 'Información de la empresa',
+        //                 icon: 'pi pi-info-circle',
+        //                 routerLink: ['/company']
+        //             },
+        //             {
+        //                 label: 'Usuarios',
+        //                 icon: 'pi pi-users',
+        //                 routerLink: ['/company/users']
+        //             }
+        //         ]
+        //     },
+        // ];
 
         this.valuesService.getUserInfo().subscribe((data) => {
           if (data.profilePicture != null){
