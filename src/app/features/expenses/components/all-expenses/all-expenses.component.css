@@ -50,19 +50,6 @@
   padding:0.25rem 0.5rem 0.25rem 0.5rem;
 }
 
-/* Botones */
-/* Verde */
-::ng-deep .green-button button {
-  background: var(--color-green) !important;
-  border-color: var(--color-green) !important;
-  font-size: small;
-}
-/* Rojo */
-::ng-deep .red-button button {
-  background: #F77 !important;
-  border-color: #F77  !important;
-  font-size: small;
-}
 
 /* Multiselect */
 ::ng-deep #supplier .p-multiselect {
@@ -102,4 +89,12 @@
 }
 ::ng-deep .p-paginator-pages button{
     font-size: small;
+}
+
+/* Botones */
+/* Verde */
+::ng-deep .green-button-exp button {
+  background: var(--color-green) !important;
+  border-color: var(--color-green) !important;
+  font-size: small;
 }

@@ -37,7 +37,7 @@ export class JournalEntryPageComponent {
   totalDebitAmount: number = 0;
   totalCreditAmount: number = 0;
   selectedSaveAndNew: boolean = false;
-
+  saved: boolean = false;
   constructor(private journalEntryService: JournalEntryService, private filesService: FilesService, private messageService: MessageService, private documentTypeService: DocumentTypeService, private location: Location) { }
   ngOnInit(): void {
     //Get the document types
@@ -66,6 +66,7 @@ export class JournalEntryPageComponent {
 
   // Save the journal entry - service
   save() {
+    this.saved = false;
     // this.selectedSaveAndNew = false;
     //Getting the gloss from the child component - transaction table
     this.transactionTableComponent.sendGlossAndTotal();
@@ -140,16 +141,19 @@ export class JournalEntryPageComponent {
   saveAndNew() {
     this.selectedSaveAndNew = true;
     this.save();
-    //Vaciamos el formulario
-    this.transactionTableComponent.deleteAllRows();
-    this.attachmentsComponent.deleteAllFiles();
-    this.gloss = '';
-    this.description = '';
-    this.dateValue = new Date();
-    this.totalDebitAmount = 0;
-    this.totalCreditAmount = 0;
-    this.selectedDocumentType = undefined;
-    this.getJournalEntryNumber();
+    if (this.saved) {
+      //Vaciamos el formulario
+      this.transactionTableComponent.deleteAllRows();
+      this.attachmentsComponent.deleteAllFiles();
+      this.gloss = '';
+      this.description = '';
+      this.dateValue = new Date();
+      this.totalDebitAmount = 0;
+      this.totalCreditAmount = 0;
+      this.selectedDocumentType = undefined;
+      this.getJournalEntryNumber();
+    }
+
   }
 
   uploadJournalEntry() {
@@ -172,6 +176,7 @@ export class JournalEntryPageComponent {
         // console.log(data);
         // console.log("Se creoo");
         this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Asiento creado correctamente' });
+        this.saved = true;
         //Esperar  segundos antes de redireccionar
         if(!this.selectedSaveAndNew){
           setTimeout(() => {
@@ -228,6 +233,18 @@ export class JournalEntryPageComponent {
 
   goBack(): void {
     this.location.back();
+  }
+
+  delete(){
+    //Vaciamos el formulario
+    this.transactionTableComponent.deleteAllRows();
+    this.attachmentsComponent.deleteAllFiles();
+    this.gloss = '';
+    this.description = '';
+    this.dateValue = new Date();
+    this.totalDebitAmount = 0;
+    this.totalCreditAmount = 0;
+    this.selectedDocumentType = undefined;
   }
 }
 

@@ -42,7 +42,7 @@ export class LedgerBookService {
      return this.dateTo;
     }
 
-    public setdateTo(dateTo: Date): void {
+    public setdateTo(dateTo: any): void {
      this.dateTo = dateTo;
     }
 
@@ -50,7 +50,7 @@ export class LedgerBookService {
      return this.dateFrom;
     }
 
-    public setdateFrom(dateFrom: Date): void {
+    public setdateFrom(dateFrom: any): void {
      this.dateFrom = dateFrom;
     }
 

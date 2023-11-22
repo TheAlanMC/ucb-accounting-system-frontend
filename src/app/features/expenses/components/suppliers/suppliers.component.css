@@ -26,13 +26,13 @@
 
 /* Botones */
 /* Verde */
-::ng-deep .green-button button {
+::ng-deep .green-button-sup button {
     background: var(--color-green) !important;
     border-color: var(--color-green) !important;
     font-size: small;
 }
 /* Rojo */
-::ng-deep .red-button button {
+::ng-deep .red-button-sup button {
     background: #F77 !important;
     border-color: #F77  !important;
     font-size: small;

@@ -1,9 +1,9 @@
 /* Dropdown */
-::ng-deep #document-type .p-dropdown {
+::ng-deep .dd-exp-receipt .p-dropdown {
     height: 30px !important;
 }
 
-::ng-deep #document-type .p-dropdown span {
+::ng-deep .dd-exp-receipt .p-dropdown span {
     font-size: small;
     padding:0.25rem 0.5rem 0.25rem 0.5rem;
 }
@@ -85,15 +85,6 @@
 }
 
 
-/* Dropdown */
-::ng-deep .dropdown .p-dropdown {
-    height: 30px !important;
-}
-
-::ng-deep .dropdown .p-dropdown span {
-    font-size: small;
-    padding:0.25rem 0.5rem 0.25rem 0.5rem;
-}
 
 ::ng-deep #description-text-area{
     width: 30vw !important;
@@ -101,13 +92,13 @@
 }
 
 /* Botones */
-::ng-deep .cyan-button button {
+::ng-deep .cyan-button-exp-receipt button {
     background: var(--color-cyan-green) !important;
     border-color: var(--color-cyan-green) !important;
     font-size: medium;
 }
 /* Rojo */
-::ng-deep .red-button button {
+::ng-deep .red-button-exp-receipt button {
     background: #F77 !important;
     border-color: #F77  !important;
     font-size: medium;

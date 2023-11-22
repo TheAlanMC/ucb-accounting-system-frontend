@@ -23,7 +23,7 @@
             </div>
             <div class="flex flex-column justify-content-start">
                 <div class="flex justify-content-between flex-wrap card-container purple-container">
-                    <p-button label="Añadir cuenta" class="ml-2 green-button" icon="pi pi-plus"
+                    <p-button label="Añadir cuenta" class="ml-2 green-button-ca" icon="pi pi-plus"
                     (click)="sidebarVisible2 = true; isEditing = false" (click)="agregarNuevaCuenta(); level='Grupo'"></p-button>
                 </div>
             </div>
@@ -74,37 +74,37 @@
             <div class="card" *ngIf="isEditing">
                 <div class="formgrid grid">
                     <div class="field col-12 md:col-6">
-                        <label for="name">Nombre de la cuenta</label>
-                        <input id="name" pInputText type="text" [(ngModel)]="accountNameInput" class="input w-full ca-input" required>
+                        <label for="account-name">Nombre de la cuenta</label>
+                        <input id="account-name" pInputText type="text" [(ngModel)]="accountNameInput" class="input w-full ca-input" required>
                     </div>
                     <div class="field col-12 md:col-6">
-                        <label for="lastname">Código de la cuenta</label>
-                        <input id="lastname" type="text" pInputText [(ngModel)]="accountCodeInput" class="input w-full ca-input" required>
+                        <label for="account-code">Código de la cuenta</label>
+                        <input id="account-code" type="text" pInputText [(ngModel)]="accountCodeInput" class="input w-full ca-input" required>
                     </div>
                 </div>
             </div>
             <div *ngIf="!isEditing" class="card">
                 <div class="field col-12 md:col-6 p-0">
-                    <label for="account-number">Selecciona el nivel de la cuenta</label>
+                    <label>Selecciona el nivel de la cuenta</label>
                     <div class="flex flex-wrap gap-3 mt-2">
                         <div class="flex align-items-center">
                             <p-radioButton value="Grupo" [(ngModel)]="level" inputId="level1"> (onClick)="handleRadioChange($event)"</p-radioButton>
-                            <label for="level1" class="ml-2">Grupo</label>
+                            <label class="ml-2">Grupo</label>
                         </div>
 
                         <div class="flex align-items-center">
                             <p-radioButton value="Subgrupo" [(ngModel)]="level" inputId="level2" (onClick)="handleRadioChange($event)"></p-radioButton>
-                            <label for="level2" class="ml-2">Subgrupo</label>
+                            <label class="ml-2">Subgrupo</label>
                         </div>
 
                         <div class="flex align-items-center">
                             <p-radioButton value="Cuenta" [(ngModel)]="level" inputId="level3" (onClick)="handleRadioChange($event)"></p-radioButton>
-                            <label for="level3" class="ml-2">Cuenta</label>
+                            <label class="ml-2">Cuenta</label>
                         </div>
 
                         <div class="flex align-items-center">
                             <p-radioButton value="Subcuenta" [(ngModel)]="level" inputId="level4" (onClick)="handleRadioChange($event)"></p-radioButton>
-                            <label for="level4" class="ml-2">Subcuenta</label>
+                            <label class="ml-2">Subcuenta</label>
                         </div>
                     </div>
                 </div>
@@ -113,26 +113,26 @@
                 <br>
                 <div class="field col-12 md:col-6 p-0">
                     <div class="field my-3">
-                        <label for="account-number">Selecciona la categoría de la cuenta</label>
-                        <p-dropdown id="account-number" class="dropdown text-base text-color surface-overlay border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary"
+                        <label for="category">Selecciona la categoría de la cuenta</label>
+                        <p-dropdown id="category" class="dd-ca dropdown text-base text-color surface-overlay border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary"
                         optionLabel="name" placeholder="Seleccione una categoría" [required]="true" [options]="categorias" [(ngModel)]="selectedCategory" (onChange)="onSelectedCategory($event)"
                         [style]="{'width':'100%'}"></p-dropdown>
                     </div>
                     <div *ngIf="level!='Grupo'"  class="field my-3">
-                        <label for="account-number" style="font-weight: 400;">Selecciona el grupo de la cuenta</label>
-                        <p-dropdown id="account-number" class="dropdown text-base text-color surface-overlay border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary"
+                        <label for="group" style="font-weight: 400;">Selecciona el grupo de la cuenta</label>
+                        <p-dropdown id="group" class="dd-ca dropdown text-base text-color surface-overlay border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary"
                         optionLabel="name" placeholder="Seleccione un grupo" [required]="true" [options]="grupos" (onChange)="onSelectedGroup($event)" [(ngModel)]="selectedGroup"
                         [style]="{'width':'100%'}"></p-dropdown>
                     </div>
                     <div *ngIf="level!='Grupo' && level != 'Subgrupo'" class="field my-3">
-                        <label for="account-number">Selecciona el subgrupo de la cuenta</label>
-                        <p-dropdown id="account-number" class="dropdown text-base text-color surface-overlay border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary"
+                        <label for="subgroup">Selecciona el subgrupo de la cuenta</label>
+                        <p-dropdown id="subgroup" class="dd-ca dropdown text-base text-color surface-overlay border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary"
                         optionLabel="name" placeholder="Seleccione un subgrupo" [required]="true" [options]="subgrupos" (onChange)="onSelectedSubgroup($event)" [(ngModel)]="selectedSubgroup"
                         [style]="{'width':'100%'}"></p-dropdown>
                     </div>
                     <div *ngIf="level=='Subcuenta'"  class="field my-3">
-                        <label for="account-number">Selecciona la cuenta</label>
-                        <p-dropdown id="account-number" class="dropdown text-base text-color surface-overlay border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary"
+                        <label for="account">Selecciona la cuenta</label>
+                        <p-dropdown id="account" class="dd-ca dropdown text-base text-color surface-overlay border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary"
                         optionLabel="name" placeholder="Seleccione una cuenta" [required]="true" [options]="cuentasList" [(ngModel)]="selectedAccount"
                         [style]="{'width':'100%'}"></p-dropdown>
                     </div>
@@ -154,8 +154,8 @@
         </p-fieldset>
         <br>
         <div class="flex flex-end mt-4" style="position: fixed; bottom: 5%; right:2.5rem">
-            <p-button label="Cancelar" class="mx-2 red-button" icon="pi pi-times-circle" (click)="sidebarVisible2 = false;" ></p-button>
-            <p-button label="Guardar" class="ml-2 green-button" icon="pi pi-save"
+            <p-button label="Cancelar" class="mx-2 red-button-ca" icon="pi pi-times-circle" (click)="sidebarVisible2 = false;" ></p-button>
+            <p-button label="Guardar" class="ml-2 green-button-ca" icon="pi pi-save"
                 (click)="isEditing ? saveAccountChanges() : createAccount()"></p-button>
         </div>
     </p-sidebar>

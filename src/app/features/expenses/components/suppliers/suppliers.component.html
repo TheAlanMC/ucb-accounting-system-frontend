@@ -1,5 +1,4 @@
 <div class="flex justify-content-between my-4">
-
     <div class="flex flex-column justify-content-start">
         <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
@@ -10,7 +9,7 @@
     <div class="flex flex-column justify-content-start">
         <div class="flex justify-content-between flex-wrap card-container purple-container">
             <!--            <p-button label="Eliminar proveedor" class="mx-2 red-button" icon="pi pi-user-minus"></p-button>-->
-            <p-button label="Añadir proveedor" class="ml-2 green-button" icon="pi pi-user-plus"
+            <p-button label="Añadir proveedor" class="ml-2 green-button-sup" icon="pi pi-user-plus"
                 (click)="addSupplier()"></p-button>
         </div>
     </div>
@@ -29,7 +28,7 @@
                     field="companyPhoneNumber"></p-sortIcon></th>
             <th pSortableColumn="txDate">Fecha de creación <p-sortIcon field="txDate"></p-sortIcon></th>
             <th style="width:5%; height: 50px"> </th>
-            
+
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-supplier>
@@ -97,7 +96,7 @@
 
     </p-fieldset>
     <br>
-    <!-- Cuenta -->
+    <!-- Cuenta
     <p-fieldset>
         <ng-template pTemplate="header">
             <div class="flex align-items-center text-primary">
@@ -115,7 +114,7 @@
             </div>
         </div>
     </p-fieldset>
-    <br>
+    <br>-->
     <!-- Contacto -->
     <p-fieldset>
         <ng-template pTemplate="header">
@@ -148,9 +147,9 @@
 
     </p-fieldset>
     <div class="flex justify-content-between flex-wrap card-container purple-container mt-4">
-        <p-button label="Cancelar" class="mx-2 red-button" icon="pi pi-times-circle"
+        <p-button label="Cancelar" class="mx-2 red-button-sup" icon="pi pi-times-circle"
             (click)="addSupplierVisible = false"></p-button>
-        <p-button label="Guardar" class="ml-2 green-button" icon="pi pi-save"
+        <p-button label="Guardar" class="ml-2 green-button-sup" icon="pi pi-save"
             (click)="editMode ? saveSupplierChanges() : createSupplier()"></p-button>
     </div>
 

@@ -27,10 +27,10 @@
       </a>
       <i class='pi pi-chevron-right right-arrow' style="font-size: 0.6rem;"></i>
       <ul class="sub-menu">
-        <li><a routerLink="/sales" (click)="changeTab(0)">Todas las ventas</a></li>
-        <li><a routerLink="/sales/invoice">Nueva factura</a></li>
-        <li><a routerLink="/sales/receipt">Nuevo recibo de venta</a></li>
-        <li><a routerLink="/sales" (click)="changeTab(1)">Clientes</a></li>
+        <li><a routerLink="/sales" (click)="changeTab(0)" (click)="seleccionarOpcion('ventas')">Todas las ventas</a></li>
+        <li><a routerLink="/sales/invoice" (click)="seleccionarOpcion('ventas')">Nueva factura</a></li>
+        <li><a routerLink="/sales/receipt" (click)="seleccionarOpcion('ventas')">Nuevo recibo de venta</a></li>
+        <li><a routerLink="/sales" (click)="changeTab(1)" (click)="seleccionarOpcion('ventas')">Clientes</a></li>
       </ul>
       <span class="tooltip">Ventas</span>
     </li>
@@ -43,10 +43,10 @@
       </a>
       <i class='pi pi-chevron-right right-arrow' style="font-size: 0.6rem;"></i>
       <ul class="sub-menu">
-        <li><a routerLink="/expenses" (click)="changeTab(0)">Todos las compras</a></li>
-        <li><a routerLink="/expenses/invoice">Nueva factura a proveedores</a></li>
-        <li><a routerLink="/expenses/receipt">Nuevo recibo de abono</a></li>
-        <li><a routerLink="/expenses" (click)="changeTab(1)">Proveedores</a></li>
+        <li><a routerLink="/expenses" (click)="changeTab(0)" (click)="seleccionarOpcion('gastos')" >Todos las compras</a></li>
+        <li><a routerLink="/expenses/invoice" (click)="seleccionarOpcion('gastos')" >Nueva factura a proveedores</a></li>
+        <li><a routerLink="/expenses/receipt" (click)="seleccionarOpcion('gastos')" >Nuevo recibo de abono</a></li>
+        <li><a routerLink="/expenses" (click)="changeTab(1)" (click)="seleccionarOpcion('gastos')" >Proveedores</a></li>
       </ul>
       <span class="tooltip">Compras</span>
     </li>
@@ -58,11 +58,11 @@
         <i class='pi pi-chevron-right right-arrow' style="font-size: 0.6rem"></i>
       </a>
       <ul class="sub-menu">
-        <li><a routerLink="/transactions">Todas las transacciones</a></li>
+        <li><a routerLink="/transactions" (click)="seleccionarOpcion('contabilidad')">Todas las transacciones</a></li>
         <!--        <li><a routerLink="/journal">Asiento diario</a></li>-->
-        <li><a routerLink="/journal">Comprobante de diario</a></li>
-        <li><a routerLink="/openingbalance">Balance de apertura</a></li>
-        <li><a routerLink="/taxes">Impuestos</a></li>
+        <li><a routerLink="/journal" (click)="seleccionarOpcion('contabilidad')">Comprobante de diario</a></li>
+        <li><a routerLink="/openingbalance" (click)="seleccionarOpcion('contabilidad')">Balance de apertura</a></li>
+        <li><a routerLink="/taxes" (click)="seleccionarOpcion('contabilidad')">Impuestos</a></li>
       </ul>
       <span class="tooltip">Contabilidad</span>
     </li>
