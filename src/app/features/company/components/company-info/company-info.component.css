@@ -84,7 +84,10 @@
   transition: all 0.5s ease;
   z-index: 2;
   /* background-image: radial-gradient(18% 28% at 18% 71%, #FFFFFF59 6%, #073AFF00 100%), radial-gradient(150px 150px at 90% 28%, #6dffe49c 53%, #073AFF00 100%), radial-gradient(100px 100px at 40% 23%, #77ff009a 7%, #073AFF00 97%), radial-gradient(50px 50px at 10% 85%, rgba(140, 247, 244, 0.718) 72%, #073AFF00 100%), radial-gradient(200px 200px at 60% 80%, #5EF9C6BA 44%, #2F4F3200 86%); */
-
+  background-image: url("/assets/bg0.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .navbar-opened {
