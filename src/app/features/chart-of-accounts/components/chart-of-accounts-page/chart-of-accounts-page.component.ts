@@ -33,6 +33,7 @@ export class ChartOfAccountsPageComponent {
   accountCategory: AccountCategoryDto[] = []
   accountGroup: AccountGroupPartialDto[] = []
   level: string = 'Grupo';
+  isExpanded: boolean = false;
 
   //Listas almacenadas para el select
   categorias: any = [];
@@ -201,7 +202,8 @@ export class ChartOfAccountsPageComponent {
           accountName: item.accountCategoryName || item.accountGroupName || item.accountSubgroupName || item.accountName || item.subaccountName,
           level: level,
         },
-        children: []
+        children: [],
+        expanded: this.isExpanded
       };
 
       if (item.accountGroups || item.accountSubgroups || item.accounts || item.subaccounts) {
@@ -544,5 +546,15 @@ export class ChartOfAccountsPageComponent {
       return false;
     }
     return true;
+  }
+
+  expandAll() {
+    this.isExpanded = true;
+    this.cuentas = this.transformData(this.accountCategory, 1);
+  }
+
+  collapseAll() {
+    this.isExpanded = false;
+    this.cuentas = this.transformData(this.accountCategory, 1);
   }
 }

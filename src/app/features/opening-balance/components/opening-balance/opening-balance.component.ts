@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import { FinancialStatementDetailsDto } from '../../../financial-statements/models/financial-statements-details.dto';
 import { SidebarService } from 'src/app/core/services/sidebar/sidebar.service';
 import { MessageService } from 'primeng/api';
@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 import { OpeningBalaceService } from 'src/app/core/services/opening-balance.service';
 import { TableAccountExpandLevelDto } from '../../models/table-account-expand.dto';
 import {OpeningBalanceDto} from "../../models/opening-balance.dto";
+import {TreeTable} from "primeng/treetable";
 
 @Component({
   selector: 'app-opening-balance',
@@ -14,6 +15,10 @@ import {OpeningBalanceDto} from "../../models/opening-balance.dto";
   providers: [MessageService]
 })
 export class OpeningBalanceComponent {
+  @ViewChild('dt1', { static: false }) dt1!: TreeTable;
+  @ViewChild('dt2', { static: false }) dt2!: TreeTable;
+  @ViewChild('dt3', { static: false }) dt3!: TreeTable;
+
   startDate: Date | undefined;  // Variable para la fecha de inicio
   companyId = Number(localStorage.getItem('companyId'));
 
@@ -21,6 +26,7 @@ export class OpeningBalanceComponent {
   isLoading: boolean = true;
   message: string = 'Seleccione un rango de fechas para generar su reporte.';
   emptyTable: boolean = true;
+  searchValue: string = '';
 
   incomeStatementsDetail!: FinancialStatementDetailsDto[];
 
@@ -232,7 +238,13 @@ export class OpeningBalanceComponent {
       };
     });
   }
-
+  applyFilterGlobal(event: Event, stringVal: string) {
+    const inputValue = (event.target as HTMLInputElement).value;
+    // console.log(inputValue);
+    this.dt1.filterGlobal(inputValue, stringVal);
+    this.dt2.filterGlobal(inputValue, stringVal);
+    this.dt3.filterGlobal(inputValue, stringVal);
+  }
 
 
 

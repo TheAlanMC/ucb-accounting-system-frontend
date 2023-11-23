@@ -99,7 +99,8 @@
         <h1 class="text-2xl ml-3">Selector de cuentas</h1>
       </ng-template>
       <div class="flex justify-content-between my-4">
-
+        <p-button *ngIf="!isExpanded" label="Expandir todo" class="mx-2 green-button-caa" icon="pi pi-angle-double-down" (click)="expandAll()"></p-button>
+        <p-button *ngIf="isExpanded" label="Contraer todo" class="mx-2 red-button-caa" icon="pi pi-angle-double-up" (click)="collapseAll()"></p-button>
         <div class="flex flex-column justify-content-start">
                 <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>

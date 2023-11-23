@@ -23,6 +23,9 @@
             </div>
             <div class="flex flex-column justify-content-start">
                 <div class="flex justify-content-between flex-wrap card-container purple-container">
+
+                  <p-button *ngIf="!isExpanded" label="Expandir todo" class="mx-2 green-button-ca" icon="pi pi-angle-double-down" (click)="expandAll()"></p-button>
+                  <p-button *ngIf="isExpanded" label="Contraer todo" class="mx-2 red-button-ca" icon="pi pi-angle-double-up" (click)="collapseAll()"></p-button>
                     <p-button label="Añadir cuenta" class="ml-2 green-button-ca" icon="pi pi-plus"
                     (click)="sidebarVisible2 = true; isEditing = false" (click)="agregarNuevaCuenta(); level='Grupo'"></p-button>
                 </div>
