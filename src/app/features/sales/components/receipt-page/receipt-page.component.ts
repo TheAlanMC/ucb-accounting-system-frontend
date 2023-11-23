@@ -9,6 +9,7 @@ import { forkJoin } from 'rxjs';
 import { AttachmentDto } from 'src/app/core/models/attachment.dto';
 import { PaymentDto } from '../../models/payment.dto';
 import { format } from 'date-fns';
+import { MenuItem } from 'primeng/api';
 import { PaymentDetailDto } from '../../models/payment-detail.dto';
 import {Location} from "@angular/common";
 
@@ -20,6 +21,7 @@ import {Location} from "@angular/common";
 })
 export class ReceiptPageComponent {
   @ViewChild(AttachmentsSectionComponent) attachmentsComponent!: AttachmentsSectionComponent; // Obtén una referencia al componente hijo
+  items: MenuItem[] | undefined;
 
   constructor(private customerService: CustomerService, private paymentTypeService: PaymentTypeService, private salesService: SalesService, private filesService: FilesService ,private messageService: MessageService, private location: Location) { }
   ngOnInit(): void{
@@ -27,7 +29,49 @@ export class ReceiptPageComponent {
     this.getAllCustomers()
     this.getAllPaymentTypes()
     this.getSubaccounts()
-
+    this.items = [
+      {
+          label: 'Manual de usuario',
+          items: [
+              {
+                  label: 'Introducción',
+                  icon: 'pi pi-info-circle',
+                  command: () => {
+                    const rutaPDF = '/assets/manuales/Manual 1 - Introducción.pdf';
+                    const urlPDF = window.location.origin + '/' + rutaPDF;
+                    window.open(urlPDF, '_blank');
+                  }
+              },
+              {
+                  label: 'Ventas y Compras',
+                  icon: 'pi pi-money-bill',
+                  command: () => {
+                    const rutaPDF = '/assets/manuales/Manual 2 - Ventas y Compras.pdf';
+                    const urlPDF = window.location.origin + '/' + rutaPDF;
+                    window.open(urlPDF, '_blank');
+                  }                    
+              },
+              {
+                  label: 'Contabilidad y Plan de cuentas',
+                  icon: 'pi pi-percentage',
+                  command: () => {
+                    const rutaPDF = '/assets/manuales/Manual 3 - Contabilidad y Plan de cuentas.pdf';
+                    const urlPDF = window.location.origin + '/' + rutaPDF;
+                    window.open(urlPDF, '_blank');
+                  }                    
+              },
+              {
+                  label: 'Reportes',
+                  icon: 'pi pi-file-pdf',
+                  command: () => {
+                    const rutaPDF = '/assets/manuales/Manual 4 - Reportes.pdf';
+                    const urlPDF = window.location.origin + '/' + rutaPDF;
+                    window.open(urlPDF, '_blank');
+                  }
+              }
+          ]
+      },
+  ];
   }
 
   // Variables

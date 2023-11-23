@@ -27,6 +27,7 @@ import { ReceiptPageComponent } from './components/receipt-page/receipt-page.com
 import { SharedModule } from 'src/app/shared/shared.module';
 import {PaginatorModule} from "primeng/paginator";
 import {KeyFilterModule} from 'primeng/keyfilter';
+import { MenuModule } from 'primeng/menu';
 @NgModule({
   declarations: [
     InvoicePageComponent,
@@ -59,7 +60,8 @@ import {KeyFilterModule} from 'primeng/keyfilter';
         SplitButtonModule,
         SharedModule,
         PaginatorModule,
-        KeyFilterModule
+        KeyFilterModule,
+        MenuModule
     ]
 })
 export class SalesModule { }
