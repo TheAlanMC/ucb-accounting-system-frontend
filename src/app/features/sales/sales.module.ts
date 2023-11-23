@@ -28,6 +28,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import {PaginatorModule} from "primeng/paginator";
 import {KeyFilterModule} from 'primeng/keyfilter';
 import { MenuModule } from 'primeng/menu';
+import {CheckboxModule} from "primeng/checkbox";
 @NgModule({
   declarations: [
     InvoicePageComponent,
@@ -61,7 +62,8 @@ import { MenuModule } from 'primeng/menu';
         SharedModule,
         PaginatorModule,
         KeyFilterModule,
-        MenuModule
+        MenuModule,
+        CheckboxModule
     ]
 })
 export class SalesModule { }

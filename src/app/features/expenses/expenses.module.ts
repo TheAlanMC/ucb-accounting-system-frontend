@@ -27,6 +27,7 @@ import {FieldsetModule} from "primeng/fieldset";
 import {SidebarModule} from "primeng/sidebar";
 import {InputNumberModule} from "primeng/inputnumber";
 import {PaginatorModule} from "primeng/paginator";
+import {CheckboxModule} from "primeng/checkbox";
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import {PaginatorModule} from "primeng/paginator";
         FieldsetModule,
         SidebarModule,
         InputNumberModule,
-        PaginatorModule
+        PaginatorModule,
+        CheckboxModule
     ]
 })
 export class ExpensesModule { }

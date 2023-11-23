@@ -74,7 +74,7 @@ export class JournalEntryPageComponent {
     if (this.validateTotalAmount()) {
       //Date field is required
       if (this.dateValue == undefined) {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: '💡 No olvide ingresar la fecha del asiento.' });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: '💡 No olvide ingresar la fecha del comprobante.' });
         return;
       }
       //Getting the transaction details from the child component - transaction table
@@ -90,7 +90,7 @@ export class JournalEntryPageComponent {
         }
       }
       if (emptyTransactions) {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se puede crear el asiento si existen filas sin valores en el debe y haber. Elimine las filas que no están siendo utilizadas' });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se puede crear el comprobante si existen filas sin valores en el debe y haber. Elimine las filas que no están siendo utilizadas' });
         return;
       }
 
@@ -127,7 +127,7 @@ export class JournalEntryPageComponent {
           error: (error) => {
             // console.log("Hubo un error al subir los archivos");
             // console.log(error);
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Hubo un error al crear el asiento, intente nuevamente' });
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Hubo un error al crear el comprobante, intente nuevamente' });
           }
         });
       }
@@ -141,18 +141,18 @@ export class JournalEntryPageComponent {
   saveAndNew() {
     this.selectedSaveAndNew = true;
     this.save();
-    if (this.saved) {
-      //Vaciamos el formulario
-      this.transactionTableComponent.deleteAllRows();
-      this.attachmentsComponent.deleteAllFiles();
-      this.gloss = '';
-      this.description = '';
-      this.dateValue = new Date();
-      this.totalDebitAmount = 0;
-      this.totalCreditAmount = 0;
-      this.selectedDocumentType = undefined;
-      this.getJournalEntryNumber();
-    }
+    // if (this.saved) {
+    //   //Vaciamos el formulario
+    //   this.transactionTableComponent.deleteAllRows();
+    //   this.attachmentsComponent.deleteAllFiles();
+    //   this.gloss = '';
+    //   this.description = '';
+    //   this.dateValue = new Date();
+    //   this.totalDebitAmount = 0;
+    //   this.totalCreditAmount = 0;
+    //   this.selectedDocumentType = undefined;
+    //   this.getJournalEntryNumber();
+    // }
 
   }
 
@@ -175,19 +175,29 @@ export class JournalEntryPageComponent {
       next: (data) => {
         // console.log(data);
         // console.log("Se creoo");
-        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Asiento creado correctamente' });
+        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Comprobante creado correctamente' });
         this.saved = true;
         //Esperar  segundos antes de redireccionar
         if(!this.selectedSaveAndNew){
           setTimeout(() => {
             this.goBack()
           }, 2000);
+        } else {
+          this.transactionTableComponent.deleteAllRows();
+          this.attachmentsComponent.deleteAllFiles();
+          this.gloss = '';
+          this.description = '';
+          this.dateValue = new Date();
+          this.totalDebitAmount = 0;
+          this.totalCreditAmount = 0;
+          this.selectedDocumentType = undefined;
+          this.getJournalEntryNumber();
         }
       },
       error: (error) => {
         // console.log(error);
         // console.log("Hubo un error al crear el asiento");
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Hubo un error al crear el asiento, intente nuevamente' });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Hubo un error al crear el comprobante, intente nuevamente' });
       }
     });
   }

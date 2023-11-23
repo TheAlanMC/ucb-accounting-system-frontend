@@ -78,8 +78,8 @@
       </div>
       <!-- Columna 2 -->
       <div class="flex flex-column flex-wrap mx-2">
-        <p>Bs. {{totalAmount}}</p>
-        <p>Bs. {{saldoAmount}}</p>
+        <p>{{totalAmount | currency: 'Bs. '}}</p>
+        <p>{{saldoAmount | currency: 'Bs. '}}</p>
       </div>
     </div>
   </div>

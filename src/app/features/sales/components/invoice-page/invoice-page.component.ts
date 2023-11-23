@@ -24,6 +24,7 @@ export class InvoicePageComponent {
   @ViewChild(AttachmentsSectionComponent) attachmentsComponent!: AttachmentsSectionComponent; // Obtén una referencia al componente hijo
 
   //Variables
+  iva: boolean = false;
   companyId = Number(localStorage.getItem('companyId'));
   invoiceNumber: number = 0;
   customers: any = [];
@@ -161,7 +162,8 @@ export class InvoicePageComponent {
       description: this.description,
       invoiceDate: new Date(format(new Date(this.dateValue), 'yyyy-MM-dd')),
       attachments: this.attachments,
-      invoiceDetails: this.transactionDetails
+      invoiceDetails: this.transactionDetails,
+      taxTypeName: this.iva ? 'Para comprobantes de INGRESO.' : null
     }
     console.log(this.sale)
     //Calling service

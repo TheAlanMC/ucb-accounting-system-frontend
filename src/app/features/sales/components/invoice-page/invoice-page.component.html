@@ -28,6 +28,10 @@
                     <p-dropdown id="document-type" [options]="paymentTypes" [(ngModel)]="selectedPaymentType" optionLabel="name"
                         placeholder="Seleccione un método de pago" [style]="{'width':'250px'}" [required]="true" ></p-dropdown>
                 </div>
+                <div class="flex flex-column justify-content-start mx-2">
+                  <p>IVA</p>
+                  <p-checkbox [binary]="true" [(ngModel)]="iva" [style]="{'width':'250px'}" [required]="true" ></p-checkbox>
+                </div>
             </div>
         </div>
         <div class="flex flex-column card-container mx-8">
