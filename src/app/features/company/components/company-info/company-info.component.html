@@ -50,11 +50,11 @@
 
                     <div class="field"><label htmlfor="name1">Tipo de negocio:</label>
                         <p-dropdown [options]="businessEntities" [(ngModel)]="selectedBusinessEntity" optionLabel="name"
-                            placeholder="Seleccione un tipo de negocio" [style]="{'width':'auto'}"></p-dropdown>
+                            placeholder="Seleccione un tipo de negocio" [style]="{'width':'auto'}" class="dp-ci"></p-dropdown>
                     </div>
                     <div class="field"><label htmlfor="name1">Industria:</label>
                         <p-dropdown [options]="industries" [(ngModel)]="selectedIndustry" optionLabel="name"
-                            placeholder="Seleccione una industria" [style]="{'width':'auto'}"></p-dropdown>
+                            placeholder="Seleccione una industria" [style]="{'width':'auto'}" class="dp-ci"></p-dropdown>
                     </div>
                     <div class="mt-5" id="save-button">
                         <p-button (click)="save()" icon="pi pi-save" label="Guardar cambios"

@@ -65,11 +65,11 @@
 
 
 /* Dropdown */
-::ng-deep .p-dropdown {
+::ng-deep .dp-ci .p-dropdown {
   height: 30px !important;
 }
 
-::ng-deep .p-dropdown span {
+::ng-deep .dp-ci .p-dropdown span {
   font-size: small;
   padding: 0.25rem 0.5rem 0.25rem 0.5rem;
 }
