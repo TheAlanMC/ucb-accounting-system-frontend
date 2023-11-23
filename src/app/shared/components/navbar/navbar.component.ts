@@ -37,23 +37,49 @@ export class NavbarComponent {
             this.backgroundColor = 'white';
         }
         document.documentElement.style.setProperty('--color-navbar', this.backgroundColor);
-        // this.items = [
-        //     {
-        //         label: 'Su empresa',
-        //         items: [
-        //             {
-        //                 label: 'Información de la empresa',
-        //                 icon: 'pi pi-info-circle',
-        //                 routerLink: ['/company']
-        //             },
-        //             {
-        //                 label: 'Usuarios',
-        //                 icon: 'pi pi-users',
-        //                 routerLink: ['/company/users']
-        //             }
-        //         ]
-        //     },
-        // ];
+        this.items = [
+            {
+                label: 'Manual de usuario',
+                items: [
+                    {
+                        label: 'Introducción',
+                        icon: 'pi pi-info-circle',
+                        command: () => {
+                          const rutaPDF = '/assets/manuales/Manual 1 - Introducción.pdf';
+                          const urlPDF = window.location.origin + '/' + rutaPDF;
+                          window.open(urlPDF, '_blank');
+                        }
+                    },
+                    {
+                        label: 'Ventas y Compras',
+                        icon: 'pi pi-money-bill',
+                        command: () => {
+                          const rutaPDF = '/assets/manuales/Manual 2 - Ventas y Compras.pdf';
+                          const urlPDF = window.location.origin + '/' + rutaPDF;
+                          window.open(urlPDF, '_blank');
+                        }                    
+                    },
+                    {
+                        label: 'Contabilidad y Plan de cuentas',
+                        icon: 'pi pi-percentage',
+                        command: () => {
+                          const rutaPDF = '/assets/manuales/Manual 3 - Contabilidad y Plan de cuentas.pdf';
+                          const urlPDF = window.location.origin + '/' + rutaPDF;
+                          window.open(urlPDF, '_blank');
+                        }                    
+                    },
+                    {
+                        label: 'Reportes',
+                        icon: 'pi pi-file-pdf',
+                        command: () => {
+                          const rutaPDF = '/assets/manuales/Manual 4 - Reportes.pdf';
+                          const urlPDF = window.location.origin + '/' + rutaPDF;
+                          window.open(urlPDF, '_blank');
+                        }
+                    }
+                ]
+            },
+        ];
 
         this.valuesService.getUserInfo().subscribe((data) => {
           if (data.profilePicture != null){
