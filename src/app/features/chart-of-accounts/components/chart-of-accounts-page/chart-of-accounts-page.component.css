@@ -30,13 +30,13 @@
 
 /* Botones */
 /* Verde */
-::ng-deep .green-button button {
+::ng-deep .green-button-ca button {
     background: var(--color-green) !important;
     border-color: var(--color-green) !important;
     font-size: small;
 }
 /* Rojo */
-::ng-deep .red-button button {
+::ng-deep .red-button-ca button {
     background: #F77 !important;
     border-color: #F77  !important;
     font-size: small;
@@ -83,11 +83,11 @@
 }
 
 /* Dropdown */
-::ng-deep #account-number .p-dropdown {
+::ng-deep .dd-ca .p-dropdown {
     height: 30px !important;
 }
 
-::ng-deep #account-number .p-dropdown span {
+::ng-deep .dd-ca .p-dropdown span {
     font-size: small;
     padding:0.25rem 0.5rem 0.25rem 0.5rem;
 }

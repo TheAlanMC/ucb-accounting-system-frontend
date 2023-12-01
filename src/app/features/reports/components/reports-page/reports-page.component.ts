@@ -38,6 +38,9 @@ export class ReportsPageComponent {
     this.sidebarService.getIsOpen().subscribe((isOpen) => {
       this.isNavbarOpen = isOpen;
     });
+    this.ledgerBookService.setdateTo(null);
+    this.ledgerBookService.setdateFrom(null);
+
   }
 
   //Retrieve the data from the child component - account modal
@@ -74,6 +77,8 @@ export class ReportsPageComponent {
         }else{
           this.messageService.add({severity:'error', summary: 'Error', detail: 'La fecha inicial debe ser menor a la fecha final'});
         }
+      }else{
+        this.messageService.add({severity:'error', summary: 'Error', detail: 'Debe seleccionar una fecha inicial y una fecha final'});
       }
     }
   }

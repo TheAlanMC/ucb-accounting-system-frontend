@@ -41,7 +41,10 @@
 
     <div class="col-12 xl:col-12 px-8 py-3">
         <p-table [value]="transactions" [tableStyle]="{'min-width': '60rem'}" [lazy]="true"
-            (onSort)="onSortChange($event)" [customSort]="true">
+            (onSort)="onSortChange($event)" [customSort]="true" [rows]="10" [showCurrentPageReport]="true"
+                 [rowsPerPageOptions]="[10, 25, 50, 100]" [paginator]="true" [totalRecords]="totalElements" [loading]="isLoading"
+                 (onPage)="onPageChange($event)"
+                 currentPageReportTemplate="Mostrando los registros del {first} al {last} de un total de {totalRecords}">
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="txDate">Fecha de Creación <p-sortIcon field="txDate"></p-sortIcon>
@@ -71,9 +74,14 @@
                     </td>
                 </tr>
             </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="5">No se encontraron reportes en este rango de fechas.</td>
+                </tr>
+            </ng-template>
         </p-table>
-        <p-paginator id="paginator" (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements"
-            [rowsPerPageOptions]="[10, 25, 50, 100] "></p-paginator>
+        <!--<p-paginator id="paginator" (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalElements"
+            [rowsPerPageOptions]="[10, 25, 50, 100] "></p-paginator> -->
 
     </div>
 </div>

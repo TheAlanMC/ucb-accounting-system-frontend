@@ -21,5 +21,22 @@ input[type="number"]::-webkit-outer-spin-button {
 /* Dropdown */
 ::ng-deep .p-dropdown-items{
   font-size: small;
+}
 
+/* Botones */
+
+::ng-deep .cyan-button-exp-tt button {
+  background: var(--color-cyan-green) !important;
+  border-color: var(--color-cyan-green) !important;
+}
+
+::ng-deep .blue-button-exp-tt button {
+  background: var(--color-blue) !important;
+  border-color: var(--color-blue) !important;
+}
+
+::ng-deep .cyan-button-exp-tt button,
+::ng-deep .blue-button-exp-tt button {
+  height: 33px;
+  font-size: small;
 }

@@ -25,6 +25,7 @@ export class InvoicePageComponent {
 
   //Variables
   companyId = Number(localStorage.getItem('companyId'));
+  iva: boolean = false;
   invoiceNumber: number = 0;
   suppliers:any = [];
   paymentTypes: any = [];
@@ -164,7 +165,8 @@ export class InvoicePageComponent {
       description: this.description,
       invoiceDate: new Date(format(new Date(this.dateValue), 'yyyy-MM-dd')),
       attachments: this.attachments,
-      invoiceDetails: this.transactionDetails
+      invoiceDetails: this.transactionDetails,
+      taxTypeName: this.iva ? 'Para comprobantes de EGRESO.' : null
     }
     console.log(this.expense)
     //Calling service

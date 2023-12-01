@@ -3,13 +3,15 @@ import { SalesService } from 'src/app/core/services/sales.service';
 import { SaleAbstractDto } from '../../models/sale-abstract.dto';
 import { Table } from 'primeng/table';
 
-import {TransactionTypeService} from "../../../../core/services/transaction-type.service";
-import {CustomerService} from "../../../../core/services/customer.service";
+import { TransactionTypeService } from "../../../../core/services/transaction-type.service";
+import { CustomerService } from "../../../../core/services/customer.service";
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-all-sales',
   templateUrl: './all-sales.component.html',
-  styleUrls: ['./all-sales.component.css']
+  styleUrls: ['./all-sales.component.css'],
+  providers: [MessageService]
 })
 
 
@@ -30,71 +32,85 @@ export class AllSalesComponent {
   filterDate: string = '';
   filterCustomer: string[] = [];
   filterDocumentType: string = '';
-  constructor(private salesService: SalesService, private customerService: CustomerService, private transactionTypeService: TransactionTypeService) {
-        this.items = [
-            {
-                label: 'Factura',
-                icon: 'pi pi-book',
-                routerLink: ['/sales/invoice']
-            },
-            {
-                label: 'Recibo',
-                icon: 'pi pi-file-edit',
-                routerLink: ['/sales/receipt']
-            },
-        ];
-    }
-
-    //Variables
-    selectedSales!: String;
-    searchValue: string = '';
-    dateValue!: Date;
-    customer: string = '';
-    sales: SaleAbstractDto[] = [];
-    customers: any = [];
-    types: any = [{code:0, name:'Factura'}];
-    dateFilters: any;
-
-    ngOnInit(): void {
-      
-      this.getAllSales();
-      this.transactionTypeService.getAllTransactionTypes().subscribe({
-        next: (data) => {
-          this.types = data.data!.map((documentType) => ({
-            name: documentType.transactionTypeName,
-            code: documentType.transactionTypeId
-          }));
-          // add the default option
-            this.types.unshift({name: 'Todos', code: ''});
-          // console.log(this.types);
+  constructor(private salesService: SalesService, private customerService: CustomerService, private transactionTypeService: TransactionTypeService, messageService: MessageService) {
+    this.items = [
+      {
+        label: 'Factura',
+        icon: 'pi pi-book',
+        command: () => {
+          //Si no hay clientes registrados, no se puede crear una factura
+          if (this.customers.length == 0) {
+            messageService.add({ severity: 'warn', summary: 'Advertencia', detail: 'No hay clientes registrados, por favor agregue uno para registrar su factura.' });
+          } else {
+            window.location.href = '/sales/invoice';
+          }
         },
-        error: (error) => {
-          console.log(error);
-        }
-      })
-      this.customerService.getAllCustomers(this.companyId).subscribe({
-        next: (data) => {
-          this.customers = data.data!.map((customer) => ({
-              name: customer.displayName,
-              code: customer.customerId
-            }
-          ));
+      },
+      {
+        label: 'Recibo',
+        icon: 'pi pi-file-edit',
+        command: () => {
+          //Si no hay clientes registrados, no se puede crear un recibo
+          if (this.customers.length == 0) {
+            messageService.add({ severity: 'warn', summary: 'Advertencia', detail: 'No hay clientes registrados, por favor agregue uno para registrar su recibo.' });
+          } else {
+            window.location.href = '/sales/receipt';
+          }
         },
-        error: (error) => {
-          console.log(error);
+      },
+    ];
+  }
+
+  //Variables
+  selectedSales!: String;
+  searchValue: string = '';
+  dateValue!: Date;
+  customer: string = '';
+  sales: SaleAbstractDto[] = [];
+  customers: any = [];
+  types: any = [{ code: 0, name: 'Factura' }];
+  dateFilters: any;
+
+  ngOnInit(): void {
+
+    this.getAllSales();
+    this.transactionTypeService.getAllTransactionTypes().subscribe({
+      next: (data) => {
+        this.types = data.data!.map((documentType) => ({
+          name: documentType.transactionTypeName,
+          code: documentType.transactionTypeId
+        }));
+        // add the default option
+        this.types.unshift({ name: 'Todos', code: '' });
+        // console.log(this.types);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
+    this.customerService.getAllCustomers(this.companyId).subscribe({
+      next: (data) => {
+        this.customers = data.data!.map((customer) => ({
+          name: customer.displayName,
+          code: customer.customerId
         }
-      });
-    }
-        //Guardamos el company id en el local storage - *Ejemplo
-        // this.userService.getUserById().subscribe({
-        //     next: (data) => {
-        //         localStorage.setItem('companyId', data.data!.companyIds[0].toString());
-        //         console.log(localStorage.getItem('companyId'));
-        //     },
-        //     error: (error) => {
-        //         console.log(error);
-        //     }
-        // });
+        ));
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
+  //Guardamos el company id en el local storage - *Ejemplo
+  // this.userService.getUserById().subscribe({
+  //     next: (data) => {
+  //         localStorage.setItem('companyId', data.data!.companyIds[0].toString());
+  //         console.log(localStorage.getItem('companyId'));
+  //     },
+  //     error: (error) => {
+  //         console.log(error);
+  //     }
+  // });
 
   onPageChange(event: any) {
     // console.log(event);
@@ -115,71 +131,70 @@ export class AllSalesComponent {
     this.getAllSales();
   }
 
-    getAllSales(){
-      this.isLoading = true;
-        this.salesService.getAllSales(this.companyId, this.sortBy, this.sortType,this.page, this.size, this.filterDate, this.filterCustomer, this.filterDocumentType).subscribe({
-            next: (data) => {
-                this.sales = data.data!;
-                this.totalElements = data.totalElements!;
-                this.isLoading = false;
-                // console.log(data);
-                // this.getCustomerFromData();
-            },
-            error: (error) => {
-                console.log(error);
-            }
-        })
-    }
+  getAllSales() {
+    this.isLoading = true;
+    this.salesService.getAllSales(this.companyId, this.sortBy, this.sortType, this.page, this.size, this.filterDate, this.filterCustomer, this.filterDocumentType).subscribe({
+      next: (data) => {
+        this.sales = data.data!;
+        this.totalElements = data.totalElements!;
+        this.isLoading = false;
+        // console.log(data);
+        // this.getCustomerFromData();
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
+  }
 
-    getCustomerFromData(){
-        //Get customers display name from sales
-        this.customers = this.sales.map((sale) => ({
-            code: sale.customer.customerId,
-            name: sale.customer.displayName
-        }));
+  getCustomerFromData() {
+    //Get customers display name from sales
+    this.customers = this.sales.map((sale) => ({
+      code: sale.customer.customerId,
+      name: sale.customer.displayName
+    }));
 
-        //Remove duplicates
-        this.customers = this.customers.filter((customer: any, index: any, self: any) =>
-            index === self.findIndex((t: any) => (
-                t.code === customer.code && t.name === customer.name
-            ))
-        )
+    //Remove duplicates
+    this.customers = this.customers.filter((customer: any, index: any, self: any) =>
+      index === self.findIndex((t: any) => (
+        t.code === customer.code && t.name === customer.name
+      ))
+    )
+  }
 
-    }
+  onDateSelect(value: any) {
+    this.dt2.filter(this.formatDate(value), 'saleTransactionDate', 'equals')
+  }
 
-    onDateSelect(value: any) {
-        this.dt2.filter(this.formatDate(value), 'saleTransactionDate', 'equals')
+  formatDate(date: any) {
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+    if (month < 10) {
+      month = '0' + month;
     }
-
-    formatDate(date: any) {
-        let month = date.getMonth() + 1;
-        let day = date.getDate();
-        if (month < 10) {
-            month = '0' + month;
-        }
-        if (day < 10) {
-            day = '0' + day;
-        }
-        return date.getFullYear() + '-' + month + '-' + day;
+    if (day < 10) {
+      day = '0' + day;
     }
-    filterByDate(event: any) {
-        if (event == null) {
-            this.filterDate = '';
-        } else {
-            this.filterDate = this.formatDate(event);
-        }
-        this.getAllSales();
+    return date.getFullYear() + '-' + month + '-' + day;
+  }
+  filterByDate(event: any) {
+    if (event == null) {
+      this.filterDate = '';
+    } else {
+      this.filterDate = this.formatDate(event);
     }
-    filterByCustomer(event: any) {
-        this.filterCustomer = event;
-        this.getAllSales();
+    this.getAllSales();
+  }
+  filterByCustomer(event: any) {
+    this.filterCustomer = event;
+    this.getAllSales();
+  }
+  filterByTransactionType(event: any) {
+    if (event == 'Todos') {
+      this.filterDocumentType = '';
+    } else {
+      this.filterDocumentType = event;
     }
-    filterByTransactionType(event: any) {
-        if (event == 'Todos') {
-            this.filterDocumentType = '';
-        } else {
-            this.filterDocumentType = event;
-        }
-        this.getAllSales();
-    }
+    this.getAllSales();
+  }
 }

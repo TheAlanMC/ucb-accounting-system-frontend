@@ -30,6 +30,8 @@ export class TransactionTableComponent {
 
   accountCategory: AccountCategoryDto[] = []
   accounts: TableAccountDto[] = []
+  isExpanded: boolean = false;
+
 
   clients: any = [];
 
@@ -224,7 +226,8 @@ export class TransactionTableComponent {
           accountName: item.accountCategoryName || item.accountGroupName || item.accountSubgroupName || item.accountName || item.subaccountName,
           level: level,
         },
-        children: []
+        children: [],
+        expanded: this.isExpanded
       };
 
       if (item.accountGroups || item.accountSubgroups || item.accounts || item.subaccounts) {
@@ -276,5 +279,16 @@ export class TransactionTableComponent {
         console.log(error);
       }
     });
+
   }
+  expandAll() {
+    this.isExpanded = true;
+    this.accounts = this.transformData(this.accountCategory, 1);
+  }
+
+  collapseAll() {
+    this.isExpanded = false;
+    this.accounts = this.transformData(this.accountCategory, 1);
+  }
+
 }

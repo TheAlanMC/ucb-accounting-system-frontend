@@ -33,10 +33,10 @@
             </div>
             <div class="flex flex-column justify-content-end flex-wrap mb-3">
                 <div class="flex justify-content-between  card-container ">
-                    <p-button label="Generar Reporte" class="green-button" (onClick)="generateReport()"
-                        id="generate-button" icon="pi pi-sync" iconPos="right"></p-button>
+                    <p-button label="Generar Reporte" (onClick)="generateReport()"
+                        id="generate-button-is" icon="pi pi-sync" iconPos="right"></p-button>
                     <span class="ml-2"></span>
-                    <p-button label="Imprimir" class="green-button" id="export-button" icon="pi pi-print"
+                    <p-button label="Imprimir" id="export-button-is" icon="pi pi-print"
                         iconPos="right" (onClick)="exportPdf()" [disabled]="!incomeStatementsReport"></p-button>
                 </div>
             </div>

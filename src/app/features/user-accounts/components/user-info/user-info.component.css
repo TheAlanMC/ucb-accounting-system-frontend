@@ -3,45 +3,62 @@
   font-size: small;
 }
 
-::ng-deep #save-buttons button{
-    background: var(--color-green) !important;
-    border-color: var(--color-green) !important;
+::ng-deep #save button {
+  background: var(--color-green) !important;
+  border-color: var(--color-green) !important;
+  font-size: small;
+  width: 50%;
 }
 
 .custom-file-upload input[type="file"] {
-    display: none;
-  }
-  
-  .custom-button {
-    border-radius: 50%;
-    width: 40px; 
-    height: 40px;
-    text-align: center;
-    background-color: var(--color-green) !important; 
-    color: #fcfcfc; 
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
-    border: none;
-    outline: none;
-    margin-top: -40px;
-    margin-left: 100px;
-    position: relative;
-  }
-  
-  .custom-button i {
-    margin-right: 2px;
-    margin-left: 2px; 
-  }
+  display: none;
+}
 
-  .tarjeta-info{
-    padding: 30px;
-    width: 50vw;
-    border-radius: 11px;
-    border: 1px solid rgba(187, 187, 187, 0.60);
-    background: #FFF;
-    box-shadow: 2px 2px 12px -1px rgba(0, 0, 0, 0.25);
-  }
+.custom-button {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  background-color: var(--color-green) !important;
+  color: #fcfcfc;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  margin-top: -40px;
+  margin-left: 100px;
+  position: relative;
+}
 
+.custom-button i {
+  margin-right: 2px;
+  margin-left: 2px;
+}
+
+.tarjeta-info {
+  padding: 40px;
+}
+
+/* Sidebar configuration */
+.home-section {
+  position: absolute;
+  min-height: 100vh;
+  top: 0;
+  left: 70px;
+  width: calc(100% - 78px);
+  transition: all 0.5s ease;
+  z-index: 2;
+  /*background-image: radial-gradient(18% 28% at 18% 71%, #FFFFFF59 6%, #073AFF00 100%), radial-gradient(150px 150px at 90% 28%, #6dffe49c 53%, #073AFF00 100%), radial-gradient(100px 100px at 40% 23%, #77ff009a 7%, #073AFF00 97%), radial-gradient(50px 50px at 10% 85%, rgba(140, 247, 244, 0.718) 72%, #073AFF00 100%), radial-gradient(200px 200px at 60% 80%, #5EF9C6BA 44%, #2F4F3200 86%);*/
+  background-image: url("/assets/bg0.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.navbar-opened {
+  left: 250px;
+  width: calc(100% - 250px);
+}

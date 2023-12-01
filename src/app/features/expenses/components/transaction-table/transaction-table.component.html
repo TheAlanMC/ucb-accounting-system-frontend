@@ -67,8 +67,8 @@
   <div class="flex flex-row flex-wrap justify-content-between">
 
     <div class="flex flex-row flex-wrap">
-      <p-button class="cyan-button m-2" label="Agregar línea" icon="pi pi-plus" iconPos="left" (click)="addRow()"></p-button>
-      <p-button class="blue-button m-2" label="Borrar todo" icon="pi pi-trash" iconPos="left" (click)="deleteAllRows()"></p-button>
+      <p-button class="cyan-button-exp-tt m-2" label="Agregar línea" icon="pi pi-plus" iconPos="left" (click)="addRow()"></p-button>
+      <p-button class="blue-button-exp-tt m-2" label="Borrar todo" icon="pi pi-trash" iconPos="left" (click)="deleteAllRows()"></p-button>
     </div>
     <div class="flex flex-row flex-wrap">
       <!-- Columna 1 -->
@@ -78,8 +78,8 @@
       </div>
       <!-- Columna 2 -->
       <div class="flex flex-column flex-wrap mx-2">
-        <p>Bs. {{totalAmount}}</p>
-        <p>Bs. {{saldoAmount}}</p>
+        <p>{{totalAmount | currency: 'Bs. '}}</p>
+        <p>{{saldoAmount | currency: 'Bs. '}}</p>
       </div>
     </div>
   </div>

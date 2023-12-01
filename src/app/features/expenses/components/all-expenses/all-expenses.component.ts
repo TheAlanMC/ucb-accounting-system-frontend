@@ -6,11 +6,13 @@ import { TransactionTypeService } from "../../../../core/services/transaction-ty
 import { SupplierService } from "../../../../core/services/supplier.service";
 import { filter } from "rxjs";
 import { el } from "date-fns/locale";
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-all-expenses',
   templateUrl: './all-expenses.component.html',
-  styleUrls: ['./all-expenses.component.css']
+  styleUrls: ['./all-expenses.component.css'],
+  providers: [MessageService]
 })
 
 export class AllExpensesComponent {
@@ -31,17 +33,31 @@ export class AllExpensesComponent {
   filterSupplier: string[] = [];
   filterDocumentType: string = '';
 
-  constructor(private expensesService: ExpensesService, private supplierService: SupplierService, private transactionTypeService: TransactionTypeService) {
+  constructor(private expensesService: ExpensesService, private supplierService: SupplierService, private transactionTypeService: TransactionTypeService, private messageService: MessageService) {
     this.items = [
       {
         label: 'Factura',
         icon: 'pi pi-book',
-        routerLink: ['invoice']
+        command: () => {
+          //Si no hay proveedores registrados, no se puede crear una factura
+          if (this.suppliers.length == 0) {
+            messageService.add({ severity: 'warn', summary: 'Advertencia', detail: 'No hay proveedores registrados, por favor agregue uno para registrar su factura.' });
+          } else {
+            window.location.href = '/expenses/invoice';
+          }
+        },
       },
       {
         label: 'Recibo',
         icon: 'pi pi-file-edit',
-        routerLink: ['receipt']
+        command: () => {
+          //Si no hay proveedores registrados, no se puede crear un recibo
+          if (this.suppliers.length == 0) {
+            messageService.add({ severity: 'warn', summary: 'Advertencia', detail: 'No hay proveedores registrados, por favor agregue uno para registrar su recibo.' });
+          } else {
+            window.location.href = '/expenses/receipt';
+          }
+        },
       },
     ];
   }
@@ -84,16 +100,6 @@ export class AllExpensesComponent {
         console.log(error);
       }
     });
-    //Guardamos el company id en el local storage - *Ejemplo
-    // this.userService.getUserById().subscribe({
-    //   next: (data) => {
-    //     localStorage.setItem('companyId', data.data!.companyIds[0].toString());
-    //     console.log(localStorage.getItem('companyId'));
-    //   },
-    //   error: (error) => {
-    //     console.log(error);
-    //   }
-    // });
 
   }
 

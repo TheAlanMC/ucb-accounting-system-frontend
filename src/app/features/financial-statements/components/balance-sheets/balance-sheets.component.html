@@ -35,10 +35,11 @@
             </div>
             <div class="flex flex-column justify-content-end flex-wrap mb-3">
                 <div class="flex justify-content-between  card-container ">
-                    <p-button label="Generar Reporte" class="green-button" (onClick)="generateReport()"
-                        id="generate-button" icon="pi pi-sync" iconPos="right"></p-button>
-                    <span class="ml-2"></span>
-                    <p-button label="Imprimir" class="green-button" id="export-button" icon="pi pi-print" [disabled]="!BalanceSheetsReport" (onClick)="exportPdf()"
+                    <p-button label="Generar Reporte" (onClick)="generateReport()"
+                        id="generate-button-bs" icon="pi pi-sync" iconPos="right"></p-button>
+                  <span class="ml-2"></span>
+
+                  <p-button label="Imprimir" id="export-button-bs" icon="pi pi-print" [disabled]="!BalanceSheetsReport" (onClick)="exportPdf()"
                         iconPos="right"></p-button>
                 </div>
             </div>

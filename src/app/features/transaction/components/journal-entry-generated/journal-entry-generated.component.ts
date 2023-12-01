@@ -49,7 +49,8 @@ export class JournalEntryGeneratedComponent {
             name: this.transactionJournalEntry.documentType!.documentTypeName,
             code: this.transactionJournalEntry.documentType!.documentTypeId
           }
-          this.dateValue = new Date(this.transactionJournalEntry.transactionDate!);
+          // date without time zone
+          this.dateValue = new Date(this.transactionJournalEntry.transactionDate!+'T00:00:00');
         },
         error: (error) => {
           console.log(error);

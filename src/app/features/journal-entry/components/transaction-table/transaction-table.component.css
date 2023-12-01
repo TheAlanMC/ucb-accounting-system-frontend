@@ -95,3 +95,16 @@ input[type="number"]::-webkit-outer-spin-button {
 ::ng-deep #account-input{
   cursor: pointer;
 }
+
+
+::ng-deep .green-button-caa button {
+  background: var(--color-green) !important;
+  border-color: var(--color-green) !important;
+  font-size: small;
+}
+/* Rojo */
+::ng-deep .red-button-caa button {
+  background: #F77 !important;
+  border-color: #F77  !important;
+  font-size: small;
+}

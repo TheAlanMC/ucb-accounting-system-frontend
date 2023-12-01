@@ -28,6 +28,10 @@
                     <p-dropdown id="document-type" [options]="paymentTypes" [(ngModel)]="selectedPaymentType" optionLabel="name"
                         placeholder="Seleccione un método de pago" [style]="{'width':'250px'}" [required]="true" ></p-dropdown>
                 </div>
+                <div class="flex flex-column justify-content-start mx-2">
+                  <p>IVA</p>
+                  <p-checkbox [binary]="true" [(ngModel)]="iva" [style]="{'width':'250px'}" [required]="true" ></p-checkbox>
+                </div>
             </div>
         </div>
         <div class="flex flex-column card-container mx-8">
@@ -51,8 +55,8 @@
     <!-- Buttons - save, save and register a new journay entry -->
     <div class="flex justify-content-between flex-wrap" id="sale-invoice-save-buttons">
         <div class="flex justify-content-between flex-wrap card-container purple-container mx-3">
-            <p-button label="Cancelar" class="cyan-button m-2 ml-5" routerLink="/sales" [style]="{'font-size': 'medium','height':'100%'}"></p-button>
-            <p-button label="Borrar" class="red-button m-2" [style]="{'font-size': 'medium','height':'100%'}"></p-button>
+            <p-button label="Cancelar" class="cyan-button-sales-invoice m-2 ml-5" routerLink="/sales" [style]="{'font-size': 'medium','height':'100%'}"></p-button>
+            <p-button label="Borrar" class="red-button-sales-invoice m-2" [style]="{'font-size': 'medium','height':'100%'}"></p-button>
         </div>
         <div class="flex"><p-button label="Guardar" (click)="createInvoice()" class="m-2 mr-5"></p-button></div>
     </div>

@@ -5,7 +5,7 @@
 
 .header{
     margin-top: 1%;
-    background: linear-gradient(145deg, #4784b5b9 0%,#1f7bc6 50%, #2468a0c3 100%);
+    background: linear-gradient(145deg, #4784b5b9 0%,#61C7DF 50%, #8BD480 100%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -38,6 +38,6 @@
 .subtitles{
     margin-top: 0%;
     color: #FFFFFF;
-    font-size: 20px; 
+    font-size: 20px;
     text-shadow: 2px 2px 4px #00000033;
 }

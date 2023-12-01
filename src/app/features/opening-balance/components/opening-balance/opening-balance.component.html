@@ -17,7 +17,7 @@
     <div class="col-12 xl:col-12 px-8 pb-3">
         <div class="flex justify-content-between" style="margin-top: -30px;">
             <div class="flex flex-column flex-wrap mb-3" >
-                
+
                 <div class="flex flex-column justify-content-start mr-2">
                     <p>Fecha de apertura</p>
                     <p-calendar class="datepicker" [(ngModel)]="startDate" [showButtonBar]="true" [showIcon]="true"
@@ -27,6 +27,7 @@
                 <br>
                 <p style="margin-bottom: 0;">Por favor, edite los valores de las cuentas que tienen el ícono <i class="pi pi-pencil lapiz"></i></p>
             </div>
+
             <div class="flex flex-column justify-content-end flex-wrap mb-3">
                 <div class="flex justify-content-between  card-container ">
                     <p-button label="Registrar" class="green-button" (onClick)="sendData()"
@@ -37,7 +38,15 @@
                 </div>
             </div>
         </div>
-        
+      <div class="col-12 flex flex-row justify-content-between">
+        <div class="flex flex-column justify-content-start">
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input class="left-search-input" type="text" (input)="applyFilterGlobal($event, 'contains')" pInputText [(ngModel)]="searchValue"/>
+          </span>
+        </div>
+      </div>
+
         <div class="flex flex-row justify-content-between">
             <div style="width: 70%;">
                 <div class="flex flex-row align-items-center justify-content-center gap-3">
@@ -46,7 +55,7 @@
                     <p><strong>Total: Bs. {{totalActivos | currency:' '}}</strong></p>
                 </div>
 
-                <p-treeTable [value]="activos" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+                <p-treeTable #dt1 [value]="activos" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}" [globalFilterFields]="['accountName','accountCode']" >
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="width: 35%;">Código de cuenta</th>
@@ -78,7 +87,7 @@
                                   </p-treeTableCellEditor>
                                 </td>
                               </ng-container>
-                              
+
                               <ng-template #elseBlock>
                                 <td>Bs. {{ rowData.totalAmountBs | currency:' '}}</td>
                               </ng-template>
@@ -91,7 +100,7 @@
                     <p-divider class="flex-grow-1 mt-1"></p-divider>
                     <p><strong>Total: Bs. {{totalPasivos | currency:' '}}</strong></p>
                 </div>
-                <p-treeTable [value]="pasivos" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+                <p-treeTable #dt2 [value]="pasivos" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}" [globalFilterFields]="['accountName','accountCode']">
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="width: 35%;">Código de cuenta</th>
@@ -121,7 +130,7 @@
                                   </p-treeTableCellEditor>
                                 </td>
                               </ng-container>
-                              
+
                               <ng-template #elseBlock>
                                 <td>Bs. {{ rowData.totalAmountBs | currency:' '}}</td>
                               </ng-template>
@@ -135,7 +144,7 @@
                     <p-divider class="flex-grow-1 mt-1"></p-divider>
                     <p><strong>Total: Bs. {{totalPatrimonio | currency:' '}}</strong></p>
                 </div>
-                <p-treeTable [value]="patrimonio" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+                <p-treeTable #dt3 [value]="patrimonio" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}"  [globalFilterFields]="['accountName','accountCode']">
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="width: 35%;">Código de cuenta</th>
@@ -167,7 +176,7 @@
                                   </p-treeTableCellEditor>
                                 </td>
                               </ng-container>
-                              
+
                               <ng-template #elseBlock>
                                 <td>Bs. {{ rowData.totalAmountBs | currency:' '}}</td>
                               </ng-template>

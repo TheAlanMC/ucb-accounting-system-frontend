@@ -23,8 +23,10 @@ interface Reporte {
 export class ReportListComponent {
 
   companyId = Number(localStorage.getItem('companyId'));
-  startDate: Date | undefined;  // Variable para la fecha de inicio
-  endDate: Date | undefined;
+  //Primer dia del mes
+  startDate: Date  = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+  //Ultimo dia del mes
+  endDate: Date = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0);
   transactions: ReportData[] = [];
   transactions2: Reporte[] = [
     {
@@ -90,6 +92,7 @@ export class ReportListComponent {
   page: number = 0;
   size: number = 10;
   totalElements: number = 0;
+  isLoading: boolean = true;
 
   actuallyReportId: number = 0;
 
@@ -107,14 +110,11 @@ export class ReportListComponent {
       this.isNavbarOpen = isOpen;
       console.log(this.isNavbarOpen);
     });
+
   }
 
   ngOnInit(): void {
-    /*this.getAllReportsGenerated();
-    this.searchSubject.pipe(debounceTime(500)).subscribe(() => {
-      // When the user has stopped typing for 500 milliseconds, trigger the getAllTransactions method
-      this.getAllReportsGenerated()
-    });*/
+    this.getAllReportsGenerated();
   }
 
   generateList() {
@@ -129,9 +129,10 @@ export class ReportListComponent {
   }
 
   onPageChange(event: any) {
-    this.page = event.page;
-    this.size = event.rows;
-    // console.log(event);
+    var first = event.first;
+    var rows = event.rows;
+    this.page = Math.floor(first / rows);
+    this.size = rows;
     this.getAllReportsGenerated()
   }
 
@@ -142,12 +143,14 @@ export class ReportListComponent {
   }
 
   getAllReportsGenerated() {
+    this.isLoading = true;
     this.generatedReportsListService.getGeneratedReports(this.companyId, format(this.startDate!, 'yyyy-MM-dd'), format(this.endDate!, 'yyyy-MM-dd'), this.sortBy, this.sortType, this.page, this.size).subscribe({
       next: (data) => {
         this.transactions = data.data!;
         console.log(data);
         this.totalElements = data.totalElements!;
         this.actuallyReportId = 1;
+        this.isLoading = false;
       },
       error: (error) => {
         console.log(error);

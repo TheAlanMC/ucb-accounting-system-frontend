@@ -2,6 +2,7 @@ import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { MenuItem } from 'primeng/api';
 import { MessageService } from 'primeng/api';
+import { SidebarProfileService } from 'src/app/core/services/sidebar-profile/sidebar-profile.service';
 import { SidebarService } from 'src/app/core/services/sidebar/sidebar.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { ValuesService } from 'src/app/core/services/values/values.service';
@@ -16,9 +17,17 @@ export class NavbarComponent {
     items: MenuItem[] | undefined;
     pfpUrl: string = '';
 
-    constructor(private sidebarService: SidebarService, private valuesService: ValuesService, private keycloakService: KeycloakService, private userService: UserService) { 
+    constructor(private sidebarProfileService: SidebarProfileService, 
+        private sidebarService: SidebarService,
+        private valuesService: ValuesService,
+         private keycloakService: KeycloakService, 
+         private userService: UserService) { 
     }
 
+    updateSidebarState(){
+        this.sidebarProfileService.seleccionarOpcion('perfil');
+    }
+    
     ngOnInit() {
         
         this.backgroundColor = this.sidebarService.getBackgroundColor();
@@ -30,17 +39,43 @@ export class NavbarComponent {
         document.documentElement.style.setProperty('--color-navbar', this.backgroundColor);
         this.items = [
             {
-                label: 'Su empresa',
+                label: 'Manual de usuario',
                 items: [
                     {
-                        label: 'Información de la empresa',
+                        label: 'Introducción',
                         icon: 'pi pi-info-circle',
-                        routerLink: ['/company']
+                        command: () => {
+                          const rutaPDF = '/assets/manuales/Manual 1 - Introducción.pdf';
+                          const urlPDF = window.location.origin + '/' + rutaPDF;
+                          window.open(urlPDF, '_blank');
+                        }
                     },
                     {
-                        label: 'Usuarios',
-                        icon: 'pi pi-users',
-                        routerLink: ['/company/users']
+                        label: 'Ventas y Compras',
+                        icon: 'pi pi-money-bill',
+                        command: () => {
+                          const rutaPDF = '/assets/manuales/Manual 2 - Ventas y Compras.pdf';
+                          const urlPDF = window.location.origin + '/' + rutaPDF;
+                          window.open(urlPDF, '_blank');
+                        }                    
+                    },
+                    {
+                        label: 'Contabilidad y Plan de cuentas',
+                        icon: 'pi pi-percentage',
+                        command: () => {
+                          const rutaPDF = '/assets/manuales/Manual 3 - Contabilidad y Plan de cuentas.pdf';
+                          const urlPDF = window.location.origin + '/' + rutaPDF;
+                          window.open(urlPDF, '_blank');
+                        }                    
+                    },
+                    {
+                        label: 'Reportes',
+                        icon: 'pi pi-file-pdf',
+                        command: () => {
+                          const rutaPDF = '/assets/manuales/Manual 4 - Reportes.pdf';
+                          const urlPDF = window.location.origin + '/' + rutaPDF;
+                          window.open(urlPDF, '_blank');
+                        }
                     }
                 ]
             },

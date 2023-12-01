@@ -13,14 +13,13 @@
     </div>
   </div>
   <div class="col-12 xl:col-12 px-8 py-3">
-    <br>
-    <div class="flex justify-content-end">
-      <a [routerLink]="'list'">Reportes generados</a>
+    <div class="flex justify-content-end align-items-center gap-2">
+      <i class="pi pi-history"></i>
+      <a [routerLink]="'list'" style="font-size:medium">Reportes generados</a>
     </div>
 
     <br>
-    <!-- <a [routerLink]="['ledgerbook']" >Libro mayor</a> -->
-    <!-- <a (click)="visible = true" >Libro mayor</a> -->
+    <br>
 
     <!-- Cards -->
     <div class="flex flex-row flex-wrap">
@@ -127,11 +126,11 @@
       (listOfAccounts)="retrieveAccounts($event)" [subaccountDto]="selectedSubaccount"></app-account-modal>
     <ng-template pTemplate="footer">
       <div *ngIf="!ledgerBookDate" class="flex justify-content-between">
-        <p-button id="back-button" label="Atrás" icon="pi pi-angle-left" (click)="goBack()"></p-button>
-        <p-button id="next-button" label="Siguiente" (click)="selectAccounts()" icon="pi pi-angle-right"
+        <p-button id="back-button-lb" label="Atrás" icon="pi pi-angle-left" (click)="goBack()"></p-button>
+        <p-button class="next-button-lb" label="Siguiente" (click)="selectAccounts()" icon="pi pi-angle-right"
           iconPos="right"></p-button>
       </div>
-      <p-button *ngIf="ledgerBookDate" id="next-button" label="Siguiente" (click)="selectAccounts()" icon="pi pi-angle-right" iconPos="right"></p-button>
+      <p-button *ngIf="ledgerBookDate" class="next-button-lb" label="Siguiente" (click)="selectAccounts()" icon="pi pi-angle-right" iconPos="right"></p-button>
       <!-- <button type="button" " (click)="selectAccounts()" label="Siguiente" ></button> -->
     </ng-template>
   </p-dialog>

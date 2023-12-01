@@ -1,13 +1,10 @@
-<app-sidebar (navbarToggle)="onNavbarToggle($event)"></app-sidebar>
-<div class="home-section" [class.navbar-opened]="isNavbarOpen">
+<app-sidebar-profile></app-sidebar-profile>
+<div class="home-section" [class.navbar-opened]=true>
     <div class="card">
         <div class="flex card-container overflow-hidden">
             <div class="page-title flex-grow-1  flex align-items-center justify-content-start font-bold m-2 px-5 py-0">
                 <i class="pi pi-users" style="color: var(--color-green); font-size: 2.5rem; z-index: 2 !important;"></i>
                 <p class="text-2xl md:text-3xl" style="z-index:2;" >&nbsp;&nbsp;&nbsp;Lista de usuarios</p>
-            </div>
-            <div class="flex-none flex align-items-center justify-content-center font-bold m-2 px-5 py-3">
-               <app-navbar></app-navbar>
             </div>
         </div>
     </div>
@@ -23,7 +20,7 @@
         <div class="flex flex-column justify-content-start">
             <div class="flex justify-content-between flex-wrap card-container purple-container">
                 <!-- <p-button label="Eliminar cliente" class="mx-2 red-button" icon="pi pi-user-minus"></p-button> -->
-                <p-button label="Añadir usuario" class="ml-2 green-button" icon="pi pi-user-plus" (click)="addNewAccountVisible = true"></p-button>
+                <p-button label="Añadir usuario" class="ml-2 green-button-ul" icon="pi pi-user-plus" (click)="addNewAccountVisible = true"></p-button>
             </div>
         </div>
     </div>
@@ -106,16 +103,16 @@
                     <input id="lastname" type="text" pInputText [(ngModel)]="lastName" class="input w-full ul-input">
                 </div>
                 <div class="field col-12 md:col-12">
-                    <label for="display-name">Correo electrónico</label>
-                    <input id="lastname" type="text" pInputText [(ngModel)]="email" class="input w-full ul-input">
+                    <label for="email">Correo electrónico</label>
+                    <input id="email" type="text" pInputText [(ngModel)]="email" class="input w-full ul-input">
                 </div>
             </div>
         </div>
     </p-fieldset>
     <br>
     <div class="flex justify-content-between flex-wrap card-container purple-container mt-4">
-        <p-button label="Cancelar" class="mx-2 red-button" icon="pi pi-times-circle" (click)="addNewAccountVisible = false"></p-button>
-        <p-button label="Guardar" class="ml-2 green-button" icon="pi pi-save"
+        <p-button label="Cancelar" class="mx-2 red-button-ul " icon="pi pi-times-circle" (click)="addNewAccountVisible = false"></p-button>
+        <p-button label="Guardar" class="ml-2 green-button-ul" icon="pi pi-save"
                   (click)="createAccount()"></p-button>
     </div>
 </p-sidebar>

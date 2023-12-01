@@ -119,7 +119,7 @@ export class SuppliersComponent {
     this.supplierService.createSupplier(this.companyId, this.newSupplier).subscribe({
       next: (data) => {
         // console.log(data);
-        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Cliente creado correctamente' });
+        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Proveedor creado correctamente' });
         //Esperar 1 segundo para que se cierre el modal
         setTimeout(() => {
           this.addSupplierVisible = false;
@@ -128,7 +128,7 @@ export class SuppliersComponent {
       },
       error: (error) => {
         console.log(error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Hubo un error al crear el cliente, intente nuevamente' });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Hubo un error al crear el proveedor, intente nuevamente' });
       }
     })
   }
@@ -173,7 +173,7 @@ export class SuppliersComponent {
     this.supplierService.updateSupplier(this.companyId, this.editSupplierId, this.newSupplier).subscribe({
       next: (data) => {
         // console.log(data);
-        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Cliente actualizado correctamente' });
+        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Proveedor actualizado correctamente' });
         //Esperar 1 segundo para que se cierre el modal
         setTimeout(() => {
           this.getAllSuppliers();
@@ -182,7 +182,7 @@ export class SuppliersComponent {
       },
       error: (error) => {
         console.log(error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Hubo un error al actualizar el cliente, intente nuevamente' });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Hubo un error al actualizar el proveedor, intente nuevamente' });
       }
     })
   }

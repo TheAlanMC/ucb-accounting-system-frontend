@@ -20,26 +20,26 @@
             <div class="p-col-4">
                 <p-card header="Perfil de usuario" subheader="Visualiza tu perfil" [style]="{ width: '480px', margin: '10px'}">
                     <ng-template pTemplate="header">
-                        <img alt="Card" src="../../assets/User profile.png" />
+                        <img alt="Card" src="../../assets/home-page-img/profile.png" />
                     </ng-template>
                     <p>
                         Visualiza u edita la información de tu perfil de usuario, incluyendo tu nombre, correo electrónico, contraseña y foto de perfil.
                     </p>
                     <ng-template pTemplate="footer">
-                        <p-button label="Ir!"></p-button>
+                        <p-button label="Ir!" routerLink="/profile"></p-button>
                     </ng-template>
                 </p-card>
             </div>
             <div class="p-col-4">
                 <p-card header="Perfil de empresa" subheader="Visualiza tu perfil de empresa" [style]="{ width: '480px', margin: '10px'}">
                     <ng-template pTemplate="header">
-                        <img alt="Card" src="../../assets/Profile.png" />
+                        <img alt="Card" src="../../assets/home-page-img/company.png" />
                     </ng-template>
                     <p>
                         Visualiza u edita tu la información de tu perfil de empresa, incluyendo el nombre, información de contacto, logo de perfil.
                     </p>
                     <ng-template pTemplate="footer">
-                        <p-button label="Ir!"></p-button>
+                        <p-button label="Ir!" routerLink="/company"></p-button>
                     </ng-template>
                 </p-card>
             </div>
@@ -48,50 +48,51 @@
 
               <p-card header="Comprobante de diario" subheader="Registra comprobantes diarios" [style]="{ width: '480px', margin: '10px'}">
                     <ng-template pTemplate="header">
-                        <img alt="Card" src="../../assets/Asiento diario.png" />
+                        <img alt="Card" src="../../assets/home-page-img/journal-entry.png" />
                     </ng-template>
                     <p>
                         Es un registro contable específico en el que se registran todas las transacciones financieras de una empresa en un día determinado.                  </p>
                     <ng-template pTemplate="footer">
-                        <p-button label="Ir!"></p-button>
+                        <p-button label="Ir!" routerLink="/journal"></p-button>
                     </ng-template>
                 </p-card>
             </div>
             <div class="p-col-4">
                 <p-card header="Libro mayor" subheader="Genera el libro mayor" [style]="{ width: '480px', margin: '10px'}">
                     <ng-template pTemplate="header">
-                        <img alt="Card" src="../../assets/Libro mayor.png" />
+                        <img alt="Card" src="../../assets/home-page-img/ledger-book.png" />
                     </ng-template>
                     <p>
                         Es un registro contable que muestra un resumen completo de todas las cuentas contables de una empresa, detallando los movimientos, saldos y transacciones.
                     </p>
                     <ng-template pTemplate="footer">
-                        <p-button label="Ir!"></p-button>
+                        <p-button label="Ir!" routerLink="/reports"></p-button>
                     </ng-template>
                 </p-card>
             </div>
             <div class="p-col-4">
                 <p-card header="Facturas a clientes" subheader="Registra facturas a clientes" [style]="{ width: '480px', margin: '10px'}">
                     <ng-template pTemplate="header">
-                        <img alt="Card" src="../../assets/Facturas.png" />
+                        <img alt="Card" src="../../assets/home-page-img/invoice.png" />
                     </ng-template>
                     <p>
                         Contiene información sobre los bienes o servicios vendidos, sus precios, impuestos aplicados, términos de pago y otros detalles relevantes para la transacción.
                     </p>
                     <ng-template pTemplate="footer">
-                        <p-button label="Ir!"></p-button>
+                        <p-button label="Ir!" routerLink="/sales/invoice"></p-button>
                     </ng-template>
                 </p-card>
             </div>
 
             <div class="p-col-4">
-                <p-card header="Soporte y ayuda" subheader="Consulta tus dudas" [style]="{ width: '480px', margin: '10px'}">
+                <p-card header="Manuales de usuario" subheader="Conoce el funcionamiento de ProfitWave" [style]="{ width: '480px', margin: '10px'}">
                     <ng-template pTemplate="header">
-                        <img alt="Card" src="../../assets/Support and Help.png" />
+                        <img alt="Card" src="../../assets/home-page-img/help.jpeg" />
                     </ng-template>
                     <p>
-                        Brinda información, resolver problemas, ofrecer instrucciones y asesoramiento para garantizar un uso adecuado, eficiente y satisfactorio de ProfitWave.                   </p>
-                    <ng-template pTemplate="footer">
+                        Brinda información, resolver problemas, ofrecer instrucciones y asesoramiento para garantizar un uso adecuado, eficiente y satisfactorio de ProfitWave.
+                    </p>
+                        <ng-template pTemplate="footer">
                         <p-button label="Ir!"></p-button>
                     </ng-template>
                 </p-card>
@@ -107,13 +108,13 @@
             <div class="column">
                 <p-panel header="PROFITWAVE">
                     <p>
-                        ProfitWave es una solución integral de software de contabilidad diseñada específicamente para satisfacer las necesidades contables únicas de empresas en Bolivia. Este software avanzado y de fácil acceso permite gestionar el proceso contable en múltiples monedas, incluyendo bolivianos, dólares y UFV (Unidad de Fomento a la Vivienda).
+                        ProfitWave es una solución integral de software de contabilidad diseñada específicamente para satisfacer las necesidades contables únicas de empresas en Bolivia.
                     </p>
                 </p-panel>
 
                 <p-panel header="ACCOUNTING SYSTEM">
                     <p>
-                        La plataforma basada en la web garantiza un acceso conveniente desde cualquier lugar, facilitando la administración financiera para empresas de todos los tamaños, desde pequeños negocios hasta emprendedores que buscan comprender y aprender el proceso contable de manera efectiva. Con ProfitWave, los negocios pueden realizar un seguimiento preciso de sus transacciones, generar informes financieros detallados, administrar el flujo de efectivo y cumplir con los requisitos fiscales locales de manera eficiente. Ya sea para llevar un registro minucioso de los ingresos y gastos, gestionar facturas y pagos, o evaluar el rendimiento financiero de la empresa.
+                        La plataforma basada en la web garantiza un acceso conveniente desde cualquier lugar, facilitando la administración financiera para empresas de todos los tamaños, desde pequeños negocios hasta emprendedores que buscan comprender y aprender el proceso contable de manera efectiva. Con ProfitWave, los negocios pueden realizar un seguimiento preciso de sus transacciones, generar informes financieros detallados y cumplir con los requisitos fiscales locales de manera eficiente. Ya sea para llevar un registro minucioso de los ingresos y gastos, gestionar facturas y pagos, o evaluar el rendimiento financiero de la empresa.
                     </p>
                 </p-panel>
                 <div style="align-self: center; justify-self: center;">

@@ -322,3 +322,15 @@ ul{
   width: 100%;
   padding: 15px;
 }
+
+/* Selected class */
+.selected .option-content{
+  background: var(--color-green);
+}
+.selected a .links_name,
+.selected i{
+  color: #fff !important;
+}
+.selected .option-content i .local-icon{
+  filter: brightness(0) invert(1);
+}

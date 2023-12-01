@@ -69,24 +69,24 @@
 
 /* Botones */
 
-::ng-deep .cyan-button button {
+::ng-deep .cyan-button-sales-invoice button {
     background: var(--color-cyan-green) !important;
     border-color: var(--color-cyan-green) !important;
 }
 
-::ng-deep .blue-button button {
+::ng-deep .blue-button-sales-invoice button {
     background: var(--color-blue) !important;
     border-color: var(--color-blue) !important;
 }
 
-::ng-deep .cyan-button button,
-::ng-deep .blue-button button {
+::ng-deep .cyan-button-sales-invoice button,
+::ng-deep .blue-button-sales-invoice button {
     height: 33px;
     font-size: small;
 }
 
 /* Rojo */
-::ng-deep .red-button button {
+::ng-deep .red-button-sales-invoice button {
     background: #F77 !important;
     border-color: #F77  !important;
     font-size: medium;

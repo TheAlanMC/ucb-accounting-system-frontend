@@ -35,8 +35,8 @@
     <!-- Buttons - save, save and register a new journay entry -->
     <div class="flex justify-content-between flex-wrap" id="save-je-buttons">
         <div class="flex justify-content-between flex-wrap card-container purple-container mx-3">
-            <p-button label="Cancelar" class="red-button m-2 ml-5" (click)="goBack()" [style]="{'font-size': 'medium','height':'100%'}"></p-button>
-            <p-button label="Borrar" class="cyan-button m-2" [style]="{'font-size': 'medium','height':'100%'}"></p-button>
+            <p-button label="Cancelar" class="red-button-je m-2 ml-5" (click)="goBack()" [style]="{'font-size': 'medium','height':'100%'}"></p-button>
+            <p-button label="Borrar" (click)="delete()" class="cyan-button-je m-2" [style]="{'font-size': 'medium','height':'100%'}"></p-button>
         </div>
         <div class="flex">
             <div class="flex"><p-button label="Guardar" (click)="save(); selectedSaveAndNew = false" class="m-2 mr-5"></p-button></div>

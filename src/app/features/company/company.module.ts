@@ -13,6 +13,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FieldsetModule } from 'primeng/fieldset';
 import { SidebarModule } from 'primeng/sidebar';
 import {PaginatorModule} from "primeng/paginator";
+import { DividerModule } from 'primeng/divider';
 
 
 
@@ -34,7 +35,8 @@ import {PaginatorModule} from "primeng/paginator";
         InputTextModule,
         FieldsetModule,
         SidebarModule,
-        PaginatorModule
+        PaginatorModule,
+        DividerModule
     ],
 
 })

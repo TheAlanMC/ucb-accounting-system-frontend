@@ -10,4 +10,5 @@ export interface InvoiceDto{
     invoiceDate: Date;
     attachments: AttachmentDto[];
     invoiceDetails: InvoiceDetailDto[];
+    taxTypeName: string | null;
 }

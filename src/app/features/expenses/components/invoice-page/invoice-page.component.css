@@ -69,35 +69,29 @@
 
 /* Botones */
 
-::ng-deep .cyan-button button {
+::ng-deep .cyan-button-exp-invoice button {
   background: var(--color-cyan-green) !important;
   border-color: var(--color-cyan-green) !important;
 }
 
-::ng-deep .blue-button button {
-  background: var(--color-blue) !important;
-  border-color: var(--color-blue) !important;
-}
-
-::ng-deep .cyan-button button,
-::ng-deep .blue-button button {
+::ng-deep .cyan-button-exp-invoice button{
   height: 33px;
   font-size: small;
 }
 
 /* Rojo */
-::ng-deep .red-button button {
+::ng-deep .red-button-exp-invoice button {
   background: #F77 !important;
   border-color: #F77  !important;
   font-size: medium;
 }
 
 /* Dropdown */
-::ng-deep #document-type .p-dropdown {
+::ng-deep .dd-exp-invoice .p-dropdown {
   height: 30px !important;
 }
 
-::ng-deep #document-type .p-dropdown span {
+::ng-deep .dd-exp-invoice .p-dropdown span {
   font-size: small;
   padding:0.25rem 0.5rem 0.25rem 0.5rem;
 }

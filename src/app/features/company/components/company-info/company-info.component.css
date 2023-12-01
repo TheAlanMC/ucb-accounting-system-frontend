@@ -1,24 +1,35 @@
-::ng-deep #save-buttons button{
-    background: var(--color-green) !important;
-    border-color: var(--color-green) !important;
+::ng-deep #save-button button {
+  background: var(--color-green) !important;
+  border-color: var(--color-green) !important;
+  font-size: small;
+  width: 50%;
 }
+
 * {
   color: #666666;
   font-size: small;
 }
 
-  ::ng-deep .round-button {
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    background-color: var(--color-green) !important;
-    color: #fcfcfc;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: -40px;
-    margin-left: 50px;
-    position: relative;
-  }
+#sw-js-blob-svg {
+  height: 500px;
+
+  position: absolute;
+  /* right: 0; */
+  top: 10%;
+}
+
+::ng-deep .round-button {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: var(--color-green) !important;
+  color: #fcfcfc;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: -40px;
+  margin-left: 50px;
+  position: relative;
+}
 
 .custom-file-upload input[type="file"] {
   display: none;
@@ -48,12 +59,38 @@
   margin-left: 2px;
 }
 
+.tarjeta-info {
+  padding: 20px 40px;
+}
+
+
 /* Dropdown */
-::ng-deep .p-dropdown {
+::ng-deep .dp-ci .p-dropdown {
   height: 30px !important;
 }
 
-::ng-deep  .p-dropdown span {
+::ng-deep .dp-ci .p-dropdown span {
   font-size: small;
-  padding:0.25rem 0.5rem 0.25rem 0.5rem;
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+}
+
+/* Sidebar configuration */
+.home-section {
+  position: absolute;
+  min-height: 100vh;
+  top: 0;
+  left: 70px;
+  width: calc(100% - 78px);
+  transition: all 0.5s ease;
+  z-index: 2;
+  /* background-image: radial-gradient(18% 28% at 18% 71%, #FFFFFF59 6%, #073AFF00 100%), radial-gradient(150px 150px at 90% 28%, #6dffe49c 53%, #073AFF00 100%), radial-gradient(100px 100px at 40% 23%, #77ff009a 7%, #073AFF00 97%), radial-gradient(50px 50px at 10% 85%, rgba(140, 247, 244, 0.718) 72%, #073AFF00 100%), radial-gradient(200px 200px at 60% 80%, #5EF9C6BA 44%, #2F4F3200 86%); */
+  background-image: url("/assets/bg0.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.navbar-opened {
+  left: 250px;
+  width: calc(100% - 250px);
 }
